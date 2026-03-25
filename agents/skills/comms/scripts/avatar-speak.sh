@@ -20,41 +20,39 @@ EMOTION="${2:-neutral}"
 OUTPUT="${3:-speakers}"
 
 case "$EMOTION" in
-  neutral|happy|sad|angry|relaxed|surprised)
-    ;;
-  *)
-    echo "Error: Invalid emotion '$EMOTION'" >&2
-    echo "Valid emotions: neutral, happy, sad, angry, relaxed, surprised" >&2
-    exit 1
-    ;;
+neutral | happy | sad | angry | relaxed | surprised) ;;
+*)
+	echo "Error: Invalid emotion '$EMOTION'" >&2
+	echo "Valid emotions: neutral, happy, sad, angry, relaxed, surprised" >&2
+	exit 1
+	;;
 esac
 
 case "$OUTPUT" in
-  speakers|mic|both)
-    ;;
-  *)
-    echo "Error: Invalid output '$OUTPUT'" >&2
-    echo "Valid outputs: speakers (room), mic (Meet), both" >&2
-    exit 1
-    ;;
+speakers | mic | both) ;;
+*)
+	echo "Error: Invalid output '$OUTPUT'" >&2
+	echo "Valid outputs: speakers (room), mic (Meet), both" >&2
+	exit 1
+	;;
 esac
 
-SERVER_DIR="@homePath@/@workspacePath@/skills/avatar/control-server"
+SERVER_DIR="@homePath@/@workspacePath@/skills/comms/control-server"
 TTS_JSON="@homePath@/@workspacePath@/tts.json"
 VOICE=""
 if [[ -f "$TTS_JSON" ]]; then
-  VOICE=$(node -e "try{console.log(JSON.parse(require('fs').readFileSync('$TTS_JSON','utf8')).voice||'')}catch(e){}" 2>/dev/null)
+	VOICE=$(node -e "try{console.log(JSON.parse(require('fs').readFileSync('$TTS_JSON','utf8')).voice||'')}catch(e){}" 2>/dev/null)
 fi
 
 if [[ ! -d "$SERVER_DIR" ]]; then
-  echo "Error: Control server directory not found: $SERVER_DIR" >&2
-  exit 1
+	echo "Error: Control server directory not found: $SERVER_DIR" >&2
+	exit 1
 fi
 
-if ! curl -s http://localhost:8766/health > /dev/null 2>&1; then
-  echo "Error: Control server not running (port 8766 not responding)" >&2
-  echo "Start it with: systemctl --user start avatar-control-server" >&2
-  exit 1
+if ! curl -s http://localhost:8766/health >/dev/null 2>&1; then
+	echo "Error: Control server not running (port 8766 not responding)" >&2
+	echo "Start it with: systemctl --user start avatar-control-server" >&2
+	exit 1
 fi
 
 cd "$SERVER_DIR" && node -e "

@@ -12,52 +12,55 @@ OUTPUT="speakers"
 SEGMENTS=()
 
 for arg in "$@"; do
-  if [[ "$arg" == "speakers" || "$arg" == "mic" || "$arg" == "both" ]]; then
-    OUTPUT="$arg"
-  else
-    SEGMENTS+=("$arg")
-  fi
+	if [[ "$arg" == "speakers" || "$arg" == "mic" || "$arg" == "both" ]]; then
+		OUTPUT="$arg"
+	else
+		SEGMENTS+=("$arg")
+	fi
 done
 
 if [[ ${#SEGMENTS[@]} -eq 0 ]]; then
-  echo "Usage: avatar-speak-multi.sh 'emotion:text' ['emotion:text' ...] [output]" >&2
-  echo "  Emotions: happy, neutral, surprised, relaxed, sad, angry" >&2
-  echo "  Output: speakers (default), mic, both" >&2
-  echo "" >&2
-  echo "Example:" >&2
-  echo "  avatar-speak-multi.sh 'happy:Hello!' 'surprised:Really?' 'happy:Great!'" >&2
-  exit 1
+	echo "Usage: avatar-speak-multi.sh 'emotion:text' ['emotion:text' ...] [output]" >&2
+	echo "  Emotions: happy, neutral, surprised, relaxed, sad, angry" >&2
+	echo "  Output: speakers (default), mic, both" >&2
+	echo "" >&2
+	echo "Example:" >&2
+	echo "  avatar-speak-multi.sh 'happy:Hello!' 'surprised:Really?' 'happy:Great!'" >&2
+	exit 1
 fi
 
 # Parse each segment into emotion:text pairs
 JS_SEGMENTS=""
 for seg in "${SEGMENTS[@]}"; do
-  if [[ "$seg" =~ ^([a-z]+):(.*)$ ]]; then
-    EMOTION="${BASH_REMATCH[1]}"
-    TEXT="${BASH_REMATCH[2]}"
-    # Validate emotion
-    case "$EMOTION" in
-      neutral|happy|sad|angry|relaxed|surprised) ;;
-      *) echo "Invalid emotion: $EMOTION" >&2; exit 1 ;;
-    esac
-    JS_SEGMENTS="$JS_SEGMENTS    { text: \"$TEXT\", emotion: \"$EMOTION\" },\n"
-  else
-    echo "Invalid format: '$seg' (expected emotion:text)" >&2
-    exit 1
-  fi
+	if [[ "$seg" =~ ^([a-z]+):(.*)$ ]]; then
+		EMOTION="${BASH_REMATCH[1]}"
+		TEXT="${BASH_REMATCH[2]}"
+		# Validate emotion
+		case "$EMOTION" in
+		neutral | happy | sad | angry | relaxed | surprised) ;;
+		*)
+			echo "Invalid emotion: $EMOTION" >&2
+			exit 1
+			;;
+		esac
+		JS_SEGMENTS="$JS_SEGMENTS    { text: \"$TEXT\", emotion: \"$EMOTION\" },\n"
+	else
+		echo "Invalid format: '$seg' (expected emotion:text)" >&2
+		exit 1
+	fi
 done
 
-SERVER_DIR="@homePath@/@workspacePath@/skills/avatar/control-server"
+SERVER_DIR="@homePath@/@workspacePath@/skills/comms/control-server"
 
 if [[ ! -d "$SERVER_DIR" ]]; then
-  echo "Error: Control server directory not found: $SERVER_DIR" >&2
-  exit 1
+	echo "Error: Control server directory not found: $SERVER_DIR" >&2
+	exit 1
 fi
 
-if ! curl -s http://localhost:8766/health > /dev/null 2>&1; then
-  echo "Error: Control server not running" >&2
-  echo "Start with: systemctl --user start avatar-control-server" >&2
-  exit 1
+if ! curl -s http://localhost:8766/health >/dev/null 2>&1; then
+	echo "Error: Control server not running" >&2
+	echo "Start with: systemctl --user start avatar-control-server" >&2
+	exit 1
 fi
 
 cd "$SERVER_DIR" && node -e "
