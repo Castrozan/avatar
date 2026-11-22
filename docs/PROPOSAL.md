@@ -166,7 +166,8 @@ The scripts live outside this repository, beside the published clone on chise in
    scan over every blob and commit message. It fetches the result into the published clone as `extraction/main` only if
    the previously synced tip is an ancestor, so published history is never rewritten. Filtering is deterministic, and the
    same input reproduces the same hashes.
-2. `git merge extraction/main`, then a normal push. The sync rule keeps this merge conflict-free.
+2. `git merge -m "chore(avatar): sync dotfiles <source commit>" extraction/main`, then a normal push. The sync
+   rule keeps this merge conflict-free, and the message records which dotfiles commit the sync reached.
 3. If `extract.sh` reports rewritten history because a new rename pulled an older path in, do not force-push.
    Cherry-pick the new source commits, mapped through `work/report/commit-map.txt`.
 
