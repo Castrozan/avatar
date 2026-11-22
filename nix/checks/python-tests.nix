@@ -1,5 +1,6 @@
 { self, pkgs }:
-pkgs.runCommand "avatar-unit-tests"
+name: testPaths:
+pkgs.runCommand "avatar-${name}"
   {
     nativeBuildInputs = [
       (import ../python-test-environment.nix { inherit pkgs; })
@@ -12,6 +13,6 @@ pkgs.runCommand "avatar-unit-tests"
     cp -r ${self} "$HOME/avatar"
     chmod -R u+w "$HOME/avatar"
     cd "$HOME/avatar"
-    python -m pytest -q
+    python -m pytest -q ${pkgs.lib.escapeShellArgs testPaths}
     touch "$out"
   ''
