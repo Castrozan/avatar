@@ -135,7 +135,7 @@ to join you: it runs `avatar-talk open --seat discord`, and the bot enters your 
 
 Naming a Servant in the call gives it the floor, as in the room; when it is dismissed, the floor returns to Silver in the
 `silver` channel. Leaving the channel ends the call, deletes its transcript and sends the bot out. No agent joins a
-channel by itself or follows you between channels. The people in the call are told ElevenLabs transcribes them.
+channel by itself or follows you between channels.
 
 ## Remote seat
 
@@ -192,9 +192,13 @@ bridge inside `avatar-conversation.target` in place of the listener and plays a 
 `AvatarLipSync` so the mouth moves.
 
 The voice does no work itself. When a request needs the machine it delegates, and the bridge asks the session holding
-the floor over `a2a ask`; the reply's last line goes back to the voice, which speaks it. Opening claims the floor for
-the opening pane, and naming another live Servant hands it over as in any conversation, because the bridge writes each
-finished turn to the shared transcript: the room's lines as `human`, its own as speaker `avatar`.
+the floor over `a2a send` and reads the task with `a2a status` every two seconds. The task asks the agent to open its
+answer with a numbered `LIVE-ANSWER` tag, so that line goes back to the voice as soon as it appears, even while
+background work keeps the agent's turn running; a turn that ends untagged gives its last line instead. Every half minute
+without an answer the voice hears that the agent is still working, and after five minutes it says no answer came.
+Opening claims the floor for the opening pane, and naming another live Servant hands it over as in any conversation,
+because the bridge writes each finished turn to the shared transcript: the room's lines as `human`, its own as speaker
+`avatar`.
 
 ## Wake by name
 
