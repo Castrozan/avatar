@@ -192,6 +192,23 @@ Dotfiles keeps building and deploying at every step.
 6. **This repository becomes the source of truth**: delete the `extraction/main` ref, restructure the layout as described
    above, replace `peerIdentityPythonPath` with the a2a CLI boundary, and start the Rust routing core.
 
+## Deviations in the implementation
+
+The flake landed without steps 1 and 2, because dotfiles `main` was not to change before cutover and the sync owned
+`runtime/` and `skills/avatar/`. These choices differ from the design above:
+
+| Design above | Implemented | Why |
+| --- | --- | --- |
+| Modules are the converted `runtime/avatar-*.nix` files | Option-driven ports in `nix/`; the dotfiles-shaped originals were deleted at cutover, and the `runtime/` Nix files that need nothing from dotfiles are imported as they are | The originals reached `../../../agent-harness/...` and read `hostname`, `isNixOS` and `inputs`. |
+| `transcriptionService`, `virtualCameraDevice`, `secrets.*`, `virtualCamera.videoNumber` and `cardLabel` options | Not offered; `hex.service`, `/dev/video10`, `Avatar Cam` and the `~/.secrets` key files are fixed contracts | `doctor.py`, `start.py`, the camera scripts, the renderer, `cloud_transcriber.py` and `gpt_live.py` hard-code them, so other values would be half applied. |
+| Inputs `nixpkgs` and `home-manager` | Also `nix-darwin`, followed by dotfiles | The module evaluation check evaluates `darwinModules.default` in a real nix-darwin system. |
+| Launch agent labels left open | `com.dotfiles.<name>` kept | `launchd_units.py` and `doctor.py` address the agents by those labels. |
+| Test doubles under `runtime/__tests__/doubles/`, failing tests fixed | `tests/doubles/a2a_cli`; the roster and browser class tests read this repository's own files, and `pytest.ini` deselects 3 tests | The 3 run `/usr/bin/diff` and `/usr/bin/pgrep`, which the Linux sandbox lacks ([`CUTOVER.md`](CUTOVER.md)). |
+| `checks.<system>.unit-tests` | Also `checks.<system>.integration-tests`, over `skills/avatar/__tests__/integration` | Dotfiles CI ran that tier as its own job. |
+| Lint: ruff, biome, shellcheck, nixfmt, statix, deadnix | The same, but biome lints JavaScript and JSON only and shellcheck reports warnings and errors | `runtime/renderer/controls.html` has 5 biome errors and `virtual-mic.sh` 2 shellcheck style findings. |
+| `skill-set-builders.nix` appends `inputs.avatar.skillSourceDirectory` | It does, and the catalog's ten callers now pass `inputs` | The catalog took only `hostname` and `pkgs`. |
+| Chise's system imports `nixosModules.default` | `machine-configuration/media/avatar/avatar-virtual-camera-nixos.nix` imports it, beside `avatar-home-manager.nix` and `avatar-call-devices-nix-darwin.nix` | Dotfiles places reusable modules under their capability directory. |
+
 ## Open for the owner
 
 - **License.** Dotfiles has none, the control server's `package.json` says MIT, and the cast models are CC0. Without a

@@ -5,15 +5,14 @@ name, holds conversations by voice in the room, in meetings and on Discord calls
 microphone. The avatar host runs NixOS; Macs on nix-darwin lend it their microphone and run their own wake.
 
 This repository was extracted with its history from [Castrozan/.dotfiles](https://github.com/Castrozan/.dotfiles):
-`machine-configuration/media/avatar` became `runtime/`, and the `avatar` agent skill became `skills/avatar/`. For now
-the dotfiles repository is still the source of truth and still builds and deploys the avatar from its own copy. Changes
-land there first and are synced here.
+`machine-configuration/media/avatar` became `runtime/`, and the `avatar` agent skill became `skills/avatar/`. It is now
+the only source of the avatar. Dotfiles keeps no copy and installs it from this flake, pinned to a revision.
 
 - [`runtime/README.md`](runtime/README.md) explains how the system works.
 - [`docs/INVENTORY.md`](docs/INVENTORY.md) records what coupled the avatar to dotfiles when it was extracted.
-- [`docs/PROPOSAL.md`](docs/PROPOSAL.md) sets out the flake interface and the cutover that makes this repository the
-  source.
-- [`docs/CUTOVER.md`](docs/CUTOVER.md) lists what remains before dotfiles installs the avatar from this flake.
+- [`docs/PROPOSAL.md`](docs/PROPOSAL.md) sets out the flake interface and how the implementation departs from it.
+- [`docs/CUTOVER.md`](docs/CUTOVER.md) records how dotfiles switched to this flake, how to roll it back, and what is still
+  unverified.
 
 ## Install
 
@@ -36,13 +35,17 @@ The machine also has to provide what the avatar calls but does not own: a `hex.s
 transcription, `hermes` and `discord-voice` on the profile PATH, `ssh <machine>` in BatchMode for every topology machine,
 and the API keys in `~/.secrets/elevenlabs-api-key` and `~/.secrets/openai-api-key`.
 
+`servantRoster` and [`runtime/cast/servant-characters.txt`](runtime/cast/servant-characters.txt) must list the same
+Servants in the same order, and evaluation fails until they do. So adding, removing or reordering a Servant in the
+consumer's roster needs a matching line here and a new pin.
+
 ## Test
 
 ```sh
 nix flake check -L
 ```
 
-This builds the packages and runs the unit tests in the Nix sandbox, lint, and an evaluation of the modules: the host
-role and the NixOS module on Linux, the remote role and the nix-darwin module on macOS. CI runs it on both. To run only
-the unit tests, build `.#checks.x86_64-linux.unit-tests` (or `aarch64-darwin`); [`pytest.ini`](pytest.ini) holds the
-test selection.
+This builds the packages, runs the unit and integration tests in the Nix sandbox, lints, and evaluates the modules:
+the host role and the NixOS module on Linux, the remote role and the nix-darwin module on macOS. CI runs it on both. To
+run one tier, build `.#checks.x86_64-linux.unit-tests` or `.#checks.x86_64-linux.integration-tests` (or
+`aarch64-darwin`); [`pytest.ini`](pytest.ini) holds the test selection.
