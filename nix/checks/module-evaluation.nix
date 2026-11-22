@@ -96,6 +96,7 @@ let
           "avatar-remote-seat"
           "avatar-renderer"
           "avatar-room-microphone"
+          "avatar-switch-latency"
           "avatar-transcriber"
           "avatar-wake"
         ];
@@ -129,6 +130,7 @@ let
           "com.dotfiles.avatar-conversation"
           "com.dotfiles.avatar-live"
           "com.dotfiles.avatar-renderer"
+          "com.dotfiles.avatar-switch-latency"
           "com.dotfiles.avatar-wake"
         ];
       "no systemd units on a Mac" = home.config.systemd.user.services == { };
