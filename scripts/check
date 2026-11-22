@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+set -euo pipefail
+root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+cd "$root"
+
+maximum_file_lines=100
+maximum_directory_entries=10
+
+check_file_lengths() {
+  local failed=0
+  while IFS= read -r -d '' file; do
+    local count
+    count=$(grep -cv '^[[:space:]]*$' "$file" || true)
+    if [ "$count" -gt "$maximum_file_lines" ]; then
+      echo "file too long ($count > $maximum_file_lines): $file"
+      failed=1
+    fi
+  done < <(find crates -name '*.rs' -not -path '*/target/*' -print0)
+  return "$failed"
+}
+
+check_directory_entries() {
+  local failed=0
+  while IFS= read -r -d '' directory; do
+    local count
+    count=$(find "$directory" -mindepth 1 -maxdepth 1 | wc -l)
+    if [ "$count" -gt "$maximum_directory_entries" ]; then
+      echo "directory too full ($count > $maximum_directory_entries): $directory"
+      failed=1
+    fi
+  done < <(find crates -type d -not -path '*/target*' -print0)
+  return "$failed"
+}
+
+cargo fmt --check
+cargo clippy --workspace --all-targets -- -D warnings
+cargo nextest run --workspace
+cargo test --workspace --doc
+check_file_lengths
+check_directory_entries
+if [ -d rules ]; then ast-grep test --config sgconfig.yml && ast-grep scan --config sgconfig.yml crates; fi
+if [ -f deny.toml ]; then cargo deny check; fi

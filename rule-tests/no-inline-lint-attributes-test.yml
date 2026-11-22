@@ -1,0 +1,11 @@
+id: no-inline-lint-attributes
+valid:
+  - '#[cfg(test)] mod checks {}'
+  - '#[test] fn passes() {}'
+  - '#[derive(Debug)] struct Plain;'
+invalid:
+  - '#[allow(dead_code)] fn first() {}'
+  - '#![allow(unused)]'
+  - '#[expect(unused)] fn second() {}'
+  - '#[warn(unused)] fn third() {}'
+  - '#[deny(unused)] fn fourth() {}'

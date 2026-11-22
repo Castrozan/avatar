@@ -1,0 +1,9 @@
+id: no-inline-lint-attributes
+language: rust
+severity: error
+message: Lint levels are set in the workspace lint table, never inline.
+rule:
+  any:
+    - kind: attribute_item
+    - kind: inner_attribute_item
+  regex: '^#!?\[(allow|expect|warn|deny|forbid)\b'

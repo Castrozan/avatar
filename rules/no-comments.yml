@@ -1,0 +1,8 @@
+id: no-comments
+language: rust
+severity: error
+message: Owned code carries no comments; explain with names and structure.
+rule:
+  any:
+    - kind: line_comment
+    - kind: block_comment

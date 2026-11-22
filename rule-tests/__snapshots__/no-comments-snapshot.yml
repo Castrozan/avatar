@@ -1,0 +1,43 @@
+id: no-comments
+snapshots:
+  ? |
+    /* block */
+    fn second() {}
+  : labels:
+    - source: /* block */
+      style: primary
+      start: 0
+      end: 11
+  ? |
+    // plain
+    fn first() {}
+  : labels:
+    - source: // plain
+      style: primary
+      start: 0
+      end: 8
+  ? |
+    //! inner
+    fn fourth() {}
+  : labels:
+    - source: |
+        //! inner
+      style: primary
+      start: 0
+      end: 10
+  ? |
+    /// documented
+    fn third() {}
+  : labels:
+    - source: |
+        /// documented
+      style: primary
+      start: 0
+      end: 15
+  ? |
+    fn fifth() {} // TODO later
+  : labels:
+    - source: // TODO later
+      style: primary
+      start: 14
+      end: 27

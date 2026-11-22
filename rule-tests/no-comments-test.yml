@@ -1,0 +1,20 @@
+id: no-comments
+valid:
+  - 'fn url() -> &''static str { "https://example.test/a//b" }'
+  - 'fn slashes() -> &''static str { "// not a comment" }'
+  - '#[derive(Debug)] struct Plain;'
+invalid:
+  - |
+    // plain
+    fn first() {}
+  - |
+    /* block */
+    fn second() {}
+  - |
+    /// documented
+    fn third() {}
+  - |
+    //! inner
+    fn fourth() {}
+  - |
+    fn fifth() {} // TODO later

@@ -1,0 +1,32 @@
+id: no-inline-lint-attributes
+snapshots:
+  '#![allow(unused)]':
+    labels:
+    - source: '#![allow(unused)]'
+      style: primary
+      start: 0
+      end: 17
+  '#[allow(dead_code)] fn first() {}':
+    labels:
+    - source: '#[allow(dead_code)]'
+      style: primary
+      start: 0
+      end: 19
+  '#[deny(unused)] fn fourth() {}':
+    labels:
+    - source: '#[deny(unused)]'
+      style: primary
+      start: 0
+      end: 15
+  '#[expect(unused)] fn second() {}':
+    labels:
+    - source: '#[expect(unused)]'
+      style: primary
+      start: 0
+      end: 17
+  '#[warn(unused)] fn third() {}':
+    labels:
+    - source: '#[warn(unused)]'
+      style: primary
+      start: 0
+      end: 15
