@@ -160,7 +160,7 @@ def test_no_mac_meeting_module_reaches_the_avatar_host(module):
 
 
 def test_the_mac_meeting_commands_are_the_local_modules_and_nothing_forwards_them():
-    commands = (AVATAR / "avatar-remote-home-manager.nix").read_text()
+    commands = (AVATAR.parent / "nix/home-manager/remote.nix").read_text()
     packages = commands[commands.index("home.packages") :]
     assert "remoteMeeting" not in commands
     for name, entry in [

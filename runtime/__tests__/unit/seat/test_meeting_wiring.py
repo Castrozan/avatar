@@ -2,13 +2,12 @@ import re
 from pathlib import Path
 
 AVATAR = Path(__file__).resolve().parents[3]
-REMOTE_SEAT_UNIT = (
-    AVATAR / "home-manager/avatar-remote-seat-home-manager.nix"
-).read_text()
-MAC_COMMANDS = (AVATAR / "avatar-remote-home-manager.nix").read_text()
-MAC_CONVERSATION = (AVATAR / "home-manager/avatar-mac-conversation.nix").read_text()
-PROGRAMS = (AVATAR / "avatar-programs.nix").read_text()
-UNITS = (AVATAR / "avatar-home-manager.nix").read_text()
+MODULES = AVATAR.parent / "nix"
+REMOTE_SEAT_UNIT = (MODULES / "home-manager/host-companions.nix").read_text()
+MAC_COMMANDS = (MODULES / "home-manager/remote.nix").read_text()
+MAC_CONVERSATION = (MODULES / "home-manager/mac-conversation.nix").read_text()
+PROGRAMS = (MODULES / "programs.nix").read_text()
+UNITS = (MODULES / "home-manager/host.nix").read_text()
 REBUILD = (AVATAR / "home-manager/avatar-rebuild-home-manager.nix").read_text()
 
 
@@ -76,14 +75,14 @@ def test_the_mac_meeting_commands_run_the_local_modules_with_the_caller_argument
 
 def test_the_start_command_reaches_the_seat_modules_and_passes_its_arguments():
     start = wrapper(PROGRAMS, "start")
-    assert "./scripts/conversation}" in start
-    assert "./scripts/listening}" in start
-    assert '${./scripts/meetings/start.py} "$@"' in start
+    assert "/runtime/scripts/conversation}" in start
+    assert "/runtime/scripts/listening}" in start
+    assert '${../runtime/scripts/meetings/start.py} "$@"' in start
 
 
 def test_the_listen_command_reaches_the_seat_module():
     listen = wrapper(PROGRAMS, "listen")
-    assert "./scripts/conversation}" in listen
+    assert "/runtime/scripts/conversation}" in listen
 
 
 def test_the_seat_outlives_a_conversation_so_a_meeting_keeps_it():
@@ -96,21 +95,20 @@ def test_stopping_the_avatar_releases_the_seat():
 
 
 def test_the_wake_on_chise_comes_back_whenever_it_ends():
-    chise_wake = (AVATAR / "avatar-wake-home-manager.nix").read_text()
-    assert 'Restart = "always";' in chise_wake
+    host_wake = (MODULES / "home-manager/host-wake.nix").read_text()
+    assert 'Restart = "always";' in host_wake
 
 
-def test_the_avatar_host_is_named_once_and_every_mac_command_reads_it():
-    topology = (AVATAR / "home-manager/avatar-topology.nix").read_text()
-    assert re.findall(r'host = "([a-z]+)";', topology) == ["chise"]
-    assert "chise" not in MAC_COMMANDS
-    assert MAC_COMMANDS.count("export AVATAR_HOST=${topology.host}") == 1
-    assert "inherit (topology) host;" in MAC_COMMANDS
+def test_the_consumer_names_the_avatar_host_and_every_mac_command_reads_it():
+    for module in [*(MODULES / "home-manager").glob("*.nix"), MODULES / "programs.nix"]:
+        assert "chise" not in module.read_text()
+    assert MAC_COMMANDS.count("export AVATAR_HOST=${cfg.topology.host}") == 1
+    assert "host = cfg.topology.host;" in MAC_COMMANDS
     assert "export AVATAR_HOST=${host}" in MAC_CONVERSATION
 
 
-def test_mac_browser_pages_open_in_a_bundle_apart_from_the_default_browser():
-    assert "import ../../browsers/chrome/chrome-for-testing-package.nix" in MAC_COMMANDS
+def test_mac_browser_pages_open_in_the_bundle_the_consumer_names():
+    assert "inherit (cfg.mac) browserApplication;" in MAC_COMMANDS
     assert (
         MAC_COMMANDS.count('export AVATAR_BROWSER_APPLICATION="${browserApplication}"')
         == 1
@@ -121,12 +119,12 @@ def test_mac_browser_pages_open_in_a_bundle_apart_from_the_default_browser():
 
 
 def test_every_machine_gets_the_doctor():
-    assert "import ./home-manager/avatar-doctor-package.nix" in MAC_COMMANDS
-    assert 'arguments = "--seat-of ${topology.host}";' in MAC_COMMANDS
-    host = (AVATAR / "home-manager/avatar-doctor-home-manager.nix").read_text()
-    assert "./home-manager/avatar-doctor-home-manager.nix" in UNITS
-    assert "import ./avatar-doctor-package.nix" in host
-    assert 'arguments = "";' in host
+    doctor = "import ../../runtime/home-manager/avatar-doctor-package.nix"
+    assert doctor in MAC_COMMANDS
+    assert 'arguments = "--seat-of ${cfg.topology.host}";' in MAC_COMMANDS
+    assert "./host-companions.nix" in (MODULES / "home-manager/default.nix").read_text()
+    assert doctor in REMOTE_SEAT_UNIT
+    assert 'arguments = "";' in REMOTE_SEAT_UNIT
 
 
 def test_the_linux_talk_command_knows_the_name_of_its_machine():
@@ -139,5 +137,4 @@ def test_the_linux_talk_command_knows_the_name_of_its_machine():
 
 
 def test_the_linux_module_that_installs_talk_passes_the_hostname():
-    assert "isNixOS,\n  hostname,\n" in UNITS
-    assert "inherit pkgs lib inputs;\n    inherit hostname;" in UNITS
+    assert "avatar = cfg;\n    hostname = cfg.hostName;\n" in UNITS

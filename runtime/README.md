@@ -25,8 +25,8 @@ and seat at the next `avatar-stop` and `avatar-start`, which is how a deployed c
 `avatar-doctor` runs on every machine and checks each link the voice depends on, naming the broken one. On the avatar
 host it checks Hex, the wake listener and a transcription round trip. On a Mac it first reaches the host, relays the
 host's own findings, then checks the wake agent, its microphone page and this Mac's own transcription. It exits non-zero
-when any link is broken, and `--json` prints the findings for another program. The host is named once, in
-`home-manager/avatar-topology.nix`.
+when any link is broken, and `--json` prints the findings for another program. The host is named once, by the
+`services.avatar.topology.host` option.
 
 `avatar-switch-latency [--since WHEN] [--until WHEN]` times each switch to another agent, today by default: every stage
 from the end of the speech that named the agent to the first audio of its reply, then p50 and p95 per stage. The
