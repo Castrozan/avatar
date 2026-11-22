@@ -15,8 +15,12 @@ from wake_phrase import (
     vocative_session,
 )
 
-ROSTER = pathlib.Path(__file__).parents[6] / "agent-harness/servants/roster.txt"
-SERVANTS = [line.split(" | ")[0] for line in ROSTER.read_text().splitlines() if line]
+SERVANT_CHARACTERS = (
+    pathlib.Path(__file__).parents[3] / "cast" / "servant-characters.txt"
+)
+SERVANTS = [
+    line.split(" | ")[0] for line in SERVANT_CHARACTERS.read_text().splitlines() if line
+]
 ORDINARY_WORDS_FILE = pathlib.Path(__file__).with_name("ordinary-words.txt")
 SPOKEN_NAMES = {spoken_name(servant) for servant in SERVANTS}
 ORDINARY_WORDS = [

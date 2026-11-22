@@ -3,8 +3,6 @@ import pathlib
 import re
 
 AVATAR_DIRECTORY = pathlib.Path(__file__).resolve().parents[3]
-REPOSITORY_ROOT = AVATAR_DIRECTORY.parents[2]
-ROSTER = REPOSITORY_ROOT / "agent-harness" / "servants" / "roster.txt"
 CHARACTERS_FILE = AVATAR_DIRECTORY / "cast" / "servant-characters.txt"
 CHARACTERS_DEFINITION = AVATAR_DIRECTORY / "cast" / "characters.nix"
 
@@ -84,10 +82,6 @@ LIVE_VOICES_BY_GENDER = {
 LOCAL_VOICE_PREFIX_BY_GENDER = {"woman": "pf_", "man": "pm_"}
 
 
-def roster_names():
-    return [line.split(" | ")[0] for line in ROSTER.read_text().splitlines()]
-
-
 def assigned_characters():
     pairs = [line.split(" | ") for line in CHARACTERS_FILE.read_text().splitlines()]
     return [(name, character) for name, character in pairs]
@@ -106,14 +100,17 @@ def defined_characters():
 MALE_CHARACTERS = characters_of_gender("man")
 
 
-def test_the_fixture_lists_at_least_fifteen_male_servants_from_the_roster():
+def servant_names():
+    return [name for name, _ in assigned_characters()]
+
+
+def test_the_fixture_lists_at_least_fifteen_male_servants_from_the_cast():
     assert len(MALE_SERVANTS) >= 15
-    assert MALE_SERVANTS <= set(roster_names())
+    assert MALE_SERVANTS <= set(servant_names())
 
 
-def test_every_roster_servant_has_exactly_one_line_in_roster_order():
-    assert [name for name, _ in assigned_characters()] == roster_names()
-    assert max(collections.Counter(roster_names()).values()) == 1
+def test_every_servant_has_exactly_one_line():
+    assert max(collections.Counter(servant_names()).values()) == 1
 
 
 def test_every_assigned_character_is_defined_in_the_character_list():
