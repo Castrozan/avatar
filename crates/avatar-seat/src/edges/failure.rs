@@ -5,6 +5,7 @@ use super::python_repr::list_repr;
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub enum EdgeFailure {
     Os(String),
+    Malformed(String),
     TimedOut { command: Vec<String>, seconds: u64 },
     NonZeroExit { command: Vec<String>, code: i32 },
 }
@@ -32,7 +33,7 @@ fn exit_message(command: &[String], code: i32) -> String {
 
 fn message_of(failure: &EdgeFailure) -> String {
     match failure {
-        EdgeFailure::Os(message) => message.clone(),
+        EdgeFailure::Os(message) | EdgeFailure::Malformed(message) => message.clone(),
         EdgeFailure::TimedOut { command, seconds } => timed_out_message(command, *seconds),
         EdgeFailure::NonZeroExit { command, code } => exit_message(command, *code),
     }

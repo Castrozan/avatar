@@ -6,6 +6,7 @@ use super::failure::SeatFailure;
 use crate::edges::{Clock, EdgeFailure, Processes, SeatProbe};
 use crate::support::truth::python_truthy;
 
+pub(crate) const TERMINATE_SIGNAL: &str = "TERM";
 pub(crate) const HOLDER_SCRIPT: &str = "remote_seat/seat_holder.py";
 const MEETING_HOLDER_PATTERN: &str = r"remote_seat/seat_holder\.py\ \?meeting";
 
@@ -27,6 +28,18 @@ fn words(parts: &[&str]) -> Vec<String> {
 
 fn holder_command(config: &SeatConfig, query: &str) -> Vec<String> {
     words(&[&config.python, &config.holder_path, query])
+}
+
+pub(crate) fn end_matching(
+    processes: &dyn Processes,
+    signal: &str,
+    command_line: &str,
+) -> Result<(), EdgeFailure> {
+    let flag = format!("-{signal}");
+    let command = words(&["/usr/bin/pkill", &flag, "-f", "--", command_line]);
+    processes
+        .run(&command, COMMAND_TIMEOUT_SECONDS, false)
+        .map(drop)
 }
 
 impl<'edges> LocalSeat<'edges> {
@@ -71,10 +84,7 @@ impl LocalSeat<'_> {
     }
 
     pub fn end_processes_matching(&self, command_line: &str) -> Result<(), EdgeFailure> {
-        let command = words(&["/usr/bin/pkill", "-TERM", "-f", "--", command_line]);
-        self.processes
-            .run(&command, COMMAND_TIMEOUT_SECONDS, false)
-            .map(drop)
+        end_matching(self.processes, TERMINATE_SIGNAL, command_line)
     }
 
     pub fn close_browsers(&self) -> Result<(), EdgeFailure> {
