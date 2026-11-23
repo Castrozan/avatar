@@ -1,0 +1,42 @@
+[
+ {
+  "profile": "silver",
+  "pane": "hermes:silver",
+  "servant": "Silver"
+ },
+ {
+  "profile": "SILVER",
+  "pane": "hermes:SILVER",
+  "servant": "Silver"
+ },
+ {
+  "profile": "sasaki kojirou",
+  "pane": "hermes:sasaki kojirou",
+  "servant": "Sasaki kojirou"
+ },
+ {
+  "profile": "x",
+  "pane": "hermes:x",
+  "servant": "X"
+ },
+ {
+  "profile": "a-b",
+  "pane": "hermes:a-b",
+  "servant": "A-b"
+ },
+ {
+  "profile": "ab1",
+  "pane": "hermes:ab1",
+  "servant": "Ab1"
+ },
+ {
+  "profile": "",
+  "pane": "hermes:",
+  "servant": ""
+ },
+ {
+  "profile": "hERMes",
+  "pane": "hermes:hERMes",
+  "servant": "Hermes"
+ }
+]

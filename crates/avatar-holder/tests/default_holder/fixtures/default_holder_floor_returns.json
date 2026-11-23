@@ -1,0 +1,74 @@
+[
+ {
+  "name": "other servant closes while room is on the holder",
+  "configured": {
+   "profile": "silver",
+   "character": "darkness-shibu"
+  },
+  "current_pane": "hermes:silver",
+  "pane": "wW:pSK",
+  "expected": {
+   "ok": null
+  }
+ },
+ {
+  "name": "holder pane itself closes",
+  "configured": {
+   "profile": "silver",
+   "character": "darkness-shibu"
+  },
+  "current_pane": "hermes:silver",
+  "pane": "hermes:silver",
+  "expected": {
+   "ok": null
+  }
+ },
+ {
+  "name": "pane the room turned away from",
+  "configured": {
+   "profile": "silver",
+   "character": "darkness-shibu"
+  },
+  "current_pane": "hermes:silver",
+  "pane": "wW:pOT",
+  "expected": {
+   "ok": null
+  }
+ },
+ {
+  "name": "nobody holds the room",
+  "configured": {
+   "profile": "silver",
+   "character": "darkness-shibu"
+  },
+  "current_pane": null,
+  "pane": "wW:pSK",
+  "expected": {
+   "ok": null
+  }
+ },
+ {
+  "name": "no default holder configured",
+  "configured": null,
+  "current_pane": "hermes:silver",
+  "pane": "wW:pSK",
+  "expected": {
+   "ok": null
+  }
+ },
+ {
+  "name": "servant closes while room on servant",
+  "configured": {
+   "profile": "silver",
+   "character": "darkness-shibu"
+  },
+  "current_pane": "wW:pSK",
+  "pane": "wW:pSK",
+  "expected": {
+   "ok": {
+    "profile": "silver",
+    "character": "darkness-shibu"
+   }
+  }
+ }
+]

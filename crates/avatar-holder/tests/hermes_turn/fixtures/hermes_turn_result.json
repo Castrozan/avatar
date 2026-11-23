@@ -1,0 +1,167 @@
+[
+ {
+  "name": "single result",
+  "output": "{\"type\":\"result\",\"text\":\"Oi.\"}",
+  "expected": {
+   "ok": "Oi."
+  }
+ },
+ {
+  "name": "last of two",
+  "output": "{\"type\":\"result\",\"text\":\"earlier\"}\n{\"type\":\"result\",\"text\":\"last\"}\nsession_id: t",
+  "expected": {
+   "ok": "last"
+  }
+ },
+ {
+  "name": "empty output",
+  "output": "",
+  "expected": {
+   "error": "The Hermes turn produced no result",
+   "kind": "HermesTurnError"
+  }
+ },
+ {
+  "name": "not json",
+  "output": "not json",
+  "expected": {
+   "error": "The Hermes turn produced no result",
+   "kind": "HermesTurnError"
+  }
+ },
+ {
+  "name": "result without text",
+  "output": "{\"type\":\"result\"}",
+  "expected": {
+   "error": "The Hermes result carried no text",
+   "kind": "HermesTurnError"
+  }
+ },
+ {
+  "name": "other type",
+  "output": "{\"type\":\"other\"}",
+  "expected": {
+   "error": "The Hermes turn produced no result",
+   "kind": "HermesTurnError"
+  }
+ },
+ {
+  "name": "non-string text",
+  "output": "{\"type\":\"result\",\"text\":5}",
+  "expected": {
+   "error": "The Hermes result carried no text",
+   "kind": "HermesTurnError"
+  }
+ },
+ {
+  "name": "json list",
+  "output": "[1,2]",
+  "expected": {
+   "error": "The Hermes turn produced no result",
+   "kind": "HermesTurnError"
+  }
+ },
+ {
+  "name": "json string",
+  "output": "\"result\"",
+  "expected": {
+   "error": "The Hermes turn produced no result",
+   "kind": "HermesTurnError"
+  }
+ },
+ {
+  "name": "last result lacks text",
+  "output": "{\"type\":\"result\",\"text\":\"a\"}\n{\"type\":\"result\"}",
+  "expected": {
+   "error": "The Hermes result carried no text",
+   "kind": "HermesTurnError"
+  }
+ },
+ {
+  "name": "last result non-string",
+  "output": "{\"type\":\"result\",\"text\":\"a\"}\n{\"type\":\"result\",\"text\":5}",
+  "expected": {
+   "error": "The Hermes result carried no text",
+   "kind": "HermesTurnError"
+  }
+ },
+ {
+  "name": "empty text is a reply",
+  "output": "{\"type\":\"result\",\"text\":\"\"}",
+  "expected": {
+   "ok": ""
+  }
+ },
+ {
+  "name": "surrounding whitespace",
+  "output": "  {\"type\":\"result\",\"text\":\"x\"}  ",
+  "expected": {
+   "ok": "x"
+  }
+ },
+ {
+  "name": "crlf line ending",
+  "output": "{\"type\":\"result\",\"text\":\"a\"}\r\n",
+  "expected": {
+   "ok": "a"
+  }
+ },
+ {
+  "name": "unicode escape",
+  "output": "{\"type\":\"result\",\"text\":\"Olá \\u00e7\"}",
+  "expected": {
+   "ok": "Olá ç"
+  }
+ },
+ {
+  "name": "escaped newline in text",
+  "output": "{\"type\":\"result\",\"text\":\"l1\\nl2\"}",
+  "expected": {
+   "ok": "l1\nl2"
+  }
+ },
+ {
+  "name": "duplicate keys last wins",
+  "output": "{\"type\":\"result\",\"text\":\"a\",\"type\":\"x\"}",
+  "expected": {
+   "error": "The Hermes turn produced no result",
+   "kind": "HermesTurnError"
+  }
+ },
+ {
+  "name": "nan literal",
+  "output": "NaN",
+  "expected": {
+   "error": "The Hermes turn produced no result",
+   "kind": "HermesTurnError"
+  }
+ },
+ {
+  "name": "trailing blank lines",
+  "output": "{\"type\":\"result\",\"text\":\"a\"}\n\n\n",
+  "expected": {
+   "ok": "a"
+  }
+ },
+ {
+  "name": "result before noise",
+  "output": "{\"type\":\"result\",\"text\":\"a\"}\nnoise\n{\"type\":\"other\"}",
+  "expected": {
+   "ok": "a"
+  }
+ },
+ {
+  "name": "unicode line separator",
+  "output": "{\"type\":\"result\",\"text\":\"a\"} {\"type\":\"result\",\"text\":\"b\"}",
+  "expected": {
+   "ok": "b"
+  }
+ },
+ {
+  "name": "form feed separator",
+  "output": "{\"type\":\"result\",\"text\":\"a\"}\f{\"type\":\"result\",\"text\":\"b\"}",
+  "expected": {
+   "ok": "b"
+  }
+ }
+]

@@ -1,0 +1,68 @@
+[
+ {
+  "name": "empty record",
+  "record": {},
+  "expected": {
+   "ok": null
+  }
+ },
+ {
+  "name": "full record",
+  "record": {
+   "profile": "silver",
+   "character": "x"
+  },
+  "expected": {
+   "ok": {
+    "profile": "silver",
+    "character": "x"
+   }
+  }
+ },
+ {
+  "name": "null character",
+  "record": {
+   "profile": "silver",
+   "character": null
+  },
+  "expected": {
+   "ok": {
+    "profile": "silver",
+    "character": null
+   }
+  }
+ },
+ {
+  "name": "missing character",
+  "record": {
+   "profile": "silver"
+  },
+  "expected": {
+   "ok": {
+    "profile": "silver",
+    "character": null
+   }
+  }
+ },
+ {
+  "name": "missing profile",
+  "record": {
+   "character": "x"
+  },
+  "expected": {
+   "error": "DefaultHolder.__init__() missing 1 required positional argument: 'profile'",
+   "kind": "TypeError"
+  }
+ },
+ {
+  "name": "extra key",
+  "record": {
+   "profile": "s",
+   "extra": 1
+  },
+  "expected": {
+   "error": "DefaultHolder.__init__() got an unexpected keyword argument 'extra'",
+   "kind": "TypeError"
+  }
+ }
+]

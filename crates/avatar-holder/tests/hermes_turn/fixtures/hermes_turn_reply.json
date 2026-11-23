@@ -1,0 +1,43 @@
+[
+ {
+  "name": "result",
+  "expected": {
+   "ok": "Oi."
+  }
+ },
+ {
+  "name": "exit three",
+  "expected": {
+   "error": "The Hermes turn exited 3",
+   "kind": "HermesTurnError"
+  }
+ },
+ {
+  "name": "timeout",
+  "expected": {
+   "error": "The Hermes turn failed: Command 'hermes' timed out after 120 seconds",
+   "kind": "HermesTurnError"
+  }
+ },
+ {
+  "name": "missing binary",
+  "expected": {
+   "error": "The Hermes turn failed: hermes",
+   "kind": "HermesTurnError"
+  }
+ },
+ {
+  "name": "empty stdout",
+  "expected": {
+   "error": "The Hermes turn produced no result",
+   "kind": "HermesTurnError"
+  }
+ },
+ {
+  "name": "nonzero with result",
+  "expected": {
+   "error": "The Hermes turn exited 1",
+   "kind": "HermesTurnError"
+  }
+ }
+]

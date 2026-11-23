@@ -1,0 +1,25 @@
+[
+ {
+  "name": "configured is ours",
+  "expected": {
+   "ok": null
+  },
+  "held": true
+ },
+ {
+  "name": "nothing configured",
+  "expected": {
+   "error": "A conversation was already open without this holder; it was left alone",
+   "kind": "RuntimeError"
+  },
+  "held": false
+ },
+ {
+  "name": "configured other holder",
+  "expected": {
+   "error": "A conversation was already open without this holder; it was left alone",
+   "kind": "RuntimeError"
+  },
+  "held": false
+ }
+]

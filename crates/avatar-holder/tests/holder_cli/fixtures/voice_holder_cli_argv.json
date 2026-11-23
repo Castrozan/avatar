@@ -1,0 +1,42 @@
+[
+ {
+  "name": "open with character",
+  "expected": {
+   "command": [
+    "avatar-talk",
+    "open",
+    "--seat",
+    "discord",
+    "--holder",
+    "silver",
+    "--character",
+    "darkness-shibu"
+   ],
+   "timeout": 180
+  }
+ },
+ {
+  "name": "open without character",
+  "expected": {
+   "command": [
+    "avatar-talk",
+    "open",
+    "--seat",
+    "discord",
+    "--holder",
+    "silver"
+   ],
+   "timeout": 180
+  }
+ },
+ {
+  "name": "close",
+  "expected": {
+   "command": [
+    "avatar-talk",
+    "close"
+   ],
+   "timeout": 120
+  }
+ }
+]

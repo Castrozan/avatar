@@ -1,0 +1,43 @@
+[
+ {
+  "name": "worth speaking and addressed",
+  "spoken": [
+   "Oi."
+  ],
+  "stderr": ""
+ },
+ {
+  "name": "silence not spoken",
+  "spoken": [],
+  "stderr": ""
+ },
+ {
+  "name": "hermes failure apologised",
+  "spoken": [
+   "Tive um problema para responder agora."
+  ],
+  "stderr": "The Hermes turn exited 3\n"
+ },
+ {
+  "name": "addressed away after reply",
+  "spoken": [],
+  "stderr": ""
+ },
+ {
+  "name": "empty reply",
+  "spoken": [],
+  "stderr": ""
+ },
+ {
+  "name": "failure when addressed away",
+  "spoken": [],
+  "stderr": "The Hermes turn exited 3\n"
+ },
+ {
+  "name": "speech failure reported",
+  "spoken": [
+   "Oi."
+  ],
+  "stderr": "boom\n"
+ }
+]

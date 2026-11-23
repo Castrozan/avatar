@@ -1,0 +1,46 @@
+[
+ {
+  "reply": "SILENCIO",
+  "worth": false
+ },
+ {
+  "reply": " silencio. ",
+  "worth": true
+ },
+ {
+  "reply": "SILENCIO.\n",
+  "worth": false
+ },
+ {
+  "reply": "",
+  "worth": false
+ },
+ {
+  "reply": "   ",
+  "worth": true
+ },
+ {
+  "reply": " SILENCIO ",
+  "worth": false
+ },
+ {
+  "reply": "..SILENCIO..",
+  "worth": false
+ },
+ {
+  "reply": "SILENCIO!",
+  "worth": true
+ },
+ {
+  "reply": "Olá, Lucas.",
+  "worth": true
+ },
+ {
+  "reply": "\tSILENCIO",
+  "worth": true
+ },
+ {
+  "reply": "silencio",
+  "worth": true
+ }
+]

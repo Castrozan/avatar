@@ -1,0 +1,28 @@
+[
+ {
+  "name": "no holder",
+  "expected": {}
+ },
+ {
+  "name": "holder with character",
+  "expected": {
+   "default_holder": {
+    "profile": "silver",
+    "character": "darkness-shibu"
+   }
+  }
+ },
+ {
+  "name": "holder without character",
+  "expected": {
+   "default_holder": {
+    "profile": "silver",
+    "character": null
+   }
+  }
+ },
+ {
+  "name": "empty holder",
+  "expected": {}
+ }
+]
