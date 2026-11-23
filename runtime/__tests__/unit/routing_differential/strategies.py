@@ -51,5 +51,5 @@ def rosters(draw):
     hosts = draw(st.lists(st.sampled_from((None, "kira")), min_size=len(servants), max_size=len(servants)))
     return [
         wake_phrase.LiveSession(servant, pane, host)
-        for servant, pane, host in zip(servants, panes, hosts)
+        for servant, pane, host in zip(servants, panes, hosts, strict=True)
     ]
