@@ -3,13 +3,19 @@ use std::error::Error;
 use avatar_control::session::{ClientId, Hub};
 use serde_json::Value;
 
-use crate::document::{array_field, str_field, string_list, u64_field};
+use crate::document::{array_field, bool_field, str_field, string_list, u64_field};
 use crate::observation::{Observation, observation_json};
 use crate::{TestResult, ensure};
 
 const IDENTIFY_FIXTURE: &str = include_str!("fixtures/identify.json");
 const AGENT_COMMAND_FIXTURE: &str = include_str!("fixtures/agent_commands.json");
 const VOICE_LEVEL_FIXTURE: &str = include_str!("fixtures/voice_levels.json");
+const SPEECH_FOLLOWER_FIXTURE: &str = include_str!("fixtures/speech_followers.json");
+
+#[test]
+fn speech_follower_cases_replay_the_js_behaviour() -> TestResult {
+    replay_document(SPEECH_FOLLOWER_FIXTURE)
+}
 
 #[test]
 fn identify_cases_replay_the_js_behaviour() -> TestResult {
@@ -74,6 +80,7 @@ fn run_step(hub: &mut Hub, step: &Value) -> Result<Value, Box<dyn Error>> {
     let observation = match str_field(step, "op")? {
         "receive" => receive_step(hub, step)?,
         "tick" => tick_step(hub, step)?,
+        "floor" => floor_step(hub, step)?,
         "disconnect" => disconnect_step(hub, step)?,
         other => return Err(format!("unknown op {other}").into()),
     };
@@ -83,6 +90,13 @@ fn run_step(hub: &mut Hub, step: &Value) -> Result<Value, Box<dyn Error>> {
 fn tick_step(hub: &mut Hub, step: &Value) -> Result<Observation, Box<dyn Error>> {
     Ok(Observation {
         outbound: hub.tick_voice_levels(u64_field(step, "now")?),
+        ..Observation::default()
+    })
+}
+
+fn floor_step(hub: &mut Hub, step: &Value) -> Result<Observation, Box<dyn Error>> {
+    Ok(Observation {
+        outbound: hub.announce_speech(bool_field(step, "speaking")?),
         ..Observation::default()
     })
 }

@@ -6,7 +6,9 @@ use crate::session::agent_commands;
 use crate::session::client::{ClientId, Outbound, Reply, Target};
 use crate::session::connection::{events, identify};
 use crate::session::messages;
-use crate::session::registry::{ConnectedClientRegistry, ConnectedRole, connected_role};
+use crate::session::registry::{
+    ConnectedClientRegistry, ConnectedRole, SpeechFollowers, connected_role,
+};
 use crate::session::state::AvatarState;
 use crate::session::voice_levels::VoiceLevels;
 
@@ -17,6 +19,7 @@ const IDENTIFY_REQUEST: &str =
 
 pub struct Hub {
     pub(crate) registry: ConnectedClientRegistry,
+    pub(crate) followers: SpeechFollowers,
     pub(crate) avatar: AvatarState,
     pub(crate) voices: VoiceLevels,
     pub(crate) speech_phase: String,
@@ -28,6 +31,7 @@ impl Hub {
     pub fn new(started_at_ms: u64, known_voices: Vec<String>) -> Self {
         Self {
             registry: ConnectedClientRegistry::default(),
+            followers: SpeechFollowers::default(),
             avatar: AvatarState::new(started_at_ms),
             voices: VoiceLevels::default(),
             speech_phase: "idle".to_owned(),
@@ -45,6 +49,11 @@ impl Hub {
 
     pub fn disconnect(&mut self, client: ClientId) {
         disconnect_client(self, client);
+    }
+
+    #[must_use]
+    pub fn announce_speech(&mut self, speaking: bool) -> Vec<Outbound> {
+        self.followers.announce(speaking)
     }
 
     pub fn tick_voice_levels(&mut self, now_ms: u64) -> Vec<Outbound> {
@@ -68,6 +77,7 @@ fn receive_frame(hub: &mut Hub, client: ClientId, frame: &str, now_ms: u64) -> R
 }
 
 fn disconnect_client(hub: &mut Hub, client: ClientId) {
+    hub.followers.forget(client);
     if hub.registry.is_seat(client) {
         hub.voices.forget_delay();
     }
