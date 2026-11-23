@@ -3,7 +3,7 @@ use serde_json::{Value, json};
 pub const ACKNOWLEDGEMENT_TYPE: &str = "speakAck";
 pub const REACTION_SECONDS: f64 = 1.0;
 const STOPPED_STATUSES: [&str; 2] = ["interrupted", "cancelled"];
-const WITHHELD_STATUS: &str = "withheld";
+pub const WITHHELD_STATUS: &str = "withheld";
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum WithheldReason {
