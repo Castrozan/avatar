@@ -16,8 +16,8 @@ fn expected_pulse_arguments(sink: &str) -> Vec<String> {
 }
 
 #[tokio::test]
-async fn lip_sync_sink_argv_matches_js_builder() -> TestResult {
-    let scratch = Scratch::new("pulse_lip_sync_argv")?;
+async fn shared_sink_argv_has_no_fallback_property() -> TestResult {
+    let scratch = Scratch::new("pulse_shared_argv")?;
     let program = scratch.fake_program("paplay", "")?;
     let player = PulseSinkPlayer::new(program, "AvatarLipSync", "/run/user/1000");
     within_limit(player.play(clip()).finished()).await?;

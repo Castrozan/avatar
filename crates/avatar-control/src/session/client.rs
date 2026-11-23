@@ -21,7 +21,11 @@ pub struct Outbound {
 
 #[derive(Debug, Clone, PartialEq)]
 pub enum Handoff {
-    Speak(Value),
+    Speak {
+        client: ClientId,
+        received_ms: u64,
+        command: Value,
+    },
     StopSpeaking,
     SelectVoice(String),
 }

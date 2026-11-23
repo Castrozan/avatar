@@ -35,7 +35,7 @@ fn session_command(
     now_ms: u64,
 ) -> Option<Reply> {
     match kind {
-        "speak" => Some(Reply::default().hand_off(Handoff::Speak(command.clone()))),
+        "speak" => Some(speak(client, command, now_ms)),
         "stopSpeaking" => Some(status::stop_speaking(client)),
         "setCharacter" => Some(character::set_character(hub, client, command, now_ms)),
         "setExpression" => Some(expression::set_expression(hub, client, command, now_ms)),
@@ -44,6 +44,14 @@ fn session_command(
         "voiceLevel" => Some(voice_level::voice_level(hub, client, command, now_ms)),
         _ => follow_speech::follow_speech_command(hub, client, kind),
     }
+}
+
+fn speak(client: ClientId, command: &Value, now_ms: u64) -> Reply {
+    Reply::default().hand_off(Handoff::Speak {
+        client,
+        received_ms: now_ms,
+        command: command.clone(),
+    })
 }
 
 fn device_command(

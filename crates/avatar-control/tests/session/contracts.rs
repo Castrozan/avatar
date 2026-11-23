@@ -24,7 +24,7 @@ fn speak_is_handed_to_speech_without_a_direct_reply() -> TestResult {
     ensure(reply.outbound.is_empty(), || {
         "speak produced direct outbound".to_owned()
     })?;
-    ensure(matches!(reply.handoff, Some(Handoff::Speak(_))), || {
+    ensure(matches!(reply.handoff, Some(Handoff::Speak { .. })), || {
         format!("handoff was {:?}", reply.handoff)
     })
 }
