@@ -5,7 +5,6 @@ from unittest.mock import Mock
 import conversation_seat
 import conversation_state
 import pytest
-import conversation_effects
 import conversation_window
 import utterances
 import voice_turns
@@ -48,9 +47,7 @@ def test_asking_speaks_and_prints_only_the_reply_tagged_as_voice(
     assert capsys.readouterr().out == "[voice] tudo certo\n"
 
 
-def test_asking_after_the_conversation_closed_never_reopens_it(
-    tmp_path, monkeypatch
-):
+def test_asking_after_the_conversation_closed_never_reopens_it(tmp_path, monkeypatch):
     monkeypatch.setattr(
         conversation_state, "observe", lambda directory: ConversationPhase.CLOSED
     )
