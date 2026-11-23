@@ -43,6 +43,7 @@ def boundaries(heard="hey Voyager, check the build", sessions=(VOYAGER,), **chan
         transcribe=Mock(return_value=heard),
         decide=Mock(side_effect=agreeing_with_the_named_servant),
         open_seat=Mock(return_value=Seat.ROOM),
+        room_that_heard=Mock(return_value=None),
         claim_wake=Mock(return_value=True),
         open_conversation=Mock(return_value=True),
         prompt_now=Mock(return_value=True),

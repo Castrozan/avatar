@@ -6,7 +6,7 @@ from unittest.mock import Mock
 import listener_runtime
 import pytest
 import wake_boundaries
-import wake_claim
+from arbitration import wake_claim
 from wake_fakes import armed_listener, boundaries
 from wake_phrase import LiveSession
 

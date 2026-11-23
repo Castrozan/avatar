@@ -245,6 +245,14 @@ at a line Smart Turn marks finished, or, after an unfinished line, once the same
 with no newer line and no speech in progress, so a sentence left unfinished before silence is still judged, once. A Mac
 following chise's conversation leaves that quiet ending to chise's wake, which sees the listener's speech marker.
 
+Several machines can hear the same words, and only one room acts on them. A wake that matched a name first asks every
+machine that answers its session listings whether a conversation open there heard its own room speak during the
+utterance, counting speech still being transcribed. A room that heard keeps the wake, because its conversation already
+routes the words, and the asking machine logs that it left the Servant to that conversation. Only a duration crosses
+the network, never audio or text, and a machine that does not answer counts as not having heard. When no conversation
+heard, the machine hosting the woken session grants one room a short claim on that session, taking its own claim ahead
+of the others. A conversation that stayed silent blocks nothing, so two rooms can hold independent conversations.
+
 Parakeet cannot be told the names, so the wake also accepts a misheard one, such as "chise hresnade" for Scheherazade,
 but only from words that are not ordinary speech: a window of words matches loosely only when none of them is among
 the most frequent English and Brazilian Portuguese words of
