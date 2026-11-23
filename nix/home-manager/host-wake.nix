@@ -30,9 +30,10 @@ let
     export AVATAR_PEER_HOSTS="${lib.concatStringsSep " " peerHosts}"
     export AVATAR_SERVANT_CHARACTERS=${programs.servantCharacters}
     export AVATAR_ORDINARY_WORDS=${programs.ordinaryWords}
-    ${lib.optionalString (lib.elem "routing" cfg.rustSlices) "export AVATAR_RUST_ROUTING=${cfg.rustPackage}/bin/avatar-routing"}
+    ${programs.rust.shadowEnvironment "AVATAR_RUST_ROUTING" "routing"}
+    ${programs.rust.shadowEnvironment "AVATAR_RUST_FLOOR" "floor"}
     export PYTHONPATH=${../../runtime/scripts/listening}:${../../runtime/scripts/echo}:${../../runtime/scripts/conversation}:${../../runtime/scripts/wake}:${../../runtime/scripts/addressing}:${programs.a2aLibrary}
-    exec ${pkgs.python312}/bin/python3 ${../../runtime/scripts/wake/wake_listener.py} "$@"
+    ${programs.rust.execute "wake" ''exec ${pkgs.python312}/bin/python3 ${../../runtime/scripts/wake/wake_listener.py} "$@"''}
   '';
 in
 {

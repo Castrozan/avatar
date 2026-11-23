@@ -67,14 +67,29 @@ in
     };
 
     rustSlices = mkOption {
-      type = types.listOf (types.enum [ "routing" ]);
+      type = types.listOf (
+        types.enum [
+          "routing"
+          "floor"
+          "talk"
+          "command"
+          "audio"
+          "stop"
+          "transcribe"
+          "doctor"
+          "wake"
+          "holder"
+          "listen"
+          "start"
+        ]
+      );
       default = [ ];
-      description = "Slices of the Rust rewrite that run beside their Python counterparts for comparison; Python stays authoritative, and an empty list runs no Rust at all.";
+      description = "Slices served by the single `avatar` binary instead of their Python or Node programs, one `avatar <slice>` subcommand each; `routing` and `floor` instead run beside their Python counterparts for comparison, which stays authoritative. An empty list runs no Rust at all.";
     };
 
     rustPackage = mkOption {
       type = types.package;
-      description = "Package providing `bin/avatar-routing`; the flake sets it to its own build.";
+      description = "Package providing `bin/avatar`; the flake sets it to its own build.";
     };
 
     herdrPackage = mkOption {

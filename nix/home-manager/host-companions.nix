@@ -27,6 +27,7 @@ let
       pkgs.systemd
     ];
     arguments = "";
+    execute = programs.rust.execute "doctor";
   };
   voiceHolder = pkgs.writeShellScriptBin "avatar-voice-holder" ''
     export PATH=${
@@ -38,7 +39,7 @@ let
     }:$PATH:${config.home.profileDirectory}/bin
     export AVATAR_SERVANT_CHARACTERS=${programsSpeakingForThisHost.servantCharacters}
     export PYTHONPATH=${../../runtime/scripts}:${../../runtime/scripts/audio_graph}:${../../runtime/scripts/listening}:${../../runtime/scripts/echo}:${../../runtime/scripts/conversation}:${../../runtime/scripts/wake}:${../../runtime/scripts/holder}
-    exec ${pkgs.python312}/bin/python3 ${../../runtime/scripts/holder}/voice_holder_cli.py "$@"
+    ${programsSpeakingForThisHost.rust.execute "holder" ''exec ${pkgs.python312}/bin/python3 ${../../runtime/scripts/holder}/voice_holder_cli.py "$@"''}
   '';
 in
 {

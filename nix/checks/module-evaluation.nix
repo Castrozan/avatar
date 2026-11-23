@@ -75,6 +75,23 @@ let
       hostName = "avatar-host";
       rustSlices = [ "routing" ];
     };
+    homeOnRust = homeFor {
+      hostName = "avatar-host";
+      rustSlices = [
+        "routing"
+        "floor"
+        "talk"
+        "command"
+        "audio"
+        "stop"
+        "transcribe"
+        "doctor"
+        "wake"
+        "holder"
+        "listen"
+        "start"
+      ];
+    };
     inherit (home.config.systemd.user) services targets;
     pictureUnits = [
       "avatar-renderer.service"
@@ -147,6 +164,7 @@ let
     evaluated = [
       home.activationPackage.drvPath
       homeComparingRouting.activationPackage.drvPath
+      homeOnRust.activationPackage.drvPath
       system.config.system.build.toplevel.drvPath
     ];
   };
