@@ -1,7 +1,13 @@
 { pkgs, crane }:
 let
   craneLib = crane.mkLib pkgs;
-  src = craneLib.cleanCargoSource ../.;
+  inherit (pkgs) lib;
+  jsonData = path: _type: builtins.match ".*/crates/.*\\.json$" path != null;
+  src = lib.cleanSourceWith {
+    src = ../.;
+    filter = path: type: jsonData path type || craneLib.filterCargoSources path type;
+    name = "source";
+  };
   commonArguments = {
     inherit src;
     strictDeps = true;
