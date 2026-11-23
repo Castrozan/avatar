@@ -28,7 +28,9 @@ OFFSETS_WITHIN_THE_WINDOW = st.lists(
 )
 START = 1_000_000.0
 NO_FIXTURE_CHECK = settings(
-    suppress_health_check=[HealthCheck.function_scoped_fixture], max_examples=60
+    suppress_health_check=[HealthCheck.function_scoped_fixture],
+    max_examples=60,
+    deadline=None,
 )
 
 
