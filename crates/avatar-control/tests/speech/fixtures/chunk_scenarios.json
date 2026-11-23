@@ -502,5 +502,159 @@
         ]
       }
     ]
+  },
+  {
+    "name": "first chunk synthesis fails",
+    "steps": [
+      {
+        "event": {
+          "op": "begin",
+          "count": 3
+        },
+        "effects": [
+          "synth:0"
+        ]
+      },
+      {
+        "event": {
+          "op": "failed",
+          "index": 0
+        },
+        "effects": [
+          "failed"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "prefetch fails while chunk plays",
+    "steps": [
+      {
+        "event": {
+          "op": "begin",
+          "count": 3
+        },
+        "effects": [
+          "synth:0"
+        ]
+      },
+      {
+        "event": {
+          "op": "ready",
+          "index": 0,
+          "holds": true
+        },
+        "effects": [
+          "play:0",
+          "synth:1"
+        ]
+      },
+      {
+        "event": {
+          "op": "failed",
+          "index": 1
+        },
+        "effects": []
+      },
+      {
+        "event": {
+          "op": "played",
+          "index": 0
+        },
+        "effects": [
+          "failed"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "prefetch fails while waiting for it",
+    "steps": [
+      {
+        "event": {
+          "op": "begin",
+          "count": 3
+        },
+        "effects": [
+          "synth:0"
+        ]
+      },
+      {
+        "event": {
+          "op": "ready",
+          "index": 0,
+          "holds": true
+        },
+        "effects": [
+          "play:0",
+          "synth:1"
+        ]
+      },
+      {
+        "event": {
+          "op": "played",
+          "index": 0
+        },
+        "effects": []
+      },
+      {
+        "event": {
+          "op": "failed",
+          "index": 1
+        },
+        "effects": [
+          "failed"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "stop swallows a failed prefetch",
+    "steps": [
+      {
+        "event": {
+          "op": "begin",
+          "count": 3
+        },
+        "effects": [
+          "synth:0"
+        ]
+      },
+      {
+        "event": {
+          "op": "ready",
+          "index": 0,
+          "holds": true
+        },
+        "effects": [
+          "play:0",
+          "synth:1"
+        ]
+      },
+      {
+        "event": {
+          "op": "stop"
+        },
+        "effects": [
+          "stop"
+        ]
+      },
+      {
+        "event": {
+          "op": "failed",
+          "index": 1
+        },
+        "effects": []
+      },
+      {
+        "event": {
+          "op": "played",
+          "index": 0
+        },
+        "effects": [
+          "done"
+        ]
+      }
+    ]
   }
 ]

@@ -10,6 +10,7 @@ use crate::names::TestResult;
 enum StepEvent {
     Begin { count: usize },
     Ready { index: usize, holds: Option<bool> },
+    Failed,
     Played { index: usize },
     Stop,
 }
@@ -34,6 +35,7 @@ impl StepEvent {
                 holds_floor: holds.ok_or("first chunk without holds")?,
             }),
             Self::Ready { index, .. } => Ok(SequenceEvent::ChunkReady(index)),
+            Self::Failed => Ok(SequenceEvent::ChunkFailed),
             Self::Played { index } => Ok(SequenceEvent::ChunkPlayed(index)),
             Self::Stop => Ok(SequenceEvent::Stop),
         }
@@ -47,6 +49,7 @@ fn parse_effect(text: &str) -> Result<SequenceEffect, Box<dyn Error>> {
         ["play", index] => Ok(SequenceEffect::Play(index.parse()?)),
         ["stop"] => Ok(SequenceEffect::StopPlayback),
         ["done"] => Ok(SequenceEffect::Finished),
+        ["failed"] => Ok(SequenceEffect::Failed),
         _ => Err(format!("unknown effect: {text}").into()),
     }
 }
@@ -87,7 +90,7 @@ fn chunk_scenarios_replay_the_javascript_sequence() -> TestResult {
             .iter()
             .map(|scenario| scenario.steps.len())
             .sum::<usize>(),
-        51
+        66
     );
     scenarios.iter().try_for_each(replay)
 }

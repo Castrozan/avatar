@@ -86,7 +86,7 @@ fn replay(scenario: &Scenario) -> TestResult {
 #[test]
 fn floor_scenarios_replay_the_javascript_floor() -> TestResult {
     let scenarios: Vec<Scenario> =
-        serde_json::from_str(include_str!("fixtures/floor_scenarios.json"))?;
+        serde_json::from_str(include_str!("../fixtures/floor_scenarios.json"))?;
     assert_eq!(
         scenarios
             .iter()

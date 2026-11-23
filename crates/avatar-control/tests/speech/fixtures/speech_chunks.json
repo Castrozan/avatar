@@ -1,0 +1,199 @@
+[
+  {
+    "text": "Sure! I checked the logs and the deploy finished cleanly.",
+    "maximum": 200,
+    "chunks": [
+      "Sure! I checked the logs and the deploy finished cleanly."
+    ]
+  },
+  {
+    "text": "Pronto, terminei o build e está tudo certo. The tests passed on every machine.",
+    "maximum": 200,
+    "chunks": [
+      "Pronto, terminei o build e está tudo certo. ",
+      "The tests passed on every machine."
+    ]
+  },
+  {
+    "text": "Eu gosto muito de dançar no domingo à tarde. Depois, eu durmo; acordo cedo: vou trabalhar.",
+    "maximum": 40,
+    "chunks": [
+      "Eu gosto muito de dançar no domingo à ",
+      "tarde. Depois, eu durmo; acordo cedo: ",
+      "vou trabalhar."
+    ]
+  },
+  {
+    "text": "今日はとても天気がいいので、一緒に公園へ散歩に行きましょう。明日は雨です、たぶん。",
+    "maximum": 200,
+    "chunks": [
+      "今日はとても天気がいいので、一緒に公園へ散歩に行きましょう。明日は雨です、たぶん。"
+    ]
+  },
+  {
+    "text": "今日はとても天気がいいので、一緒に公園へ散歩に行きましょう。明日は雨です、たぶん。",
+    "maximum": 12,
+    "chunks": [
+      "今日はとても天気がいいの",
+      "で、",
+      "一緒に公園へ散歩に行きま",
+      "しょう。",
+      "明日は雨です、たぶん。"
+    ]
+  },
+  {
+    "text": "",
+    "maximum": 200,
+    "chunks": []
+  },
+  {
+    "text": "...!!! ???",
+    "maximum": 200,
+    "chunks": [
+      "...!!! ???"
+    ]
+  },
+  {
+    "text": "Dr. Smith went to St. Louis. He arrived at 3 p.m. today. Then e.g. Mr. Jones left.",
+    "maximum": 200,
+    "chunks": [
+      "Dr. Smith went to St. Louis. He arrived at 3 p.m. today. Then e.g. Mr. Jones left."
+    ]
+  },
+  {
+    "text": "Dr. Smith went to St. Louis. He arrived at 3 p.m. today.",
+    "maximum": 25,
+    "chunks": [
+      "Dr. Smith went to St. ",
+      "Louis. ",
+      "He arrived at 3 p.m. ",
+      "today."
+    ]
+  },
+  {
+    "text": "café ẽo à café ẽo à café",
+    "maximum": 10,
+    "chunks": [
+      "café ẽo ",
+      "à café ",
+      "ẽo à ",
+      "café"
+    ]
+  },
+  {
+    "text": "Hello 😀😀😀 world 😀 again 😀😀",
+    "maximum": 9,
+    "chunks": [
+      "Hello ",
+      "😀😀😀 ",
+      "world 😀 ",
+      "again ",
+      "😀😀"
+    ]
+  },
+  {
+    "text": "Hello there　friend﻿nowok next",
+    "maximum": 200,
+    "chunks": [
+      "Hello there　friend﻿nowok next"
+    ]
+  },
+  {
+    "text": "A, B; C: D、E，F；G：H, I",
+    "maximum": 4,
+    "chunks": [
+      "A, ",
+      "B; ",
+      "C: ",
+      "D、E，",
+      "F；G：",
+      "H, I"
+    ]
+  },
+  {
+    "text": "Alpha, beta,  gamma;delta: epsilon – zeta — eta",
+    "maximum": 12,
+    "chunks": [
+      "Alpha, ",
+      "beta,  ",
+      "gamma;delta:",
+      " epsilon – ",
+      "zeta — eta"
+    ]
+  },
+  {
+    "text": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxyz.",
+    "maximum": 200,
+    "chunks": [
+      "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "yz."
+    ]
+  },
+  {
+    "text": "word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word ",
+    "maximum": 200,
+    "chunks": [
+      "word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word ",
+      "word word word word word "
+    ]
+  },
+  {
+    "text": "Ação é função, coração não é ilusão, e a pessoa segue em frente, sem parar, porque o caminho é longo, cansativo e cheio de curvas; mas ela continua andando até o fim do dia.",
+    "maximum": 200,
+    "chunks": [
+      "Ação é função, coração não é ilusão, e a pessoa segue em frente, sem parar, porque o caminho é longo, cansativo e cheio de curvas; mas ela continua andando até o fim do dia."
+    ]
+  },
+  {
+    "text": "Pronto, terminei o build e está tudo certo. The tests passed on every machine. 今日は晴れです。",
+    "maximum": 200,
+    "chunks": [
+      "Pronto, terminei o build e está tudo certo. ",
+      "The tests passed on every machine. ",
+      "今日は晴れです。"
+    ]
+  },
+  {
+    "text": "One. Two! Three? Four.",
+    "maximum": 200,
+    "chunks": [
+      "One. Two! Three? Four."
+    ]
+  },
+  {
+    "text": "Sentence with trailing spaces.   ",
+    "maximum": 200,
+    "chunks": [
+      "Sentence with trailing spaces.   "
+    ]
+  },
+  {
+    "text": "\n\nLeading newline. Then text.\n",
+    "maximum": 200,
+    "chunks": [
+      "\n\nLeading newline. Then text.\n"
+    ]
+  },
+  {
+    "text": "",
+    "maximum": 2,
+    "chunks": [
+      ""
+    ]
+  },
+  {
+    "text": "ab",
+    "maximum": 2,
+    "chunks": [
+      "a",
+      "b"
+    ]
+  },
+  {
+    "text": ":",
+    "maximum": 200,
+    "chunks": [
+      ":"
+    ]
+  }
+]
