@@ -1,0 +1,166 @@
+{
+ "clean": [
+  [
+   "",
+   ""
+  ],
+  [
+   "   ",
+   ""
+  ],
+  [
+   "\n\t",
+   ""
+  ],
+  [
+   "[music]",
+   ""
+  ],
+  [
+   "(laughs)",
+   ""
+  ],
+  [
+   "*sigh*",
+   ""
+  ],
+  [
+   " bom  dia ",
+   "bom dia"
+  ],
+  [
+   "[a] b",
+   "[a] b"
+  ],
+  [
+   "(x)(y)",
+   "(x)(y)"
+  ],
+  [
+   "hello [noise]",
+   "hello [noise]"
+  ],
+  [
+   "\tfoo\n bar ",
+   "foo bar"
+  ],
+  [
+   "  [ ]  ",
+   ""
+  ],
+  [
+   "[unterminated",
+   "[unterminated"
+  ],
+  [
+   "*a* *b*",
+   "*a* *b*"
+  ],
+  [
+   "(a) ",
+   ""
+  ],
+  [
+   "é ok",
+   "é ok"
+  ]
+ ],
+ "paths": [
+  [
+   "parakeet_v3",
+   null,
+   "/transcriptions?model=parakeet_v3"
+  ],
+  [
+   "parakeet_v3",
+   "",
+   "/transcriptions?model=parakeet_v3"
+  ],
+  [
+   "parakeet_v3",
+   "pt",
+   "/transcriptions?model=parakeet_v3&language=pt"
+  ],
+  [
+   "m",
+   "en-US",
+   "/transcriptions?model=m&language=en-US"
+  ],
+  [
+   "m",
+   "a b&c=d",
+   "/transcriptions?model=m&language=a+b%26c%3Dd"
+  ]
+ ],
+ "wav": [
+  "",
+  "01020304",
+  "01",
+  "010203"
+ ],
+ "wav_bytes": [
+  "524946462400000057415645666d74201000000001000100803e0000007d0000020010006461746100000000",
+  "524946462800000057415645666d74201000000001000100803e0000007d000002001000646174610400000001020304",
+  "524946462500000057415645666d74201000000001000100803e0000007d000002001000646174610100000001",
+  "524946462700000057415645666d74201000000001000100803e0000007d0000020010006461746103000000010203"
+ ],
+ "discovery": [
+  "HOME/Library/Application Support/hex/local-api.json",
+  "HOME/.local/share/hex/local-api.json",
+  "HOME/.local/share/hex/local-api.json"
+ ],
+ "installed": [
+  [
+   [
+    {
+     "id": "parakeet_v3",
+     "installed": true
+    },
+    {
+     "id": "parakeet_unified_en",
+     "installed": true
+    }
+   ],
+   "parakeet_v3"
+  ],
+  [
+   [
+    {
+     "id": "parakeet_unified_en",
+     "installed": true
+    },
+    {
+     "id": "parakeet_v3",
+     "installed": false
+    }
+   ],
+   "parakeet_unified_en"
+  ],
+  [
+   [
+    {
+     "id": "a",
+     "installed": true
+    },
+    {
+     "id": "b",
+     "installed": true
+    }
+   ],
+   "a"
+  ],
+  [
+   [
+    {
+     "id": "parakeet_v3",
+     "installed": false
+    }
+   ],
+   "ConnectionError: Hex has no transcription model installed"
+  ],
+  [
+   [],
+   "ConnectionError: Hex has no transcription model installed"
+  ]
+ ]
+}

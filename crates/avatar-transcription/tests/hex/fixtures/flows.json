@@ -1,0 +1,698 @@
+[
+ {
+  "name": "hex_success",
+  "responses": [
+   [
+    200,
+    [
+     {
+      "id": "parakeet_v3",
+      "installed": true
+     },
+     {
+      "id": "parakeet_unified_en",
+      "installed": true
+     }
+    ]
+   ],
+   [
+    200,
+    {
+     "transcript": " bom  dia "
+    }
+   ]
+  ],
+  "calls": [
+   {
+    "op": "hex",
+    "language": "pt"
+   }
+  ],
+  "pcm_hex": "01020304",
+  "outcomes": [
+   {
+    "value": "bom dia",
+    "stderr": []
+   }
+  ],
+  "requests": [
+   {
+    "method": "GET",
+    "path": "/models",
+    "headers": [
+     [
+      "host",
+      "127.0.0.1:33663"
+     ],
+     [
+      "accept-encoding",
+      "identity"
+     ],
+     [
+      "authorization",
+      "Bearer hex-token"
+     ],
+     [
+      "content-type",
+      "audio/wav"
+     ]
+    ],
+    "body_hex": ""
+   },
+   {
+    "method": "POST",
+    "path": "/transcriptions?model=parakeet_v3&language=pt",
+    "headers": [
+     [
+      "host",
+      "127.0.0.1:33663"
+     ],
+     [
+      "accept-encoding",
+      "identity"
+     ],
+     [
+      "content-length",
+      "48"
+     ],
+     [
+      "authorization",
+      "Bearer hex-token"
+     ],
+     [
+      "content-type",
+      "audio/wav"
+     ]
+    ],
+    "body_hex": "524946462800000057415645666d74201000000001000100803e0000007d000002001000646174610400000001020304"
+   }
+  ],
+  "remaining_responses": 0
+ },
+ {
+  "name": "hex_no_model",
+  "responses": [
+   [
+    200,
+    [
+     {
+      "id": "x",
+      "installed": false
+     }
+    ]
+   ]
+  ],
+  "calls": [
+   {
+    "op": "hex",
+    "language": null
+   }
+  ],
+  "pcm_hex": "01020304",
+  "outcomes": [
+   {
+    "error": {
+     "type": "ConnectionError",
+     "message": "Hex has no transcription model installed"
+    },
+    "stderr": []
+   }
+  ],
+  "requests": [
+   {
+    "method": "GET",
+    "path": "/models",
+    "headers": [
+     [
+      "host",
+      "127.0.0.1:33663"
+     ],
+     [
+      "accept-encoding",
+      "identity"
+     ],
+     [
+      "authorization",
+      "Bearer hex-token"
+     ],
+     [
+      "content-type",
+      "audio/wav"
+     ]
+    ],
+    "body_hex": ""
+   }
+  ],
+  "remaining_responses": 0
+ },
+ {
+  "name": "hex_refused_with_code",
+  "responses": [
+   [
+    200,
+    [
+     {
+      "id": "parakeet_v3",
+      "installed": true
+     },
+     {
+      "id": "parakeet_unified_en",
+      "installed": true
+     }
+    ]
+   ],
+   [
+    429,
+    {
+     "code": "queue-full"
+    }
+   ]
+  ],
+  "calls": [
+   {
+    "op": "hex",
+    "language": null
+   }
+  ],
+  "pcm_hex": "01020304",
+  "outcomes": [
+   {
+    "error": {
+     "type": "ConnectionError",
+     "message": "Hex refused the segment: queue-full"
+    },
+    "stderr": []
+   }
+  ],
+  "requests": [
+   {
+    "method": "GET",
+    "path": "/models",
+    "headers": [
+     [
+      "host",
+      "127.0.0.1:33663"
+     ],
+     [
+      "accept-encoding",
+      "identity"
+     ],
+     [
+      "authorization",
+      "Bearer hex-token"
+     ],
+     [
+      "content-type",
+      "audio/wav"
+     ]
+    ],
+    "body_hex": ""
+   },
+   {
+    "method": "POST",
+    "path": "/transcriptions?model=parakeet_v3",
+    "headers": [
+     [
+      "host",
+      "127.0.0.1:33663"
+     ],
+     [
+      "accept-encoding",
+      "identity"
+     ],
+     [
+      "content-length",
+      "48"
+     ],
+     [
+      "authorization",
+      "Bearer hex-token"
+     ],
+     [
+      "content-type",
+      "audio/wav"
+     ]
+    ],
+    "body_hex": "524946462800000057415645666d74201000000001000100803e0000007d000002001000646174610400000001020304"
+   }
+  ],
+  "remaining_responses": 0
+ },
+ {
+  "name": "hex_refused_without_code",
+  "responses": [
+   [
+    200,
+    [
+     {
+      "id": "parakeet_v3",
+      "installed": true
+     },
+     {
+      "id": "parakeet_unified_en",
+      "installed": true
+     }
+    ]
+   ],
+   [
+    500,
+    {}
+   ]
+  ],
+  "calls": [
+   {
+    "op": "hex",
+    "language": null
+   }
+  ],
+  "pcm_hex": "01020304",
+  "outcomes": [
+   {
+    "error": {
+     "type": "ConnectionError",
+     "message": "Hex refused the segment: None"
+    },
+    "stderr": []
+   }
+  ],
+  "requests": [
+   {
+    "method": "GET",
+    "path": "/models",
+    "headers": [
+     [
+      "host",
+      "127.0.0.1:33663"
+     ],
+     [
+      "accept-encoding",
+      "identity"
+     ],
+     [
+      "authorization",
+      "Bearer hex-token"
+     ],
+     [
+      "content-type",
+      "audio/wav"
+     ]
+    ],
+    "body_hex": ""
+   },
+   {
+    "method": "POST",
+    "path": "/transcriptions?model=parakeet_v3",
+    "headers": [
+     [
+      "host",
+      "127.0.0.1:33663"
+     ],
+     [
+      "accept-encoding",
+      "identity"
+     ],
+     [
+      "content-length",
+      "48"
+     ],
+     [
+      "authorization",
+      "Bearer hex-token"
+     ],
+     [
+      "content-type",
+      "audio/wav"
+     ]
+    ],
+    "body_hex": "524946462800000057415645666d74201000000001000100803e0000007d000002001000646174610400000001020304"
+   }
+  ],
+  "remaining_responses": 0
+ },
+ {
+  "name": "hex_refused_numeric_code",
+  "responses": [
+   [
+    200,
+    [
+     {
+      "id": "parakeet_v3",
+      "installed": true
+     },
+     {
+      "id": "parakeet_unified_en",
+      "installed": true
+     }
+    ]
+   ],
+   [
+    400,
+    {
+     "code": 7
+    }
+   ]
+  ],
+  "calls": [
+   {
+    "op": "hex",
+    "language": null
+   }
+  ],
+  "pcm_hex": "01020304",
+  "outcomes": [
+   {
+    "error": {
+     "type": "ConnectionError",
+     "message": "Hex refused the segment: 7"
+    },
+    "stderr": []
+   }
+  ],
+  "requests": [
+   {
+    "method": "GET",
+    "path": "/models",
+    "headers": [
+     [
+      "host",
+      "127.0.0.1:33663"
+     ],
+     [
+      "accept-encoding",
+      "identity"
+     ],
+     [
+      "authorization",
+      "Bearer hex-token"
+     ],
+     [
+      "content-type",
+      "audio/wav"
+     ]
+    ],
+    "body_hex": ""
+   },
+   {
+    "method": "POST",
+    "path": "/transcriptions?model=parakeet_v3",
+    "headers": [
+     [
+      "host",
+      "127.0.0.1:33663"
+     ],
+     [
+      "accept-encoding",
+      "identity"
+     ],
+     [
+      "content-length",
+      "48"
+     ],
+     [
+      "authorization",
+      "Bearer hex-token"
+     ],
+     [
+      "content-type",
+      "audio/wav"
+     ]
+    ],
+    "body_hex": "524946462800000057415645666d74201000000001000100803e0000007d000002001000646174610400000001020304"
+   }
+  ],
+  "remaining_responses": 0
+ },
+ {
+  "name": "hex_missing_transcript",
+  "responses": [
+   [
+    200,
+    [
+     {
+      "id": "parakeet_v3",
+      "installed": true
+     },
+     {
+      "id": "parakeet_unified_en",
+      "installed": true
+     }
+    ]
+   ],
+   [
+    200,
+    {
+     "text": "x"
+    }
+   ]
+  ],
+  "calls": [
+   {
+    "op": "hex",
+    "language": null
+   }
+  ],
+  "pcm_hex": "01020304",
+  "outcomes": [
+   {
+    "error": {
+     "type": "KeyError",
+     "message": "'transcript'"
+    },
+    "stderr": []
+   }
+  ],
+  "requests": [
+   {
+    "method": "GET",
+    "path": "/models",
+    "headers": [
+     [
+      "host",
+      "127.0.0.1:33663"
+     ],
+     [
+      "accept-encoding",
+      "identity"
+     ],
+     [
+      "authorization",
+      "Bearer hex-token"
+     ],
+     [
+      "content-type",
+      "audio/wav"
+     ]
+    ],
+    "body_hex": ""
+   },
+   {
+    "method": "POST",
+    "path": "/transcriptions?model=parakeet_v3",
+    "headers": [
+     [
+      "host",
+      "127.0.0.1:33663"
+     ],
+     [
+      "accept-encoding",
+      "identity"
+     ],
+     [
+      "content-length",
+      "48"
+     ],
+     [
+      "authorization",
+      "Bearer hex-token"
+     ],
+     [
+      "content-type",
+      "audio/wav"
+     ]
+    ],
+    "body_hex": "524946462800000057415645666d74201000000001000100803e0000007d000002001000646174610400000001020304"
+   }
+  ],
+  "remaining_responses": 0
+ },
+ {
+  "name": "hex_english_only_machine",
+  "responses": [
+   [
+    200,
+    [
+     {
+      "id": "parakeet_v3",
+      "installed": false
+     },
+     {
+      "id": "parakeet_unified_en",
+      "installed": true
+     }
+    ]
+   ],
+   [
+    200,
+    {
+     "transcript": "hey"
+    }
+   ]
+  ],
+  "calls": [
+   {
+    "op": "hex",
+    "language": null
+   }
+  ],
+  "pcm_hex": "01020304",
+  "outcomes": [
+   {
+    "value": "hey",
+    "stderr": []
+   }
+  ],
+  "requests": [
+   {
+    "method": "GET",
+    "path": "/models",
+    "headers": [
+     [
+      "host",
+      "127.0.0.1:33663"
+     ],
+     [
+      "accept-encoding",
+      "identity"
+     ],
+     [
+      "authorization",
+      "Bearer hex-token"
+     ],
+     [
+      "content-type",
+      "audio/wav"
+     ]
+    ],
+    "body_hex": ""
+   },
+   {
+    "method": "POST",
+    "path": "/transcriptions?model=parakeet_unified_en",
+    "headers": [
+     [
+      "host",
+      "127.0.0.1:33663"
+     ],
+     [
+      "accept-encoding",
+      "identity"
+     ],
+     [
+      "content-length",
+      "48"
+     ],
+     [
+      "authorization",
+      "Bearer hex-token"
+     ],
+     [
+      "content-type",
+      "audio/wav"
+     ]
+    ],
+    "body_hex": "524946462800000057415645666d74201000000001000100803e0000007d000002001000646174610400000001020304"
+   }
+  ],
+  "remaining_responses": 0
+ },
+ {
+  "name": "hex_marker_only",
+  "responses": [
+   [
+    200,
+    [
+     {
+      "id": "parakeet_v3",
+      "installed": true
+     },
+     {
+      "id": "parakeet_unified_en",
+      "installed": true
+     }
+    ]
+   ],
+   [
+    200,
+    {
+     "transcript": "[music]"
+    }
+   ]
+  ],
+  "calls": [
+   {
+    "op": "hex",
+    "language": null
+   }
+  ],
+  "pcm_hex": "01020304",
+  "outcomes": [
+   {
+    "value": "",
+    "stderr": []
+   }
+  ],
+  "requests": [
+   {
+    "method": "GET",
+    "path": "/models",
+    "headers": [
+     [
+      "host",
+      "127.0.0.1:33663"
+     ],
+     [
+      "accept-encoding",
+      "identity"
+     ],
+     [
+      "authorization",
+      "Bearer hex-token"
+     ],
+     [
+      "content-type",
+      "audio/wav"
+     ]
+    ],
+    "body_hex": ""
+   },
+   {
+    "method": "POST",
+    "path": "/transcriptions?model=parakeet_v3",
+    "headers": [
+     [
+      "host",
+      "127.0.0.1:33663"
+     ],
+     [
+      "accept-encoding",
+      "identity"
+     ],
+     [
+      "content-length",
+      "48"
+     ],
+     [
+      "authorization",
+      "Bearer hex-token"
+     ],
+     [
+      "content-type",
+      "audio/wav"
+     ]
+    ],
+    "body_hex": "524946462800000057415645666d74201000000001000100803e0000007d000002001000646174610400000001020304"
+   }
+  ],
+  "remaining_responses": 0
+ }
+]
