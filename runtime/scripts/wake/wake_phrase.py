@@ -4,8 +4,12 @@ import name_hearing
 from transcription.ordinary_words import folded
 from transcription.spoken_names import WORD, answered_names, called_name
 
-GREETINGS = frozenset(
-    {"hey", "hei", "hi", "ok", "okay", "ei", "oi", "ola", "ai", "o", "e", "em"}
+JAPANESE_GREETINGS = frozenset({"ne", "nee", "nene", "neenee", "moshi", "moshimoshi"})
+GREETINGS = (
+    frozenset(
+        {"hey", "hei", "hi", "ok", "okay", "ei", "oi", "ola", "ai", "o", "e", "em"}
+    )
+    | JAPANESE_GREETINGS
 )
 MESSAGE_EDGE = " ,.;:!?-"
 WINDOW_SIZES = (1, 2, 3)
