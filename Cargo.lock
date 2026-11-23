@@ -236,6 +236,22 @@ dependencies = [
 ]
 
 [[package]]
+name = "avatar-seat"
+version = "0.1.0"
+dependencies = [
+ "axum",
+ "futures-util",
+ "nix",
+ "proptest",
+ "regex",
+ "serde",
+ "serde_json",
+ "tempfile",
+ "tokio",
+ "tokio-tungstenite 0.28.0",
+]
+
+[[package]]
 name = "avatar-transcript"
 version = "0.1.0"
 dependencies = [
