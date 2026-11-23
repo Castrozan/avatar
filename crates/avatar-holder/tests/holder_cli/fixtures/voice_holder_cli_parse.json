@@ -1,0 +1,95 @@
+[
+ {
+  "argv": [
+   "--hermes-profile",
+   "silver"
+  ],
+  "expected": {
+   "ok": {
+    "hermes_profile": "silver",
+    "character": null
+   }
+  }
+ },
+ {
+  "argv": [
+   "--hermes-profile",
+   "silver",
+   "--character",
+   "darkness-shibu"
+  ],
+  "expected": {
+   "ok": {
+    "hermes_profile": "silver",
+    "character": "darkness-shibu"
+   }
+  }
+ },
+ {
+  "argv": [
+   "--character",
+   "x"
+  ],
+  "expected": {
+   "error": true
+  }
+ },
+ {
+  "argv": [
+   "--hermes-profile=silver"
+  ],
+  "expected": {
+   "ok": {
+    "hermes_profile": "silver",
+    "character": null
+   }
+  }
+ },
+ {
+  "argv": [
+   "--hermes-profile",
+   "silver",
+   "extra"
+  ],
+  "expected": {
+   "error": true
+  }
+ },
+ {
+  "argv": [],
+  "expected": {
+   "error": true
+  }
+ },
+ {
+  "argv": [
+   "--hermes-profile",
+   ""
+  ],
+  "expected": {
+   "ok": {
+    "hermes_profile": "",
+    "character": null
+   }
+  }
+ },
+ {
+  "argv": [
+   "--hermes-profile",
+   "silver",
+   "--character"
+  ],
+  "expected": {
+   "error": true
+  }
+ },
+ {
+  "argv": [
+   "--hermes-profile",
+   "-x"
+  ],
+  "expected": {
+   "error": true
+  }
+ }
+]

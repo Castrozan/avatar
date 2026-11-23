@@ -1,0 +1,68 @@
+[
+ {
+  "profile": "silver",
+  "prompt": "oi",
+  "argv": [
+   "hermes",
+   "-p",
+   "silver",
+   "chat",
+   "--query",
+   "oi",
+   "--oneshot",
+   "--continue",
+   "voice-call-2026-11-23",
+   "--create-if-missing",
+   "--reasoning",
+   "low",
+   "--source",
+   "tool",
+   "--format",
+   "stream-json"
+  ]
+ },
+ {
+  "profile": "",
+  "prompt": "",
+  "argv": [
+   "hermes",
+   "-p",
+   "",
+   "chat",
+   "--query",
+   "",
+   "--oneshot",
+   "--continue",
+   "voice-call-2026-11-23",
+   "--create-if-missing",
+   "--reasoning",
+   "low",
+   "--source",
+   "tool",
+   "--format",
+   "stream-json"
+  ]
+ },
+ {
+  "profile": "a b",
+  "prompt": "x\ny",
+  "argv": [
+   "hermes",
+   "-p",
+   "a b",
+   "chat",
+   "--query",
+   "x\ny",
+   "--oneshot",
+   "--continue",
+   "voice-call-2026-11-23",
+   "--create-if-missing",
+   "--reasoning",
+   "low",
+   "--source",
+   "tool",
+   "--format",
+   "stream-json"
+  ]
+ }
+]

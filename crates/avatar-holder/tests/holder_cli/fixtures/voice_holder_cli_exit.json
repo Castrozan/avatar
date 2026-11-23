@@ -1,0 +1,44 @@
+[
+ {
+  "name": "closed",
+  "exit": 0,
+  "error_kind": null,
+  "stderr": "",
+  "closed": false
+ },
+ {
+  "name": "stopped",
+  "exit": 0,
+  "error_kind": null,
+  "stderr": "",
+  "closed": true
+ },
+ {
+  "name": "runtime",
+  "exit": 1,
+  "error_kind": null,
+  "stderr": "runtime boom\n",
+  "closed": false
+ },
+ {
+  "name": "os",
+  "exit": 1,
+  "error_kind": null,
+  "stderr": "disk\n",
+  "closed": false
+ },
+ {
+  "name": "calledprocess",
+  "exit": 1,
+  "error_kind": null,
+  "stderr": "Command 'avatar-talk' returned non-zero exit status 1.\n",
+  "closed": false
+ },
+ {
+  "name": "unexpected",
+  "exit": null,
+  "error_kind": "ValueError",
+  "stderr": "",
+  "closed": false
+ }
+]

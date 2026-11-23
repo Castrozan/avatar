@@ -118,6 +118,16 @@ dependencies = [
 ]
 
 [[package]]
+name = "avatar-holder"
+version = "0.1.0"
+dependencies = [
+ "avatar-floor",
+ "clap",
+ "proptest",
+ "serde_json",
+]
+
+[[package]]
 name = "avatar-routing"
 version = "0.1.0"
 dependencies = [
