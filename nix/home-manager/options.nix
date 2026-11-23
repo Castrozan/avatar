@@ -66,6 +66,17 @@ in
       description = "Servant roster, one `Name | description` line per Servant; every name needs a line in the avatar's cast/servant-characters.txt.";
     };
 
+    rustSlices = mkOption {
+      type = types.listOf (types.enum [ "routing" ]);
+      default = [ ];
+      description = "Slices of the Rust rewrite that run beside their Python counterparts for comparison; Python stays authoritative, and an empty list runs no Rust at all.";
+    };
+
+    rustPackage = mkOption {
+      type = types.package;
+      description = "Package providing `bin/avatar-routing`; the flake sets it to its own build.";
+    };
+
     herdrPackage = mkOption {
       type = types.package;
       description = "herdr, put on the PATH of the floor, wake and live voice programs.";

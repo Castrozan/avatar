@@ -71,6 +71,10 @@ let
   };
   linux = rec {
     home = homeFor { hostName = "avatar-host"; };
+    homeComparingRouting = homeFor {
+      hostName = "avatar-host";
+      rustSlices = [ "routing" ];
+    };
     system = pkgs.nixos {
       imports = [ self.nixosModules.default ];
       services.avatar.virtualCamera.enable = true;
@@ -103,10 +107,14 @@ let
       "host keeps its units through a rebuild" =
         home.config.systemd.user.services.avatar-live.Unit.X-SwitchMethod == "keep-old";
       "no launch agents on the host" = home.config.launchd.agents == { };
+      "no Rust slice runs by default" = home.config.services.avatar.rustSlices == [ ];
+      "routing comparison is selectable" =
+        homeComparingRouting.config.services.avatar.rustSlices == [ "routing" ];
       "virtual camera module" = lib.elem "v4l2loopback" system.config.boot.kernelModules;
     };
     evaluated = [
       home.activationPackage.drvPath
+      homeComparingRouting.activationPackage.drvPath
       system.config.system.build.toplevel.drvPath
     ];
   };

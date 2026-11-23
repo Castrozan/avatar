@@ -31,7 +31,12 @@
       };
     in
     {
-      homeManagerModules.default = ./nix/home-manager;
+      homeManagerModules.default =
+        { lib, pkgs, ... }:
+        {
+          imports = [ ./nix/home-manager ];
+          services.avatar.rustPackage = lib.mkDefault self.packages.${pkgs.stdenv.hostPlatform.system}.avatar;
+        };
       nixosModules.default = ./nix/nixos.nix;
       darwinModules.default = ./nix/nix-darwin.nix;
       skillSourceDirectory = ./skills;
