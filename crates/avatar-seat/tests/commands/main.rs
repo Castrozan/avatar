@@ -26,8 +26,7 @@ fn the_tunnel_carries_the_seat_the_window_and_the_controls() {
         avatar_host: "chise".to_owned(),
         browser_application: "/nix/store/browser/Google Chrome for Testing.app".to_owned(),
         home: "<home>".to_owned(),
-        python: "<python>".to_owned(),
-        holder_path: "<holder>".to_owned(),
+        holder_program: "<avatar>".to_owned(),
     };
     assert_eq!(tunnel_command(&config), expected("tunnel"));
     assert_eq!(config.browser_name(), oracle()["constants"]["browser"]);

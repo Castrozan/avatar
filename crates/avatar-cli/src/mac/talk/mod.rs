@@ -11,7 +11,7 @@ mod units;
 use listener::LaunchdTalkListener;
 use units::LaunchdTalkUnits;
 
-use super::environment::holder_config;
+use super::environment::seat_config;
 use super::room::{code_of, room};
 use crate::support::runtime::session_directory;
 use crate::talk::TalkBoundaries;
@@ -38,7 +38,7 @@ fn boundaries() -> MacBoundaries {
 fn host() -> io::Result<MacHostTalk<MacBoundaries>> {
     Ok(MacHostTalk {
         boundary: boundaries(),
-        config: holder_config()?,
+        config: seat_config()?,
     })
 }
 

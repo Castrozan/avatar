@@ -4,15 +4,10 @@ A local voice avatar for AI agents. A VRM character speaks for whichever agent h
 name, holds conversations by voice in the room, in meetings and on Discord calls, and can stand in as a virtual camera and
 microphone. The avatar host runs NixOS; Macs on nix-darwin lend it their microphone and run their own wake.
 
-This repository was extracted with its history from [Castrozan/.dotfiles](https://github.com/Castrozan/.dotfiles):
-`machine-configuration/media/avatar` became `runtime/`, and the `avatar` agent skill became `skills/avatar/`. It is now
-the only source of the avatar. Dotfiles keeps no copy and installs it from this flake, pinned to a revision.
+The implementation is Rust, in the `avatar` binary built from `crates/`. The renderer and the seat and wake pages are
+browser JavaScript under `runtime/`, and Nix wires everything into services.
 
 - [`runtime/README.md`](runtime/README.md) explains how the system works.
-- [`docs/INVENTORY.md`](docs/INVENTORY.md) records what coupled the avatar to dotfiles when it was extracted.
-- [`docs/PROPOSAL.md`](docs/PROPOSAL.md) sets out the flake interface and how the implementation departs from it.
-- [`docs/CUTOVER.md`](docs/CUTOVER.md) records how dotfiles switched to this flake, how to roll it back, and what is still
-  unverified.
 
 ## Install
 
@@ -27,7 +22,7 @@ inputs.avatar.inputs.nixpkgs.follows = "nixpkgs";
   on macOS (launch agents). [`nix/home-manager/options.nix`](nix/home-manager/options.nix) documents every option.
 - `nixosModules.default` adds `services.avatar.virtualCamera.enable`, the `Avatar Cam` loopback device on
   `/dev/video10`.
-- `darwinModules.default` adds `services.avatar.callDevices.enable`, the BlackHole call drivers and OBS.
+- `darwinModules.default` adds `services.avatar.callDevices.enable`, the BlackHole call drivers, installed by `avatar mac install-call-audio-drivers`, and OBS.
 - `skillSourceDirectory` is the agent skill directory, and `lib.browserWindowClass` is the window class a compositor
   should hide.
 

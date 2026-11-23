@@ -17,8 +17,7 @@ fn seat_config() -> SeatConfig {
         avatar_host: "host".to_owned(),
         browser_application: "Chromium".to_owned(),
         home: "/home/x".to_owned(),
-        python: String::new(),
-        holder_path: String::new(),
+        holder_program: String::new(),
     }
 }
 

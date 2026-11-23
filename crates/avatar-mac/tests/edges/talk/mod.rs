@@ -23,8 +23,7 @@ pub(crate) fn seat_config(home: &str) -> SeatConfig {
         avatar_host: "chise".to_owned(),
         browser_application: "/Applications/Chromium.app".to_owned(),
         home: home.to_owned(),
-        python: String::new(),
-        holder_path: String::new(),
+        holder_program: String::new(),
     }
 }
 

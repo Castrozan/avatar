@@ -14,10 +14,7 @@ fn configured(machine: &Machine, arguments: &[&str]) -> Command {
     command.args(arguments);
     command
         .env("AVATAR_HOST", "chise")
-        .env("AVATAR_BROWSER_APPLICATION", "/Applications/Chromium.app")
-        .env("AVATAR_CAMERA_START_SCRIPT", machine.path("start.lua"))
-        .env("AVATAR_SEAT_HOLDER_PYTHON", "python3")
-        .env("AVATAR_SEAT_HOLDER", "seat_holder.py");
+        .env("AVATAR_BROWSER_APPLICATION", "/Applications/Chromium.app");
     command
 }
 
@@ -74,9 +71,9 @@ fn the_live_voice_opened_on_the_host_needs_an_agent_pane() -> TestResult {
 }
 
 #[test]
-fn a_mac_talk_without_the_seat_holder_program_names_the_missing_variable() -> TestResult {
+fn a_mac_talk_without_the_avatar_host_names_the_missing_variable() -> TestResult {
     let output = Machine::with_tools(&[])?.run(&["mac", "talk", "status"])?;
     assert_eq!(output.status.code(), Some(1));
-    assert!(text(&output.stderr).contains("AVATAR_SEAT_HOLDER_PYTHON is not set"));
+    assert!(text(&output.stderr).contains("AVATAR_HOST is not set"));
     Ok(())
 }

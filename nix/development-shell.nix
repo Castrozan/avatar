@@ -8,7 +8,6 @@ pkgs.mkShell {
     pkgs.cargo-nextest
     pkgs.cargo-deny
     pkgs.ast-grep
-    pkgs.ruff
     pkgs.biome
     pkgs.shellcheck
     pkgs.nixfmt

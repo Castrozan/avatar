@@ -25,8 +25,7 @@ pub struct SeatConfig {
     pub avatar_host: String,
     pub browser_application: String,
     pub home: String,
-    pub python: String,
-    pub holder_path: String,
+    pub holder_program: String,
 }
 
 impl SeatConfig {

@@ -11,16 +11,11 @@
 let
   scripts = ../../runtime/scripts;
   characters = import ../../runtime/cast/characters.nix { inherit pkgs; };
-  seatHolderModules = lib.concatStringsSep ":" [
-    "${scripts}/listening"
-    "${scripts}/conversation/remote_seat"
-  ];
   environment = ''
     export AVATAR_HOST=${host}
     export AVATAR_AGENT_HOST=${hostname}
     export AVATAR_SEAT_PAGE=${scripts}/conversation/remote_seat/page
     export AVATAR_WAKE_PAGE=${scripts}/wake/page
-    export AVATAR_CAMERA_START_SCRIPT=${scripts}/conversation/remote_seat/start_virtual_camera.lua
     export AVATAR_BROWSER_APPLICATION="${browserApplication}"
     export AVATAR_SERVANT_CHARACTERS=${programs.servantCharacters}
     export AVATAR_TURN_MODEL=${
@@ -61,9 +56,6 @@ in
       ]
     }:$PATH
     ${environment}
-    export PYTHONPATH=${seatHolderModules}
-    export AVATAR_SEAT_HOLDER_PYTHON=${pkgs.python312}/bin/python3
-    export AVATAR_SEAT_HOLDER=${scripts}/conversation/remote_seat/seat_holder.py
     exec ${programs.avatarExecutable} mac talk "$@"
   '';
   meetingCommand =

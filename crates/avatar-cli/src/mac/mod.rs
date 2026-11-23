@@ -5,12 +5,12 @@ use clap::{Args, Subcommand};
 
 use crate::wake::WakeOptions;
 
-mod call_capture;
+mod audio;
 pub(crate) mod environment;
 mod hosting;
 mod meeting;
-mod play;
 mod room;
+mod seat_holder;
 mod serving;
 mod talk;
 mod wake;
@@ -27,13 +27,13 @@ enum MacAction {
     Seat(hosting::SeatOptions),
     #[command(about = "Relay the wake microphone page of this Mac to standard output")]
     Microphone,
-    #[command(about = "Play a recording through the seat, or the speakers without a seat page")]
-    Play(play::PlayOptions),
+    #[command(flatten)]
+    Audio(audio::AudioAction),
     #[command(
-        name = "call-capture",
-        about = "Copy the audio of the call to standard output"
+        name = "seat-holder",
+        about = "Hold the tunnel to the avatar host and the meeting camera of this Mac's seat"
     )]
-    CallCapture,
+    SeatHolder(seat_holder::HolderOptions),
     #[command(about = "Start, stop or open the controls of the meeting on this Mac")]
     Meeting(meeting::MeetingOptions),
     #[command(
@@ -50,8 +50,8 @@ pub(crate) fn run(options: &MacOptions) -> io::Result<ExitCode> {
     match &options.action {
         MacAction::Seat(seat) => hosting::run_seat(seat),
         MacAction::Microphone => hosting::run_microphone(),
-        MacAction::Play(play) => Ok(play::run(play)),
-        MacAction::CallCapture => Ok(call_capture::run()),
+        MacAction::Audio(audio) => Ok(audio::run(audio)),
+        MacAction::SeatHolder(holder) => seat_holder::run(holder),
         MacAction::Meeting(meeting) => meeting::run(meeting),
         MacAction::Listen(listen) => meeting::listen(listen),
         MacAction::Talk(talk) => talk::run(talk),

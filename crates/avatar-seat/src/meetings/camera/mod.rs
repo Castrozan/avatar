@@ -5,6 +5,7 @@ mod launch;
 mod layout;
 mod obs;
 mod report;
+mod start_script;
 
 use crate::edges::EdgeFailure;
 
