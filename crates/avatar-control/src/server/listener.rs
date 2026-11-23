@@ -12,6 +12,7 @@ use tokio::sync::watch;
 use crate::server::actor::{Actor, drive};
 use crate::server::command::Command;
 use crate::server::connection::{ConnectionState, upgrade};
+use crate::server::probe::ServerProbe;
 use crate::server::speech::{SpeechPort, forward_events};
 
 const COMMAND_CAPACITY: usize = 256;
@@ -24,25 +25,50 @@ impl ShutdownHandle {
     }
 }
 
+pub struct RunningServer {
+    pub address: SocketAddr,
+    pub shutdown: ShutdownHandle,
+    pub probe: ServerProbe,
+}
+
+impl RunningServer {
+    fn new(address: SocketAddr, stop: watch::Sender<bool>, commands: Sender<Command>) -> Self {
+        Self {
+            address,
+            shutdown: ShutdownHandle(stop),
+            probe: ServerProbe::new(commands),
+        }
+    }
+}
+
 pub async fn serve<Port: SpeechPort>(
     address: SocketAddr,
     speech_port: Port,
     origins: Vec<String>,
 ) -> io::Result<(SocketAddr, ShutdownHandle)> {
-    let listener = TcpListener::bind(address).await?;
-    let (stop, stopped) = watch::channel(false);
-    let local_address = listener.local_addr()?;
-    tokio::spawn(run(listener, speech_port, origins, stopped));
-    Ok((local_address, ShutdownHandle(stop)))
+    let running = serve_probed(address, speech_port, origins).await?;
+    Ok((running.address, running.shutdown))
 }
 
-async fn run<Port: SpeechPort>(
+pub async fn serve_probed<Port: SpeechPort>(
+    address: SocketAddr,
+    speech_port: Port,
+    origins: Vec<String>,
+) -> io::Result<RunningServer> {
+    let listener = TcpListener::bind(address).await?;
+    let (stop, stopped) = watch::channel(false);
+    let address = listener.local_addr()?;
+    let commands = start_actor(speech_port, stopped.clone());
+    tokio::spawn(run(listener, commands.clone(), origins, stopped));
+    Ok(RunningServer::new(address, stop, commands))
+}
+
+async fn run(
     listener: TcpListener,
-    port: Port,
+    commands: Sender<Command>,
     origins: Vec<String>,
     stopped: watch::Receiver<bool>,
 ) {
-    let commands = start_actor(port, stopped.clone());
     let router = build_router(commands, origins);
     let _ = axum::serve(listener, router)
         .with_graceful_shutdown(await_stop(stopped))

@@ -1,18 +1,18 @@
 use std::io::{self, Write};
 use std::net::SocketAddr;
+use std::path::PathBuf;
 
-use avatar_control::server::{DiscardingSpeechPort, SpeechPort, serve};
-use avatar_control::session::control_origins;
+use crate::interruption::Interruption;
+use avatar_control::control::{ControlEnvironment, ControlServer, ControlServerSettings};
+use avatar_control::server::{DiscardingSpeechPort, SpeechPort};
 use avatar_control::speaking::runtime::speech_port_from_environment;
 use clap::Args;
 use tokio::runtime::Builder;
 
 #[derive(Args)]
 pub(crate) struct ControlOptions {
-    #[arg(long, default_value = "127.0.0.1:8765")]
-    address: SocketAddr,
-    #[arg(long, default_value = "3000")]
-    renderer_port: String,
+    #[arg(long, help = "Listen here instead of 127.0.0.1 on AVATAR_WS_PORT")]
+    address: Option<SocketAddr>,
     #[arg(long, help = "Accept speak commands without speaking them")]
     discard_speech: bool,
 }
@@ -25,10 +25,23 @@ pub(crate) fn run(options: &ControlOptions) -> io::Result<()> {
 }
 
 async fn start(options: &ControlOptions) -> io::Result<()> {
+    let settings = settings(options)?;
     if options.discard_speech {
-        return serve_until_interrupted(options, DiscardingSpeechPort).await;
+        return serve_until_interrupted(settings, DiscardingSpeechPort).await;
     }
-    serve_until_interrupted(options, real_speech_port().await?).await
+    serve_until_interrupted(settings, real_speech_port().await?).await
+}
+
+fn settings(options: &ControlOptions) -> io::Result<ControlServerSettings> {
+    let home = std::env::var_os("HOME")
+        .map(PathBuf::from)
+        .ok_or_else(|| io::Error::other("HOME is not set"))?;
+    let mut settings =
+        ControlServerSettings::from_environment(ControlEnvironment::from_process(&home)?);
+    if let Some(address) = options.address {
+        settings.websocket_address = address;
+    }
+    Ok(settings)
 }
 
 async fn real_speech_port() -> io::Result<impl SpeechPort> {
@@ -38,13 +51,19 @@ async fn real_speech_port() -> io::Result<impl SpeechPort> {
 }
 
 async fn serve_until_interrupted<Port: SpeechPort>(
-    options: &ControlOptions,
+    settings: ControlServerSettings,
     speech_port: Port,
 ) -> io::Result<()> {
-    let origins = control_origins(&options.renderer_port);
-    let (bound, shutdown) = serve(options.address, speech_port, origins).await?;
-    writeln!(io::stdout().lock(), "{bound}")?;
-    tokio::signal::ctrl_c().await?;
-    shutdown.shutdown();
+    let mut interruption = Interruption::listen()?;
+    let server = ControlServer::start(settings, speech_port).await?;
+    announce(&server)?;
+    interruption.arrived().await;
+    server.shutdown().await;
     Ok(())
+}
+
+fn announce(server: &ControlServer) -> io::Result<()> {
+    let mut stdout = io::stdout().lock();
+    writeln!(stdout, "{}", server.websocket_address())?;
+    writeln!(stdout, "{}", server.http_address())
 }

@@ -20,7 +20,7 @@ pub(crate) fn voice_level(hub: &mut Hub, client: ClientId, command: &Value, now_
     audio_level(hub, level, now_ms)
 }
 
-fn audio_level(hub: &mut Hub, level: Value, now_ms: u64) -> Reply {
+pub(crate) fn audio_level(hub: &mut Hub, level: Value, now_ms: u64) -> Reply {
     let level_message = message("audioLevel", vec![("level", Some(level))]);
     let delayed = hub
         .voices

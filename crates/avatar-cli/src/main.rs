@@ -4,9 +4,16 @@ use clap::{Parser, Subcommand};
 use std::io::{self, Write};
 use std::process::ExitCode;
 
+mod browser;
 mod control;
+mod dispatch;
+mod interruption;
+mod serve;
 
+use browser::BrowserOptions;
 use control::ControlOptions;
+use dispatch::DispatchOptions;
+use serve::ServeOptions;
 
 #[derive(Parser)]
 #[command(name = "avatar", version, about = "Avatar command-line tools")]
@@ -23,23 +30,53 @@ enum Command {
     Floor,
     #[command(about = "Serve the avatar control WebSocket server until interrupted")]
     Control(ControlOptions),
+    #[command(
+        name = "command",
+        about = "Send one command to the avatar control server and print its answer"
+    )]
+    Dispatch(DispatchOptions),
+    #[command(about = "Serve the renderer directory from AVATAR_RENDERER_ROOT without caching")]
+    Serve(ServeOptions),
+    #[command(about = "Run the owned avatar browser: supervise URL, endpoint, stop or controls")]
+    Browser(BrowserOptions),
 }
 
 fn main() -> ExitCode {
     match Cli::parse().command.run() {
-        Ok(()) => ExitCode::SUCCESS,
+        Ok(code) => code,
         Err(error) => report(&error),
     }
 }
 
 impl Command {
-    fn run(self) -> io::Result<()> {
+    fn run(self) -> io::Result<ExitCode> {
         match self {
-            Self::Routing => run_routing_json_lines(io::stdin().lock(), io::stdout().lock()),
-            Self::Floor => run_floor_json_lines(io::stdin().lock(), io::stdout().lock()),
-            Self::Control(options) => control::run(&options),
+            Self::Routing => routing(),
+            Self::Floor => floor(),
+            Self::Control(options) => succeed(control::run(&options)),
+            Self::Dispatch(options) => dispatch::run(&options),
+            Self::Serve(options) => succeed(serve::run(&options)),
+            Self::Browser(options) => succeed(browser::run(&options)),
         }
     }
+}
+
+fn routing() -> io::Result<ExitCode> {
+    succeed(run_routing_json_lines(
+        io::stdin().lock(),
+        io::stdout().lock(),
+    ))
+}
+
+fn floor() -> io::Result<ExitCode> {
+    succeed(run_floor_json_lines(
+        io::stdin().lock(),
+        io::stdout().lock(),
+    ))
+}
+
+fn succeed(outcome: io::Result<()>) -> io::Result<ExitCode> {
+    outcome.map(|()| ExitCode::SUCCESS)
 }
 
 fn report(error: &io::Error) -> ExitCode {

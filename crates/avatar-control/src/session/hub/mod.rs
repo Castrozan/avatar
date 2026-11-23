@@ -1,16 +1,20 @@
+pub(super) mod health;
+mod queries;
+
+pub use health::HealthSnapshot;
+
 use std::time::Duration;
 
 use serde_json::Value;
 
-use crate::session::agent_commands;
 use crate::session::client::{ClientId, Outbound, Reply, Target};
 use crate::session::connection::{events, identify};
-use crate::session::messages;
 use crate::session::registry::{
     ConnectedClientRegistry, ConnectedRole, SpeechFollowers, connected_role,
 };
 use crate::session::state::AvatarState;
 use crate::session::voice_levels::VoiceLevels;
+use crate::session::{agent_commands, messages};
 
 const NULL_FRAME_FAULT: &str =
     "Message processing error: Cannot read properties of null (reading 'type')";

@@ -2,7 +2,7 @@ use axum::extract::ws::{Message, Utf8Bytes, WebSocket};
 use tokio::sync::mpsc::UnboundedReceiver;
 
 use crate::server::command::Command;
-use crate::server::keep_alive::KeepAlive;
+use crate::server::loop_support::KeepAlive;
 use crate::session::ClientId;
 
 pub(crate) type Incoming = Option<Result<Message, axum::Error>>;

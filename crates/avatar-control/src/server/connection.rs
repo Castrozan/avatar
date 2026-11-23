@@ -10,7 +10,7 @@ use tokio::sync::mpsc::{Sender, UnboundedReceiver, unbounded_channel};
 
 use crate::server::command::Command;
 use crate::server::event::{Event, Incoming, frame, next_event, write};
-use crate::server::keep_alive::KeepAlive;
+use crate::server::loop_support::KeepAlive;
 use crate::server::origin;
 use crate::session::ClientId;
 

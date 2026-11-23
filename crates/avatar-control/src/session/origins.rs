@@ -1,7 +1,8 @@
 const REMOTE_WINDOW_PORT: &str = "8770";
 const REMOTE_SEAT_PORT: &str = "8769";
 
-fn page_origins(port: &str) -> [String; 2] {
+#[must_use]
+pub fn page_origins(port: &str) -> [String; 2] {
     [
         format!("http://localhost:{port}"),
         format!("http://127.0.0.1:{port}"),

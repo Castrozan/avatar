@@ -55,6 +55,8 @@ impl<Port: SpeechPort> Actor<Port> {
             Command::Disconnect(client) => self.forget(client),
             Command::Tick => self.tick(),
             Command::Speech(event) => self.speech(event),
+            Command::Health(answer) => drop(answer.send(self.hub.health(now_ms()))),
+            Command::VoiceLevel(level) => self.voice_level(level),
         }
     }
 
@@ -87,6 +89,11 @@ impl<Port: SpeechPort> Actor<Port> {
 
     fn speech(&mut self, event: SpeechEvent) {
         let outbound = outbound_for(&mut self.hub, event);
+        deliver_all(&self.hub, &self.senders, &outbound);
+    }
+
+    fn voice_level(&mut self, level: f64) {
+        let outbound = self.hub.broadcast_voice_level(level, now_ms());
         deliver_all(&self.hub, &self.senders, &outbound);
     }
 

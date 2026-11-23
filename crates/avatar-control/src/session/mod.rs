@@ -9,5 +9,6 @@ mod state;
 mod voice_levels;
 
 pub use client::{ClientId, Handoff, Outbound, Reply, Target};
+pub use hub::HealthSnapshot;
 pub use hub::Hub;
-pub use origins::control_origins;
+pub use origins::{control_origins, page_origins};
