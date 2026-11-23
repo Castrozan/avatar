@@ -1,4 +1,0 @@
-# file: /home/zanoni/repo/avatar-rust-rewrite/avatar/runtime/scripts/listening/transcript_log.py
-# hypothesis_version: 6.151.10
-
-[0.25, 384, 448, 1024, '.local', 'XDG_STATE_HOME', 'a', 'addressing', 'avatar', 'avatar-wake', 'backslashreplace', 'conversation', 'delivery', 'phase', 'room', 'segment_closed', 'sequence', 'source', 'speaker', 'speech', 'speech_ended', 'state', 'talk', 'text', 'time', 'timestamp', 'turn_finished', 'utf-8', 'wake', 'wake.log']

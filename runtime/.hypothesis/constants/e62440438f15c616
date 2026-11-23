@@ -1,4 +1,0 @@
-# file: /home/zanoni/repo/avatar-rust-rewrite/avatar/runtime/scripts/wake/name_hearing.py
-# hypothesis_version: 6.151.10
-
-[0.72, 0.8, 1.0, 2.0, '(.)\\1+', 'S', '\\1', '^r', 'c', 'ce', 'ch', 'ci', 'f', 'h', 'i', 'k', 'ph', 'q', 's', 'sch', 'se', 'sh', 'si', 'x', 'y', 'z']

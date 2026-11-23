@@ -1,4 +1,0 @@
-# file: /home/zanoni/repo/avatar-rust-rewrite/avatar/runtime/scripts/listening/listener.py
-# hypothesis_version: 6.151.10
-
-[0.5, '__main__', 'barge_in', 'darwin', 'embeddings.jsonl', 'heard', 'identify_speakers', 'language', 'listener.json', 'sequence', 'sources', 'speech-in-progress', 'transcript.jsonl']

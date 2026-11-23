@@ -1,4 +1,0 @@
-# file: /home/zanoni/repo/avatar-rust-rewrite/avatar/runtime/scripts/conversation/conversation_seat.py
-# hypothesis_version: 6.151.10
-
-[0.25, 8769, '/health', '127.0.0.1', 'AvatarRoomMicrophone', 'GET', 'choices', 'default', 'discord', 'remote', 'room', 'seat', 'speakers', 'start', 'type']

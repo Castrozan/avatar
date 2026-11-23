@@ -1,4 +1,0 @@
-# file: /nix/store/p9s26l7x2nz1skggw2dcj2av3lcb64fi-python3-3.12.14-env/lib/python3.12/email/quoprimime.py
-# hypothesis_version: 6.151.10
-
-[b'\r\n', b'-!*+/', 256, '=', '=%02X', '=?%s?q?%s?=', '=[a-fA-F0-9]{2}', '_', 'ascii', 'body_decode', 'body_encode', 'body_length', 'decode', 'decodestring', 'header_decode', 'header_encode', 'header_length', 'iso-8859-1', 'latin1', 'quote', 'unquote']

@@ -1,4 +1,0 @@
-# file: /home/zanoni/repo/avatar-rust-rewrite/avatar/runtime/scripts/conversation/discord_call.py
-# hypothesis_version: 6.151.10
-
-[0.5, 'discord-voice', 'join', 'joined', 'leave', 'listener_present', 'status']

@@ -1,4 +1,0 @@
-# file: /home/zanoni/repo/avatar-rust-rewrite/avatar/runtime/scripts/listening/listener_session.py
-# hypothesis_version: 6.151.10
-
-[0.0, 120, 384, 448, '--user', 'conversation', 'darwin', 'listener.json', 'live', 'meeting', 'purpose', 'sources', 'spoken', 'start', 'stop', 'systemctl', 'transcript.jsonl', 'w']

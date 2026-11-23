@@ -1,4 +1,0 @@
-# file: /home/zanoni/repo/avatar-rust-rewrite/avatar/runtime/scripts/listening/remote_agent.py
-# hypothesis_version: 6.151.10
-
-['--json', '-o', ':', 'AVATAR_AGENT_HOST', 'BatchMode=yes', 'ConnectTimeout=10', 'HERDR_PANE_ID', 'a2a', 'list', 'paneId', 'servant', 'ssh']

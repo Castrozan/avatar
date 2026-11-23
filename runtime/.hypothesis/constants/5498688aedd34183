@@ -1,4 +1,0 @@
-# file: /nix/store/p9s26l7x2nz1skggw2dcj2av3lcb64fi-python3-3.12.14-env/lib/python3.12/bz2.py
-# hypothesis_version: 6.151.10
-
-['BZ2Compressor', 'BZ2Decompressor', 'BZ2File', 'Invalid mode: %r', '__index__', 'a', 'ab', 'b', 'compress', 'decompress', 'open', 'r', 'rb', 'read', 't', 'w', 'wb', 'write', 'x', 'xb']

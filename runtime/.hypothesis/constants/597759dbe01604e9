@@ -1,4 +1,0 @@
-# file: /home/zanoni/repo/avatar-rust-rewrite/avatar/runtime/scripts/addressing/rust_floor_recording.py
-# hypothesis_version: 6.151.10
-
-[0.0, 'call_ended', 'conversation', 'purpose', 'quiet_seconds', 'room', 'seat']

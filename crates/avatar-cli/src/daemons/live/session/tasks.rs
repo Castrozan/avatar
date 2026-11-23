@@ -7,7 +7,7 @@ use tokio::task::{JoinHandle, spawn_local};
 
 use super::Environment;
 use super::launch::{Foundation, Received, Running, guarded, report_microphone};
-use crate::daemons::live::devices::PacatSpeaker;
+use crate::daemons::live::devices::RoomSpeaker;
 use crate::daemons::live::records::{RunClock, StandardOutput, TranscriptLog};
 use crate::daemons::live::room::{
     Hall, HandOffs, Room, RoomFollower, follow_the_room_holder, run_hall,
@@ -39,7 +39,7 @@ impl<'a> Launch<'a> {
     pub(super) fn running(
         self,
         client: GptLiveClient,
-        speaker: PacatSpeaker,
+        speaker: RoomSpeaker,
         line: (ActorLine, Received),
     ) -> Running {
         Running {
@@ -59,7 +59,7 @@ impl<'a> Launch<'a> {
         spawn_local(guarded(shutdown, run_actor(actor)))
     }
 
-    fn hall(&self, speaker: PacatSpeaker, occurrences: Received) -> JoinHandle<Room> {
+    fn hall(&self, speaker: RoomSpeaker, occurrences: Received) -> JoinHandle<Room> {
         let log = TranscriptLog::new(&self.environment.directory, Arc::clone(self.shutdown));
         let clock = RunClock::new();
         let holders = self.foundation.holders.clone();

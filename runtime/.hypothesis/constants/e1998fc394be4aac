@@ -1,4 +1,0 @@
-# file: /nix/store/p9s26l7x2nz1skggw2dcj2av3lcb64fi-python3-3.12.14-env/lib/python3.12/wave.py
-# hypothesis_version: 6.151.10
-
-[b'\x01\x00\x00\x00\x00\x00\x10\x00\x80\x00\x00\xaa\x008\x9bq', b'RIFF', b'WAVE', b'data', b'fmt ', 8192, 65534, '<', '<H', '<HHL', '<HHLLH', '<L', '<L4s4sLHHLLHH4s', '>', 'B', 'Error', 'L', 'NONE', 'Wave_read', 'Wave_write', '_wave_params', 'b', 'bad # of channels', 'bad frame rate', 'bad sample width', 'big', 'cannot seek', 'frame rate not set', 'h', 'i', 'mode', 'no marks', 'not a WAVE file', 'not compressed', 'open', 'r', 'rb', 'sample width not set', 'unknown format: %r', 'w', 'wb']

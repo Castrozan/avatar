@@ -1,4 +1,0 @@
-# file: /home/zanoni/repo/avatar-rust-rewrite/avatar/runtime/scripts/wake/wake_listener.py
-# hypothesis_version: 6.151.10
-
-[0.4, '--claim', '--conversation', '--dry-run', '--heard-within', '--room', '--sessions', '__main__', 'avatar-wake', 'meeting', 'sequence', 'source', 'store_true']

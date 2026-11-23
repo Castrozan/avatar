@@ -9,7 +9,6 @@ let
   avatarExecutable = "${avatar.rustPackage}/bin/avatar";
   herdr = avatar.herdrPackage;
   a2a = avatar.a2aPackage;
-  a2aLibrary = lib.concatMapStringsSep ":" (directory: "${directory}") avatar.peerIdentityPythonPath;
   servantCharacters = ../runtime/cast/servant-characters.txt;
   ordinaryWords = import ../runtime/scripts/listening/transcription/ordinary-words.nix {
     inherit pkgs;
@@ -157,7 +156,6 @@ in
 {
   inherit
     a2a
-    a2aLibrary
     audio
     avatarExecutable
     camera

@@ -20,7 +20,7 @@ pub(super) fn page_directory(name: &str) -> io::Result<PathBuf> {
     required(name).map(PathBuf::from)
 }
 
-pub(super) fn seat_config() -> io::Result<SeatConfig> {
+pub(crate) fn seat_config() -> io::Result<SeatConfig> {
     Ok(SeatConfig {
         avatar_host: required(AVATAR_HOST)?,
         browser_application: required(BROWSER_APPLICATION)?,

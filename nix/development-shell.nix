@@ -1,8 +1,6 @@
 { pkgs }:
 pkgs.mkShell {
   packages = [
-    (import ./python-test-environment.nix { inherit pkgs; })
-    pkgs.nodejs_22
     pkgs.cargo
     pkgs.rustc
     pkgs.clippy

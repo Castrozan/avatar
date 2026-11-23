@@ -13,6 +13,6 @@ fn request(port: u16, timeout: Duration) -> std::io::Result<()> {
     stream.read_to_end(&mut Vec::new()).map(drop)
 }
 
-pub(super) fn hush_the_seat(port: u16, timeout: Duration) {
+pub fn hush_the_seat(port: u16, timeout: Duration) {
     let _ = request(port, timeout);
 }

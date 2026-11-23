@@ -1,4 +1,0 @@
-# file: /home/zanoni/repo/avatar-rust-rewrite/avatar/runtime/scripts/conversation/utterances.py
-# hypothesis_version: 6.151.10
-
-[0.1, 0.5, 2.5, 120, 384, 448, 'heard.lock', 'sequence', 'text', 'transcript.jsonl', 'turn_finished']

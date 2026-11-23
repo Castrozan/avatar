@@ -1,4 +1,0 @@
-# file: /home/zanoni/repo/avatar-rust-rewrite/avatar/runtime/scripts/wake/wake_phrase.py
-# hypothesis_version: 6.151.10
-
-[' ,.;:!?-', 'ai', 'e', 'ei', 'em', 'hei', 'hey', 'hi', 'moshi', 'moshimoshi', 'ne', 'nee', 'neenee', 'nene', 'o', 'oi', 'ok', 'okay', 'ola']
