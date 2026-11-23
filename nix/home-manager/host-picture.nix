@@ -18,9 +18,24 @@ in
         Description = "Avatar window shown in a desktop conversation";
         PartOf = [ "avatar-conversation.target" ];
         BindsTo = [ "avatar-browser.service" ];
-        After = [ "avatar-browser.service" ];
+        Requires = [ "avatar-window-reveal.service" ];
+        After = [
+          "avatar-browser.service"
+          "avatar-window-reveal.service"
+        ];
       };
       services = {
+        avatar-window-reveal = {
+          Unit = {
+            Description = "Avatar window revealed every time its browser starts";
+            PartOf = [ "avatar-window.target" ];
+            After = [ "avatar-browser.service" ];
+          };
+          Service = {
+            Type = "oneshot";
+            ExecStart = toString programs.windowReveal;
+          };
+        };
         avatar-renderer = {
           Unit = {
             Description = "Offline avatar renderer";

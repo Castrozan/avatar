@@ -55,6 +55,9 @@ holds a voice conversation on that Mac alone, described under [conversation on a
 `avatar-conversation.target` owns the control server and `avatar-room-microphone`. `show` starts `avatar-window.target`,
 part of the conversation and bound to `avatar-browser`, the one renderer window whether or not the virtual camera is
 attached. The renderer and the browser stop once neither the window nor a meeting needs them.
+The target requires `avatar-window-reveal`, which waits for the page, brings the window to the current workspace and
+presents the canvas each time the target starts. A control server restart restarts the browser and the target with it,
+so a shown window comes back shown, and a page that loads with no target stays hidden.
 `avatar-room-microphone` is a private PipeWire process running
 [echo cancellation](https://docs.pipewire.org/page_module_echo_cancel.html) in monitor mode. Its reference is everything
 the default output plays, so neither the avatar's voice nor a video playing on the speakers reaches the transcript.

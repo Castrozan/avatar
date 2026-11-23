@@ -105,6 +105,7 @@ let
           "avatar-switch-latency"
           "avatar-transcriber"
           "avatar-wake"
+          "avatar-window-reveal"
         ];
       "host keeps its units through a rebuild" =
         home.config.systemd.user.services.avatar-live.Unit.X-SwitchMethod == "keep-old";
@@ -114,6 +115,13 @@ let
       "the shown window brings its browser and ends with the conversation" =
         targets.avatar-window.Unit.BindsTo == [ "avatar-browser.service" ]
         && targets.avatar-window.Unit.PartOf == [ "avatar-conversation.target" ];
+      "the window reveals itself again every time it starts, so a restarted browser comes back shown" =
+        targets.avatar-window.Unit.Requires == [ "avatar-window-reveal.service" ]
+        && lib.elem "avatar-window-reveal.service" targets.avatar-window.Unit.After
+        && services.avatar-window-reveal.Unit.After == [ "avatar-browser.service" ]
+        && services.avatar-window-reveal.Unit.PartOf == [ "avatar-window.target" ]
+        && services.avatar-window-reveal.Service.Type == "oneshot"
+        && !(services.avatar-window-reveal.Service ? RemainAfterExit);
       "the renderer and its browser stop once nothing needs them" =
         services.avatar-renderer.Unit.StopWhenUnneeded && services.avatar-browser.Unit.StopWhenUnneeded;
       "a meeting still brings the renderer, its browser and the camera" = lib.all (

@@ -25,6 +25,7 @@ in
       "avatar-renderer"
       "avatar-room-microphone"
       "avatar-transcriber"
+      "avatar-window-reveal"
     ];
   };
 }

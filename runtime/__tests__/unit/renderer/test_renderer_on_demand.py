@@ -72,15 +72,36 @@ def test_opening_a_hidden_conversation_starts_no_renderer_and_never_waits_for_on
     assert PRESENTED not in session.commands
 
 
-def test_showing_starts_the_window_and_waits_for_the_renderer_before_presenting(
+def test_showing_starts_the_window_and_leaves_the_reveal_to_it(
+    tmp_path, monkeypatch, desktop
+):
+    session = UserSession(monkeypatch, [True])
+    conversation_effects.show_window(argparse.Namespace(), tmp_path)
+    assert session.started() == [start.WINDOW_TARGET]
+    assert PRESENTED not in session.commands
+    desktop.assert_not_called()
+
+
+def test_revealing_waits_for_the_renderer_before_presenting(
     tmp_path, monkeypatch, desktop
 ):
     session = UserSession(monkeypatch, [False, False, True])
     desktop.side_effect = lambda: session.commands.append(["desktop", "show"])
-    conversation_effects.show_window(argparse.Namespace(), tmp_path)
-    assert session.started() == [start.WINDOW_TARGET]
+    conversation_effects.reveal_window(tmp_path)
+    assert session.started() == []
     assert session.sleeps == 2
     assert session.commands[-2:] == [["desktop", "show"], PRESENTED]
+
+
+def test_a_reveal_whose_renderer_never_connects_fails_within_the_bound(
+    tmp_path, monkeypatch, desktop
+):
+    session = UserSession(monkeypatch, NEVER_CONNECTED)
+    with pytest.raises(TimeoutError):
+        conversation_effects.reveal_window(tmp_path)
+    assert session.now <= start.READINESS_TIMEOUT_SECONDS + 0.25
+    assert PRESENTED not in session.commands
+    desktop.assert_not_called()
 
 
 def test_a_window_that_never_renders_fails_within_the_bound_and_is_stopped(
@@ -106,8 +127,7 @@ def test_a_remote_seat_still_gets_the_renderer_its_viewer_shows(
 ):
     session = UserSession(monkeypatch, [True])
     monkeypatch.setattr(conversation_seat, "current", lambda directory: Seat.REMOTE)
-    conversation_effects.show_window(argparse.Namespace(), tmp_path)
-    assert session.started() == [start.WINDOW_TARGET]
+    conversation_effects.reveal_window(tmp_path)
     desktop.assert_not_called()
     assert session.commands[-1] == PRESENTED
 

@@ -181,11 +181,17 @@ def hide_everywhere():
     desktop_window.hide()
 
 
-def show_window(arguments, directory):
-    start.bring_up(start.WINDOW_TARGET, (readiness.renderer_ready,))
+def reveal_window(directory):
+    start.wait_until_ready(
+        start.TARGET_UNITS[start.WINDOW_TARGET], (readiness.renderer_ready,)
+    )
     if conversation_seat.current(directory) is Seat.ROOM:
         desktop_window.show()
     set_canvas_presence(WindowPresence.SHOWN)
+
+
+def show_window(arguments, directory):
+    start.bring_up(start.WINDOW_TARGET, (readiness.renderer_ready,))
 
 
 def hide_window(arguments, directory):

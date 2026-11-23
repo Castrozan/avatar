@@ -164,6 +164,17 @@ let
     export PYTHONPATH=${../runtime/scripts}:${../runtime/scripts/audio_graph}:${../runtime/scripts/listening}:${../runtime/scripts/echo}:${../runtime/scripts/conversation}:${../runtime/scripts/wake}
     exec ${pkgs.python312}/bin/python3 ${../runtime/scripts/conversation/talk_cli.py} "$@"
   '';
+  windowReveal = pkgs.writeShellScript "avatar-window-reveal" ''
+    export PATH=${
+      lib.makeBinPath [
+        command
+        pkgs.hyprland
+        pkgs.systemd
+      ]
+    }:$PATH
+    export PYTHONPATH=${../runtime/scripts}:${../runtime/scripts/audio_graph}:${../runtime/scripts/listening}:${../runtime/scripts/echo}:${../runtime/scripts/conversation}:${../runtime/scripts/wake}
+    exec ${pkgs.python312}/bin/python3 ${../runtime/scripts/conversation/window_reveal.py}
+  '';
 in
 {
   inherit
@@ -189,5 +200,6 @@ in
     talk
     transcribe
     unclaimedCommand
+    windowReveal
     ;
 }
