@@ -37,6 +37,7 @@ fn spawn_control(
     command
         .args(["control", "--address", "127.0.0.1:0"])
         .args(arguments)
+        .env("AVATAR_HTTP_PORT", "0")
         .envs(environment.iter().copied())
         .stdout(Stdio::piped())
         .stderr(Stdio::null());

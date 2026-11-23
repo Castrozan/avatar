@@ -1,5 +1,6 @@
 pub mod browser;
 pub mod camera;
+pub mod control;
 pub mod playback;
 pub mod server;
 pub mod session;

@@ -5,6 +5,7 @@ use serde_json::Value;
 use crate::session::agent_commands;
 use crate::session::client::{ClientId, Outbound, Reply, Target};
 use crate::session::connection::{events, identify};
+use crate::session::health::HealthSnapshot;
 use crate::session::messages;
 use crate::session::registry::{
     ConnectedClientRegistry, ConnectedRole, SpeechFollowers, connected_role,
@@ -49,6 +50,21 @@ impl Hub {
 
     pub fn disconnect(&mut self, client: ClientId) {
         disconnect_client(self, client);
+    }
+
+    #[must_use]
+    pub fn health(&self, now_ms: u64) -> HealthSnapshot {
+        HealthSnapshot {
+            uptime_seconds: self.avatar.uptime_seconds(now_ms),
+            state: self.speech_phase.clone(),
+            agent_connected: self.registry.has_agents(),
+            renderer_connected: self.registry.has_renderer(),
+        }
+    }
+
+    #[must_use]
+    pub fn broadcast_voice_level(&mut self, level: f64, now_ms: u64) -> Vec<Outbound> {
+        agent_commands::audio_level(self, Value::from(level), now_ms).outbound
     }
 
     #[must_use]

@@ -1,0 +1,339 @@
+{
+ "files": {
+  "a.wav": "RIFF",
+  "b.mp3": "ID3",
+  "c.ogg": "Ogg",
+  "d.flac": "fLaC",
+  "e.m4a": "m4a",
+  "f.json": "{}",
+  "g.bin": "bin",
+  "h.txt": "hi",
+  ".hidden.wav": "x",
+  "sub/x.wav": "sub",
+  "UP.WAV": "up",
+  "noext": "n",
+  "a b.wav": "sp",
+  ".git/x": "g"
+ },
+ "cases": [
+  {
+   "path": "/audio/a.wav",
+   "method": "GET",
+   "origin": null,
+   "status": 200,
+   "allow": null,
+   "type": "audio/wav",
+   "body": "RIFF"
+  },
+  {
+   "path": "/audio/b.mp3",
+   "method": "GET",
+   "origin": null,
+   "status": 200,
+   "allow": null,
+   "type": "audio/mpeg",
+   "body": "ID3"
+  },
+  {
+   "path": "/audio/c.ogg",
+   "method": "GET",
+   "origin": null,
+   "status": 200,
+   "allow": null,
+   "type": "audio/ogg",
+   "body": "Ogg"
+  },
+  {
+   "path": "/audio/d.flac",
+   "method": "GET",
+   "origin": null,
+   "status": 200,
+   "allow": null,
+   "type": "audio/x-flac",
+   "body": "fLaC"
+  },
+  {
+   "path": "/audio/e.m4a",
+   "method": "GET",
+   "origin": null,
+   "status": 200,
+   "allow": null,
+   "type": "audio/mp4",
+   "body": "m4a"
+  },
+  {
+   "path": "/audio/f.json",
+   "method": "GET",
+   "origin": null,
+   "status": 200,
+   "allow": null,
+   "type": "application/json; charset=UTF-8",
+   "body": "{}"
+  },
+  {
+   "path": "/audio/g.bin",
+   "method": "GET",
+   "origin": null,
+   "status": 200,
+   "allow": null,
+   "type": "application/octet-stream",
+   "body": "bin"
+  },
+  {
+   "path": "/audio/h.txt",
+   "method": "GET",
+   "origin": null,
+   "status": 200,
+   "allow": null,
+   "type": "text/plain; charset=UTF-8",
+   "body": "hi"
+  },
+  {
+   "path": "/audio/UP.WAV",
+   "method": "GET",
+   "origin": null,
+   "status": 200,
+   "allow": null,
+   "type": "audio/wav",
+   "body": "up"
+  },
+  {
+   "path": "/audio/noext",
+   "method": "GET",
+   "origin": null,
+   "status": 200,
+   "allow": null,
+   "type": "application/octet-stream",
+   "body": "n"
+  },
+  {
+   "path": "/audio/a%20b.wav",
+   "method": "GET",
+   "origin": null,
+   "status": 200,
+   "allow": null,
+   "type": "audio/wav",
+   "body": "sp"
+  },
+  {
+   "path": "/audio/sub/x.wav",
+   "method": "GET",
+   "origin": null,
+   "status": 200,
+   "allow": null,
+   "type": "audio/wav",
+   "body": "sub"
+  },
+  {
+   "path": "/audio/missing.wav",
+   "method": "GET",
+   "origin": null,
+   "status": 404,
+   "allow": null
+  },
+  {
+   "path": "/audio/.hidden.wav",
+   "method": "GET",
+   "origin": null,
+   "status": 404,
+   "allow": null
+  },
+  {
+   "path": "/audio/.git/x",
+   "method": "GET",
+   "origin": null,
+   "status": 404,
+   "allow": null
+  },
+  {
+   "path": "/audio/sub",
+   "method": "GET",
+   "origin": null,
+   "status": 301,
+   "allow": null
+  },
+  {
+   "path": "/audio/sub/",
+   "method": "GET",
+   "origin": null,
+   "status": 404,
+   "allow": null
+  },
+  {
+   "path": "/audio/../x",
+   "method": "GET",
+   "origin": null,
+   "status": 404,
+   "allow": null
+  },
+  {
+   "path": "/audio/%2e%2e/x",
+   "method": "GET",
+   "origin": null,
+   "status": 404,
+   "allow": null
+  },
+  {
+   "path": "/audio/a.wav%00",
+   "method": "GET",
+   "origin": null,
+   "status": 404,
+   "allow": null
+  },
+  {
+   "path": "/audio/",
+   "method": "GET",
+   "origin": null,
+   "status": 404,
+   "allow": null
+  },
+  {
+   "path": "/audio/%2e/a.wav",
+   "method": "GET",
+   "origin": null,
+   "status": 200,
+   "allow": null,
+   "type": "audio/wav",
+   "body": "RIFF"
+  },
+  {
+   "path": "/audio/sub/../a.wav",
+   "method": "GET",
+   "origin": null,
+   "status": 200,
+   "allow": null,
+   "type": "audio/wav",
+   "body": "RIFF"
+  },
+  {
+   "path": "/audio/%2e%2e%2fa.wav",
+   "method": "GET",
+   "origin": null,
+   "status": 404,
+   "allow": null
+  },
+  {
+   "path": "/audio/sub/%2e%2e/%2e%2e/x",
+   "method": "GET",
+   "origin": null,
+   "status": 404,
+   "allow": null
+  },
+  {
+   "path": "/audio/..%2f..%2fetc%2fpasswd",
+   "method": "GET",
+   "origin": null,
+   "status": 404,
+   "allow": null
+  },
+  {
+   "path": "/audio/sub/.%2e/a.wav",
+   "method": "GET",
+   "origin": null,
+   "status": 200,
+   "allow": null,
+   "type": "audio/wav",
+   "body": "RIFF"
+  },
+  {
+   "path": "/audio/%2e%2e",
+   "method": "GET",
+   "origin": null,
+   "status": 404,
+   "allow": null
+  },
+  {
+   "path": "/audio/sub/.",
+   "method": "GET",
+   "origin": null,
+   "status": 301,
+   "allow": null
+  },
+  {
+   "path": "/audio/sub%2fx.wav",
+   "method": "GET",
+   "origin": null,
+   "status": 200,
+   "allow": null,
+   "type": "audio/wav",
+   "body": "sub"
+  },
+  {
+   "path": "/audio/sub%5cx.wav",
+   "method": "GET",
+   "origin": null,
+   "status": 404,
+   "allow": null
+  },
+  {
+   "path": "/audio/a.wav/",
+   "method": "GET",
+   "origin": null,
+   "status": 404,
+   "allow": null
+  },
+  {
+   "path": "/audio/a.wav/x",
+   "method": "GET",
+   "origin": null,
+   "status": 404,
+   "allow": null
+  },
+  {
+   "path": "/audio/a.wav",
+   "method": "GET",
+   "origin": "http://localhost:3000",
+   "status": 200,
+   "allow": "http://localhost:3000",
+   "type": "audio/wav",
+   "body": "RIFF"
+  },
+  {
+   "path": "/audio/a.wav",
+   "method": "GET",
+   "origin": "http://evil.example",
+   "status": 200,
+   "allow": null,
+   "type": "audio/wav",
+   "body": "RIFF"
+  },
+  {
+   "path": "/audio/a.wav",
+   "method": "GET",
+   "origin": "http://127.0.0.1:3000",
+   "status": 200,
+   "allow": "http://127.0.0.1:3000",
+   "type": "audio/wav",
+   "body": "RIFF"
+  },
+  {
+   "path": "/audio/a.wav",
+   "method": "POST",
+   "origin": null,
+   "status": 404,
+   "allow": null
+  },
+  {
+   "path": "/other",
+   "method": "GET",
+   "origin": null,
+   "status": 404,
+   "allow": null
+  },
+  {
+   "path": "/other",
+   "method": "GET",
+   "origin": "http://localhost:3000",
+   "status": 404,
+   "allow": "http://localhost:3000"
+  },
+  {
+   "path": "/health",
+   "method": "GET",
+   "origin": "http://localhost:3000",
+   "status": 200,
+   "allow": "http://localhost:3000",
+   "type": "application/json; charset=utf-8"
+  }
+ ]
+}

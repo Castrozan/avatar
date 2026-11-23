@@ -6,6 +6,8 @@ mod presentation;
 mod status;
 mod voice_level;
 
+pub(crate) use voice_level::audio_level;
+
 use serde_json::Value;
 
 use crate::session::client::{ClientId, Handoff, Reply, Target};

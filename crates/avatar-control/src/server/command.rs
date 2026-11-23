@@ -1,7 +1,8 @@
 use tokio::sync::mpsc::UnboundedSender;
+use tokio::sync::oneshot;
 
 use crate::server::speech::SpeechEvent;
-use crate::session::ClientId;
+use crate::session::{ClientId, HealthSnapshot};
 
 pub(crate) enum Command {
     Connect {
@@ -15,4 +16,6 @@ pub(crate) enum Command {
     Disconnect(ClientId),
     Tick,
     Speech(SpeechEvent),
+    Health(oneshot::Sender<HealthSnapshot>),
+    VoiceLevel(f64),
 }
