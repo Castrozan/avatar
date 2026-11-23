@@ -67,6 +67,14 @@ def reply_value(output):
     return reply["ok"]
 
 
+def configured_binary(environment_name):
+    return os.environ.get(environment_name, "")
+
+
+def answer(binary, request):
+    return reply_value(run_binary(binary, request))
+
+
 def difference_line(operation, text, expected, actual):
     return (
         f"Rust routing differs on {operation}: python={expected!r} "
@@ -78,7 +86,7 @@ class RustShadow:
     def __init__(self, report, binary=None):
         self.report = report
         self.binary = (
-            os.environ.get(BINARY_ENVIRONMENT, "") if binary is None else binary
+            configured_binary(BINARY_ENVIRONMENT) if binary is None else binary
         )
 
     def compare(self, operation, text, sessions, python_result):
@@ -95,4 +103,4 @@ class RustShadow:
 
     def ask(self, operation, text, sessions):
         request = {"op": operation, "text": text, "sessions": session_values(sessions)}
-        return reply_value(run_binary(self.binary, request))
+        return answer(self.binary, request)
