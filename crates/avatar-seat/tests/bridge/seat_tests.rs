@@ -9,12 +9,11 @@ use tokio::time::timeout;
 #[tokio::test]
 async fn the_page_and_its_health_are_served_and_nothing_else() -> Outcome<()> {
     let running = start(true, LONG).await?;
-    let (page, missing) = (
-        running.get("/").await?,
-        running.get("/listener.json").await?,
-    );
+    let page = running.get("/").await?;
+    let missing = running.get("/listener.json").await?;
     assert_eq!((page, missing.0), ((200, "<p>seat</p>".to_owned()), 404));
-    assert_eq!(flags(&wait_meeting(&running).await?), (json!(false), json!(true)));
+    let health = wait_meeting(&running).await?;
+    assert_eq!(flags(&health), (json!(false), json!(true)));
     Ok(())
 }
 
