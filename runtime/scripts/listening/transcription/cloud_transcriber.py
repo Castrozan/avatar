@@ -108,30 +108,62 @@ def scribe_answer(pcm, language):
         return json.load(response)
 
 
-def repinned_answer(pcm, answer):
+def heard_text(text, languages, heard_as):
+    if spoken_languages.is_written_in_one_of(text, languages):
+        return text
+    print(
+        f"Dropped a segment heard as {heard_as}: not a spoken language", file=sys.stderr
+    )
+    return ""
+
+
+def scribe_heard_text(answer, languages):
+    heard_as = f"{answer.get('language_code')} ({answer.get('language_probability')})"
+    return heard_text(answer["text"], languages, heard_as)
+
+
+def pinned_text(pcm, language):
+    spoken_language = spoken_languages.spoken_language(language)
+    if spoken_language is None:
+        return heard_text("", (), f"the session language {language}")
+    answer = scribe_answer(pcm, spoken_language.pinning_code)
+    return scribe_heard_text(answer, (spoken_language,))
+
+
+def repinned_text(pcm, answer):
     pinning_code = recent_language.pinning_code
     print(
         f"Scribe detected {answer['language_code']} "
         f"({answer.get('language_probability')}), pinning {pinning_code}",
         file=sys.stderr,
     )
-    return scribe_answer(pcm, pinning_code)
+    return pinned_text(pcm, pinning_code)
 
 
-def spoken_answer(pcm, language):
-    answer = scribe_answer(pcm, language)
+def detected_text(pcm):
+    answer = scribe_answer(pcm, None)
     detected_code = answer.get("language_code")
-    if language or detected_code is None:
-        return answer
-    detected_language = spoken_languages.spoken_language(detected_code)
-    if detected_language is None:
-        return repinned_answer(pcm, answer)
-    recent_language.remember(detected_language)
-    return answer
+    languages = spoken_languages.languages_named_by(detected_code)
+    if not languages:
+        return repinned_text(pcm, answer)
+    text = scribe_heard_text(answer, languages)
+    if text and detected_code is not None:
+        recent_language.remember(languages[0])
+    return text
+
+
+def spoken_text(pcm, language):
+    return pinned_text(pcm, language) if language else detected_text(pcm)
 
 
 def transcribe(pcm, language=None):
-    return transcriber.clean_transcript(spoken_answer(pcm, language)["text"])
+    return transcriber.clean_transcript(spoken_text(pcm, language))
+
+
+def local_text(pcm, language):
+    text = transcriber.transcribe(pcm, language)
+    languages = spoken_languages.languages_named_by(language)
+    return heard_text(text, languages, f"Hex in {language}")
 
 
 def transcribe_with_local_fallback(pcm, language=None):
@@ -139,4 +171,4 @@ def transcribe_with_local_fallback(pcm, language=None):
         return transcribe(pcm, language)
     except (OSError, ValueError, KeyError) as error:
         print(f"Cloud transcription failed, using Hex: {error}", file=sys.stderr)
-        return transcriber.transcribe(pcm, language)
+        return local_text(pcm, language)
