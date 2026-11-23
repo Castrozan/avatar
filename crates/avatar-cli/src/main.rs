@@ -5,8 +5,10 @@ use std::io::{self, Write};
 use std::process::ExitCode;
 
 mod control;
+mod dispatch;
 
 use control::ControlOptions;
+use dispatch::DispatchOptions;
 
 #[derive(Parser)]
 #[command(name = "avatar", version, about = "Avatar command-line tools")]
@@ -23,23 +25,47 @@ enum Command {
     Floor,
     #[command(about = "Serve the avatar control WebSocket server until interrupted")]
     Control(ControlOptions),
+    #[command(
+        name = "command",
+        about = "Send one command to the avatar control server and print its answer"
+    )]
+    Dispatch(DispatchOptions),
 }
 
 fn main() -> ExitCode {
     match Cli::parse().command.run() {
-        Ok(()) => ExitCode::SUCCESS,
+        Ok(code) => code,
         Err(error) => report(&error),
     }
 }
 
 impl Command {
-    fn run(self) -> io::Result<()> {
+    fn run(self) -> io::Result<ExitCode> {
         match self {
-            Self::Routing => run_routing_json_lines(io::stdin().lock(), io::stdout().lock()),
-            Self::Floor => run_floor_json_lines(io::stdin().lock(), io::stdout().lock()),
-            Self::Control(options) => control::run(&options),
+            Self::Routing => routing(),
+            Self::Floor => floor(),
+            Self::Control(options) => succeed(control::run(&options)),
+            Self::Dispatch(options) => dispatch::run(&options),
         }
     }
+}
+
+fn routing() -> io::Result<ExitCode> {
+    succeed(run_routing_json_lines(
+        io::stdin().lock(),
+        io::stdout().lock(),
+    ))
+}
+
+fn floor() -> io::Result<ExitCode> {
+    succeed(run_floor_json_lines(
+        io::stdin().lock(),
+        io::stdout().lock(),
+    ))
+}
+
+fn succeed(outcome: io::Result<()>) -> io::Result<ExitCode> {
+    outcome.map(|()| ExitCode::SUCCESS)
 }
 
 fn report(error: &io::Error) -> ExitCode {

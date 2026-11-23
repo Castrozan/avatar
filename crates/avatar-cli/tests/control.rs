@@ -2,7 +2,7 @@ use std::error::Error;
 use std::ffi::OsStr;
 use std::io::{BufRead, BufReader};
 use std::path::{Path, PathBuf};
-use std::process::{Child, Command, Stdio};
+use std::process::{Child, ChildStdout, Command, Stdio};
 
 use serde_json::{Value, json};
 use tokio_tungstenite::tungstenite::{Message, connect};
@@ -12,6 +12,8 @@ type TestResult = Result<(), Box<dyn Error>>;
 struct ControlProcess {
     child: Child,
     address: String,
+    http_address: String,
+    _stdout: BufReader<ChildStdout>,
 }
 
 impl ControlProcess {
@@ -24,8 +26,21 @@ impl ControlProcess {
         environment: &[(&str, &OsStr)],
     ) -> Result<Self, Box<dyn Error>> {
         let mut child = spawn_control(arguments, environment)?;
-        let address = read_bound_address(&mut child)?;
-        Ok(Self { child, address })
+        let stdout = child.stdout.take().ok_or("stdout was not piped")?;
+        Self::announced(child, BufReader::new(stdout))
+    }
+}
+
+impl ControlProcess {
+    fn announced(child: Child, mut stdout: BufReader<ChildStdout>) -> Result<Self, Box<dyn Error>> {
+        let address = read_line(&mut stdout)?;
+        let http_address = read_line(&mut stdout)?;
+        Ok(Self {
+            child,
+            address,
+            http_address,
+            _stdout: stdout,
+        })
     }
 }
 
@@ -44,10 +59,9 @@ fn spawn_control(
     Ok(command.spawn()?)
 }
 
-fn read_bound_address(child: &mut Child) -> Result<String, Box<dyn Error>> {
-    let stdout = child.stdout.take().ok_or("stdout was not piped")?;
+fn read_line(stdout: &mut BufReader<ChildStdout>) -> Result<String, Box<dyn Error>> {
     let mut line = String::new();
-    BufReader::new(stdout).read_line(&mut line)?;
+    stdout.read_line(&mut line)?;
     Ok(line.trim().to_owned())
 }
 
@@ -107,5 +121,36 @@ fn control_subcommand_serves_with_the_real_speech_port_by_default() -> TestResul
     ];
     let process = ControlProcess::start_with(&[], &environment)?;
     assert_eq!(identify_agent(&process.address)?["type"], "identifyAck");
+    Ok(())
+}
+
+fn fetch_health(address: &str) -> Result<Value, Box<dyn Error>> {
+    use std::io::{Read, Write};
+    let mut stream = std::net::TcpStream::connect(address)?;
+    stream.write_all(b"GET /health HTTP/1.1\r\nHost: localhost\r\nConnection: close\r\n\r\n")?;
+    let mut raw = String::new();
+    stream.read_to_string(&mut raw)?;
+    let body = raw.split_once("\r\n\r\n").ok_or("no body")?.1;
+    Ok(serde_json::from_str(body)?)
+}
+
+#[test]
+fn control_subcommand_serves_health_on_the_http_port() -> TestResult {
+    let process = ControlProcess::start()?;
+    let health = fetch_health(&process.http_address)?;
+    assert_eq!(health["status"], "ok");
+    assert_eq!(health["state"], "idle");
+    assert_eq!(health["agentConnected"], false);
+    Ok(())
+}
+
+#[test]
+fn control_subcommand_rejects_an_invalid_port_variable() -> TestResult {
+    let output = Command::new(env!("CARGO_BIN_EXE_avatar"))
+        .args(["control", "--discard-speech"])
+        .env("AVATAR_WS_PORT", "not-a-port")
+        .output()?;
+    assert!(!output.status.success());
+    assert!(String::from_utf8_lossy(&output.stderr).contains("AVATAR_WS_PORT"));
     Ok(())
 }
