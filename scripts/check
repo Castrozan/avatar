@@ -33,10 +33,11 @@ check_directory_entries() {
 }
 
 cargo fmt --check
-cargo clippy --workspace --all-targets -- -D warnings
-cargo nextest run --workspace
-cargo test --workspace --doc
 check_file_lengths
 check_directory_entries
 if [ -d rules ]; then ast-grep test --config sgconfig.yml && ast-grep scan --config sgconfig.yml crates; fi
+cargo clippy --workspace --all-targets -- -D warnings
+if [ "${1:-}" = "--fast" ]; then exit 0; fi
+cargo nextest run --workspace
+cargo test --workspace --doc
 if [ -f deny.toml ]; then cargo deny check; fi
