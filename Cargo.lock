@@ -147,6 +147,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "avatar-listening"
+version = "0.1.0"
+dependencies = [
+ "num-traits",
+ "proptest",
+ "serde_json",
+]
+
+[[package]]
 name = "avatar-room-audio"
 version = "0.1.0"
 dependencies = [
