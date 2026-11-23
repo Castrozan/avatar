@@ -6,7 +6,7 @@ use avatar_control::site::RendererSite;
 use clap::Args;
 use tokio::runtime::Builder;
 
-use crate::interruption::Interruption;
+use crate::tools::interruption::Interruption;
 
 #[derive(Args)]
 pub(crate) struct ServeOptions {

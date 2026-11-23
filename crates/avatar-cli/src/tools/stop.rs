@@ -4,7 +4,7 @@ use std::process::ExitCode;
 use avatar_adapters::commands::{Programs, avatar_stop, run_audio};
 use avatar_audio_graph::graph::AudioRequest;
 
-use crate::audio::environment;
+use crate::tools::audio::environment;
 
 fn stop_audio() -> i32 {
     match run_audio(&environment(), || Ok(AudioRequest::Stop)) {

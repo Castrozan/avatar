@@ -2,7 +2,7 @@ use std::io::{self, Write};
 use std::net::SocketAddr;
 use std::path::PathBuf;
 
-use crate::interruption::Interruption;
+use crate::tools::interruption::Interruption;
 use avatar_control::control::{ControlEnvironment, ControlServer, ControlServerSettings};
 use avatar_control::server::{DiscardingSpeechPort, SpeechPort};
 use avatar_control::speaking::runtime::speech_port_from_environment;
