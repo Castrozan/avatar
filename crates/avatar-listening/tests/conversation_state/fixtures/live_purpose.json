@@ -1,0 +1,121 @@
+{
+ "cases": [
+  {
+   "name": "nothing running ignores the configuration",
+   "active": {},
+   "configuration": {
+    "purpose": "conversation"
+   },
+   "purpose": null
+  },
+  {
+   "name": "listener running as conversation",
+   "active": {
+    "avatar-listener.service": true
+   },
+   "configuration": {
+    "purpose": "conversation"
+   },
+   "purpose": "conversation"
+  },
+  {
+   "name": "listener running as meeting",
+   "active": {
+    "avatar-listener.service": true
+   },
+   "configuration": {
+    "purpose": "meeting"
+   },
+   "purpose": "meeting"
+  },
+  {
+   "name": "live voice running as live",
+   "active": {
+    "avatar-live.service": true
+   },
+   "configuration": {
+    "purpose": "live"
+   },
+   "purpose": "live"
+  },
+  {
+   "name": "both running reads the configuration",
+   "active": {
+    "avatar-listener.service": true,
+    "avatar-live.service": true
+   },
+   "configuration": {
+    "purpose": "live"
+   },
+   "purpose": "live"
+  },
+  {
+   "name": "running without a configuration",
+   "active": {
+    "avatar-listener.service": true
+   },
+   "configuration": null,
+   "purpose": null
+  },
+  {
+   "name": "configuration without a purpose",
+   "active": {
+    "avatar-listener.service": true
+   },
+   "configuration": {
+    "sources": {}
+   },
+   "purpose": null
+  },
+  {
+   "name": "unknown purpose is no purpose",
+   "active": {
+    "avatar-listener.service": true
+   },
+   "configuration": {
+    "purpose": "mystery"
+   },
+   "purpose": null
+  },
+  {
+   "name": "null purpose is no purpose",
+   "active": {
+    "avatar-listener.service": true
+   },
+   "configuration": {
+    "purpose": null
+   },
+   "purpose": null
+  },
+  {
+   "name": "numeric purpose is no purpose",
+   "active": {
+    "avatar-listener.service": true
+   },
+   "configuration": {
+    "purpose": 1
+   },
+   "purpose": null
+  },
+  {
+   "name": "capitalised purpose is no purpose",
+   "active": {
+    "avatar-listener.service": true
+   },
+   "configuration": {
+    "purpose": "Live"
+   },
+   "purpose": null
+  },
+  {
+   "name": "unrelated unit never counts",
+   "active": {
+    "avatar-renderer.service": true
+   },
+   "configuration": {
+    "purpose": "live"
+   },
+   "purpose": null
+  }
+ ]
+}

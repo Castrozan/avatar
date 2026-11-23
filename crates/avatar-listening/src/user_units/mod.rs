@@ -1,3 +1,5 @@
+pub mod launchd;
+
 pub const SYSTEMD_UNREACHABLE: i32 = 1;
 pub const UNREACHABLE_RETRY_SECONDS: f64 = 30.0;
 pub const RETRY_INTERVAL_SECONDS: f64 = 0.5;

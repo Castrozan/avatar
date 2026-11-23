@@ -1,15 +1,10 @@
 use avatar_listening::barge_in::reply_link::{ReplyLinkState, ServerNotice};
-use serde_json::Value;
+use serde_json::{Value, json};
 
-use crate::support::{Outcome, fixture, flag, rows, text};
+use crate::support::{Outcome, fixture, flag, rows};
 
 fn notice_of(message: &Value) -> Result<ServerNotice, Box<dyn std::error::Error>> {
-    if text(&message["type"])? != "speechActivity" {
-        return Ok(ServerNotice::Other);
-    }
-    Ok(ServerNotice::SpeechActivity {
-        speaking: flag(&message["speaking"])?,
-    })
+    Ok(ServerNotice::from_message(message).ok_or("notice without a flag")?)
 }
 
 fn replay_sequence(case: &Value) -> Outcome {
@@ -29,6 +24,34 @@ fn every_oracle_message_sequence_matches_the_python_reply_link() -> Outcome {
     for case in rows(&document["cases"])? {
         replay_sequence(case)?;
     }
+    Ok(())
+}
+
+fn check_speaking_value(case: &Value) -> Outcome {
+    let message = json!({"type": "speechActivity", "speaking": case["speaking"]});
+    let expected = ServerNotice::SpeechActivity {
+        speaking: flag(&case["flag"])?,
+    };
+    assert_eq!(notice_of(&message)?, expected);
+    Ok(())
+}
+
+#[test]
+fn every_oracle_speaking_value_follows_the_python_truthiness() -> Outcome {
+    let document = fixture("barge_in/fixtures/speaking_flag.json")?;
+    let cases = rows(&document["cases"])?;
+    assert_eq!(cases.len(), 17);
+    cases.iter().try_for_each(check_speaking_value)
+}
+
+#[test]
+fn a_speech_activity_without_a_flag_is_no_notice_at_all() -> Outcome {
+    let document = fixture("barge_in/fixtures/speaking_flag.json")?;
+    assert_eq!(document["other"][1]["outcome"], "KeyError");
+    assert_eq!(
+        ServerNotice::from_message(&json!({"type": "speechActivity"})),
+        None
+    );
     Ok(())
 }
 

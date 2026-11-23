@@ -7,11 +7,17 @@ license.workspace = true
 publish.workspace = true
 
 [dependencies]
+futures-util.workspace = true
 num-traits.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+tokio.workspace = true
+tokio-tungstenite.workspace = true
 
 [dev-dependencies]
+axum.workspace = true
 proptest.workspace = true
-serde_json.workspace = true
+tempfile.workspace = true
 
 [lints]
 workspace = true

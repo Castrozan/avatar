@@ -1,6 +1,8 @@
+mod control_socket;
 mod harness;
 mod property;
 mod reply_link;
+mod voice_activity;
 
 use crate::support::{Outcome, count, replay_cases, rows, text};
 use harness::{Harness, frame_of, kind_named};

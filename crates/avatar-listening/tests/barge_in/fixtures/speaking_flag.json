@@ -1,0 +1,91 @@
+{
+ "cases": [
+  {
+   "speaking": true,
+   "flag": true
+  },
+  {
+   "speaking": false,
+   "flag": false
+  },
+  {
+   "speaking": 0,
+   "flag": false
+  },
+  {
+   "speaking": 1,
+   "flag": true
+  },
+  {
+   "speaking": -1,
+   "flag": true
+  },
+  {
+   "speaking": 0.0,
+   "flag": false
+  },
+  {
+   "speaking": -0.0,
+   "flag": false
+  },
+  {
+   "speaking": 0.5,
+   "flag": true
+  },
+  {
+   "speaking": "",
+   "flag": false
+  },
+  {
+   "speaking": "x",
+   "flag": true
+  },
+  {
+   "speaking": "0",
+   "flag": true
+  },
+  {
+   "speaking": null,
+   "flag": false
+  },
+  {
+   "speaking": [],
+   "flag": false
+  },
+  {
+   "speaking": [
+    0
+   ],
+   "flag": true
+  },
+  {
+   "speaking": {},
+   "flag": false
+  },
+  {
+   "speaking": {
+    "a": 1
+   },
+   "flag": true
+  },
+  {
+   "speaking": 1152921504606846976,
+   "flag": true
+  }
+ ],
+ "other": [
+  {
+   "message": {
+    "type": "characterChanged",
+    "speaking": true
+   },
+   "outcome": "quiet"
+  },
+  {
+   "message": {
+    "type": "speechActivity"
+   },
+   "outcome": "KeyError"
+  }
+ ]
+}
