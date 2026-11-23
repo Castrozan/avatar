@@ -2,10 +2,10 @@
 let
   craneLib = crane.mkLib pkgs;
   inherit (pkgs) lib;
-  jsonData = path: _type: builtins.match ".*/crates/.*\\.json$" path != null;
+  crateFixtureData = path: _type: builtins.match ".*/crates/.*\\.(json|log)$" path != null;
   src = lib.cleanSourceWith {
     src = ../.;
-    filter = path: type: jsonData path type || craneLib.filterCargoSources path type;
+    filter = path: type: crateFixtureData path type || craneLib.filterCargoSources path type;
     name = "source";
   };
   commonArguments = {
