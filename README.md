@@ -41,10 +41,13 @@ consumer's roster needs a matching line here and a new pin.
 
 ### Skill as a plugin
 
-The repository root is also an agent plugin carrying the `avatar` skill, for harnesses that do not install it through
-Nix. In Claude Code: `/plugin marketplace add Castrozan/avatar`, then `/plugin install avatar@avatar`.
-[`.codex-plugin/plugin.json`](.codex-plugin/plugin.json) declares the same skill directory for Codex. The plugin carries
-the instructions only: the commands the skill calls, such as `avatar-talk`, still come from the modules above.
+The repository root is also an agent plugin carrying the `avatar` skill. In Claude Code: `/plugin marketplace add
+Castrozan/avatar`, then `/plugin install avatar@avatar`. Codex reads the same marketplace: `codex plugin marketplace add
+Castrozan/avatar`, then `codex plugin add avatar@avatar`. [`plugin.json`](plugin.json) makes the root an
+[Agent Plugins](https://agent-plugins.org/specification) package, which spec loaders such as Pi's and Hermes' read from
+its directory. A Nix consumer can register the pinned flake source as a local marketplace instead, so the skill and the
+runtime move with one pin. The plugin carries the instructions only: the commands the skill calls, such as
+`avatar-talk`, still come from the modules above.
 
 ## Test
 
