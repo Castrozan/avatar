@@ -39,6 +39,13 @@ and the API keys in `~/.secrets/elevenlabs-api-key` and `~/.secrets/openai-api-k
 Servants in the same order, and evaluation fails until they do. So adding, removing or reordering a Servant in the
 consumer's roster needs a matching line here and a new pin.
 
+### Skill as a plugin
+
+The repository root is also an agent plugin carrying the `avatar` skill, for harnesses that do not install it through
+Nix. In Claude Code: `/plugin marketplace add Castrozan/avatar`, then `/plugin install avatar@avatar`.
+[`.codex-plugin/plugin.json`](.codex-plugin/plugin.json) declares the same skill directory for Codex. The plugin carries
+the instructions only: the commands the skill calls, such as `avatar-talk`, still come from the modules above.
+
 ## Test
 
 ```sh

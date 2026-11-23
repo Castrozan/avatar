@@ -1,0 +1,11 @@
+{
+  "name": "avatar",
+  "description": "Talk with the user by voice through the desktop avatar and control its meeting microphone, camera and speech.",
+  "version": "0.1.0",
+  "license": "MIT",
+  "repository": "https://github.com/Castrozan/avatar",
+  "skills": "./skills",
+  "author": {
+    "name": "Castrozan"
+  }
+}
