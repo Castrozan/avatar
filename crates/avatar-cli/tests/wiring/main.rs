@@ -10,6 +10,12 @@ use std::fs;
 use std::os::unix::fs::PermissionsExt;
 use std::process::{Command, Output, Stdio};
 
+const RUNTIME_DIRECTORY: &str = if cfg!(target_os = "macos") {
+    "Library/Caches/avatar"
+} else {
+    "run/avatar"
+};
+
 pub(crate) type TestResult = Result<(), Box<dyn Error>>;
 
 pub(crate) struct Machine {
@@ -20,7 +26,7 @@ impl Machine {
     pub(crate) fn with_tools(tools: &[(&str, &str)]) -> Result<Self, Box<dyn Error>> {
         let home = tempfile::tempdir()?;
         fs::create_dir_all(home.path().join("bin"))?;
-        fs::create_dir_all(home.path().join("run/avatar"))?;
+        fs::create_dir_all(home.path().join(RUNTIME_DIRECTORY))?;
         let machine = Self { home };
         tools
             .iter()
@@ -40,7 +46,7 @@ impl Machine {
     }
 
     pub(crate) fn runtime(&self) -> std::path::PathBuf {
-        self.path("run/avatar")
+        self.path(RUNTIME_DIRECTORY)
     }
 
     pub(crate) fn wake_log(&self) -> Result<String, Box<dyn Error>> {
