@@ -33,7 +33,6 @@ def listening_with(tmp_path):
         segments=queue.Queue(),
         stopping=threading.Event(),
         pending=listener.PendingSpeech(tmp_path / "marker"),
-        interrupt_speaker=Mock(),
         turn_finished=Mock(return_value=True),
     )
 

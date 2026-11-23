@@ -20,8 +20,9 @@ function isAudibleTurn(turn) {
 }
 
 class SpeechFloor {
-  constructor(agentChannel) {
+  constructor(agentChannel, announceSpeaking = () => {}) {
     this.agentChannel = agentChannel;
+    this.announceSpeaking = announceSpeaking;
     this.lastTurn = Promise.resolve();
     this.unfinishedTurns = new Set();
   }
@@ -29,6 +30,7 @@ class SpeechFloor {
   enqueue(usesAgentChannel, performSpeech) {
     const turn = createTurn(usesAgentChannel, performSpeech);
     this.unfinishedTurns.add(turn);
+    if (this.unfinishedTurns.size === 1) this.announceSpeaking(true);
     const outcome = this.lastTurn.then(() => this.takeTurn(turn));
     this.lastTurn = outcome.catch(() => {});
     return outcome;
@@ -43,7 +45,12 @@ class SpeechFloor {
       throw error;
     } finally {
       this.unfinishedTurns.delete(turn);
+      if (!this.isSpeaking()) this.announceSpeaking(false);
     }
+  }
+
+  isSpeaking() {
+    return this.unfinishedTurns.size > 0;
   }
 
   async runTurn(turn) {

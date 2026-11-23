@@ -65,7 +65,11 @@ when an agent chooses to show it, and no idle window in the window list. Speech,
 need the renderer, and the agent's character catches up when it connects. Gestures, poses, looks, `capabilities` and
 `mode` answer `No renderer is connected` while hidden. `hide` stops the window, so the next `show` loads the page again
 in a few seconds.
-Speaking for 0.6 seconds over the avatar stops it, so interrupting needs no agent turn.
+Speaking over the avatar stops it, so interrupting needs no agent turn. While a reply is queued or playing, the
+listener follows it over one open connection to the control server and runs
+[Silero VAD](https://github.com/snakers4/silero-vad) v6.2.3 on each 32 ms frame; five frames that are both above the
+speech level and at least 0.85 likely speech stop the reply, about 0.16 s after the speaker starts. Typing, knocks,
+clapping and music without singing never stop it, and nothing is sent while the avatar is silent.
 In an open conversation a reply first waits for the room to fall quiet, so a sound that leaves no words only delays it,
 and one sent right behind an interrupted or withheld reply is withheld, as
 [LiveKit Agents](https://docs.livekit.io/agents/build/turns.md) drops the speech queued behind an interruption.

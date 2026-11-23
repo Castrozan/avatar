@@ -11,6 +11,9 @@ const {
   handleStopSpeakingCommand,
 } = require("./stop-speaking-command-handler");
 const { handleGetStatusCommand } = require("./get-status-command-handler");
+const {
+  handleFollowSpeechCommand,
+} = require("./follow-speech-command-handler");
 const { handlePerformCommand } = require("./perform-command-handler");
 const { handleVoiceLevelCommand } = require("./voice-level-command-handler");
 
@@ -30,6 +33,7 @@ const UNLOGGED_COMMAND_TYPES = ["voiceLevel"];
 const COMMAND_HANDLERS_BY_TYPE = {
   speak: handleSpeakCommand,
   stopSpeaking: handleStopSpeakingCommand,
+  followSpeech: handleFollowSpeechCommand,
   setVideoMode: handleSetVideoModeCommand,
   setCharacter: handleSetCharacterCommand,
   setExpression: handleSetExpressionCommand,

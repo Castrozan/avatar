@@ -36,6 +36,9 @@ let
     export AVATAR_TURN_MODEL=${
       import ../../runtime/home-manager/avatar-turn-model.nix { inherit pkgs; }
     }
+    export AVATAR_VOICE_ACTIVITY_MODEL=${
+      import ../../runtime/home-manager/avatar-voice-activity-model.nix { inherit pkgs; }
+    }
     export AVATAR_ORDINARY_WORDS=${programs.ordinaryWords}
     export AVATAR_SERVANT_ROSTER=${servantRoster}
     export PYTHONPATH=${modules}

@@ -17,7 +17,6 @@ def listening_with_open_queue(tmp_path):
         segments=queue.Queue(),
         stopping=threading.Event(),
         pending=listener.PendingSpeech(tmp_path / listener.SPEECH_IN_PROGRESS_MARKER),
-        interrupt_speaker=Mock(),
     )
 
 

@@ -41,12 +41,16 @@ let
     sha256 = "18pb1kqg82x3qa07yd4b6n6yjmvbdmfh7xckjdm5h41sjqbgqg5a";
   };
   turnModel = import ../runtime/home-manager/avatar-turn-model.nix { inherit pkgs; };
+  voiceActivityModel = import ../runtime/home-manager/avatar-voice-activity-model.nix {
+    inherit pkgs;
+  };
   websocketPython = pkgs.python312.withPackages (packages: [ packages.websockets ]);
   listenerPython = pkgs.python3.withPackages (
     packages: with packages; [
       numpy
       onnxruntime
       sherpa-onnx
+      websockets
     ]
   );
   audio = pkgs.writeShellScriptBin "avatar-audio" ''
@@ -110,14 +114,10 @@ let
     exec ${pkgs.python312}/bin/python3 ${../runtime/scripts/listening/listen_cli.py} "$@"
   '';
   listener = pkgs.writeShellScript "avatar-listener" ''
-    export PATH=${
-      lib.makeBinPath [
-        command
-        pkgs.pulseaudio
-      ]
-    }:$PATH${userProfilePath}
+    export PATH=${lib.makeBinPath [ pkgs.pulseaudio ]}:$PATH${userProfilePath}
     export AVATAR_SPEAKER_MODEL=${speakerModel}
     export AVATAR_TURN_MODEL=${turnModel}
+    export AVATAR_VOICE_ACTIVITY_MODEL=${voiceActivityModel}
     export AVATAR_ORDINARY_WORDS=${ordinaryWords}
     export AVATAR_SERVANT_ROSTER=${avatar.servantRoster}
     export PYTHONPATH=${../runtime/scripts/listening}:${../runtime/scripts/echo}
