@@ -1,0 +1,124 @@
+{
+ "voice": [
+  {
+   "seed": 1,
+   "samples": 512,
+   "amplitude": 0,
+   "reset_before": false,
+   "probability": 0.0016697943210601807
+  },
+  {
+   "seed": 2,
+   "samples": 512,
+   "amplitude": 30,
+   "reset_before": false,
+   "probability": 0.10442689061164856
+  },
+  {
+   "seed": 3,
+   "samples": 512,
+   "amplitude": 3000,
+   "reset_before": false,
+   "probability": 0.16787707805633545
+  },
+  {
+   "seed": 4,
+   "samples": 512,
+   "amplitude": 8000,
+   "reset_before": false,
+   "probability": 0.1122988760471344
+  },
+  {
+   "seed": 5,
+   "samples": 512,
+   "amplitude": 8000,
+   "reset_before": false,
+   "probability": 0.08165690302848816
+  },
+  {
+   "seed": 6,
+   "samples": 300,
+   "amplitude": 6000,
+   "reset_before": false,
+   "probability": 0.13418227434158325
+  },
+  {
+   "seed": 7,
+   "samples": 512,
+   "amplitude": 12000,
+   "reset_before": true,
+   "probability": 0.0013429224491119385
+  },
+  {
+   "seed": 8,
+   "samples": 512,
+   "amplitude": 100,
+   "reset_before": false,
+   "probability": 0.006668955087661743
+  },
+  {
+   "seed": 9,
+   "samples": 512,
+   "amplitude": 0,
+   "reset_before": false,
+   "probability": 0.0013686418533325195
+  },
+  {
+   "seed": 10,
+   "samples": 512,
+   "amplitude": 5000,
+   "reset_before": false,
+   "probability": 0.08509936928749084
+  }
+ ],
+ "turn": [
+  {
+   "seed": 22,
+   "samples": 96000,
+   "amplitude": 4000,
+   "probability": 0.959653377532959
+  },
+  {
+   "seed": 24,
+   "samples": 160000,
+   "amplitude": 300,
+   "probability": 0.9604700207710266
+  },
+  {
+   "seed": 27,
+   "samples": 96000,
+   "amplitude": 9000,
+   "probability": 0.9640374183654785
+  },
+  {
+   "seed": 32,
+   "samples": 96000,
+   "amplitude": 300,
+   "probability": 0.9685060381889343
+  },
+  {
+   "seed": 37,
+   "samples": 96000,
+   "amplitude": 1500,
+   "probability": 0.970274806022644
+  },
+  {
+   "seed": 43,
+   "samples": 128000,
+   "amplitude": 9000,
+   "probability": 0.9666241407394409
+  },
+  {
+   "seed": 44,
+   "samples": 160000,
+   "amplitude": 300,
+   "probability": 0.9581007063388824
+  },
+  {
+   "seed": 47,
+   "samples": 96000,
+   "amplitude": 9000,
+   "probability": 0.9672822952270508
+  }
+ ]
+}
