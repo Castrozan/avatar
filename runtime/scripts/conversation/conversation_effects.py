@@ -12,10 +12,9 @@ import desktop_window
 import listen_cli
 import listener_session
 import remote_agent
-from meetings import start
+from meetings import readiness, start
 import user_units
 import utterances
-import voice_turns
 from conversation_seat import Seat
 from conversation_state import ConversationPhase
 from listener_session import ListenerPurpose
@@ -24,8 +23,11 @@ LIVE_OWNS_THE_TURNS = (
     "The live voice speaks and listens in this conversation and sends you each task "
     "over a2a: end your turn to receive them, or run avatar-talk close"
 )
+CONVERSATION_OWNS_THE_ROOM = (
+    "A conversation is open on the local listener; run avatar-talk close, then "
+    "avatar-talk open --live to move the room to the live voice"
+)
 COMMAND_TIMEOUT_SECONDS = 120
-TRANSCRIPTION_NOTICE = "This call is transcribed by ElevenLabs."
 
 
 class WindowPresence(enum.StrEnum):
@@ -65,7 +67,7 @@ def open_conversation(arguments, directory):
     try:
         start.bring_up(
             conversation_state.CONVERSATION_TARGET,
-            (start.renderer_ready, lambda: seat_microphone_ready(seat)),
+            (readiness.control_server_ready, lambda: seat_microphone_ready(seat)),
         )
         conversation_seat.prepare(seat)
         show_chosen_character(arguments)
@@ -78,18 +80,12 @@ def open_conversation(arguments, directory):
             seat=seat,
             **default_holder.listener_settings(arguments),
         )
-        announce_transcription(seat, directory)
     except BaseException:
         if seat is Seat.DISCORD:
             discord_call.leave()
         close_conversation(arguments, directory)
         raise
     status(arguments, directory)
-
-
-def announce_transcription(seat, directory):
-    if seat is Seat.DISCORD:
-        voice_turns.speak_on_seat(directory, TRANSCRIPTION_NOTICE, seat)
 
 
 def refuse_seat_change(arguments, directory):
@@ -101,6 +97,10 @@ def refuse_seat_change(arguments, directory):
 
 def refuse_live(arguments, directory):
     raise RuntimeError(LIVE_OWNS_THE_TURNS)
+
+
+def refuse_conversation(arguments, directory):
+    raise RuntimeError(CONVERSATION_OWNS_THE_ROOM)
 
 
 def keep_conversation_open(arguments, directory):
@@ -174,10 +174,17 @@ def hide_everywhere():
 
 
 def show_window(arguments, directory):
+    start.bring_up(start.WINDOW_TARGET, (readiness.renderer_ready,))
     if conversation_seat.current(directory) is Seat.ROOM:
         desktop_window.show()
     set_canvas_presence(WindowPresence.SHOWN)
 
 
 def hide_window(arguments, directory):
-    hide_everywhere()
+    subprocess.run(
+        ["systemctl", "--user", "stop", start.WINDOW_TARGET],
+        check=True,
+        timeout=listener_session.SYSTEMCTL_TIMEOUT_SECONDS,
+    )
+    if user_units.unit_active(start.MEETING_TARGET):
+        hide_everywhere()

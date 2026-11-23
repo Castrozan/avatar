@@ -81,28 +81,31 @@ def test_beginning_a_listener_frees_the_floor(tmp_path, monkeypatch):
     assert conversation_addressee.current(tmp_path) is None
 
 
-def test_hiding_the_window_hides_the_canvas_first(tmp_path, monkeypatch):
+def refuse_the_canvas(command, **options):
+    if command[0] == "avatar-command":
+        raise subprocess.CalledProcessError(1, "avatar-command")
+
+
+def test_hiding_a_meeting_picture_hides_the_canvas_first(tmp_path, monkeypatch):
     order = []
     monkeypatch.setattr(
         conversation_effects.subprocess,
         "run",
-        Mock(side_effect=lambda *a, **k: order.append("canvas")),
+        Mock(side_effect=lambda command, **k: order.append(command[0])),
     )
+    monkeypatch.setattr(conversation_effects.user_units, "unit_active", lambda u: True)
     monkeypatch.setattr(
         conversation_effects.desktop_window, "hide", lambda: order.append("window")
     )
     conversation_effects.hide_window(argparse.Namespace(), tmp_path)
-    assert order == ["canvas", "window"]
+    assert order == ["systemctl", "avatar-command", "window"]
 
 
 def test_a_failed_canvas_hide_leaves_the_window_where_it_is(tmp_path, monkeypatch):
     hide = Mock()
     monkeypatch.setattr(conversation_effects.desktop_window, "hide", hide)
-    monkeypatch.setattr(
-        conversation_effects.subprocess,
-        "run",
-        Mock(side_effect=subprocess.CalledProcessError(1, "avatar-command")),
-    )
+    monkeypatch.setattr(conversation_effects.user_units, "unit_active", lambda u: True)
+    monkeypatch.setattr(conversation_effects.subprocess, "run", refuse_the_canvas)
     with pytest.raises(subprocess.CalledProcessError):
         conversation_effects.hide_window(argparse.Namespace(), tmp_path)
     hide.assert_not_called()

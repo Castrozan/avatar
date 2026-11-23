@@ -1,0 +1,14 @@
+{
+  "name": "avatar",
+  "description": "Talk with the user by voice through the desktop avatar and control its meeting microphone, camera and speech.",
+  "version": "0.1.0",
+  "skills": "./skills",
+  "interface": {
+    "displayName": "Avatar",
+    "shortDescription": "Talk with the user by voice through the desktop avatar and control its meeting microphone, camera and speech.",
+    "category": "Productivity",
+    "capabilities": [
+      "Interactive"
+    ]
+  }
+}

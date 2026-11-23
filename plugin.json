@@ -1,0 +1,11 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "avatar",
+  "version": "0.1.0",
+  "description": "Talk with the user by voice through the desktop avatar and control its meeting microphone, camera and speech.",
+  "license": "MIT",
+  "repository": "https://github.com/Castrozan/avatar",
+  "author": {
+    "name": "Castrozan"
+  }
+}

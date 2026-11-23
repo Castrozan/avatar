@@ -4,10 +4,25 @@ import pathlib
 import unicodedata
 
 VOCABULARY_ENVIRONMENT_VARIABLE = "AVATAR_ORDINARY_WORDS"
+CYRILLIC_IN_LATIN = str.maketrans(
+    {
+        **dict(
+            zip(
+                "абвгдезийклмнопрстуфхыэёіїєґў",
+                "abvgdeziiklmnoprstufhieeiiegu",
+                strict=True,
+            )
+        ),
+        **dict(zip("жцчшщюя", ("zh", "ts", "ch", "sh", "sh", "iu", "ia"), strict=True)),
+        "ъ": "",
+        "ь": "",
+    }
+)
 
 
 def folded(text):
-    decomposed = unicodedata.normalize("NFD", text.casefold())
+    latin = text.casefold().translate(CYRILLIC_IN_LATIN)
+    decomposed = unicodedata.normalize("NFD", latin)
     return "".join(
         character for character in decomposed if unicodedata.category(character) != "Mn"
     )

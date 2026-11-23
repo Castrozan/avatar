@@ -8,7 +8,7 @@ import conversation_seat
 import conversation_state
 import listener_session
 import speaking_floor
-from meetings import start
+from meetings import readiness, start
 from conversation_seat import Seat
 from listener_session import ListenerPurpose
 from remote_agent import PANE_ENVIRONMENT_VARIABLE, AgentPane
@@ -37,7 +37,7 @@ def bring_up_the_room_stage(seat):
     start.bring_up(
         conversation_state.CONVERSATION_TARGET,
         (
-            start.renderer_ready,
+            readiness.control_server_ready,
             lambda: conversation_effects.seat_microphone_ready(seat),
         ),
     )

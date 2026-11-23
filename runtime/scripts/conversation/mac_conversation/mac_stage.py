@@ -8,7 +8,8 @@ import local_seat
 import local_window
 import user_units
 
-STAGE_UNITS = ("avatar-control-server.service", "avatar-renderer.service")
+STAGE_UNITS = ("avatar-control-server.service",)
+RENDERER_UNIT = "avatar-renderer.service"
 READY_WAIT_SECONDS = 15
 POLL_SECONDS = 0.1
 SPEECH_TIMEOUT_SECONDS = 310
@@ -17,6 +18,7 @@ SPEAKERS = "speakers"
 RENDERER_PAGE = ""
 WINDOW_POLL_SECONDS = 0.5
 NOT_READY = "The avatar control server on this Mac did not start"
+RENDERER_NOT_READY = "The avatar renderer on this Mac did not start"
 
 
 def answers(port):
@@ -31,20 +33,24 @@ def standing_already():
     return all(user_units.unit_active(unit) for unit in STAGE_UNITS)
 
 
-def set_up():
-    for unit in STAGE_UNITS:
+def start_and_wait(units, port, failure):
+    for unit in units:
         if not user_units.unit_active(unit):
             listener_session.start_unit(unit)
     deadline = time.monotonic() + READY_WAIT_SECONDS
-    while not answers(local_seat.CONTROL_PORT):
+    while not answers(port):
         if time.monotonic() > deadline:
-            raise TimeoutError(NOT_READY)
+            raise TimeoutError(failure)
         time.sleep(POLL_SECONDS)
+
+
+def set_up():
+    start_and_wait(STAGE_UNITS, local_seat.CONTROL_PORT, NOT_READY)
 
 
 def strike():
     local_window.hide()
-    for unit in STAGE_UNITS:
+    for unit in (*STAGE_UNITS, RENDERER_UNIT):
         if user_units.unit_active(unit):
             listener_session.stop_unit(unit)
 
@@ -97,6 +103,7 @@ def present_once_the_window_renders():
 
 
 def show_window():
+    start_and_wait((RENDERER_UNIT,), local_seat.RENDERER_PORT, RENDERER_NOT_READY)
     local_window.hide()
     local_window.open_window(RENDERER_PAGE, local_seat.RENDERER_PORT)
     present_once_the_window_renders()

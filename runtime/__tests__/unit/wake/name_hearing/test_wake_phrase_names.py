@@ -16,12 +16,12 @@ from wake_phrase import (
 )
 
 SERVANT_CHARACTERS = (
-    pathlib.Path(__file__).parents[3] / "cast" / "servant-characters.txt"
+    pathlib.Path(__file__).parents[4] / "cast" / "servant-characters.txt"
 )
 SERVANTS = [
     line.split(" | ")[0] for line in SERVANT_CHARACTERS.read_text().splitlines() if line
 ]
-ORDINARY_WORDS_FILE = pathlib.Path(__file__).with_name("ordinary-words.txt")
+ORDINARY_WORDS_FILE = pathlib.Path(__file__).parents[1] / "ordinary-words.txt"
 SPOKEN_NAMES = {spoken_name(servant) for servant in SERVANTS}
 ORDINARY_WORDS = [
     word for word in ORDINARY_WORDS_FILE.read_text().split() if word not in SPOKEN_NAMES

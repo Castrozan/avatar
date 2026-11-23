@@ -122,7 +122,15 @@ def test_the_canvas_and_the_window_follow_the_stated_order_for_every_presence(
     monkeypatch.setattr(
         conversation_effects.subprocess,
         "run",
-        Mock(side_effect=lambda *a, **k: steps.append("canvas")),
+        Mock(side_effect=lambda command, **k: steps.append(command[0])),
+    )
+    monkeypatch.setattr(
+        conversation_effects.start,
+        "bring_up",
+        lambda target, checks: steps.append("bring-up"),
+    )
+    monkeypatch.setattr(
+        conversation_effects.user_units, "unit_active", lambda unit: True
     )
     monkeypatch.setattr(
         conversation_effects.desktop_window, "show", lambda: steps.append("window")
@@ -143,6 +151,6 @@ def test_the_canvas_and_the_window_follow_the_stated_order_for_every_presence(
         step_by_presence[presence](None, tmp_path)
         orders[presence] = list(steps)
     assert orders == {
-        WindowPresence.HIDDEN: ["canvas", "window"],
-        WindowPresence.SHOWN: ["window", "canvas"],
+        WindowPresence.HIDDEN: ["systemctl", "avatar-command", "window"],
+        WindowPresence.SHOWN: ["bring-up", "window", "avatar-command"],
     }

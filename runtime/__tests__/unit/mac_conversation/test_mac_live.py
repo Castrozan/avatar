@@ -12,7 +12,6 @@ from conversation_state import ConversationPhase
 PANE = "w4A:p1"
 UNITS_THE_LIVE_VOICE_NEEDS = [
     "avatar-control-server.service",
-    "avatar-renderer.service",
     "avatar-live.service",
 ]
 
@@ -110,12 +109,11 @@ def test_a_pane_without_a_servant_leaves_nothing_running(this_mac):
     with pytest.raises(RuntimeError, match=live_opening.LIVE_NEEDS_A_SERVANT):
         mac_talk.carry_out(["open", "--live"])
     assert this_mac.running == set()
-    assert this_mac.steps[-5:] == [
+    assert this_mac.steps[-4:] == [
         "hush",
         "stop avatar-live.service",
         "browser",
         "stop avatar-control-server.service",
-        "stop avatar-renderer.service",
     ]
 
 

@@ -74,3 +74,24 @@ def test_presenting_waits_for_the_window_to_start_rendering(stage, monkeypatch):
 def test_no_character_asked_for_changes_nothing(stage):
     mac_stage.show_character(None)
     assert stage.ran == []
+
+
+def test_a_conversation_on_this_mac_stands_no_renderer_until_shown(stage):
+    mac_stage.set_up()
+    assert mac_stage.RENDERER_UNIT not in stage.active
+    mac_stage.show_window()
+    assert mac_stage.RENDERER_UNIT in stage.active
+    mac_stage.strike()
+    assert stage.active == set()
+
+
+def test_a_renderer_that_never_answers_fails_before_any_window_opens(
+    stage, monkeypatch
+):
+    monkeypatch.setattr(
+        mac_stage, "answers", lambda port: port != mac_stage.local_seat.RENDERER_PORT
+    )
+    monkeypatch.setattr(mac_stage, "READY_WAIT_SECONDS", -1)
+    with pytest.raises(TimeoutError, match="renderer on this Mac did not start"):
+        mac_stage.show_window()
+    mac_stage.local_window.open_window.assert_not_called()
