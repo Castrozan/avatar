@@ -1,0 +1,19 @@
+[package]
+name = "avatar-cli"
+version = "0.1.0"
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[[bin]]
+name = "avatar"
+path = "src/main.rs"
+
+[dependencies]
+avatar-floor = { version = "0.1.0", path = "../avatar-floor" }
+avatar-routing = { version = "0.1.0", path = "../avatar-routing" }
+clap.workspace = true
+
+[lints]
+workspace = true
