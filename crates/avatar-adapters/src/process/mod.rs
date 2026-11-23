@@ -1,4 +1,6 @@
 mod captured;
+mod loopback;
+mod terminate;
 mod timed;
 
 use std::time::Duration;
@@ -6,6 +8,8 @@ use std::time::Duration;
 use avatar_wake::reach::CommandRunner;
 
 pub use captured::{Captured, run_captured};
+pub use loopback::loopback_get;
+pub use terminate::terminate;
 pub use timed::{Completed, run_with_timeout};
 
 pub struct SubprocessRunner;

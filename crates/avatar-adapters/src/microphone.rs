@@ -3,8 +3,8 @@ use std::path::PathBuf;
 use std::process::{Child, Command, Stdio};
 
 use avatar_wake::listener::Microphone;
-use nix::sys::signal::{Signal, kill};
-use nix::unistd::Pid;
+
+use crate::process::terminate;
 
 const FRAME_BYTES: u64 = 1024;
 
@@ -60,9 +60,4 @@ impl Microphone for ParecMicrophone {
             .take()
             .map(|mut capture| terminate(&mut capture));
     }
-}
-
-fn terminate(capture: &mut Child) {
-    let _ = i32::try_from(capture.id()).map(|pid| kill(Pid::from_raw(pid), Signal::SIGTERM));
-    let _ = capture.wait();
 }

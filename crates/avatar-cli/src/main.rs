@@ -4,12 +4,16 @@ use clap::{Parser, Subcommand};
 use std::io::{self, Write};
 use std::process::ExitCode;
 
+mod audio;
 mod browser;
 mod control;
 mod dispatch;
 mod interruption;
 mod serve;
+mod stop;
+mod transcribe;
 
+use audio::AudioOptions;
 use browser::BrowserOptions;
 use control::ControlOptions;
 use dispatch::DispatchOptions;
@@ -39,6 +43,12 @@ enum Command {
     Serve(ServeOptions),
     #[command(about = "Run the owned avatar browser: supervise URL, endpoint, stop or controls")]
     Browser(BrowserOptions),
+    #[command(about = "Operate the avatar audio graph and print its state as JSON")]
+    Audio(AudioOptions),
+    #[command(about = "Stop the avatar services and tear down the audio graph")]
+    Stop,
+    #[command(about = "Transcribe 16 kHz mono PCM from stdin through the local Hex server")]
+    Transcribe,
 }
 
 fn main() -> ExitCode {
@@ -57,6 +67,15 @@ impl Command {
             Self::Dispatch(options) => dispatch::run(&options),
             Self::Serve(options) => succeed(serve::run(&options)),
             Self::Browser(options) => succeed(browser::run(&options)),
+            other => other.run_audio_tools(),
+        }
+    }
+
+    fn run_audio_tools(self) -> io::Result<ExitCode> {
+        match self {
+            Self::Audio(options) => audio::run(&options.action),
+            Self::Transcribe => succeed(transcribe::run()),
+            _ => Ok(stop::run()),
         }
     }
 }
