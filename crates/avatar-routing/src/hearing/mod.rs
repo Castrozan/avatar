@@ -1,3 +1,4 @@
+pub mod japanese_similarity;
 pub mod name_hearing;
 pub mod name_similarity;
 pub mod spoken_name_index;

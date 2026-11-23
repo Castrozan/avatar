@@ -1,10 +1,13 @@
 use std::collections::HashSet;
 
+use crate::hearing::japanese_similarity::japanese_similarity;
 use crate::hearing::name_similarity::{joins_fragments, sounded_similarity};
 use crate::names::vocabulary::Vocabulary;
 use crate::text::sound::sound_key;
 
 const SPELLED_ALIKE: f64 = 2.0;
+type SimilarityOf = fn(&[String], &str, Option<&Vocabulary>) -> Option<f64>;
+const SIMILARITY_FUNCTIONS: [SimilarityOf; 2] = [heard_similarity, japanese_similarity];
 
 struct Hearing {
     similarity: f64,
@@ -18,29 +21,34 @@ pub fn heard_name(
     names: &[String],
     vocabulary: Option<&Vocabulary>,
 ) -> Option<(String, usize)> {
-    let heard = hearings(windows, names, vocabulary);
-    leading_name(&leaders_of(&heard))
+    SIMILARITY_FUNCTIONS
+        .iter()
+        .map(|similarity_of| hearings(*similarity_of, windows, names, vocabulary))
+        .find(|heard| !heard.is_empty())
+        .and_then(|heard| leading_name(&leaders_of(&heard)))
 }
 
 fn hearings(
+    similarity_of: SimilarityOf,
     windows: &[Vec<String>],
     names: &[String],
     vocabulary: Option<&Vocabulary>,
 ) -> Vec<Hearing> {
     windows
         .iter()
-        .flat_map(|words| hearings_for_window(words, names, vocabulary))
+        .flat_map(|words| hearings_for_window(similarity_of, words, names, vocabulary))
         .collect()
 }
 
 fn hearings_for_window(
+    similarity_of: SimilarityOf,
     words: &[String],
     names: &[String],
     vocabulary: Option<&Vocabulary>,
 ) -> impl Iterator<Item = Hearing> {
     names
         .iter()
-        .filter_map(move |name| hearing_of(words, name, vocabulary))
+        .filter_map(move |name| hearing_of(similarity_of, words, name, vocabulary))
 }
 
 fn leaders_of(heard: &[Hearing]) -> Vec<&Hearing> {
@@ -69,8 +77,13 @@ fn leading_name(leaders: &[&Hearing]) -> Option<(String, usize)> {
     }
 }
 
-fn hearing_of(words: &[String], name: &str, vocabulary: Option<&Vocabulary>) -> Option<Hearing> {
-    let similarity = heard_similarity(words, name, vocabulary)?;
+fn hearing_of(
+    similarity_of: SimilarityOf,
+    words: &[String],
+    name: &str,
+    vocabulary: Option<&Vocabulary>,
+) -> Option<Hearing> {
+    let similarity = similarity_of(words, name, vocabulary)?;
     Some(Hearing {
         similarity,
         name: name.to_owned(),

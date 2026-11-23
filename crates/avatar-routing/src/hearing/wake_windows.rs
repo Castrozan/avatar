@@ -1,7 +1,24 @@
 use crate::text::folding::{WordMatch, folded};
 
 const GREETINGS: &[&str] = &[
-    "hey", "hei", "hi", "ok", "okay", "ei", "oi", "ola", "ai", "o", "e", "em",
+    "hey",
+    "hei",
+    "hi",
+    "ok",
+    "okay",
+    "ei",
+    "oi",
+    "ola",
+    "ai",
+    "o",
+    "e",
+    "em",
+    "ne",
+    "nee",
+    "nene",
+    "neenee",
+    "moshi",
+    "moshimoshi",
 ];
 const WINDOW_SIZES: [usize; 3] = [1, 2, 3];
 

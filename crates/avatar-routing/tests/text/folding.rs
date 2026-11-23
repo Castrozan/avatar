@@ -1,4 +1,5 @@
 use avatar_routing::text::folding::{folded, word_matches};
+use std::error::Error;
 
 const CASES: [(&str, &[(&str, usize)]); 10] = [
     ("", &[]),
@@ -32,4 +33,42 @@ fn assert_case(case: &(&str, &[(&str, usize)])) {
 fn folded_removes_case_and_diacritics() {
     assert_eq!(folded("Ástolfo"), "astolfo");
     assert_eq!(folded("ÉCOLE"), "ecole");
+}
+
+const CYRILLIC_CASES: [(&str, &str); 19] = [
+    ("щука", "shuka"),
+    ("Юрий", "iurii"),
+    ("Ярослав", "iaroslav"),
+    ("ёж", "ezh"),
+    ("Їжак", "izhak"),
+    ("Іван", "ivan"),
+    ("ґанок", "ganok"),
+    ("ўзбек", "uzbek"),
+    ("объект", "obekt"),
+    ("Пьеса", "pesa"),
+    ("жизнь", "zhizn"),
+    ("Ель", "el"),
+    ("ъ", ""),
+    ("ь", ""),
+    ("Ящик", "iashik"),
+    ("Чаша", "chasha"),
+    ("Ёлка", "elka"),
+    ("Ástolfo Астольфо", "astolfo astolfo"),
+    ("Шуте́н", "shuten"),
+];
+
+#[test]
+fn folded_transliterates_cyrillic_like_python() -> Result<(), Box<dyn Error>> {
+    for (text, expected) in CYRILLIC_CASES {
+        ensure_equal(&folded(text), expected, text)?;
+    }
+    Ok(())
+}
+
+fn ensure_equal(actual: &str, expected: &str, input: &str) -> Result<(), Box<dyn Error>> {
+    if actual == expected {
+        Ok(())
+    } else {
+        Err(format!("{input:?}: {actual:?} != {expected:?}").into())
+    }
 }

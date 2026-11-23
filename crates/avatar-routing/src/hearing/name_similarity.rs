@@ -1,7 +1,8 @@
 use crate::names::vocabulary::Vocabulary;
+use crate::text::japanese_sound::starts_with_vowel;
 use crate::text::similarity::ratio;
 
-const SHORT_KEY_LENGTH: usize = 4;
+pub(super) const SHORT_KEY_LENGTH: usize = 4;
 const MEDIUM_KEY_LENGTH: usize = 5;
 const SHORT_NAME_SIMILARITY: f64 = 1.0;
 const MEDIUM_NAME_SIMILARITY: f64 = 0.8;
@@ -25,7 +26,7 @@ pub(super) fn sounded_similarity(
         return None;
     }
     let similarity = ratio(heard_key, name_key);
-    (similarity >= required_similarity(name_key)).then_some(similarity)
+    (similarity >= required_similarity(heard_key, name_key)).then_some(similarity)
 }
 
 fn holds_an_ordinary_word(words: &[String], vocabulary: Option<&Vocabulary>) -> bool {
@@ -36,14 +37,19 @@ fn sounds_alike(heard_key: &str, name_key: &str) -> bool {
     heard_key == name_key && char_count(name_key) > SHORT_KEY_LENGTH
 }
 
-fn required_similarity(name_key: &str) -> f64 {
+fn required_similarity(heard_key: &str, name_key: &str) -> f64 {
     match char_count(name_key) {
         0..=SHORT_KEY_LENGTH => SHORT_NAME_SIMILARITY,
         MEDIUM_KEY_LENGTH => MEDIUM_NAME_SIMILARITY,
+        _ if gains_a_leading_consonant(heard_key, name_key) => MEDIUM_NAME_SIMILARITY,
         _ => LONG_NAME_SIMILARITY,
     }
 }
 
-fn char_count(text: &str) -> usize {
+fn gains_a_leading_consonant(heard_key: &str, name_key: &str) -> bool {
+    starts_with_vowel(name_key) && !starts_with_vowel(heard_key)
+}
+
+pub(super) fn char_count(text: &str) -> usize {
     text.chars().count()
 }

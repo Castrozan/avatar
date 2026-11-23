@@ -5,7 +5,7 @@ import name_hearing
 import wake_phrase
 from hypothesis import given, settings
 from hypothesis import strategies as st
-from strategies import SERVANTS, rosters, texts, utterances, vocabularies
+from strategies import SERVANTS, japanese_heard, rosters, texts, utterances, vocabularies
 from transcription.ordinary_words import folded
 
 EXAMPLES = settings(max_examples=300, deadline=None)
@@ -28,7 +28,7 @@ def with_vocabulary(vocabulary):
 
 @EXAMPLES
 @given(
-    st.lists(st.lists(st.text(max_size=8).map(folded), min_size=1, max_size=3), max_size=5),
+    st.lists(st.lists(st.text(max_size=8).map(folded) | japanese_heard("Astolfo") | japanese_heard("Ishtar"), min_size=1, max_size=3), max_size=5),
     st.lists(st.sampled_from(SERVANTS).map(lambda name: folded(name.split()[0])), max_size=4, unique=True),
     vocabularies,
 )

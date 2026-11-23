@@ -29,7 +29,7 @@ fn replace_initial_r(word: &str) -> String {
     }
 }
 
-fn collapse_repeats(word: &str) -> String {
+pub(super) fn collapse_repeats(word: &str) -> String {
     word.char_indices()
         .filter(|&(index, character)| is_kept(word, index, character))
         .map(|(_, character)| character)
