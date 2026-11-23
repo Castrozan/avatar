@@ -113,11 +113,21 @@ them in `<data>/renderer/portraits`.
 | macOS x86_64, aarch64 | Release binaries and the Nix modules. The remote role runs here. |
 | Windows | Not supported. |
 
-Windows does not build, and a port is a project of its own, not a flag: the code uses Unix APIs throughout. The blockers
-are the `nix` crate (`crates/avatar-adapters`, `avatar-cli`: users, hostnames, signals and process groups), `flock`
-based locks, `tokio::signal::unix` for interruption, Unix domain sockets, `std::os::unix` file permissions and
-symlinks, `/proc` and `/run` paths, and the external tools the commands call (`systemctl`, `pactl`, `pw-*`, `hyprctl`,
-`ffmpeg`), which have no Windows counterpart in this design.
+Windows does not build, and a port is a project of its own, not a flag. `cargo check --workspace --target
+x86_64-pc-windows-gnu` fails in six library crates (`avatar-audio-graph`, `avatar-control`, `avatar-doctor`,
+`avatar-floor`, `avatar-transcript`, `avatar-wake-log`) before `avatar-cli` is reached, and 44 source files outside the
+tests use Unix-only APIs:
+
+- `std::os::unix` in 22 files: `PermissionsExt` file modes, `OpenOptionsExt::mode` and `DirBuilderExt::mode` on the state
+  and lock files, `symlink`, `CommandExt::process_group` for the owned browser and `ExitStatusExt`.
+- The `nix` crate in 17 files: `nix::unistd` and `nix::sys` (users, hostnames, signals, process groups), which do not
+  exist on Windows.
+- `tokio::signal::unix` for SIGINT and SIGTERM handling in 5 files, `flock` based locks in 4 and `/proc` in 2.
+- Runtime paths and tools with no Windows counterpart in this design: `/run/user/<uid>`, `/dev/video*`, `systemctl`,
+  `pactl` and `parec`, `hyprctl` and `herdr`.
+
+The binary's own asset code (`avatar-assets`: the embedded files, the data directory and `avatar setup`) is portable and
+compiles for that target.
 
 ## Test
 
