@@ -14,3 +14,4 @@ mod client;
 mod fixtures;
 mod scenarios;
 mod steps;
+mod transport;
