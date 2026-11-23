@@ -29,7 +29,7 @@ fn on_host(room: &str, command: &[String]) -> Vec<String> {
     argv
 }
 
-pub(super) fn forwarded_from_this_machine(
+pub fn forwarded_from_this_machine(
     boundary: &mut (impl Subprocess + Environment + Console),
     arguments: &[String],
 ) -> Option<i32> {

@@ -2,15 +2,12 @@ use std::fs;
 
 use avatar_adapters::clock::wall_seconds;
 use avatar_conversation::talk::ports::Floor;
-use avatar_conversation::talk::state::phase::live_purpose;
 use avatar_conversation::talk::state::seat::configured;
 use avatar_floor::addressee::{Addressee, current};
 use avatar_floor::quiet::{Entry, ListenerPurpose, Seat};
 use avatar_listening::conversation_addressee::Addressee as StoredAddressee;
 use avatar_listening::conversation_state::ListenerPurpose as StoredPurpose;
-use avatar_listening::listener::runtime::listening;
 use avatar_listening::listener::session::{SessionDirectory, quiet_seconds_since};
-use avatar_listening::listener::units::SystemdUnits;
 use avatar_wake::listener::{Boundary, BoundaryFailure, ConversationSeat};
 
 use super::Machine;
@@ -39,15 +36,14 @@ fn stored_of(addressee: &Addressee) -> StoredAddressee {
 
 impl Machine {
     pub(super) fn open_conversation_seat(&self) -> Option<Seat> {
-        let mut talk = self.talk();
-        let open = live_purpose(&mut talk) == Some(StoredPurpose::Conversation);
-        open.then(|| configured(&mut talk).ok()).flatten()
+        let open = self.capture.live_purpose(&self.directory) == Some(StoredPurpose::Conversation);
+        open.then(|| configured(&mut self.talk()).ok()).flatten()
     }
 }
 
 impl ConversationSeat for Machine {
     fn conversation_listening(&self) -> bool {
-        listening(&mut SystemdUnits::new("systemctl"))
+        self.capture.listening()
     }
 
     fn open_conversation(&self) -> Boundary<bool> {
@@ -66,7 +62,7 @@ impl ConversationSeat for Machine {
     }
 
     fn listening_purpose(&self) -> Boundary<Option<ListenerPurpose>> {
-        Ok(live_purpose(&mut self.talk()).map(purpose_of))
+        Ok(self.capture.live_purpose(&self.directory).map(purpose_of))
     }
 
     fn addressee(&self) -> Boundary<Option<Addressee>> {

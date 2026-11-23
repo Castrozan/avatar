@@ -1,6 +1,8 @@
 mod doctor;
 mod holder;
 mod listen;
+mod mac_talk;
+mod mac_wake;
 mod start;
 mod talk;
 mod wake;

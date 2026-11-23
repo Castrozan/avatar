@@ -76,7 +76,9 @@ in
     }:$PATH
     ${environment}
     export PYTHONPATH=$PYTHONPATH:${scripts}
-    exec ${conversationPython}/bin/python3 ${scripts}/conversation/mac_conversation/mac_talk.py "$@"
+    export AVATAR_SEAT_HOLDER_PYTHON=${conversationPython}/bin/python3
+    export AVATAR_SEAT_HOLDER=${scripts}/conversation/remote_seat/seat_holder.py
+    exec ${programs.avatarExecutable} mac talk "$@"
   '';
   meetingCommand =
     name: subcommand:

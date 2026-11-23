@@ -6,6 +6,7 @@ mod probe;
 mod reports;
 mod seat;
 mod session;
+mod talk;
 
 use std::path::PathBuf;
 
@@ -18,6 +19,7 @@ use avatar_seat::meetings::camera::CameraConfig;
 pub use camera::ObsMeetingCamera;
 pub use console::StandardConsole;
 pub use seat::MacSeatControl;
+pub use talk::{MacHostTalk, MacLiveOpening};
 
 use super::client::SeatClient;
 use super::stage::{BrowserProcesses, LaunchdStageUnits, MacSurface, SystemWaiting};
@@ -36,12 +38,13 @@ pub struct MacSession {
     pub units: LaunchdUnits,
 }
 
-pub struct MacRoom {
+pub struct MacRoom<Talk = ()> {
     pub stage: MacStage,
     pub session: MacSession,
     pub seat: MacSeatControl,
     pub camera: ObsMeetingCamera,
     pub config: SeatConfig,
+    pub talk: Talk,
 }
 
 pub struct MacRoomSettings {
@@ -95,6 +98,7 @@ impl MacRoom {
                 config: settings.camera,
             },
             config: settings.config,
+            talk: (),
         })
     }
 }

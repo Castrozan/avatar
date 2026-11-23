@@ -4,7 +4,7 @@ use crate::session::Console;
 use crate::stage::{StageSurface, StageUnits};
 use crate::waiting::Clock;
 
-impl StageUnits for MacRoom {
+impl<Talk> StageUnits for MacRoom<Talk> {
     fn unit_active(&mut self, unit: &str) -> bool {
         self.stage.units.unit_active(unit)
     }
@@ -18,7 +18,7 @@ impl StageUnits for MacRoom {
     }
 }
 
-impl StageSurface for MacRoom {
+impl<Talk> StageSurface for MacRoom<Talk> {
     fn answers(&mut self, port: u16) -> bool {
         self.stage.surface.answers(port)
     }
@@ -42,7 +42,7 @@ impl StageSurface for MacRoom {
     }
 }
 
-impl Clock for MacRoom {
+impl<Talk> Clock for MacRoom<Talk> {
     fn monotonic(&self) -> f64 {
         self.stage.waiting.monotonic()
     }
@@ -52,7 +52,7 @@ impl Clock for MacRoom {
     }
 }
 
-impl Console for MacRoom {
+impl<Talk> Console for MacRoom<Talk> {
     fn print_line(&mut self, line: &str) {
         StandardConsole.print_line(line);
     }

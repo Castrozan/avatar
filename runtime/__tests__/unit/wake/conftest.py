@@ -3,10 +3,7 @@ from types import SimpleNamespace
 import floor_cli
 import listener_runtime
 import local_seat
-import mac_wake_boundaries
 import pytest
-import remote_agent
-import wake_boundaries
 
 
 @pytest.fixture
@@ -38,15 +35,3 @@ def conversation_here(monkeypatch):
 def clock():
     return SimpleNamespace(now=100.0)
 
-
-@pytest.fixture
-def on_a_mac(monkeypatch, seat_listening, clock):
-    monkeypatch.setattr(wake_boundaries.sys, "platform", "darwin")
-    monkeypatch.setenv(remote_agent.HOST_ENVIRONMENT_VARIABLE, "kira")
-    transcript = mac_wake_boundaries.ConversationTranscript
-    monkeypatch.setattr(
-        mac_wake_boundaries,
-        "ConversationTranscript",
-        lambda: transcript(lambda: clock.now),
-    )
-    return wake_boundaries.for_this_machine()

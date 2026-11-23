@@ -3,12 +3,17 @@ use std::process::ExitCode;
 
 use clap::{Args, Subcommand};
 
+use crate::wake::WakeOptions;
+
 mod call_capture;
 mod environment;
 mod hosting;
 mod meeting;
 mod play;
+mod room;
 mod serving;
+mod talk;
+mod wake;
 
 #[derive(Args)]
 pub(crate) struct MacOptions {
@@ -35,6 +40,10 @@ enum MacAction {
         about = "Listen to the call of the meeting on this Mac, or delegate to avatar listen"
     )]
     Listen(meeting::ListenCallOptions),
+    #[command(about = "Open, drive and close the avatar voice conversation of this Mac")]
+    Talk(talk::TalkOptions),
+    #[command(about = "Listen for wake phrases on this Mac, or answer a wake query")]
+    Wake(WakeOptions),
 }
 
 pub(crate) fn run(options: &MacOptions) -> io::Result<ExitCode> {
@@ -45,5 +54,7 @@ pub(crate) fn run(options: &MacOptions) -> io::Result<ExitCode> {
         MacAction::CallCapture => Ok(call_capture::run()),
         MacAction::Meeting(meeting) => meeting::run(meeting),
         MacAction::Listen(listen) => meeting::listen(listen),
+        MacAction::Talk(talk) => talk::run(talk),
+        MacAction::Wake(wake) => wake::run(wake),
     }
 }

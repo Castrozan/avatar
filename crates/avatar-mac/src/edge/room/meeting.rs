@@ -4,7 +4,7 @@ use crate::failure::Failure;
 use crate::meeting::{MeetingRoom, SeatHealth};
 use crate::stage::StageSurface;
 
-impl MeetingRoom for MacRoom {
+impl<Talk> MeetingRoom for MacRoom<Talk> {
     fn seat_health(&mut self) -> Option<SeatHealth> {
         seat_health(self)
     }

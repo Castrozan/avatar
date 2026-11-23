@@ -78,15 +78,15 @@ impl Reports for World {
 impl RoomCommands for World {
     fn parse_request(&mut self, _arguments: &[String]) -> Result<TalkRequest, Failure> {
         let request = &self.config["request"];
-        Ok(TalkRequest {
-            command: command_of(request["command"].as_str().unwrap_or_default()),
-            language: text(&request["language"]),
-            character: text(&request["character"]),
-            text: text(&request["text"]).unwrap_or_default(),
-            emotion: text(&request["emotion"]).unwrap_or_default(),
-            voice: text(&request["voice"]),
-            wait: request["wait"].as_f64().unwrap_or(0.0),
-        })
+        let mut parsed =
+            TalkRequest::new(command_of(request["command"].as_str().unwrap_or_default()));
+        parsed.language = text(&request["language"]);
+        parsed.character = text(&request["character"]);
+        parsed.text = text(&request["text"]).unwrap_or_default();
+        parsed.emotion = text(&request["emotion"]).unwrap_or_default();
+        parsed.voice = text(&request["voice"]);
+        parsed.wait = request["wait"].as_f64().unwrap_or(0.0);
+        Ok(parsed)
     }
 
     fn hear(&mut self, _request: &TalkRequest) -> Result<(), Failure> {

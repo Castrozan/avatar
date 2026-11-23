@@ -12,7 +12,10 @@ fn flag(key: &str) -> bool {
     health.and_then(|body| body.get(key).and_then(Value::as_bool)) == Some(true)
 }
 
-fn local_seat_of<Output>(room: &MacRoom, body: impl FnOnce(&LocalSeat<'_>) -> Output) -> Output {
+fn local_seat_of<Output, Talk>(
+    room: &MacRoom<Talk>,
+    body: impl FnOnce(&LocalSeat<'_>) -> Output,
+) -> Output {
     let clock = SystemClock::new();
     let probe = HttpProbe { port: SEAT_PORT };
     body(&LocalSeat::new(
@@ -32,7 +35,7 @@ fn leave(seat: &LocalSeat<'_>) -> Result<(), Failure> {
     seat.leave().map_err(|error| edge_failure(&error))
 }
 
-impl SeatProbe for MacRoom {
+impl<Talk> SeatProbe for MacRoom<Talk> {
     fn seat_reachable(&mut self) -> bool {
         HttpProbe { port: SEAT_PORT }.health().is_some()
     }

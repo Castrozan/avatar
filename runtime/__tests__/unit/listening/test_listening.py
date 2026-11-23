@@ -10,7 +10,6 @@ import source_capture
 import speech_segmenter
 from transcription import transcriber
 import transcript_log
-import wake_boundaries
 
 FRAME_SAMPLES = 480
 
@@ -63,7 +62,7 @@ def test_wake_reports_rotate_as_complete_private_lines(tmp_path, monkeypatch):
     transcript_log._wake_logger.cache_clear()
     logger = transcript_log._wake_logger()
     try:
-        report = wake_boundaries.Boundaries().report
+        report = transcript_log.report_to_log
         texts = [f"{index}: olá Ibaraki-dōji\nmais uma frase" for index in range(20)]
         for text in texts:
             transcript_log.report_wake(report, text, b"")

@@ -35,7 +35,7 @@ fn session_failure(error: &impl ToString) -> Failure {
     Failure::new(FailureKind::Runtime, &error.to_string())
 }
 
-impl RoomSession for MacRoom {
+impl<Talk> RoomSession for MacRoom<Talk> {
     fn phase(&mut self) -> ConversationPhase {
         let active = self.session.units.is_active(CONVERSATION_TARGET);
         observe(active, live_purpose_of(self))
@@ -63,6 +63,6 @@ impl RoomSession for MacRoom {
     }
 }
 
-fn live_purpose_of(room: &mut MacRoom) -> Option<ListenerPurpose> {
+fn live_purpose_of<Talk>(room: &mut MacRoom<Talk>) -> Option<ListenerPurpose> {
     live_purpose(&room.session.directory, &mut room.session.units)
 }

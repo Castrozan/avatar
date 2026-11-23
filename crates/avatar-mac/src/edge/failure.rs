@@ -1,5 +1,7 @@
 use std::io;
 
+use avatar_conversation::talk::TalkFailure;
+use avatar_conversation::talk::effects::CLOSED_MESSAGE;
 use avatar_listening::user_units::UnitEffectError;
 use avatar_seat::edges::EdgeFailure;
 
@@ -49,4 +51,14 @@ pub fn edge_failure(error: &EdgeFailure) -> Failure {
         EdgeFailure::NonZeroExit { .. } => FailureKind::CalledProcess,
     };
     Failure::new(kind, &error.to_string())
+}
+
+#[must_use]
+pub fn talk_failure(error: &TalkFailure) -> Failure {
+    let kind = if error.message() == CLOSED_MESSAGE {
+        FailureKind::ConversationClosed
+    } else {
+        FailureKind::Runtime
+    };
+    Failure::new(kind, error.message())
 }

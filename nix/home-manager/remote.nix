@@ -21,7 +21,6 @@ let
   };
   inherit (conversation) talk;
   peerHosts = lib.filter (machine: machine != cfg.hostName) cfg.topology.machines;
-  websocketPython = pkgs.python312.withPackages (packages: [ packages.websockets ]);
   wake = pkgs.writeShellScriptBin "avatar-wake" ''
     export PATH=${
       lib.makeBinPath [
@@ -39,8 +38,7 @@ let
     export AVATAR_WAKE_PAGE=${../../runtime/scripts/wake/page}
     export AVATAR_BROWSER_APPLICATION="${browserApplication}"
     export AVATAR_SEAT_PAGE=${../../runtime/scripts/conversation/remote_seat/page}
-    export PYTHONPATH=${conversation.modules}:${../../runtime/scripts/addressing}:${programs.a2aLibrary}
-    exec ${websocketPython}/bin/python3 ${../../runtime/scripts/wake}/wake_listener.py "$@"
+    exec ${programs.avatarExecutable} mac wake "$@"
   '';
   doctor = import ../../runtime/home-manager/avatar-doctor-package.nix {
     inherit pkgs lib;

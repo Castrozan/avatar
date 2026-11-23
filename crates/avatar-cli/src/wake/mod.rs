@@ -7,7 +7,8 @@ mod listening;
 mod machine;
 mod query;
 
-use machine::Machine;
+pub(crate) use listening::listen;
+pub(crate) use machine::{LocalCapture, Machine};
 
 #[derive(Args)]
 pub(crate) struct WakeOptions {
@@ -57,11 +58,19 @@ impl WakeOptions {
 
 pub(crate) fn run(options: &WakeOptions) -> io::Result<ExitCode> {
     let machine = Machine::on_this_machine()?;
+    dispatch(options, &machine, listening::run)
+}
+
+pub(crate) fn dispatch(
+    options: &WakeOptions,
+    machine: &Machine,
+    listen: impl FnOnce(&Machine, bool) -> ExitCode,
+) -> io::Result<ExitCode> {
     match options.mode() {
-        Mode::Conversation => query::conversation(&machine),
-        Mode::Claim(pane) => query::claim(&machine, pane, options.room.as_deref()),
-        Mode::Sessions => query::sessions(&machine),
-        Mode::Heard(seconds) => query::heard(&machine, seconds),
-        Mode::Listen => Ok(listening::run(&machine, options.dry_run)),
+        Mode::Conversation => query::conversation(machine),
+        Mode::Claim(pane) => query::claim(machine, pane, options.room.as_deref()),
+        Mode::Sessions => query::sessions(machine),
+        Mode::Heard(seconds) => query::heard(machine, seconds),
+        Mode::Listen => Ok(listen(machine, options.dry_run)),
     }
 }
