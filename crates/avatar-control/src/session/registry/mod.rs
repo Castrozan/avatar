@@ -1,9 +1,11 @@
 use crate::session::client::{ClientId, Target};
 
+pub(crate) use followers::{SpeechFollowers, speech_activity_message};
 pub(crate) use roles::{ConnectedRole, connected_role};
 
 use roles::{Memberships, first_held};
 
+mod followers;
 mod roles;
 
 #[derive(Debug, Default)]

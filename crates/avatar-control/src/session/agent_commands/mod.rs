@@ -1,6 +1,7 @@
 mod camera;
 mod character;
 mod expression;
+mod follow_speech;
 mod presentation;
 mod status;
 mod voice_level;
@@ -41,7 +42,7 @@ fn session_command(
         "setIdle" => Some(expression::set_idle(hub, client, command)),
         "getStatus" => Some(status::get_status(hub, client, now_ms)),
         "voiceLevel" => Some(voice_level::voice_level(hub, client, command, now_ms)),
-        _ => None,
+        _ => follow_speech::follow_speech_command(hub, client, kind),
     }
 }
 

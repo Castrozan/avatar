@@ -12,6 +12,13 @@ pub(crate) fn str_field<'value>(
         .ok_or_else(|| format!("missing string field {key}").into())
 }
 
+pub(crate) fn bool_field(value: &Value, key: &str) -> Result<bool, Box<dyn Error>> {
+    value
+        .get(key)
+        .and_then(Value::as_bool)
+        .ok_or_else(|| format!("missing boolean field {key}").into())
+}
+
 pub(crate) fn u64_field(value: &Value, key: &str) -> Result<u64, Box<dyn Error>> {
     value
         .get(key)
