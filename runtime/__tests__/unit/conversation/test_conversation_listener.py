@@ -43,8 +43,11 @@ def test_a_stale_marker_from_a_killed_listener_is_cleared(tmp_path):
     assert not (tmp_path / "marker").exists()
 
 
-def test_sustained_speech_interrupts_the_speaker_once_per_segment(tmp_path):
+def test_words_over_a_reply_interrupt_the_speaker_once_per_segment(tmp_path):
     listening = listening_with(tmp_path)
+    listening.speaking_replies = lambda: ["Pronto, abri os dois."]
+    listening.recognize_words = lambda audio: "Espera, para"
+    listening.start_confirmation = lambda target, *arguments: target(*arguments)
     speech = source_capture.SourceSpeech("human", listening)
     for _ in range(40):
         speech.feed(FRAME)

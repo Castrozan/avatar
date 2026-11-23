@@ -11,13 +11,14 @@ import conversation_seat
 import conversation_state
 import listener_session
 import remote_agent
+import speaking_replies
 import transcript_log
 import turn_taking
 import utterances
 from conversation_state import ConversationPhase
 
 FOLLOW_SLICE_SECONDS = 30
-SPEECH_TIMEOUT_SECONDS = 310
+SPEECH_TIMEOUT_SECONDS = speaking_replies.LONGEST_REPLY_SECONDS
 VOICE_TAG = "[voice]"
 ACKNOWLEDGEMENT = "speakAck"
 SPEECH_MOMENTS = {
@@ -78,12 +79,13 @@ def withheld_speech(command, directory, reason, invoked):
     return subprocess.CompletedProcess(command, 0, json.dumps(response) + "\n")
 
 
-def spoken_in_turn(command, directory):
+def spoken_in_turn(command, directory, text):
     invoked = time.time()
     reason = turn_taking.withheld_reason(directory)
     if reason:
         return withheld_speech(command, directory, reason, invoked)
-    completed = spoken(command, invoked)
+    with speaking_replies.speaking(directory, text):
+        completed = spoken(command, invoked)
     status = acknowledgement(completed.stdout).get("status")
     turn_taking.remember_outcome(directory, status)
     return completed
@@ -112,23 +114,28 @@ def speech_command(arguments, directory):
 
 def speak_on_seat(directory, text, seat):
     listener_session.mark_spoken(directory)
-    subprocess.run(
-        speech_command_on_seat(
-            SimpleNamespace(text=text, emotion="neutral", voice=None), seat
-        ),
-        check=True,
-        timeout=SPEECH_TIMEOUT_SECONDS,
-    )
+    with speaking_replies.speaking(directory, text):
+        subprocess.run(
+            speech_command_on_seat(
+                SimpleNamespace(text=text, emotion="neutral", voice=None), seat
+            ),
+            check=True,
+            timeout=SPEECH_TIMEOUT_SECONDS,
+        )
 
 
 def say(arguments, directory):
     listener_session.mark_spoken(directory)
-    print_and_exit(spoken(speech_command(arguments, directory), time.time()))
+    with speaking_replies.speaking(directory, arguments.text):
+        completed = spoken(speech_command(arguments, directory), time.time())
+    print_and_exit(completed)
 
 
 def reply(arguments, directory):
     listener_session.mark_spoken(directory)
-    print_and_exit(spoken_in_turn(speech_command(arguments, directory), directory))
+    print_and_exit(
+        spoken_in_turn(speech_command(arguments, directory), directory, arguments.text)
+    )
 
 
 def print_next_utterance(
@@ -159,7 +166,9 @@ def listen_after(completed, directory, wait_seconds):
 def ask(arguments, directory):
     with utterances.exclusive_consumer(directory):
         listener_session.mark_spoken(directory)
-        completed = spoken_in_turn(speech_command(arguments, directory), directory)
+        completed = spoken_in_turn(
+            speech_command(arguments, directory), directory, arguments.text
+        )
         listen_after(completed, directory, arguments.wait)
 
 

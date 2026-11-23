@@ -1,4 +1,5 @@
 import dataclasses
+import functools
 import json
 import os
 import queue
@@ -10,10 +11,12 @@ import time
 from pathlib import Path
 
 from transcription import cloud_transcriber
+import barge_in
 import listener_runtime
 import speaker_identity
 from pending_speech import PendingSpeech
 import source_capture
+import speaking_replies
 import transcript_echo
 import transcript_log
 import turn_detector
@@ -30,6 +33,14 @@ def every_pause_ends_the_turn(audio):
     return True
 
 
+def nothing_being_spoken():
+    return []
+
+
+def no_words_recognized(audio):
+    return ""
+
+
 @dataclasses.dataclass
 class Listening:
     segments: queue.Queue
@@ -40,6 +51,10 @@ class Listening:
     language: str | None = None
     identify_speakers: bool = False
     turn_finished: object = every_pause_ends_the_turn
+    speaking_replies: object = nothing_being_spoken
+    recognize_words: object = no_words_recognized
+    start_confirmation: object = barge_in.start_daemon_thread
+    clock: object = time.monotonic
 
 
 def transcribe_when_ready(segment, language):
@@ -127,6 +142,19 @@ def boundaries_of_this_machine():
     )
 
 
+def barge_in_boundaries(configuration, directory, stop_speaking):
+    if not configuration.get("barge_in"):
+        return {"interrupt_speaker": lambda: None}
+    return {
+        "interrupt_speaker": stop_speaking,
+        "speaking_replies": functools.partial(speaking_replies.being_spoken, directory),
+        "recognize_words": functools.partial(
+            cloud_transcriber.transcribe_with_local_fallback,
+            language=configuration.get("language"),
+        ),
+    }
+
+
 def main():
     capture_command, stop_speaking = boundaries_of_this_machine()
     directory = listener_runtime.runtime_directory()
@@ -138,13 +166,11 @@ def main():
         segments=queue.Queue(maxsize=PENDING_SEGMENT_LIMIT),
         stopping=threading.Event(),
         pending=PendingSpeech(directory / SPEECH_IN_PROGRESS_MARKER),
-        interrupt_speaker=stop_speaking
-        if configuration.get("barge_in")
-        else lambda: None,
         capture_command=capture_command,
         language=configuration.get("language"),
         identify_speakers=configuration.get("identify_speakers", False),
         turn_finished=detector.finished,
+        **barge_in_boundaries(configuration, directory, stop_speaking),
     )
     signal.signal(signal.SIGTERM, lambda *_: listening.stopping.set())
     for source, device in configuration["sources"].items():

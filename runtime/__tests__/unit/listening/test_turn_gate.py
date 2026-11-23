@@ -15,7 +15,8 @@ from turn_taking import WithheldReason
 
 STOPPED = ("none", "just now", "long ago")
 ROOM = ("quiet", "a sound without words", "words", "still speaking")
-COMMAND = ["avatar-command", "speak", "Pronto.", "neutral", "discord"]
+REPLY = "Pronto."
+COMMAND = ["avatar-command", "speak", REPLY, "neutral", "discord"]
 
 
 def stopped(directory, when):
@@ -86,8 +87,8 @@ def test_only_a_reply_the_room_stopped_holds_the_one_behind_it(
     acknowledged = json.dumps({"type": "speakAck", "status": status}) + "\n"
     speaker = Mock(return_value=subprocess.CompletedProcess([], 0, acknowledged))
     monkeypatch.setattr(voice_turns.subprocess, "run", speaker)
-    voice_turns.spoken_in_turn(COMMAND, tmp_path)
-    behind = voice_turns.spoken_in_turn(COMMAND, tmp_path)
+    voice_turns.spoken_in_turn(COMMAND, tmp_path, REPLY)
+    behind = voice_turns.spoken_in_turn(COMMAND, tmp_path, REPLY)
     assert speaker.call_count == (1 if holds_the_next else 2)
     held = json.loads(behind.stdout) == withheld_because("queued")
     assert held is holds_the_next
@@ -112,7 +113,7 @@ def test_a_withheld_reply_is_logged_with_its_reason(tmp_path, monkeypatch):
     report = Mock()
     monkeypatch.setattr(transcript_log, "report_to_log", report)
     said(tmp_path, 1, "espera")
-    voice_turns.spoken_in_turn(COMMAND, tmp_path)
+    voice_turns.spoken_in_turn(COMMAND, tmp_path, REPLY)
     record = json.loads(report.call_args.args[0])
     assert (record["phase"], record["status"], record["reason"]) == (
         "speech",

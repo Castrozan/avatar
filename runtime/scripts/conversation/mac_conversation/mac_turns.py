@@ -4,6 +4,7 @@ import conversation_addressee
 import listener_session
 import mac_stage
 import remote_agent
+import speaking_replies
 import utterances
 import voice_turns
 from conversation_seat import Seat
@@ -20,7 +21,7 @@ def refuse_unless_addressed(directory):
 def speak(arguments, directory):
     refuse_unless_addressed(directory)
     listener_session.mark_spoken(directory)
-    with mac_stage.standing():
+    with speaking_replies.speaking(directory, arguments.text), mac_stage.standing():
         mac_stage.speak(arguments.text, arguments.emotion, arguments.voice)
 
 
@@ -29,7 +30,7 @@ def speech_in_turn(arguments, directory):
     listener_session.mark_spoken(directory)
     command = voice_turns.speech_command_on_seat(arguments, Seat.ROOM)
     with mac_stage.standing():
-        return voice_turns.spoken_in_turn(command, directory)
+        return voice_turns.spoken_in_turn(command, directory, arguments.text)
 
 
 def reply(arguments, directory):

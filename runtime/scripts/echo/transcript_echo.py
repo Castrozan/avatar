@@ -19,6 +19,19 @@ def resembles(first, second):
     return len(shorter.split()) >= MINIMUM_CONTAINED_WORDS and shorter in longer
 
 
+def word_runs(text, length):
+    words = text.split()
+    starts = range(max(1, len(words) - length + 1))
+    return (" ".join(words[start : start + length]) for start in starts)
+
+
+def echoes_part_of(heard, spoken):
+    return any(
+        difflib.SequenceMatcher(None, heard, run).ratio() >= SIMILARITY_RATIO
+        for run in word_runs(spoken, len(heard.split()))
+    )
+
+
 class EchoFilter:
     def __init__(self):
         self.recent = collections.deque()

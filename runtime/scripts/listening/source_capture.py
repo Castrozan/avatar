@@ -5,11 +5,11 @@ import queue
 import time
 
 import speech_segmenter
+from barge_in import SegmentBargeIn
 from turn_detector import TurnTracker
 
 FRAME_BYTES = int(speech_segmenter.SAMPLE_RATE * speech_segmenter.FRAME_SECONDS) * 2
 CAPTURE_RETRY_SECONDS = 1
-BARGE_IN_SECONDS = 0.6
 DISCORD_DEVICE = "discord"
 DISCORD_CAPTURE_COMMAND = ["discord-voice", "capture"]
 
@@ -50,26 +50,21 @@ class SourceSpeech:
         self.listening = listening
         self.segmenter = speech_segmenter.SpeechSegmenter()
         self.turn = TurnTracker(listening.turn_finished)
-        self.interrupted = False
+        self.barge_in = SegmentBargeIn(listening)
 
     def feed(self, frame):
         was_active = self.segmenter.active
         segment = self.segmenter.feed(frame)
         if self.segmenter.active:
             if not was_active:
-                self.listening.pending.begin()
-            self.interrupt_when_sustained()
+                self.begin_segment()
+            self.barge_in.hear(self.segmenter)
         elif was_active:
-            self.interrupted = False
             self.hand_over(segment)
 
-    def interrupt_when_sustained(self):
-        if (
-            self.segmenter.sustained_seconds >= BARGE_IN_SECONDS
-            and not self.interrupted
-        ):
-            self.interrupted = True
-            self.listening.interrupt_speaker()
+    def begin_segment(self):
+        self.listening.pending.begin()
+        self.barge_in = SegmentBargeIn(self.listening)
 
     def hand_over(self, segment):
         if segment is None:

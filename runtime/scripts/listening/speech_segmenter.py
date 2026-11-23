@@ -35,8 +35,8 @@ class SpeechSegmenter:
         return bool(self.segment)
 
     @property
-    def sustained_seconds(self):
-        return self.speech_frames * FRAME_SECONDS
+    def audio(self):
+        return b"".join(self.segment)
 
     def feed(self, frame):
         speaking = frame_level(frame) >= SPEECH_LEVEL
