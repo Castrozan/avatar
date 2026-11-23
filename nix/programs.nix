@@ -43,7 +43,6 @@ let
   voiceActivityModel = import ../runtime/home-manager/avatar-voice-activity-model.nix {
     inherit pkgs;
   };
-  websocketPython = pkgs.python312.withPackages (packages: [ packages.websockets ]);
   audio = pkgs.writeShellScriptBin "avatar-audio" ''
     export PATH=${lib.makeBinPath [ pkgs.pulseaudio ]}:$PATH
     exec ${avatarExecutable} audio "$@"
