@@ -71,11 +71,7 @@ async fn wait_for_encoded_bytes(path: &Path, length: usize) {
     }
 }
 
-struct Rig {
-    directory: tempfile::TempDir,
-    cdp: crate::cdp::CdpServer,
-    camera: VirtualCamera,
-}
+type Rig = (tempfile::TempDir, crate::cdp::CdpServer, VirtualCamera);
 
 fn output_page(cdp_port: u16) -> Value {
     let debugger = format!("ws://127.0.0.1:{cdp_port}/devtools/page/1");
@@ -88,22 +84,18 @@ async fn start_rig() -> Result<Rig, Box<dyn std::error::Error>> {
     let targets = serve_targets(vec![output_page(cdp.port)], None, "").await?;
     let encoder = fake_encoder(directory.path())?;
     let camera = VirtualCamera::start(&settings(targets.port, &encoder)).await?;
-    Ok(Rig {
-        directory,
-        cdp,
-        camera,
-    })
+    Ok((directory, cdp, camera))
 }
 
 #[tokio::test]
 async fn frames_from_the_renderer_reach_the_encoder_after_the_modal_is_dismissed() -> TestResult {
-    let rig = start_rig().await?;
-    let encoded = rig.directory.path().join("frames.bin");
-    send_frame(rig.camera.frame_address(), "http://localhost:3000").await?;
+    let (directory, cdp, camera) = start_rig().await?;
+    let encoded = directory.path().join("frames.bin");
+    send_frame(camera.frame_address(), "http://localhost:3000").await?;
     timeout(WAIT, wait_for_encoded_bytes(&encoded, FRAME.len())).await?;
-    assert_eq!(rig.camera.stop().await, 1);
+    assert_eq!(camera.stop().await, 1);
     assert_eq!(fs::read(encoded)?, FRAME.to_vec());
-    assert_eq!(sent(&rig.cdp.received)[0]["method"], "Runtime.evaluate");
+    assert_eq!(sent(&cdp.received)[0]["method"], "Runtime.evaluate");
     Ok(())
 }
 
@@ -121,12 +113,9 @@ async fn a_missing_output_tab_stops_the_start_with_the_node_message() -> TestRes
 
 #[tokio::test]
 async fn frames_from_a_foreign_origin_are_refused() -> TestResult {
-    let rig = start_rig().await?;
-    assert!(
-        send_frame(rig.camera.frame_address(), "http://evil.example")
-            .await
-            .is_err()
-    );
-    assert_eq!(rig.camera.stop().await, 0);
+    let (_directory, _cdp, camera) = start_rig().await?;
+    let refused = send_frame(camera.frame_address(), "http://evil.example").await;
+    assert!(refused.is_err());
+    assert_eq!(camera.stop().await, 0);
     Ok(())
 }
