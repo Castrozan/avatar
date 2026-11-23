@@ -24,5 +24,6 @@ pub(super) fn exit_code_within(
         return Ok(child.wait()?.code());
     }
     child.kill()?;
+    child.wait()?;
     Ok(None)
 }

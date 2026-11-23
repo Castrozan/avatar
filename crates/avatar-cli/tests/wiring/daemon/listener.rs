@@ -13,8 +13,9 @@ use crate::{Machine, TestResult, text};
 const TURN_MODEL: &str = "/nix/store/ny4gbj36s6yvzrqj4c1v12rqqvnzip8b-smart-turn-v3.2-cpu.onnx";
 const VOICE_MODEL: &str = "/nix/store/8njwlx068xgrzjhmv5h2z0hrs224w2r5-silero_vad.onnx";
 const FRAME_SAMPLES: usize = 512;
-const CAPTURE: &str =
-    "cat \"${0%/*}/../sample.pcm\"; while true; do head -c 1024 /dev/zero; sleep 0.01; done";
+pub(super) const CAPTURE_IDENTITY: &str = "capture.pid";
+const CAPTURE: &str = "echo $$ > \"${0%/*}/../capture.pid\"; cat \"${0%/*}/../sample.pcm\"; \
+    while [ -e \"$0\" ]; do head -c 1024 /dev/zero || exit; sleep 0.01; done";
 const CONFIGURATION: &str = r#"{"sources":{"human":"fakemic"},"language":"en"}"#;
 
 fn loud_sample(index: usize) -> [u8; 2] {
@@ -35,7 +36,11 @@ fn write_hex_discovery(machine: &Machine, port: u16) -> TestResult {
     Ok(())
 }
 
-fn start_daemon(machine: &Machine) -> Result<Child, Box<dyn std::error::Error>> {
+pub(super) fn models_installed() -> bool {
+    Path::new(TURN_MODEL).exists() && Path::new(VOICE_MODEL).exists()
+}
+
+pub(super) fn start_daemon(machine: &Machine) -> Result<Child, Box<dyn std::error::Error>> {
     let mut command = machine.command_with_system_tools(&["listener"]);
     command.env("AVATAR_TURN_MODEL", TURN_MODEL);
     command.env("AVATAR_VOICE_ACTIVITY_MODEL", VOICE_MODEL);
@@ -52,7 +57,7 @@ fn heard(transcript: &Path) -> bool {
     content.contains("hello there") && content.contains("\"source\": \"human\"")
 }
 
-fn prepared_machine() -> Result<Machine, Box<dyn std::error::Error>> {
+pub(super) fn prepared_machine() -> Result<Machine, Box<dyn std::error::Error>> {
     let machine = Machine::with_tools(&[("parec", CAPTURE)])?;
     fs::write(machine.path("sample.pcm"), speech_then_silence())?;
     write_hex_discovery(&machine, serve_hex("hello there")?)?;
@@ -62,7 +67,7 @@ fn prepared_machine() -> Result<Machine, Box<dyn std::error::Error>> {
 
 #[test]
 fn the_daemon_transcribes_a_captured_segment_through_hex_and_stops_on_sigterm() -> TestResult {
-    if !Path::new(TURN_MODEL).exists() || !Path::new(VOICE_MODEL).exists() {
+    if !models_installed() {
         return Ok(());
     }
     let machine = prepared_machine()?;
