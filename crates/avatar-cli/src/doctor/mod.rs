@@ -6,6 +6,8 @@ use avatar_doctor::doctor::{
     Finding, LocalPageProbe, all_healthy, host_report, rendered_json, rendered_text, seat_report,
 };
 use clap::Args;
+
+pub(crate) mod switch_latency;
 use nix::unistd::getuid;
 
 #[derive(Args)]

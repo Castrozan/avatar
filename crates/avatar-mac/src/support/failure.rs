@@ -50,3 +50,5 @@ impl fmt::Display for Failure {
         formatter.write_str(&self.message)
     }
 }
+
+impl std::error::Error for Failure {}

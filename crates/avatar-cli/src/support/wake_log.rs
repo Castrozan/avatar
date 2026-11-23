@@ -7,7 +7,7 @@ use serde_json::{Map, Value, json};
 
 const HOST_VARIABLE: &str = "AVATAR_AGENT_HOST";
 
-fn log_path() -> PathBuf {
+pub(crate) fn log_path() -> PathBuf {
     let state_home = std::env::var_os("XDG_STATE_HOME")
         .filter(|value| !value.is_empty())
         .map(PathBuf::from);

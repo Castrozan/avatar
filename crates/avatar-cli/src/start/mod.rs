@@ -9,6 +9,7 @@ use avatar_seat::meetings::readiness::SystemReadiness;
 use avatar_seat::meetings::start::{StartEdges, start};
 use clap::{Args, ValueEnum};
 
+pub(crate) mod listen;
 mod preparation;
 
 use preparation::ConversationSeatPreparation;

@@ -15,7 +15,11 @@ pub(crate) struct ListenOptions {
 }
 
 pub(crate) fn run(options: &ListenOptions) -> ExitCode {
+    run_arguments(&options.arguments)
+}
+
+pub(crate) fn run_arguments(arguments: &[String]) -> ExitCode {
     let program = std::iter::once("avatar-listen".to_owned());
-    let status = listen_main(program.chain(options.arguments.iter().cloned()));
+    let status = listen_main(program.chain(arguments.iter().cloned()));
     ExitCode::from(u8::try_from(status).unwrap_or(1))
 }

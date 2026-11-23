@@ -1,4 +1,5 @@
 pub mod client;
+pub mod edge;
 pub mod meeting;
 pub mod relay;
 pub mod seat;
