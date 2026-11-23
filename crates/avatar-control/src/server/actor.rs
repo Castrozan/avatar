@@ -1,13 +1,13 @@
 use std::collections::HashMap;
-use std::time::{Duration, SystemTime, UNIX_EPOCH};
+use std::time::Duration;
 
 use tokio::sync::mpsc::{Receiver, UnboundedSender};
 use tokio::sync::watch;
 use tokio::time::{Interval, interval};
 
 use crate::server::command::Command;
-use crate::server::next_command::next_command;
-use crate::server::speech_port::SpeechPort;
+use crate::server::loop_support::{next_command, now_ms};
+use crate::server::speech::{SpeechEvent, SpeechPort, outbound_for};
 use crate::session::{ClientId, Hub, Outbound, Reply};
 
 pub(crate) async fn drive<Port: SpeechPort>(mut actor: Actor<Port>) {
@@ -54,6 +54,7 @@ impl<Port: SpeechPort> Actor<Port> {
             Command::Frame { client, text } => self.receive(client, &text),
             Command::Disconnect(client) => self.forget(client),
             Command::Tick => self.tick(),
+            Command::Speech(event) => self.speech(event),
         }
     }
 
@@ -84,6 +85,11 @@ impl<Port: SpeechPort> Actor<Port> {
             .for_each(|client| drop(self.senders.remove(&client)));
     }
 
+    fn speech(&mut self, event: SpeechEvent) {
+        let outbound = outbound_for(&mut self.hub, event);
+        deliver_all(&self.hub, &self.senders, &outbound);
+    }
+
     fn tick(&mut self) {
         let outbound = self.hub.tick_voice_levels(now_ms());
         deliver_all(&self.hub, &self.senders, &outbound);
@@ -102,12 +108,4 @@ fn deliver(hub: &Hub, senders: &Senders, item: &Outbound) {
         .iter()
         .filter_map(|client| senders.get(client))
         .for_each(|sender| drop(sender.send(text.clone())));
-}
-
-pub(crate) fn now_ms() -> u64 {
-    SystemTime::now()
-        .duration_since(UNIX_EPOCH)
-        .map_or(0, |elapsed| {
-            u64::try_from(elapsed.as_millis()).unwrap_or(u64::MAX)
-        })
 }

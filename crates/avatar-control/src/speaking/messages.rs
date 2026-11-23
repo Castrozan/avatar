@@ -80,3 +80,8 @@ fn spoken_sources(sources: &[SpeechSource]) -> Option<String> {
         .collect();
     (!names.is_empty()).then(|| names.join("+"))
 }
+
+#[must_use]
+pub fn error_reply(text: &str, now_ms: u64) -> Value {
+    json!({"type": "error", "error": text, "timestamp": now_ms})
+}

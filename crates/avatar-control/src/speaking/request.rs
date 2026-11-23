@@ -40,7 +40,7 @@ fn speakable_text(command: &Value) -> Option<&str> {
         .filter(|text| !is_blank(text))
 }
 
-fn is_blank(text: &str) -> bool {
+pub(crate) fn is_blank(text: &str) -> bool {
     text.trim_matches(|character: char| character.is_whitespace() || character == '\u{feff}')
         .is_empty()
 }

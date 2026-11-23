@@ -1,5 +1,6 @@
 use tokio::sync::mpsc::UnboundedSender;
 
+use crate::server::speech::SpeechEvent;
 use crate::session::ClientId;
 
 pub(crate) enum Command {
@@ -13,4 +14,5 @@ pub(crate) enum Command {
     },
     Disconnect(ClientId),
     Tick,
+    Speech(SpeechEvent),
 }
