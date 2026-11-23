@@ -5,6 +5,7 @@ pub mod control;
 pub mod playback;
 pub mod server;
 pub mod session;
+pub mod site;
 pub mod speaking;
 pub mod speech;
 pub mod synthesis;

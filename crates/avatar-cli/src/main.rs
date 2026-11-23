@@ -6,9 +6,12 @@ use std::process::ExitCode;
 
 mod control;
 mod dispatch;
+mod interruption;
+mod serve;
 
 use control::ControlOptions;
 use dispatch::DispatchOptions;
+use serve::ServeOptions;
 
 #[derive(Parser)]
 #[command(name = "avatar", version, about = "Avatar command-line tools")]
@@ -30,6 +33,8 @@ enum Command {
         about = "Send one command to the avatar control server and print its answer"
     )]
     Dispatch(DispatchOptions),
+    #[command(about = "Serve the renderer directory from AVATAR_RENDERER_ROOT without caching")]
+    Serve(ServeOptions),
 }
 
 fn main() -> ExitCode {
@@ -46,6 +51,7 @@ impl Command {
             Self::Floor => floor(),
             Self::Control(options) => succeed(control::run(&options)),
             Self::Dispatch(options) => dispatch::run(&options),
+            Self::Serve(options) => succeed(serve::run(&options)),
         }
     }
 }

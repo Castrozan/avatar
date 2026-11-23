@@ -2,12 +2,12 @@ use std::io::{self, Write};
 use std::net::SocketAddr;
 use std::path::PathBuf;
 
+use crate::interruption::Interruption;
 use avatar_control::control::{ControlEnvironment, ControlServer, ControlServerSettings};
 use avatar_control::server::{DiscardingSpeechPort, SpeechPort};
 use avatar_control::speaking::runtime::speech_port_from_environment;
 use clap::Args;
 use tokio::runtime::Builder;
-use tokio::signal::unix::{Signal, SignalKind, signal};
 
 #[derive(Args)]
 pub(crate) struct ControlOptions {
@@ -60,27 +60,6 @@ async fn serve_until_interrupted<Port: SpeechPort>(
     interruption.arrived().await;
     server.shutdown().await;
     Ok(())
-}
-
-struct Interruption {
-    interrupt: Signal,
-    terminate: Signal,
-}
-
-impl Interruption {
-    fn listen() -> io::Result<Self> {
-        Ok(Self {
-            interrupt: signal(SignalKind::interrupt())?,
-            terminate: signal(SignalKind::terminate())?,
-        })
-    }
-
-    async fn arrived(&mut self) {
-        tokio::select! {
-            _ = self.interrupt.recv() => (),
-            _ = self.terminate.recv() => (),
-        }
-    }
 }
 
 fn announce(server: &ControlServer) -> io::Result<()> {
