@@ -52,3 +52,6 @@ cognitive_complexity = "warn"
 excessive_nesting = "warn"
 min_ident_chars = "warn"
 fn_params_excessive_bools = "warn"
+
+[profile.dev]
+debug = "line-tables-only"
