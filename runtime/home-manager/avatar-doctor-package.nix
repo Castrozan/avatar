@@ -3,8 +3,9 @@
   lib,
   commands,
   arguments,
+  execute ? (python: python),
 }:
 pkgs.writeShellScriptBin "avatar-doctor" ''
   export PATH=${lib.makeBinPath commands}:$PATH
-  exec ${pkgs.python312}/bin/python3 ${../scripts/doctor}/doctor.py ${arguments} "$@"
+  ${execute ''exec ${pkgs.python312}/bin/python3 ${../scripts/doctor}/doctor.py ${arguments} "$@"''}
 ''

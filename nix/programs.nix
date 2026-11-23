@@ -6,6 +6,7 @@
   userProfilePath ? "",
 }:
 let
+  rust = import ./rust-slices.nix { inherit pkgs lib avatar; };
   herdr = avatar.herdrPackage;
   a2a = avatar.a2aPackage;
   a2aLibrary = lib.concatMapStringsSep ":" (directory: "${directory}") avatar.peerIdentityPythonPath;
@@ -15,7 +16,7 @@ let
   };
   sendCommand = pkgs.writeShellScript "avatar-send-command" ''
     export NODE_PATH=${control}/node_modules
-    exec ${pkgs.nodejs_22}/bin/node ${../runtime/scripts/command.js} "$@"
+    ${rust.execute "command" ''exec ${pkgs.nodejs_22}/bin/node ${../runtime/scripts/command.js} "$@"''}
   '';
   unclaimedCommand = pkgs.writeShellScriptBin "avatar-command" ''
     exec ${sendCommand} "$@"
@@ -29,10 +30,11 @@ let
       servantCharacters
       a2aLibrary
       ;
+    environment = rust.shadowEnvironment "AVATAR_RUST_FLOOR" "floor";
   };
   transcribe = pkgs.writeShellScriptBin "avatar-transcribe" ''
     export PYTHONPATH=${../runtime/scripts/listening}
-    exec ${pkgs.python312}/bin/python3 -m transcription.transcriber
+    ${rust.execute "transcribe" "exec ${pkgs.python312}/bin/python3 -m transcription.transcriber"}
   '';
   control = import ./packages/control-server.nix { inherit pkgs; };
   renderer = import ./packages/renderer.nix { inherit pkgs; };
@@ -56,7 +58,7 @@ let
   audio = pkgs.writeShellScriptBin "avatar-audio" ''
     export PATH=${lib.makeBinPath [ pkgs.pulseaudio ]}:$PATH
     export PYTHONPATH=${../runtime/scripts/audio_graph}
-    exec ${pkgs.python312}/bin/python3 ${../runtime/scripts/audio_graph/audio_cli.py} "$@"
+    ${rust.execute "audio" ''exec ${pkgs.python312}/bin/python3 ${../runtime/scripts/audio_graph/audio_cli.py} "$@"''}
   '';
   serve = pkgs.writeShellScript "avatar-renderer" ''
     export AVATAR_RENDERER_ROOT=${renderer}
@@ -92,7 +94,7 @@ let
       ]
     }:$PATH
     export PYTHONPATH=${../runtime/scripts}:${../runtime/scripts/audio_graph}:${../runtime/scripts/listening}:${../runtime/scripts/echo}:${../runtime/scripts/conversation}
-    exec ${pkgs.python312}/bin/python3 ${../runtime/scripts/meetings/start.py} "$@"
+    ${rust.execute "start" ''exec ${pkgs.python312}/bin/python3 ${../runtime/scripts/meetings/start.py} "$@"''}
   '';
   stop = pkgs.writeShellScriptBin "avatar-stop" ''
     export PATH=${
@@ -101,7 +103,7 @@ let
         pkgs.systemd
       ]
     }:$PATH
-    ${builtins.readFile ../runtime/scripts/avatar-stop}
+    ${rust.execute "stop" (builtins.readFile ../runtime/scripts/avatar-stop)}
   '';
   listen = pkgs.writeShellScriptBin "avatar-listen" ''
     export PATH=${
@@ -111,7 +113,7 @@ let
       ]
     }:$PATH
     export PYTHONPATH=${../runtime/scripts/listening}:${../runtime/scripts/echo}:${../runtime/scripts/conversation}
-    exec ${pkgs.python312}/bin/python3 ${../runtime/scripts/listening/listen_cli.py} "$@"
+    ${rust.execute "listen" ''exec ${pkgs.python312}/bin/python3 ${../runtime/scripts/listening/listen_cli.py} "$@"''}
   '';
   listener = pkgs.writeShellScript "avatar-listener" ''
     export PATH=${lib.makeBinPath [ pkgs.pulseaudio ]}:$PATH${userProfilePath}
@@ -162,7 +164,7 @@ let
     ${lib.optionalString (hostname != null) "export AVATAR_AGENT_HOST=${hostname}"}
     export AVATAR_SERVANT_CHARACTERS=${servantCharacters}
     export PYTHONPATH=${../runtime/scripts}:${../runtime/scripts/audio_graph}:${../runtime/scripts/listening}:${../runtime/scripts/echo}:${../runtime/scripts/conversation}:${../runtime/scripts/wake}
-    exec ${pkgs.python312}/bin/python3 ${../runtime/scripts/conversation/talk_cli.py} "$@"
+    ${rust.execute "talk" ''exec ${pkgs.python312}/bin/python3 ${../runtime/scripts/conversation/talk_cli.py} "$@"''}
   '';
   windowReveal = pkgs.writeShellScript "avatar-window-reveal" ''
     export PATH=${
@@ -193,6 +195,7 @@ in
     live
     ordinaryWords
     remoteSeat
+    rust
     serve
     servantCharacters
     start
