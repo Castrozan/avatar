@@ -1,5 +1,6 @@
 [advisories]
 version = 2
+ignore = [{ id = "RUSTSEC-2026-0319", reason = "anymap2 is reached only through the tract-linalg build script templating; no replacement release exists" }]
 
 [licenses]
 version = 2

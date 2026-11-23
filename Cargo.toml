@@ -30,6 +30,7 @@ http-body-util = "0.1"
 num-traits = "0.2"
 base64 = "0.22"
 shlex = "2"
+tract-onnx = "0.22"
 
 [workspace.lints.rust]
 unsafe_code = "forbid"
