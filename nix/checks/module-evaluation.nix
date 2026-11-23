@@ -97,6 +97,7 @@ let
           lib.filterAttrs (name: _: lib.hasPrefix "avatar" name) home.config.systemd.user.services
         ) == [
           "avatar-audio"
+          "avatar-audio-recovery"
           "avatar-browser"
           "avatar-camera"
           "avatar-control-server"
@@ -108,6 +109,7 @@ let
           "avatar-switch-latency"
           "avatar-transcriber"
           "avatar-wake"
+          "avatar-window-reveal"
         ];
       "host keeps its units through a rebuild" =
         home.config.systemd.user.services.avatar-live.Unit.X-SwitchMethod == "keep-old";
@@ -117,11 +119,25 @@ let
       "the shown window brings its browser and ends with the conversation" =
         targets.avatar-window.Unit.BindsTo == [ "avatar-browser.service" ]
         && targets.avatar-window.Unit.PartOf == [ "avatar-conversation.target" ];
+      "the window reveals itself again every time it starts, so a restarted browser comes back shown" =
+        targets.avatar-window.Unit.Requires == [ "avatar-window-reveal.service" ]
+        && lib.elem "avatar-window-reveal.service" targets.avatar-window.Unit.After
+        && services.avatar-window-reveal.Unit.After == [ "avatar-browser.service" ]
+        && services.avatar-window-reveal.Unit.PartOf == [ "avatar-window.target" ]
+        && services.avatar-window-reveal.Service.Type == "oneshot"
+        && !(services.avatar-window-reveal.Service ? RemainAfterExit);
       "the renderer and its browser stop once nothing needs them" =
         services.avatar-renderer.Unit.StopWhenUnneeded && services.avatar-browser.Unit.StopWhenUnneeded;
       "a meeting still brings the renderer, its browser and the camera" = lib.all (
         unit: lib.elem unit targets.avatar.Unit.Requires
       ) (pictureUnits ++ [ "avatar-camera.service" ]);
+      "the audio server starting brings the mix and the room microphone back" =
+        services.avatar-audio-recovery.Install.WantedBy == [ "pipewire-pulse.service" ]
+        && services.avatar-audio-recovery.Unit.PartOf == [ "pipewire-pulse.service" ];
+      "the room microphone restarts without restarting the conversation" =
+        !(lib.elem "avatar-room-microphone.service" targets.avatar-conversation.Unit.Requires)
+        && targets.avatar-conversation.Unit.Wants == [ "avatar-room-microphone.service" ]
+        && services.avatar-room-microphone.Unit.PartOf == [ "avatar-conversation.target" ];
       "no launch agents on the host" = home.config.launchd.agents == { };
       "no Rust slice runs by default" = home.config.services.avatar.rustSlices == [ ];
       "routing comparison is selectable" =

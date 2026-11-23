@@ -131,15 +131,48 @@ def test_the_default_holder_closing_ends_the_conversation(
     teardown.assert_called_once()
 
 
-@pytest.mark.parametrize("pane", [None, OTHER_PANE])
-def test_a_close_from_someone_not_holding_the_floor_ends_the_conversation(
-    tmp_path, monkeypatch, teardown, pane
+def test_a_close_from_outside_any_pane_ends_the_conversation(
+    tmp_path, monkeypatch, teardown
 ):
     discord_conversation_held_by_silver(
         tmp_path, Addressee(SASAKI.pane, SASAKI.servant, 0)
     )
-    if pane:
-        monkeypatch.setenv("HERDR_PANE_ID", pane)
+    run_talk(monkeypatch, tmp_path, "close")
+    teardown.assert_called_once()
+
+
+def test_a_close_from_a_pane_the_room_turned_away_from_leaves_it_open(
+    tmp_path, monkeypatch, capsys, teardown
+):
+    discord_conversation_held_by_silver(
+        tmp_path, Addressee(SASAKI.pane, SASAKI.servant, 0)
+    )
+    monkeypatch.setenv("HERDR_PANE_ID", OTHER_PANE)
+    run_talk(monkeypatch, tmp_path, "close")
+    teardown.assert_not_called()
+    assert conversation_addressee.current(tmp_path).pane == SASAKI.pane
+    assert json.loads(capsys.readouterr().out) == {
+        "open": True,
+        "room_held_by": "Sasaki Kojirou",
+    }
+
+
+def test_a_conversation_nobody_holds_closes_for_any_pane(
+    tmp_path, monkeypatch, teardown
+):
+    monkeypatch.setenv("HERDR_PANE_ID", OTHER_PANE)
+    run_talk(monkeypatch, tmp_path, "close")
+    teardown.assert_called_once()
+
+
+def test_an_interrupted_conversation_closes_whoever_last_held_it(
+    tmp_path, monkeypatch, teardown
+):
+    conversation_addressee.hand_to(tmp_path, Addressee(SASAKI.pane, SASAKI.servant, 0))
+    monkeypatch.setattr(
+        conversation_state, "observe", lambda directory: ConversationPhase.INTERRUPTED
+    )
+    monkeypatch.setenv("HERDR_PANE_ID", OTHER_PANE)
     run_talk(monkeypatch, tmp_path, "close")
     teardown.assert_called_once()
 

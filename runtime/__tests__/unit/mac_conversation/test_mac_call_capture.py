@@ -24,7 +24,7 @@ ORDINARY_DEVICES = st.text(min_size=1).filter(
 @pytest.fixture
 def on_darwin(monkeypatch):
     monkeypatch.setattr(sys, "platform", "darwin")
-    return listener.boundaries_of_this_machine()[0]
+    return listener.capture_command_of_this_machine()
 
 
 @contextmanager
@@ -66,7 +66,7 @@ def test_any_other_device_captures_the_microphone_through_the_plain_seat_page(
 
 
 def test_the_meeting_device_keeps_the_pulse_capture_on_linux():
-    capture_command = listener.boundaries_of_this_machine()[0]
+    capture_command = listener.capture_command_of_this_machine()
     assert capture_command("meeting") == source_capture.capture_command("meeting")
 
 

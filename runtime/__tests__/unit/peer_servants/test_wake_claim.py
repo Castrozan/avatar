@@ -5,7 +5,7 @@ from concurrent.futures import ThreadPoolExecutor
 
 import listener_runtime
 import pytest
-import wake_claim
+from arbitration import wake_claim
 import wake_listener
 from hypothesis import HealthCheck, given, settings
 from hypothesis import strategies as st

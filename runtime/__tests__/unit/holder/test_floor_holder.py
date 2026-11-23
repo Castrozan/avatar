@@ -90,7 +90,9 @@ def room(monkeypatch, tmp_path):
     monkeypatch.setattr(utterances, "SETTLE_SECONDS", 0)
     monkeypatch.setattr(utterances, "POLL_SECONDS", 0.01)
     monkeypatch.setattr(voice_holder, "FLOOR_POLL_SECONDS", 0.01)
+    monkeypatch.setattr(voice_holder, "OPEN_CHECK_SECONDS", 0.01)
     monkeypatch.setattr(voice_turns, "FOLLOW_SLICE_SECONDS", 0.05)
+    monkeypatch.setattr(voice_turns, "RESTART_GRACE_SECONDS", 0.05)
     monkeypatch.setattr(servant_character, "subprocess", Mock())
     return room
 

@@ -1,6 +1,7 @@
 const { spawn } = require("child_process");
 
 const PLAYBACK_CLIENT_NAME = "avatar-speech";
+const NEVER_FALL_BACK_TO_ANOTHER_SINK = "--property=node.dont-fallback=true";
 
 function buildPulseAudioEnvironment() {
   return {
@@ -9,10 +10,17 @@ function buildPulseAudioEnvironment() {
   };
 }
 
-function playAudioFileToSink(audioPath, sinkName) {
+function playAudioFile(audioPath, sinkName, streamProperties) {
   const player = spawn(
     "paplay",
-    ["--client-name", PLAYBACK_CLIENT_NAME, "--device", sinkName, audioPath],
+    [
+      "--client-name",
+      PLAYBACK_CLIENT_NAME,
+      "--device",
+      sinkName,
+      ...streamProperties,
+      audioPath,
+    ],
     { stdio: ["ignore", "ignore", "pipe"], env: buildPulseAudioEnvironment() },
   );
 
@@ -29,4 +37,12 @@ function playAudioFileToSink(audioPath, sinkName) {
   };
 }
 
-module.exports = { playAudioFileToSink };
+function playAudioFileToSink(audioPath, sinkName) {
+  return playAudioFile(audioPath, sinkName, []);
+}
+
+function playAudioFileOnlyToSink(audioPath, sinkName) {
+  return playAudioFile(audioPath, sinkName, [NEVER_FALL_BACK_TO_ANOTHER_SINK]);
+}
+
+module.exports = { playAudioFileOnlyToSink, playAudioFileToSink };

@@ -43,7 +43,7 @@ def describe(state):
 def parse_arguments():
     parser = argparse.ArgumentParser()
     commands = parser.add_subparsers(dest="action", required=True)
-    for action in ("start", "stop", "status", "open"):
+    for action in ("start", "stop", "status", "open", "recover"):
         commands.add_parser(action)
     attach = commands.add_parser("attach")
     attach.add_argument("source")

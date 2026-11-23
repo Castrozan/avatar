@@ -20,6 +20,7 @@ const {
   assembleSpeechGenerator,
 } = require("./speech/assemble-speech-generator");
 const { SpeechFloor } = require("./speech/speech-floor");
+const { SpeechFollowers } = require("./avatar-session/speech-followers");
 const { agentChannelFor } = require("./speech/agent-channel-gate");
 
 const {
@@ -122,12 +123,17 @@ async function main() {
   const clientRegistry = new ConnectedClientRegistry();
   const sendVoiceLevel = (level) => clientRegistry.sendVoiceLevel(level);
   const textToSpeechGenerator = await assembleSpeechGenerator(CONFIG);
+  const speechFollowers = new SpeechFollowers();
 
   const context = {
     avatarState,
     clientRegistry,
     textToSpeechGenerator,
-    speechFloor: new SpeechFloor(agentChannelFor(process.platform)),
+    speechFollowers,
+    speechFloor: new SpeechFloor(
+      agentChannelFor(process.platform),
+      (speaking) => speechFollowers.announce(speaking),
+    ),
     speakerSinkName: CONFIG.SPEAKER_SINK,
     playSpeech:
       process.platform === "darwin"

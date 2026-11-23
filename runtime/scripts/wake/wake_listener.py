@@ -6,8 +6,9 @@ import peer_sessions
 import room_holder
 import speech_segmenter
 import transcript_log
-import wake_claim
 import wake_prompts
+from arbitration import conversation_hearing, room_holding, wake_claim
+from arbitration.room_holding import HeardSegment
 from quiet_conversation import (
     ARM_CHECK_SECONDS,
     ConversationTranscript,
@@ -70,26 +71,17 @@ class WakeListener:
         except (OSError, ValueError, subprocess.SubprocessError) as error:
             self.boundaries.report(f"Dropped an utterance: {error}")
 
-    def holds_the_room(self, session):
-        discord_host = self.boundaries.discord_call_host()
-        if discord_host:
-            self.boundaries.report(
-                f"left {session.servant} to the Discord call on {discord_host}"
-            )
-            return False
-        if self.dry_run or self.boundaries.claim_wake(session):
-            return True
-        self.boundaries.report(f"left {session.servant} to another room")
-        return False
-
     def answer(self, segment):
+        heard_segment = HeardSegment(segment, self.boundaries.now())
         heard = self.transcribed(segment)
         transcript_log.report_wake(self.boundaries.report, heard, segment)
         if not heard:
             self.boundaries.report("Ignored wake: empty transcript")
             return
         match = self.addressing.wake_match(heard)
-        if match is None or not self.holds_the_room(match.session):
+        if match is None or not room_holding.holds_the_room(
+            self.boundaries, self.dry_run, match.session, heard_segment
+        ):
             return
         if not wake_prompts.deliver(self.boundaries, self.dry_run, match, purpose=None):
             return
@@ -180,6 +172,7 @@ def main():
     parser.add_argument("--conversation", action="store_true")
     parser.add_argument("--claim")
     parser.add_argument("--room")
+    parser.add_argument("--heard-within", type=float)
     arguments = parser.parse_args()
     if arguments.conversation:
         print(wake_claim.conversation_report())
@@ -188,6 +181,9 @@ def main():
         raise SystemExit(wake_claim.exit_status(arguments.claim, arguments.room))
     if arguments.sessions:
         print(peer_sessions.this_machine_listing())
+        return
+    if arguments.heard_within is not None:
+        print(conversation_hearing.report(arguments.heard_within))
         return
     run(WakeListener(for_this_machine(), arguments.dry_run))
 

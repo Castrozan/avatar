@@ -3,7 +3,7 @@ import collections
 import math
 
 SAMPLE_RATE = 16000
-FRAME_SECONDS = 0.03
+FRAME_SECONDS = 0.032
 SPEECH_LEVEL = 300
 LEAD_IN_SECONDS = 0.3
 TRAILING_SILENCE_SECONDS = 0.7
@@ -29,17 +29,15 @@ class SpeechSegmenter:
         self.speech_frames = 0
         self.silent_frames = 0
         self.closing_silence_seconds = 0.0
+        self.loud = False
 
     @property
     def active(self):
         return bool(self.segment)
 
-    @property
-    def sustained_seconds(self):
-        return self.speech_frames * FRAME_SECONDS
-
     def feed(self, frame):
         speaking = frame_level(frame) >= SPEECH_LEVEL
+        self.loud = speaking
         if not self.segment:
             return self.wait_for_speech(frame, speaking)
         self.segment.append(frame)

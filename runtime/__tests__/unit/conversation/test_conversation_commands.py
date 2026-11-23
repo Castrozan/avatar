@@ -10,6 +10,7 @@ import listener
 import pytest
 from meetings import start
 import conversation_effects
+import conversation_window
 import transcript_log
 import utterances
 from conversation_state import ConversationPhase
@@ -177,7 +178,7 @@ def test_closing_leaves_a_running_meeting_alone(
     runner = Mock()
     monkeypatch.setattr(conversation_effects.subprocess, "run", runner)
     hide = Mock()
-    monkeypatch.setattr(conversation_effects.desktop_window, "hide", hide)
+    monkeypatch.setattr(conversation_window.desktop_window, "hide", hide)
     monkeypatch.setattr(
         conversation_effects.user_units, "unit_active", lambda unit: meeting_running
     )

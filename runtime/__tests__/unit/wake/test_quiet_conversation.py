@@ -1,3 +1,4 @@
+import json
 import os
 import time
 from unittest.mock import Mock
@@ -31,11 +32,18 @@ def boundaries(
     )
 
 
+def reported_closing(report):
+    report.assert_called_once()
+    record = json.loads(report.call_args.args[0])
+    assert record["phase"] == "closing"
+    return record["reason"]
+
+
 def test_a_conversation_the_avatar_left_quiet_is_closed_and_reported():
     quiet = boundaries(LONG_QUIET)
     assert quiet_conversation.close_when_quiet(quiet) is True
     quiet.close_conversation.assert_called_once_with()
-    quiet.report.assert_called_once_with(quiet_conversation.CLOSING)
+    assert reported_closing(quiet.report) == quiet_conversation.CLOSING
 
 
 def test_a_conversation_the_avatar_spoke_in_lately_stays_open_unasked():
@@ -94,7 +102,7 @@ def test_a_discord_conversation_closes_when_the_listener_left_the_call():
     ended = boundaries(0.0, seat=Seat.DISCORD, call_ended=True)
     assert quiet_conversation.close_when_the_call_ended(ended) is True
     ended.close_conversation.assert_called_once_with()
-    ended.report.assert_called_once_with(quiet_conversation.CALL_ENDED)
+    assert reported_closing(ended.report) == quiet_conversation.CALL_ENDED
 
 
 def test_a_discord_conversation_stays_open_while_the_listener_is_in_the_call():
@@ -124,7 +132,7 @@ def test_the_loop_closes_an_ended_call_without_waiting_for_quiet(monkeypatch):
     monkeypatch.setattr(quiet_conversation, "ARM_CHECK_SECONDS", 0)
     quiet_conversation.follow_conversation(wake_listener.WakeListener(following, False))
     following.close_conversation.assert_called_once_with()
-    following.report.assert_called_once_with(quiet_conversation.CALL_ENDED)
+    assert reported_closing(following.report) == quiet_conversation.CALL_ENDED
 
 
 def test_avatar_speech_does_not_change_the_pending_human_turn():

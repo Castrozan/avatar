@@ -7,7 +7,7 @@ from unittest.mock import Mock
 import conversation_addressee
 import listener_runtime
 import pytest
-import wake_claim
+from arbitration import wake_claim
 from conversation_addressee import Addressee
 
 

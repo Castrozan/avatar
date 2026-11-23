@@ -18,12 +18,11 @@ def always_open():
     return True
 
 
-def listening_with(tmp_path, interrupt=None):
+def listening_with(tmp_path):
     return listener.Listening(
         segments=queue.Queue(maxsize=1),
         stopping=threading.Event(),
         pending=listener.PendingSpeech(tmp_path / "marker"),
-        interrupt_speaker=interrupt or Mock(),
     )
 
 
@@ -43,20 +42,11 @@ def test_a_stale_marker_from_a_killed_listener_is_cleared(tmp_path):
     assert not (tmp_path / "marker").exists()
 
 
-def test_sustained_speech_interrupts_the_speaker_once_per_segment(tmp_path):
-    listening = listening_with(tmp_path)
-    speech = source_capture.SourceSpeech("human", listening)
-    for _ in range(40):
-        speech.feed(FRAME)
-    listening.interrupt_speaker.assert_called_once()
-
-
-def test_a_short_noise_never_interrupts_and_leaves_nothing_pending(tmp_path):
+def test_a_short_noise_leaves_nothing_pending(tmp_path):
     listening = listening_with(tmp_path)
     speech = source_capture.SourceSpeech("human", listening)
     for frame in [FRAME] * 3 + [SILENT_FRAME] * 40:
         speech.feed(frame)
-    listening.interrupt_speaker.assert_not_called()
     assert not (tmp_path / "marker").exists()
 
 

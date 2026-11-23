@@ -13,6 +13,7 @@ EXPECTED_TRANSITIONS = {
         AudioCommand.MUTE: AudioAction.REFUSE_NOT_RUNNING,
         AudioCommand.VOLUME: AudioAction.REFUSE_NOT_RUNNING,
         AudioCommand.STATUS: AudioAction.REPORT,
+        AudioCommand.RECOVER: AudioAction.REPORT,
     },
     AudioPhase.RUNNING_DETACHED: {
         AudioCommand.START: AudioAction.REPORT,
@@ -22,6 +23,7 @@ EXPECTED_TRANSITIONS = {
         AudioCommand.MUTE: AudioAction.SET_CHANNEL,
         AudioCommand.VOLUME: AudioAction.SET_CHANNEL,
         AudioCommand.STATUS: AudioAction.REPORT,
+        AudioCommand.RECOVER: AudioAction.REPORT,
     },
     AudioPhase.RUNNING_ATTACHED: {
         AudioCommand.START: AudioAction.REPORT,
@@ -31,6 +33,7 @@ EXPECTED_TRANSITIONS = {
         AudioCommand.MUTE: AudioAction.SET_CHANNEL,
         AudioCommand.VOLUME: AudioAction.SET_CHANNEL,
         AudioCommand.STATUS: AudioAction.REPORT,
+        AudioCommand.RECOVER: AudioAction.REPORT,
     },
     AudioPhase.ORPHANED: {
         AudioCommand.START: AudioAction.REBUILD,
@@ -40,6 +43,7 @@ EXPECTED_TRANSITIONS = {
         AudioCommand.MUTE: AudioAction.REFUSE_NOT_RUNNING,
         AudioCommand.VOLUME: AudioAction.REFUSE_NOT_RUNNING,
         AudioCommand.STATUS: AudioAction.REPORT,
+        AudioCommand.RECOVER: AudioAction.REBUILD,
     },
 }
 

@@ -169,3 +169,41 @@ def test_the_voice_argument_survives_the_default_output():
     )
     assert resolved["voice"] == "pf_dora"
     assert resolved["output"] == "both"
+
+
+def test_a_command_waits_for_a_control_server_that_is_still_starting():
+    outcome = run_command_module("""
+      const { EventEmitter } = require("node:events");
+      let attempts = 0;
+      const connect = () => {
+        attempts += 1;
+        const connection = new EventEmitter();
+        setImmediate(() =>
+          attempts < 3
+            ? connection.emit("error", Object.assign(new Error("refused"), { code: "ECONNREFUSED" }))
+            : connection.emit("open"),
+        );
+        return connection;
+      };
+      await command.connectToStartingServer(connect, 5000, 1);
+      console.log(JSON.stringify({ attempts }));
+    """)
+    assert outcome == {"attempts": 3}
+
+
+def test_a_command_stops_waiting_when_the_server_never_starts():
+    outcome = run_command_module("""
+      const { EventEmitter } = require("node:events");
+      const connect = () => {
+        const connection = new EventEmitter();
+        setImmediate(() =>
+          connection.emit("error", Object.assign(new Error("refused"), { code: "ECONNREFUSED" })),
+        );
+        return connection;
+      };
+      const failure = await command
+        .connectToStartingServer(connect, 20, 1)
+        .catch((error) => error.code);
+      console.log(JSON.stringify({ failure }));
+    """)
+    assert outcome == {"failure": "ECONNREFUSED"}

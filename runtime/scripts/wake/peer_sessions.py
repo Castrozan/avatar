@@ -92,6 +92,7 @@ class PeerSessions:
         self.start_worker = start_worker
         self.sessions = []
         self.discord_hosts = []
+        self.answering = []
         self.started_at = None
         self.refreshing = False
         self.lock = threading.Lock()
@@ -103,6 +104,10 @@ class PeerSessions:
     def discord_call_host(self):
         self.refresh_when_due()
         return next(iter(self.discord_hosts), None)
+
+    def answering_hosts(self):
+        self.refresh_when_due()
+        return self.answering
 
     def refresh_when_due(self):
         if self.refresh_is_due():
@@ -131,6 +136,11 @@ class PeerSessions:
             }
             self.sessions = [
                 session for listing in listings.values() for session in listing.sessions
+            ]
+            self.answering = [
+                host
+                for host, listing in listings.items()
+                if listing is not NOTHING_LISTED
             ]
             self.discord_hosts = [
                 host

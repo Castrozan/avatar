@@ -55,6 +55,22 @@ def always_addressed():
     return True
 
 
+class OpenAcrossRestarts:
+    def __init__(self, still_open, grace_seconds, monotonic=time.monotonic):
+        self.still_open = still_open
+        self.grace_seconds = grace_seconds
+        self.monotonic = monotonic
+        self.closed_since = None
+
+    def passes(self):
+        if self.still_open():
+            self.closed_since = None
+            return True
+        if self.closed_since is None:
+            self.closed_since = self.monotonic()
+        return self.monotonic() - self.closed_since < self.grace_seconds
+
+
 def still_listening(still_open, still_addressed):
     if not still_open():
         raise ConversationClosed(CLOSED_MESSAGE)

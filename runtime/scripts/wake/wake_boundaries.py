@@ -18,8 +18,8 @@ import room_holder
 import speech_segmenter
 from transcription import transcriber
 import transcript_log
-import wake_claim
 import wake_prompts
+from arbitration import conversation_hearing, wake_claim
 from servant_panes import live_sessions
 
 MICROPHONE = "@DEFAULT_SOURCE@"
@@ -159,6 +159,9 @@ class Boundaries:
     transcribe: object = transcriber.transcribe
     decide: object = decisions_api.answers
     open_conversation: object = conversation_opened
+    room_that_heard: object = lambda seconds: conversation_hearing.room_that_heard(
+        peers_of_this_machine().answering_hosts(), seconds, subprocess.run
+    )
     claim_wake: object = claim_wake
     prompt_now: object = prompt_now
     notify_at_idle: object = notify_at_idle

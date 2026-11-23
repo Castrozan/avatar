@@ -1,14 +1,13 @@
-import enum
 import os
 import subprocess
 import sys
 
+import conversation_addressee
 import conversation_report
 import default_holder
 import discord_call
 import conversation_seat
 import conversation_state
-import desktop_window
 import listen_cli
 import listener_session
 import remote_agent
@@ -16,6 +15,7 @@ from meetings import readiness, start
 import user_units
 import utterances
 from conversation_seat import Seat
+from conversation_window import hide_everywhere
 from conversation_state import ConversationPhase
 from listener_session import ListenerPurpose
 
@@ -28,11 +28,7 @@ CONVERSATION_OWNS_THE_ROOM = (
     "avatar-talk open --live to move the room to the live voice"
 )
 COMMAND_TIMEOUT_SECONDS = 120
-
-
-class WindowPresence(enum.StrEnum):
-    HIDDEN = "hidden"
-    SHOWN = "shown"
+HELD_PHASES = (ConversationPhase.OPEN, ConversationPhase.LIVE)
 
 
 def seat_microphone_ready(seat):
@@ -118,7 +114,13 @@ def refuse_closed(arguments, directory):
 
 def close_or_return_the_floor(arguments, directory):
     pane = os.environ.get(remote_agent.PANE_ENVIRONMENT_VARIABLE)
-    open_now = conversation_state.observe(directory) is ConversationPhase.OPEN
+    phase = conversation_state.observe(directory)
+    held = phase in HELD_PHASES
+    other = conversation_addressee.holder_other_than(directory, pane) if held else None
+    if other:
+        conversation_report.print_room_held_by(other.servant)
+        return
+    open_now = phase is ConversationPhase.OPEN
     holder = default_holder.floor_returns_to(directory, pane) if open_now else None
     if holder is None:
         close_conversation(arguments, directory)
@@ -157,34 +159,3 @@ def close_conversation(arguments, directory):
 
 def leave_meeting(arguments, directory):
     conversation_report.print_closed()
-
-
-def set_canvas_presence(presence):
-    subprocess.run(
-        ["avatar-command", "presence", presence],
-        capture_output=True,
-        check=True,
-        timeout=COMMAND_TIMEOUT_SECONDS,
-    )
-
-
-def hide_everywhere():
-    set_canvas_presence(WindowPresence.HIDDEN)
-    desktop_window.hide()
-
-
-def show_window(arguments, directory):
-    start.bring_up(start.WINDOW_TARGET, (readiness.renderer_ready,))
-    if conversation_seat.current(directory) is Seat.ROOM:
-        desktop_window.show()
-    set_canvas_presence(WindowPresence.SHOWN)
-
-
-def hide_window(arguments, directory):
-    subprocess.run(
-        ["systemctl", "--user", "stop", start.WINDOW_TARGET],
-        check=True,
-        timeout=listener_session.SYSTEMCTL_TIMEOUT_SECONDS,
-    )
-    if user_units.unit_active(start.MEETING_TARGET):
-        hide_everywhere()

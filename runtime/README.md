@@ -55,6 +55,9 @@ holds a voice conversation on that Mac alone, described under [conversation on a
 `avatar-conversation.target` owns the control server and `avatar-room-microphone`. `show` starts `avatar-window.target`,
 part of the conversation and bound to `avatar-browser`, the one renderer window whether or not the virtual camera is
 attached. The renderer and the browser stop once neither the window nor a meeting needs them.
+The target requires `avatar-window-reveal`, which waits for the page, brings the window to the current workspace and
+presents the canvas each time the target starts. A control server restart restarts the browser and the target with it,
+so a shown window comes back shown, and a page that loads with no target stays hidden.
 `avatar-room-microphone` is a private PipeWire process running
 [echo cancellation](https://docs.pipewire.org/page_module_echo_cancel.html) in monitor mode. Its reference is everything
 the default output plays, so neither the avatar's voice nor a video playing on the speakers reaches the transcript.
@@ -65,7 +68,11 @@ when an agent chooses to show it, and no idle window in the window list. Speech,
 need the renderer, and the agent's character catches up when it connects. Gestures, poses, looks, `capabilities` and
 `mode` answer `No renderer is connected` while hidden. `hide` stops the window, so the next `show` loads the page again
 in a few seconds.
-Speaking for 0.6 seconds over the avatar stops it, so interrupting needs no agent turn.
+Speaking over the avatar stops it, so interrupting needs no agent turn. While a reply is queued or playing, the
+listener follows it over one open connection to the control server and runs
+[Silero VAD](https://github.com/snakers4/silero-vad) v6.2.3 on each 32 ms frame; five frames that are both above the
+speech level and at least 0.85 likely speech stop the reply, about 0.16 s after the speaker starts. Typing, knocks,
+clapping and music without singing never stop it, and nothing is sent while the avatar is silent.
 In an open conversation a reply first waits for the room to fall quiet, so a sound that leaves no words only delays it,
 and one sent right behind an interrupted or withheld reply is withheld, as
 [LiveKit Agents](https://docs.livekit.io/agents/build/turns.md) drops the speech queued behind an interruption.
@@ -236,10 +243,20 @@ During a conversation the wake reads that conversation's transcript instead of t
 Servant by the first or last word of a turn, with or without a greeting, hands the room to it: `addressee.json` in the
 avatar runtime directory names the session now addressed, its `avatar-talk follow` starts after the words that named it,
 and the previous session's `follow` prints that the room turned and exits. Only lines from the room's own microphone
-prompt a session; a voice from a meeting moves the room without prompting anyone. The wake judges a turn once it ends:
+prompt a session; a voice from a meeting moves the room without prompting anyone. A session the room turned away
+from cannot end it: its `avatar-talk close` leaves the conversation open and names the holder, while a close from
+outside any pane still ends it. The wake judges a turn once it ends:
 at a line Smart Turn marks finished, or, after an unfinished line, once the same 2.5 seconds that hold the reply pass
 with no newer line and no speech in progress, so a sentence left unfinished before silence is still judged, once. A Mac
 following chise's conversation leaves that quiet ending to chise's wake, which sees the listener's speech marker.
+
+Several machines can hear the same words, and only one room acts on them. A wake that matched a name first asks every
+machine that answers its session listings whether a conversation open there heard its own room speak during the
+utterance, counting speech still being transcribed. A room that heard keeps the wake, because its conversation already
+routes the words, and the asking machine logs that it left the Servant to that conversation. Only a duration crosses
+the network, never audio or text, and a machine that does not answer counts as not having heard. When no conversation
+heard, the machine hosting the woken session grants one room a short claim on that session, taking its own claim ahead
+of the others. A conversation that stayed silent blocks nothing, so two rooms can hold independent conversations.
 
 Parakeet cannot be told the names, so the wake also accepts a misheard one, such as "chise hresnade" for Scheherazade,
 but only from words that are not ordinary speech: a window of words matches loosely only when none of them is among
@@ -266,6 +283,13 @@ The audio graph starts muted at unity gain, and `avatar-start` then runs `avatar
 microphone and unmutes both inputs, so a meeting that selects `AvatarMicrophone` hears the avatar and the user with no
 further step. Nothing reaches a meeting until it selects that source. `avatar-audio status` shows ownership, mute and
 level state.
+
+When PipeWire restarts, `avatar-audio-recovery.service` starts with `pipewire-pulse.service` and runs
+`avatar-audio recover`, which rebuilds a mix the restart removed and builds nothing when no mix was started, then
+restarts the room microphone. The rebuilt inputs return muted with no microphone attached, so run `avatar-audio open`
+again during a meeting. An open `avatar-talk follow`, `hear` or `ask` treats the conversation as closed only after it
+stays closed for 20 seconds. Speech meant for `AvatarLipSync` or `AvatarMic` fails when that sink is missing instead of
+playing on the default output. The Mac owns no PipeWire mix and gets only the 20 second rule.
 
 To use another microphone, run `avatar-audio attach SOURCE` before `avatar-audio open`. The human and agent mute and
 volume controls are independent: `avatar-audio mute human 1` silences the user alone, and `avatar-audio volume agent 70`

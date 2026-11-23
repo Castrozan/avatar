@@ -23,6 +23,10 @@ def stop(path, state):
     perform(path, state, audio_ownership.AudioCommand.STOP)
 
 
+def recover(path, state):
+    perform(path, state, audio_ownership.AudioCommand.RECOVER)
+
+
 def open_meeting_inputs(path, state):
     perform(path, state, audio_ownership.AudioCommand.OPEN)
 

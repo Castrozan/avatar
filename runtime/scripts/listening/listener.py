@@ -3,12 +3,12 @@ import json
 import os
 import queue
 import signal
-import subprocess
 import sys
 import threading
 import time
 from pathlib import Path
 
+from barge_in import decision
 from transcription import cloud_transcriber
 import listener_runtime
 import speaker_identity
@@ -35,7 +35,7 @@ class Listening:
     segments: queue.Queue
     stopping: threading.Event
     pending: PendingSpeech
-    interrupt_speaker: object
+    barge_in: object = decision.NoBargeIn
     capture_command: object = source_capture.capture_command
     language: str | None = None
     identify_speakers: bool = False
@@ -105,42 +105,37 @@ def write_transcript(path, listening):
         listening.pending.clear()
 
 
-def interrupt_speaker():
-    subprocess.Popen(
-        ["avatar-command", "stop-speaking"],
-        stdout=subprocess.DEVNULL,
-        stderr=subprocess.DEVNULL,
-    )
-
-
-def boundaries_of_this_machine():
+def capture_command_of_this_machine():
     if sys.platform == "darwin":
         import mac_seat_client
 
-        return (
-            source_capture.capture_command_by_device(mac_seat_client.capture_command),
-            mac_seat_client.hush,
-        )
-    return (
-        source_capture.capture_command_by_device(source_capture.capture_command),
-        interrupt_speaker,
-    )
+        return source_capture.capture_command_by_device(mac_seat_client.capture_command)
+    return source_capture.capture_command_by_device(source_capture.capture_command)
+
+
+def barge_in_over_replies(stopping):
+    from barge_in import reply_link, voice_activity
+
+    reply = reply_link.ReplyLink(stopping).start()
+    model = os.environ[voice_activity.MODEL_ENVIRONMENT_VARIABLE]
+    return lambda: decision.BargeIn(reply, voice_activity.SileroVoiceActivity(model))
 
 
 def main():
-    capture_command, stop_speaking = boundaries_of_this_machine()
+    capture_command = capture_command_of_this_machine()
     directory = listener_runtime.runtime_directory()
     configuration = json.loads((directory / "listener.json").read_text())
     detector = turn_detector.SmartTurnDetector(
         os.environ[turn_detector.MODEL_ENVIRONMENT_VARIABLE]
     )
+    stopping = threading.Event()
     listening = Listening(
         segments=queue.Queue(maxsize=PENDING_SEGMENT_LIMIT),
-        stopping=threading.Event(),
+        stopping=stopping,
         pending=PendingSpeech(directory / SPEECH_IN_PROGRESS_MARKER),
-        interrupt_speaker=stop_speaking
+        barge_in=barge_in_over_replies(stopping)
         if configuration.get("barge_in")
-        else lambda: None,
+        else decision.NoBargeIn,
         capture_command=capture_command,
         language=configuration.get("language"),
         identify_speakers=configuration.get("identify_speakers", False),

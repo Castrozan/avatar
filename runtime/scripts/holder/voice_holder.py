@@ -4,11 +4,9 @@ import time
 
 import conversation_addressee
 import conversation_seat
-import conversation_state
 import default_holder
 import utterances
 import voice_turns
-from conversation_state import ConversationPhase
 from hermes_turn import FAILED_TURN_APOLOGY, HermesTurnError, reply_worth_speaking
 
 FLOOR_POLL_SECONDS = 1
@@ -21,9 +19,7 @@ class FloorHolder:
         self.holder = holder
         self.reply_to = reply_to
         self.speak_on_seat = speak_on_seat
-
-    def still_open(self):
-        return conversation_state.observe(self.directory) is ConversationPhase.OPEN
+        self.still_open = voice_turns.open_across_restarts(directory)
 
     def addressed(self):
         return conversation_addressee.addresses(self.directory, self.holder.pane)

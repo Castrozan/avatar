@@ -24,12 +24,14 @@ async function assembleSpeechGenerator(config) {
     config.TTS_VOICE_DIRECTORY,
   );
   await localSpeechGenerator.prepareOutputRootDirectory();
+  const cloudSpeechGenerator = new ElevenLabsSpeechGenerator(
+    config.CLOUD_VOICE,
+    config.CLOUD_VOICE_LANGUAGE,
+  );
+  cloudSpeechGenerator.warmUp();
   return new CharacterVoicedSpeechGenerator(
     new ResilientSpeechGenerator(
-      new ElevenLabsSpeechGenerator(
-        config.CLOUD_VOICE,
-        config.CLOUD_VOICE_LANGUAGE,
-      ),
+      cloudSpeechGenerator,
       new KokoroSpeechGenerator(
         config.KOKORO_VOICE,
         config.CLOUD_VOICE_LANGUAGE,

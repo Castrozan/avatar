@@ -3,6 +3,7 @@ from unittest.mock import Mock
 
 import conversation_state
 import conversation_effects
+import conversation_window
 from conversation_seat import Seat
 from conversation_state import (
     ConversationAction,
@@ -10,7 +11,7 @@ from conversation_state import (
     ConversationPhase,
 )
 from listener_session import ListenerPurpose
-from conversation_effects import WindowPresence
+from conversation_window import WindowPresence
 
 EXPECTED_TRANSITIONS = {
     ConversationPhase.CLOSED: {
@@ -126,25 +127,27 @@ def test_the_canvas_and_the_window_follow_the_stated_order_for_every_presence(
     )
     monkeypatch.setattr(
         conversation_effects.start,
-        "bring_up",
-        lambda target, checks: steps.append("bring-up"),
+        "wait_until_ready",
+        lambda units, checks: steps.append("renderer"),
     )
     monkeypatch.setattr(
         conversation_effects.user_units, "unit_active", lambda unit: True
     )
     monkeypatch.setattr(
-        conversation_effects.desktop_window, "show", lambda: steps.append("window")
+        conversation_window.desktop_window, "show", lambda: steps.append("window")
     )
     monkeypatch.setattr(
-        conversation_effects.desktop_window, "hide", lambda: steps.append("window")
+        conversation_window.desktop_window, "hide", lambda: steps.append("window")
     )
     monkeypatch.setattr(
         conversation_effects.conversation_seat, "current", lambda directory: Seat.ROOM
     )
     orders = {}
     step_by_presence = {
-        WindowPresence.HIDDEN: conversation_effects.hide_window,
-        WindowPresence.SHOWN: conversation_effects.show_window,
+        WindowPresence.HIDDEN: conversation_window.hide_window,
+        WindowPresence.SHOWN: lambda arguments, directory: (
+            conversation_window.reveal_window(directory)
+        ),
     }
     for presence in WindowPresence:
         steps.clear()
@@ -152,5 +155,5 @@ def test_the_canvas_and_the_window_follow_the_stated_order_for_every_presence(
         orders[presence] = list(steps)
     assert orders == {
         WindowPresence.HIDDEN: ["systemctl", "avatar-command", "window"],
-        WindowPresence.SHOWN: ["bring-up", "window", "avatar-command"],
+        WindowPresence.SHOWN: ["renderer", "window", "avatar-command"],
     }

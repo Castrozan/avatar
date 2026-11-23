@@ -15,6 +15,7 @@ in
     ];
     systemd.user.services = keepRunningThroughRebuild [
       "avatar-audio"
+      "avatar-audio-recovery"
       "avatar-browser"
       "avatar-camera"
       "avatar-control-server"
@@ -24,6 +25,7 @@ in
       "avatar-renderer"
       "avatar-room-microphone"
       "avatar-transcriber"
+      "avatar-window-reveal"
     ];
   };
 }
