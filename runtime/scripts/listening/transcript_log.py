@@ -102,6 +102,10 @@ def report_delivery(report, **delivery):
     _report(report, "delivery", **delivery)
 
 
+def report_closing(report, reason):
+    _report(report, "closing", reason=reason)
+
+
 def report_talk(report, action, pane):
     _report(report, "talk", action=action, pane=pane)
 

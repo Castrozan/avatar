@@ -1,5 +1,6 @@
 import time
 
+import transcript_log
 import utterances
 from conversation_seat import Seat
 from listener_session import ListenerPurpose
@@ -85,7 +86,7 @@ def close_when_quiet(boundaries, dry_run=False):
         return False
     if boundaries.listening_purpose() is not ListenerPurpose.CONVERSATION:
         return False
-    boundaries.report(CLOSING)
+    transcript_log.report_closing(boundaries.report, CLOSING)
     boundaries.close_conversation()
     return True
 
@@ -95,7 +96,7 @@ def close_when_the_call_ended(boundaries, dry_run=False):
         return False
     if not boundaries.discord_call_ended():
         return False
-    boundaries.report(CALL_ENDED)
+    transcript_log.report_closing(boundaries.report, CALL_ENDED)
     boundaries.close_conversation()
     return True
 
