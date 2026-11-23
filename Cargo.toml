@@ -18,7 +18,7 @@ unicode-segmentation = "1"
 caseless = "0.2"
 proptest = "1"
 axum = { version = "0.8", features = ["ws"] }
-tokio = { version = "1", features = ["macros", "net", "rt-multi-thread", "sync", "time"] }
+tokio = { version = "1", features = ["macros", "net", "process", "rt-multi-thread", "sync", "time"] }
 futures-util = "0.3"
 tokio-tungstenite = "0.28"
 
