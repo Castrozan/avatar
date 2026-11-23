@@ -12,8 +12,10 @@ mod sessions;
 mod transcriber;
 mod transcript;
 
+pub(crate) use claims::LocalCapture;
 pub(super) use claims::{claim_here, with_site};
-pub(super) use sessions::local_sessions;
+pub(crate) use commands::Shell;
+pub(crate) use sessions::local_sessions;
 pub(super) use transcript::heard_entries;
 
 use crate::support::runtime::session_directory;

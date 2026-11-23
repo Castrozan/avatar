@@ -1,11 +1,11 @@
 from types import SimpleNamespace
 
-import floor_cli
 import listener_runtime
 import local_seat
 import mac_wake_boundaries
 import pytest
 import remote_agent
+import servant_character
 import wake_boundaries
 
 
@@ -13,7 +13,7 @@ import wake_boundaries
 def shown(monkeypatch):
     servants = []
     monkeypatch.setattr(
-        floor_cli.servant_character,
+        servant_character,
         "show_for",
         lambda servant: servants.append(servant),
     )

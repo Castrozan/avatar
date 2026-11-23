@@ -9,6 +9,7 @@ pub(crate) mod audio;
 mod browser;
 mod control;
 mod dispatch;
+mod hosts;
 pub(crate) mod interruption;
 mod serve;
 mod stop;
@@ -18,6 +19,7 @@ use audio::AudioOptions;
 use browser::BrowserOptions;
 use control::ControlOptions;
 use dispatch::DispatchOptions;
+use hosts::HostCommand;
 use serve::ServeOptions;
 
 #[derive(Subcommand)]
@@ -43,6 +45,8 @@ pub(crate) enum ToolCommand {
     Stop,
     #[command(about = "Transcribe 16 kHz mono PCM from stdin through the local Hex server")]
     Transcribe,
+    #[command(flatten)]
+    Host(HostCommand),
 }
 
 impl ToolCommand {
@@ -54,6 +58,7 @@ impl ToolCommand {
             Self::Dispatch(options) => dispatch::run(&options),
             Self::Serve(options) => succeed(serve::run(&options)),
             Self::Browser(options) => succeed(browser::run(&options)),
+            Self::Host(command) => command.run(),
             other => other.run_audio_tools(),
         }
     }

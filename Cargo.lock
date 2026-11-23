@@ -168,6 +168,7 @@ dependencies = [
  "avatar-transcription",
  "avatar-wake",
  "clap",
+ "futures-util",
  "jiff",
  "nix",
  "serde_json",
