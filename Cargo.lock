@@ -82,6 +82,7 @@ dependencies = [
  "avatar-routing",
  "clap",
  "serde_json",
+ "tempfile",
  "tokio",
  "tokio-tungstenite 0.28.0",
 ]

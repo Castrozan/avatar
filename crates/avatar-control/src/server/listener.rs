@@ -12,7 +12,7 @@ use tokio::sync::watch;
 use crate::server::actor::{Actor, drive};
 use crate::server::command::Command;
 use crate::server::connection::{ConnectionState, upgrade};
-use crate::server::speech_port::SpeechPort;
+use crate::server::speech::{SpeechPort, forward_events};
 
 const COMMAND_CAPACITY: usize = 256;
 
@@ -49,8 +49,14 @@ async fn run<Port: SpeechPort>(
         .await;
 }
 
-fn start_actor<Port: SpeechPort>(port: Port, stopped: watch::Receiver<bool>) -> Sender<Command> {
+fn start_actor<Port: SpeechPort>(
+    mut port: Port,
+    stopped: watch::Receiver<bool>,
+) -> Sender<Command> {
     let (commands, receiver) = mpsc::channel(COMMAND_CAPACITY);
+    if let Some(events) = port.take_events() {
+        tokio::spawn(forward_events(events, commands.clone()));
+    }
     tokio::spawn(drive(Actor::new(port, receiver, stopped)));
     commands
 }

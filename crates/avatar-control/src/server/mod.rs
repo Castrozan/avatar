@@ -4,9 +4,11 @@ mod connection;
 mod event;
 mod keep_alive;
 mod listener;
-mod next_command;
+mod loop_support;
 mod origin;
-mod speech_port;
+mod speech;
 
 pub use listener::{ShutdownHandle, serve};
-pub use speech_port::{DiscardingSpeechPort, SpeechPort};
+pub use speech::{DiscardingSpeechPort, SpeechEvent, SpeechPort};
+
+pub(crate) use loop_support::now_ms;
