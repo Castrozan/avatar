@@ -1,0 +1,528 @@
+{
+ "cases": [
+  {
+   "name": "empty directory has no addressee",
+   "observed": [
+    {
+     "current": null,
+     "file": null,
+     "staged_left_behind": false
+    }
+   ],
+   "steps": []
+  },
+  {
+   "name": "hand then read",
+   "observed": [
+    {
+     "current": {
+      "heard_through": 3,
+      "host": null,
+      "pane": "pane-a",
+      "servant": "servant-a"
+     },
+     "file": {
+      "heard_through": 3,
+      "host": null,
+      "pane": "pane-a",
+      "servant": "servant-a"
+     },
+     "staged_left_behind": false
+    }
+   ],
+   "steps": [
+    [
+     "hand",
+     "pane-a",
+     "servant-a",
+     3,
+     null
+    ]
+   ]
+  },
+  {
+   "name": "hand with host",
+   "observed": [
+    {
+     "current": {
+      "heard_through": 0,
+      "host": "mac.local",
+      "pane": "%1",
+      "servant": "avatar"
+     },
+     "file": {
+      "heard_through": 0,
+      "host": "mac.local",
+      "pane": "%1",
+      "servant": "avatar"
+     },
+     "staged_left_behind": false
+    }
+   ],
+   "steps": [
+    [
+     "hand",
+     "%1",
+     "avatar",
+     0,
+     "mac.local"
+    ]
+   ]
+  },
+  {
+   "name": "later hand replaces earlier",
+   "observed": [
+    {
+     "current": {
+      "heard_through": 1,
+      "host": null,
+      "pane": "%1",
+      "servant": "a"
+     },
+     "file": {
+      "heard_through": 1,
+      "host": null,
+      "pane": "%1",
+      "servant": "a"
+     },
+     "staged_left_behind": false
+    },
+    {
+     "current": {
+      "heard_through": 7,
+      "host": "h",
+      "pane": "%2",
+      "servant": "b"
+     },
+     "file": {
+      "heard_through": 7,
+      "host": "h",
+      "pane": "%2",
+      "servant": "b"
+     },
+     "staged_left_behind": false
+    }
+   ],
+   "steps": [
+    [
+     "hand",
+     "%1",
+     "a",
+     1,
+     null
+    ],
+    [
+     "hand",
+     "%2",
+     "b",
+     7,
+     "h"
+    ]
+   ]
+  },
+  {
+   "name": "forget clears",
+   "observed": [
+    {
+     "current": {
+      "heard_through": 1,
+      "host": null,
+      "pane": "%1",
+      "servant": "a"
+     },
+     "file": {
+      "heard_through": 1,
+      "host": null,
+      "pane": "%1",
+      "servant": "a"
+     },
+     "staged_left_behind": false
+    },
+    {
+     "current": null,
+     "file": null,
+     "staged_left_behind": false
+    }
+   ],
+   "steps": [
+    [
+     "hand",
+     "%1",
+     "a",
+     1,
+     null
+    ],
+    [
+     "forget"
+    ]
+   ]
+  },
+  {
+   "name": "forget on empty is quiet",
+   "observed": [
+    {
+     "current": null,
+     "file": null,
+     "staged_left_behind": false
+    }
+   ],
+   "steps": [
+    [
+     "forget"
+    ]
+   ]
+  },
+  {
+   "name": "forget twice is quiet",
+   "observed": [
+    {
+     "current": {
+      "heard_through": 1,
+      "host": null,
+      "pane": "%1",
+      "servant": "a"
+     },
+     "file": {
+      "heard_through": 1,
+      "host": null,
+      "pane": "%1",
+      "servant": "a"
+     },
+     "staged_left_behind": false
+    },
+    {
+     "current": null,
+     "file": null,
+     "staged_left_behind": false
+    },
+    {
+     "current": null,
+     "file": null,
+     "staged_left_behind": false
+    }
+   ],
+   "steps": [
+    [
+     "hand",
+     "%1",
+     "a",
+     1,
+     null
+    ],
+    [
+     "forget"
+    ],
+    [
+     "forget"
+    ]
+   ]
+  },
+  {
+   "name": "hermes profile pane",
+   "observed": [
+    {
+     "current": {
+      "heard_through": 12,
+      "host": null,
+      "pane": "hermes:work",
+      "servant": "hermes"
+     },
+     "file": {
+      "heard_through": 12,
+      "host": null,
+      "pane": "hermes:work",
+      "servant": "hermes"
+     },
+     "staged_left_behind": false
+    }
+   ],
+   "steps": [
+    [
+     "hand",
+     "hermes:work",
+     "hermes",
+     12,
+     null
+    ]
+   ]
+  },
+  {
+   "name": "zero heard_through",
+   "observed": [
+    {
+     "current": {
+      "heard_through": 0,
+      "host": null,
+      "pane": "%9",
+      "servant": "s"
+     },
+     "file": {
+      "heard_through": 0,
+      "host": null,
+      "pane": "%9",
+      "servant": "s"
+     },
+     "staged_left_behind": false
+    }
+   ],
+   "steps": [
+    [
+     "hand",
+     "%9",
+     "s",
+     0,
+     null
+    ]
+   ]
+  },
+  {
+   "name": "unicode names survive",
+   "observed": [
+    {
+     "current": {
+      "heard_through": 5,
+      "host": "ünï",
+      "pane": "%é",
+      "servant": "服務"
+     },
+     "file": {
+      "heard_through": 5,
+      "host": "ünï",
+      "pane": "%é",
+      "servant": "服務"
+     },
+     "staged_left_behind": false
+    }
+   ],
+   "steps": [
+    [
+     "hand",
+     "%é",
+     "服務",
+     5,
+     "ünï"
+    ]
+   ]
+  },
+  {
+   "name": "hand forget hand",
+   "observed": [
+    {
+     "current": {
+      "heard_through": 1,
+      "host": null,
+      "pane": "%1",
+      "servant": "a"
+     },
+     "file": {
+      "heard_through": 1,
+      "host": null,
+      "pane": "%1",
+      "servant": "a"
+     },
+     "staged_left_behind": false
+    },
+    {
+     "current": null,
+     "file": null,
+     "staged_left_behind": false
+    },
+    {
+     "current": {
+      "heard_through": 2,
+      "host": null,
+      "pane": "%3",
+      "servant": "c"
+     },
+     "file": {
+      "heard_through": 2,
+      "host": null,
+      "pane": "%3",
+      "servant": "c"
+     },
+     "staged_left_behind": false
+    }
+   ],
+   "steps": [
+    [
+     "hand",
+     "%1",
+     "a",
+     1,
+     null
+    ],
+    [
+     "forget"
+    ],
+    [
+     "hand",
+     "%3",
+     "c",
+     2,
+     null
+    ]
+   ]
+  },
+  {
+   "name": "large heard_through",
+   "observed": [
+    {
+     "current": {
+      "heard_through": 1099511627776,
+      "host": null,
+      "pane": "%2",
+      "servant": "s"
+     },
+     "file": {
+      "heard_through": 1099511627776,
+      "host": null,
+      "pane": "%2",
+      "servant": "s"
+     },
+     "staged_left_behind": false
+    }
+   ],
+   "steps": [
+    [
+     "hand",
+     "%2",
+     "s",
+     1099511627776,
+     null
+    ]
+   ]
+  },
+  {
+   "name": "empty pane and servant are kept",
+   "observed": [
+    {
+     "current": {
+      "heard_through": 0,
+      "host": null,
+      "pane": "",
+      "servant": ""
+     },
+     "file": {
+      "heard_through": 0,
+      "host": null,
+      "pane": "",
+      "servant": ""
+     },
+     "staged_left_behind": false
+    }
+   ],
+   "steps": [
+    [
+     "hand",
+     "",
+     "",
+     0,
+     null
+    ]
+   ]
+  },
+  {
+   "name": "negative heard_through is kept",
+   "observed": [
+    {
+     "current": {
+      "heard_through": -5,
+      "host": null,
+      "pane": "%4",
+      "servant": "s"
+     },
+     "file": {
+      "heard_through": -5,
+      "host": null,
+      "pane": "%4",
+      "servant": "s"
+     },
+     "staged_left_behind": false
+    }
+   ],
+   "steps": [
+    [
+     "hand",
+     "%4",
+     "s",
+     -5,
+     null
+    ]
+   ]
+  },
+  {
+   "name": "max signed heard_through",
+   "observed": [
+    {
+     "current": {
+      "heard_through": 9223372036854775807,
+      "host": null,
+      "pane": "%5",
+      "servant": "s"
+     },
+     "file": {
+      "heard_through": 9223372036854775807,
+      "host": null,
+      "pane": "%5",
+      "servant": "s"
+     },
+     "staged_left_behind": false
+    }
+   ],
+   "steps": [
+    [
+     "hand",
+     "%5",
+     "s",
+     9223372036854775807,
+     null
+    ]
+   ]
+  },
+  {
+   "name": "forget then read without any hand",
+   "observed": [
+    {
+     "current": null,
+     "file": null,
+     "staged_left_behind": false
+    },
+    {
+     "current": null,
+     "file": null,
+     "staged_left_behind": false
+    },
+    {
+     "current": {
+      "heard_through": 1,
+      "host": "h",
+      "pane": "%6",
+      "servant": "s"
+     },
+     "file": {
+      "heard_through": 1,
+      "host": "h",
+      "pane": "%6",
+      "servant": "s"
+     },
+     "staged_left_behind": false
+    }
+   ],
+   "steps": [
+    [
+     "forget"
+    ],
+    [
+     "forget"
+    ],
+    [
+     "hand",
+     "%6",
+     "s",
+     1,
+     "h"
+    ]
+   ]
+  }
+ ]
+}

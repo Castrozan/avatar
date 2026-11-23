@@ -1,0 +1,176 @@
+{
+ "uid": 503,
+ "service_targets": {
+  "avatar-conversation.target": "gui/503/com.dotfiles.avatar-conversation",
+  "avatar-listener.service": "gui/503/com.dotfiles.avatar-conversation",
+  "avatar-live.service": "gui/503/com.dotfiles.avatar-live",
+  "avatar-control-server.service": "gui/503/com.dotfiles.avatar-control",
+  "avatar-renderer.service": "gui/503/com.dotfiles.avatar-renderer"
+ },
+ "cases": [
+  {
+   "name": "listener running",
+   "unit": "avatar-listener.service",
+   "printed": {
+    "com.dotfiles.avatar-conversation": "gui/503/agent = {\n\tactive count = 1\n\tstate = running\n}\n"
+   },
+   "active": true,
+   "queried_agents": [
+    "com.dotfiles.avatar-conversation"
+   ]
+  },
+  {
+   "name": "listener loaded not running",
+   "unit": "avatar-listener.service",
+   "printed": {
+    "com.dotfiles.avatar-conversation": "gui/503/agent = {\n\tactive count = 0\n\tstate = not running\n}\n"
+   },
+   "active": false,
+   "queried_agents": [
+    "com.dotfiles.avatar-conversation"
+   ]
+  },
+  {
+   "name": "endpoint state is not agent state",
+   "unit": "avatar-listener.service",
+   "printed": {
+    "com.dotfiles.avatar-conversation": "gui/503/agent = {\n\tendpoints = {\n\t\tstate = running\n\t}\n}\n"
+   },
+   "active": false,
+   "queried_agents": [
+    "com.dotfiles.avatar-conversation"
+   ]
+  },
+  {
+   "name": "nothing printed",
+   "unit": "avatar-listener.service",
+   "printed": {},
+   "active": false,
+   "queried_agents": [
+    "com.dotfiles.avatar-conversation"
+   ]
+  },
+  {
+   "name": "live service running",
+   "unit": "avatar-live.service",
+   "printed": {
+    "com.dotfiles.avatar-live": "gui/503/agent = {\n\tactive count = 1\n\tstate = running\n}\n"
+   },
+   "active": true,
+   "queried_agents": [
+    "com.dotfiles.avatar-live"
+   ]
+  },
+  {
+   "name": "live service reads live agent only",
+   "unit": "avatar-live.service",
+   "printed": {
+    "com.dotfiles.avatar-conversation": "gui/503/agent = {\n\tactive count = 1\n\tstate = running\n}\n"
+   },
+   "active": false,
+   "queried_agents": [
+    "com.dotfiles.avatar-live"
+   ]
+  },
+  {
+   "name": "unknown unit never asks launchd",
+   "unit": "avatar-audio.service",
+   "printed": {
+    "com.dotfiles.avatar-conversation": "gui/503/agent = {\n\tactive count = 1\n\tstate = running\n}\n"
+   },
+   "active": false,
+   "queried_agents": []
+  },
+  {
+   "name": "control server running",
+   "unit": "avatar-control-server.service",
+   "printed": {
+    "com.dotfiles.avatar-control": "gui/503/agent = {\n\tactive count = 1\n\tstate = running\n}\n"
+   },
+   "active": true,
+   "queried_agents": [
+    "com.dotfiles.avatar-control"
+   ]
+  },
+  {
+   "name": "renderer loaded",
+   "unit": "avatar-renderer.service",
+   "printed": {
+    "com.dotfiles.avatar-renderer": "gui/503/agent = {\n\tactive count = 0\n\tstate = not running\n}\n"
+   },
+   "active": false,
+   "queried_agents": [
+    "com.dotfiles.avatar-renderer"
+   ]
+  },
+  {
+   "name": "target stands with listener",
+   "unit": "avatar-conversation.target",
+   "printed": {
+    "com.dotfiles.avatar-conversation": "gui/503/agent = {\n\tactive count = 1\n\tstate = running\n}\n"
+   },
+   "active": true,
+   "queried_agents": [
+    "com.dotfiles.avatar-conversation"
+   ]
+  },
+  {
+   "name": "target stands with live voice",
+   "unit": "avatar-conversation.target",
+   "printed": {
+    "com.dotfiles.avatar-live": "gui/503/agent = {\n\tactive count = 1\n\tstate = running\n}\n"
+   },
+   "active": true,
+   "queried_agents": [
+    "com.dotfiles.avatar-conversation",
+    "com.dotfiles.avatar-live"
+   ]
+  },
+  {
+   "name": "target idle when both loaded",
+   "unit": "avatar-conversation.target",
+   "printed": {
+    "com.dotfiles.avatar-conversation": "gui/503/agent = {\n\tactive count = 0\n\tstate = not running\n}\n",
+    "com.dotfiles.avatar-live": "gui/503/agent = {\n\tactive count = 0\n\tstate = not running\n}\n"
+   },
+   "active": false,
+   "queried_agents": [
+    "com.dotfiles.avatar-conversation",
+    "com.dotfiles.avatar-live"
+   ]
+  },
+  {
+   "name": "CRLF output is not running",
+   "unit": "avatar-listener.service",
+   "printed": {
+    "com.dotfiles.avatar-conversation": "gui/503/agent = {\r\n\tstate = running\r\n}\r\n"
+   },
+   "active": false,
+   "queried_agents": [
+    "com.dotfiles.avatar-conversation"
+   ]
+  },
+  {
+   "name": "indented state is not running",
+   "unit": "avatar-listener.service",
+   "printed": {
+    "com.dotfiles.avatar-conversation": "gui/503/agent = {\n\t\tstate = running\n}\n"
+   },
+   "active": false,
+   "queried_agents": [
+    "com.dotfiles.avatar-conversation"
+   ]
+  },
+  {
+   "name": "trailing space is not running",
+   "unit": "avatar-listener.service",
+   "printed": {
+    "com.dotfiles.avatar-conversation": "gui/503/agent = {\n\tstate = running \n}\n"
+   },
+   "active": false,
+   "queried_agents": [
+    "com.dotfiles.avatar-conversation"
+   ]
+  }
+ ]
+}

@@ -1,3 +1,6 @@
+pub mod file_store;
+pub mod store;
+
 pub const HERMES_PANE_PREFIX: &str = "hermes:";
 
 #[derive(Debug, Clone, PartialEq, Eq)]

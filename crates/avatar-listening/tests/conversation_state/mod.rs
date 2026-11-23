@@ -1,5 +1,6 @@
 use crate::support::{Outcome, fixture, flag, optional_text, rows, text};
 use avatar_listening::conversation_state::{ListenerPurpose, command_of, decide, observe};
+mod live_purpose;
 mod names;
 mod properties;
 

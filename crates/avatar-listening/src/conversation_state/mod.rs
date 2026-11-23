@@ -1,10 +1,12 @@
 mod action;
 mod command;
+pub mod listener_purpose;
 mod phase;
 mod transitions;
 
 pub use action::ConversationAction;
 pub use command::ConversationCommand;
+pub use listener_purpose::{ListenerProbe, live_purpose};
 pub use phase::{ConversationPhase, ListenerPurpose};
 pub use transitions::decide;
 

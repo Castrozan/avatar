@@ -1,3 +1,5 @@
+mod store;
+
 use crate::support::{Outcome, fixture, flag, optional_text, replay_cases, rows, text};
 use avatar_listening::conversation_addressee::{
     Addressee, addresses, hermes_pane, holder_other_than, holds_without_a_pane,
