@@ -234,6 +234,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "avatar-mac"
+version = "0.1.0"
+dependencies = [
+ "avatar-listening",
+ "proptest",
+ "serde_json",
+]
+
+[[package]]
 name = "avatar-room-audio"
 version = "0.1.0"
 dependencies = [
