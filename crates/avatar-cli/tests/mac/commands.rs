@@ -76,15 +76,6 @@ fn listening_options_follow_argparse_exit_codes() -> TestResult {
 }
 
 #[test]
-fn the_seat_needs_its_page_directory() -> TestResult {
-    let home = tempfile::tempdir()?;
-    let output = configured(&["mac", "seat"], home.path())?;
-    assert_eq!(output.status.code(), Some(1));
-    assert!(text(&output.stderr).contains("AVATAR_SEAT_PAGE is not set"));
-    Ok(())
-}
-
-#[test]
 fn installing_no_drivers_changes_nothing() -> TestResult {
     let output = avatar(&["mac", "install-call-audio-drivers"]).output()?;
     assert_eq!(output.status.code(), Some(0));

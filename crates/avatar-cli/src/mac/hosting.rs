@@ -7,8 +7,9 @@ use avatar_mac::edge::server::{PageFiles, ServerProgram};
 use avatar_seat::local::SeatConfig;
 use clap::Args;
 
-use super::environment::{SEAT_PAGE, WAKE_PAGE, page_directory, seat_config};
+use super::environment::{page_directory, seat_config};
 use super::serving::host;
+use avatar_assets::Asset;
 
 const SEAT_PORT: u16 = 8772;
 const MICROPHONE_PORT: u16 = 8771;
@@ -56,7 +57,7 @@ fn browser_of(config: &SeatConfig, profile: &str, port: u16) -> HeadlessBrowser 
 
 fn seat_hosting(options: &SeatOptions) -> io::Result<Hosting> {
     let config = seat_config()?;
-    let files = PageFiles::seat(&page_directory(SEAT_PAGE)?);
+    let files = PageFiles::seat(&page_directory(Asset::SeatPage)?);
     Ok(Hosting {
         kind: Kind::Seat,
         program: program_of(&config, files, SEAT_PORT, "conversation"),
@@ -65,9 +66,17 @@ fn seat_hosting(options: &SeatOptions) -> io::Result<Hosting> {
     })
 }
 
+fn microphone_files() -> io::Result<PageFiles> {
+    let wake = page_directory(Asset::WakePage)?;
+    Ok(PageFiles::microphone(
+        &wake,
+        &page_directory(Asset::SeatPage)?,
+    ))
+}
+
 fn microphone_hosting() -> io::Result<Hosting> {
     let config = seat_config()?;
-    let files = PageFiles::microphone(&page_directory(WAKE_PAGE)?, &page_directory(SEAT_PAGE)?);
+    let files = microphone_files()?;
     Ok(Hosting {
         kind: Kind::Microphone,
         program: program_of(&config, files, MICROPHONE_PORT, "wake microphone"),
