@@ -54,7 +54,7 @@ fn poll_then_pause(child: &mut Child) -> Option<ExitStatus> {
     status
 }
 
-fn wait_until(child: &mut Child, deadline: Instant) -> Option<ExitStatus> {
+pub(super) fn wait_until(child: &mut Child, deadline: Instant) -> Option<ExitStatus> {
     let polls = std::iter::from_fn(|| (Instant::now() < deadline).then(|| poll_then_pause(child)));
     let status = polls.flatten().next();
     if status.is_none() {
