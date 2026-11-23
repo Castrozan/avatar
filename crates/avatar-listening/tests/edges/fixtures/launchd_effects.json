@@ -1,0 +1,1810 @@
+{
+ "uid": 503,
+ "cases": [
+  {
+   "effect": "start",
+   "unit": "avatar-listener.service",
+   "script": [
+    "gui/503/agent = {\n\tactive count = 0\n\tstate = not running\n}\n"
+   ],
+   "stop_wait": 10,
+   "calls": [
+    {
+     "args": [
+      "kickstart",
+      "gui/503/com.dotfiles.avatar-conversation"
+     ],
+     "check": true,
+     "timeout": 30
+    }
+   ],
+   "sleeps": [],
+   "outcome": {
+    "ok": true
+   }
+  },
+  {
+   "effect": "stop",
+   "unit": "avatar-listener.service",
+   "script": [
+    "gui/503/agent = {\n\tactive count = 0\n\tstate = not running\n}\n"
+   ],
+   "stop_wait": 10,
+   "calls": [
+    {
+     "args": [
+      "kill",
+      "TERM",
+      "gui/503/com.dotfiles.avatar-conversation"
+     ],
+     "check": false,
+     "timeout": 30
+    },
+    {
+     "args": [
+      "print",
+      "gui/503/com.dotfiles.avatar-conversation"
+     ],
+     "check": false,
+     "timeout": 30
+    }
+   ],
+   "sleeps": [],
+   "outcome": {
+    "ok": true
+   }
+  },
+  {
+   "effect": "stop",
+   "unit": "avatar-listener.service",
+   "script": [
+    "gui/503/agent = {\n\tactive count = 0\n\tstate = not running\n}\n"
+   ],
+   "stop_wait": -1,
+   "calls": [
+    {
+     "args": [
+      "kill",
+      "TERM",
+      "gui/503/com.dotfiles.avatar-conversation"
+     ],
+     "check": false,
+     "timeout": 30
+    },
+    {
+     "args": [
+      "print",
+      "gui/503/com.dotfiles.avatar-conversation"
+     ],
+     "check": false,
+     "timeout": 30
+    }
+   ],
+   "sleeps": [],
+   "outcome": {
+    "ok": true
+   }
+  },
+  {
+   "effect": "stop",
+   "unit": "avatar-listener.service",
+   "script": [
+    "gui/503/agent = {\n\tactive count = 1\n\tstate = running\n}\n",
+    "gui/503/agent = {\n\tactive count = 1\n\tstate = running\n}\n",
+    "gui/503/agent = {\n\tactive count = 0\n\tstate = not running\n}\n"
+   ],
+   "stop_wait": 10,
+   "calls": [
+    {
+     "args": [
+      "kill",
+      "TERM",
+      "gui/503/com.dotfiles.avatar-conversation"
+     ],
+     "check": false,
+     "timeout": 30
+    },
+    {
+     "args": [
+      "print",
+      "gui/503/com.dotfiles.avatar-conversation"
+     ],
+     "check": false,
+     "timeout": 30
+    },
+    {
+     "args": [
+      "print",
+      "gui/503/com.dotfiles.avatar-conversation"
+     ],
+     "check": false,
+     "timeout": 30
+    },
+    {
+     "args": [
+      "print",
+      "gui/503/com.dotfiles.avatar-conversation"
+     ],
+     "check": false,
+     "timeout": 30
+    }
+   ],
+   "sleeps": [
+    0.1,
+    0.1
+   ],
+   "outcome": {
+    "ok": true
+   }
+  },
+  {
+   "effect": "stop",
+   "unit": "avatar-listener.service",
+   "script": [
+    "gui/503/agent = {\n\tactive count = 1\n\tstate = running\n}\n",
+    "gui/503/agent = {\n\tactive count = 1\n\tstate = running\n}\n",
+    "gui/503/agent = {\n\tactive count = 0\n\tstate = not running\n}\n"
+   ],
+   "stop_wait": -1,
+   "calls": [
+    {
+     "args": [
+      "kill",
+      "TERM",
+      "gui/503/com.dotfiles.avatar-conversation"
+     ],
+     "check": false,
+     "timeout": 30
+    },
+    {
+     "args": [
+      "print",
+      "gui/503/com.dotfiles.avatar-conversation"
+     ],
+     "check": false,
+     "timeout": 30
+    }
+   ],
+   "sleeps": [],
+   "outcome": {
+    "ok": false,
+    "kind": "did_not_stop",
+    "message": "com.dotfiles.avatar-conversation did not stop"
+   }
+  },
+  {
+   "effect": "stop",
+   "unit": "avatar-listener.service",
+   "script": [
+    "gui/503/agent = {\n\tactive count = 1\n\tstate = running\n}\n"
+   ],
+   "stop_wait": 10,
+   "calls": [
+    {
+     "args": [
+      "kill",
+      "TERM",
+      "gui/503/com.dotfiles.avatar-conversation"
+     ],
+     "check": false,
+     "timeout": 30
+    },
+    {
+     "args": [
+      "print",
+      "gui/503/com.dotfiles.avatar-conversation"
+     ],
+     "check": false,
+     "timeout": 30
+    },
+    {
+     "args": [
+      "print",
+      "gui/503/com.dotfiles.avatar-conversation"
+     ],
+     "check": false,
+     "timeout": 30
+    },
+    {
+     "args": [
+      "print",
+      "gui/503/com.dotfiles.avatar-conversation"
+     ],
+     "check": false,
+     "timeout": 30
+    },
+    {
+     "args": [
+      "print",
+      "gui/503/com.dotfiles.avatar-conversation"
+     ],
+     "check": false,
+     "timeout": 30
+    }
+   ],
+   "sleeps": [
+    0.1,
+    0.1,
+    0.1
+   ],
+   "outcome": {
+    "ok": false,
+    "kind": "did_not_stop",
+    "message": "com.dotfiles.avatar-conversation did not stop"
+   }
+  },
+  {
+   "effect": "stop",
+   "unit": "avatar-listener.service",
+   "script": [
+    "gui/503/agent = {\n\tactive count = 1\n\tstate = running\n}\n"
+   ],
+   "stop_wait": -1,
+   "calls": [
+    {
+     "args": [
+      "kill",
+      "TERM",
+      "gui/503/com.dotfiles.avatar-conversation"
+     ],
+     "check": false,
+     "timeout": 30
+    },
+    {
+     "args": [
+      "print",
+      "gui/503/com.dotfiles.avatar-conversation"
+     ],
+     "check": false,
+     "timeout": 30
+    }
+   ],
+   "sleeps": [],
+   "outcome": {
+    "ok": false,
+    "kind": "did_not_stop",
+    "message": "com.dotfiles.avatar-conversation did not stop"
+   }
+  },
+  {
+   "effect": "stop",
+   "unit": "avatar-listener.service",
+   "script": [
+    ""
+   ],
+   "stop_wait": 10,
+   "calls": [
+    {
+     "args": [
+      "kill",
+      "TERM",
+      "gui/503/com.dotfiles.avatar-conversation"
+     ],
+     "check": false,
+     "timeout": 30
+    },
+    {
+     "args": [
+      "print",
+      "gui/503/com.dotfiles.avatar-conversation"
+     ],
+     "check": false,
+     "timeout": 30
+    }
+   ],
+   "sleeps": [],
+   "outcome": {
+    "ok": true
+   }
+  },
+  {
+   "effect": "stop",
+   "unit": "avatar-listener.service",
+   "script": [
+    ""
+   ],
+   "stop_wait": -1,
+   "calls": [
+    {
+     "args": [
+      "kill",
+      "TERM",
+      "gui/503/com.dotfiles.avatar-conversation"
+     ],
+     "check": false,
+     "timeout": 30
+    },
+    {
+     "args": [
+      "print",
+      "gui/503/com.dotfiles.avatar-conversation"
+     ],
+     "check": false,
+     "timeout": 30
+    }
+   ],
+   "sleeps": [],
+   "outcome": {
+    "ok": true
+   }
+  },
+  {
+   "effect": "start",
+   "unit": "avatar-live.service",
+   "script": [
+    "gui/503/agent = {\n\tactive count = 0\n\tstate = not running\n}\n"
+   ],
+   "stop_wait": 10,
+   "calls": [
+    {
+     "args": [
+      "kickstart",
+      "gui/503/com.dotfiles.avatar-live"
+     ],
+     "check": true,
+     "timeout": 30
+    }
+   ],
+   "sleeps": [],
+   "outcome": {
+    "ok": true
+   }
+  },
+  {
+   "effect": "stop",
+   "unit": "avatar-live.service",
+   "script": [
+    "gui/503/agent = {\n\tactive count = 0\n\tstate = not running\n}\n"
+   ],
+   "stop_wait": 10,
+   "calls": [
+    {
+     "args": [
+      "kill",
+      "TERM",
+      "gui/503/com.dotfiles.avatar-live"
+     ],
+     "check": false,
+     "timeout": 30
+    },
+    {
+     "args": [
+      "print",
+      "gui/503/com.dotfiles.avatar-live"
+     ],
+     "check": false,
+     "timeout": 30
+    }
+   ],
+   "sleeps": [],
+   "outcome": {
+    "ok": true
+   }
+  },
+  {
+   "effect": "stop",
+   "unit": "avatar-live.service",
+   "script": [
+    "gui/503/agent = {\n\tactive count = 0\n\tstate = not running\n}\n"
+   ],
+   "stop_wait": -1,
+   "calls": [
+    {
+     "args": [
+      "kill",
+      "TERM",
+      "gui/503/com.dotfiles.avatar-live"
+     ],
+     "check": false,
+     "timeout": 30
+    },
+    {
+     "args": [
+      "print",
+      "gui/503/com.dotfiles.avatar-live"
+     ],
+     "check": false,
+     "timeout": 30
+    }
+   ],
+   "sleeps": [],
+   "outcome": {
+    "ok": true
+   }
+  },
+  {
+   "effect": "stop",
+   "unit": "avatar-live.service",
+   "script": [
+    "gui/503/agent = {\n\tactive count = 1\n\tstate = running\n}\n",
+    "gui/503/agent = {\n\tactive count = 1\n\tstate = running\n}\n",
+    "gui/503/agent = {\n\tactive count = 0\n\tstate = not running\n}\n"
+   ],
+   "stop_wait": 10,
+   "calls": [
+    {
+     "args": [
+      "kill",
+      "TERM",
+      "gui/503/com.dotfiles.avatar-live"
+     ],
+     "check": false,
+     "timeout": 30
+    },
+    {
+     "args": [
+      "print",
+      "gui/503/com.dotfiles.avatar-live"
+     ],
+     "check": false,
+     "timeout": 30
+    },
+    {
+     "args": [
+      "print",
+      "gui/503/com.dotfiles.avatar-live"
+     ],
+     "check": false,
+     "timeout": 30
+    },
+    {
+     "args": [
+      "print",
+      "gui/503/com.dotfiles.avatar-live"
+     ],
+     "check": false,
+     "timeout": 30
+    }
+   ],
+   "sleeps": [
+    0.1,
+    0.1
+   ],
+   "outcome": {
+    "ok": true
+   }
+  },
+  {
+   "effect": "stop",
+   "unit": "avatar-live.service",
+   "script": [
+    "gui/503/agent = {\n\tactive count = 1\n\tstate = running\n}\n",
+    "gui/503/agent = {\n\tactive count = 1\n\tstate = running\n}\n",
+    "gui/503/agent = {\n\tactive count = 0\n\tstate = not running\n}\n"
+   ],
+   "stop_wait": -1,
+   "calls": [
+    {
+     "args": [
+      "kill",
+      "TERM",
+      "gui/503/com.dotfiles.avatar-live"
+     ],
+     "check": false,
+     "timeout": 30
+    },
+    {
+     "args": [
+      "print",
+      "gui/503/com.dotfiles.avatar-live"
+     ],
+     "check": false,
+     "timeout": 30
+    }
+   ],
+   "sleeps": [],
+   "outcome": {
+    "ok": false,
+    "kind": "did_not_stop",
+    "message": "com.dotfiles.avatar-live did not stop"
+   }
+  },
+  {
+   "effect": "stop",
+   "unit": "avatar-live.service",
+   "script": [
+    "gui/503/agent = {\n\tactive count = 1\n\tstate = running\n}\n"
+   ],
+   "stop_wait": 10,
+   "calls": [
+    {
+     "args": [
+      "kill",
+      "TERM",
+      "gui/503/com.dotfiles.avatar-live"
+     ],
+     "check": false,
+     "timeout": 30
+    },
+    {
+     "args": [
+      "print",
+      "gui/503/com.dotfiles.avatar-live"
+     ],
+     "check": false,
+     "timeout": 30
+    },
+    {
+     "args": [
+      "print",
+      "gui/503/com.dotfiles.avatar-live"
+     ],
+     "check": false,
+     "timeout": 30
+    },
+    {
+     "args": [
+      "print",
+      "gui/503/com.dotfiles.avatar-live"
+     ],
+     "check": false,
+     "timeout": 30
+    },
+    {
+     "args": [
+      "print",
+      "gui/503/com.dotfiles.avatar-live"
+     ],
+     "check": false,
+     "timeout": 30
+    }
+   ],
+   "sleeps": [
+    0.1,
+    0.1,
+    0.1
+   ],
+   "outcome": {
+    "ok": false,
+    "kind": "did_not_stop",
+    "message": "com.dotfiles.avatar-live did not stop"
+   }
+  },
+  {
+   "effect": "stop",
+   "unit": "avatar-live.service",
+   "script": [
+    "gui/503/agent = {\n\tactive count = 1\n\tstate = running\n}\n"
+   ],
+   "stop_wait": -1,
+   "calls": [
+    {
+     "args": [
+      "kill",
+      "TERM",
+      "gui/503/com.dotfiles.avatar-live"
+     ],
+     "check": false,
+     "timeout": 30
+    },
+    {
+     "args": [
+      "print",
+      "gui/503/com.dotfiles.avatar-live"
+     ],
+     "check": false,
+     "timeout": 30
+    }
+   ],
+   "sleeps": [],
+   "outcome": {
+    "ok": false,
+    "kind": "did_not_stop",
+    "message": "com.dotfiles.avatar-live did not stop"
+   }
+  },
+  {
+   "effect": "stop",
+   "unit": "avatar-live.service",
+   "script": [
+    ""
+   ],
+   "stop_wait": 10,
+   "calls": [
+    {
+     "args": [
+      "kill",
+      "TERM",
+      "gui/503/com.dotfiles.avatar-live"
+     ],
+     "check": false,
+     "timeout": 30
+    },
+    {
+     "args": [
+      "print",
+      "gui/503/com.dotfiles.avatar-live"
+     ],
+     "check": false,
+     "timeout": 30
+    }
+   ],
+   "sleeps": [],
+   "outcome": {
+    "ok": true
+   }
+  },
+  {
+   "effect": "stop",
+   "unit": "avatar-live.service",
+   "script": [
+    ""
+   ],
+   "stop_wait": -1,
+   "calls": [
+    {
+     "args": [
+      "kill",
+      "TERM",
+      "gui/503/com.dotfiles.avatar-live"
+     ],
+     "check": false,
+     "timeout": 30
+    },
+    {
+     "args": [
+      "print",
+      "gui/503/com.dotfiles.avatar-live"
+     ],
+     "check": false,
+     "timeout": 30
+    }
+   ],
+   "sleeps": [],
+   "outcome": {
+    "ok": true
+   }
+  },
+  {
+   "effect": "start",
+   "unit": "avatar-conversation.target",
+   "script": [
+    "gui/503/agent = {\n\tactive count = 0\n\tstate = not running\n}\n"
+   ],
+   "stop_wait": 10,
+   "calls": [
+    {
+     "args": [
+      "kickstart",
+      "gui/503/com.dotfiles.avatar-conversation"
+     ],
+     "check": true,
+     "timeout": 30
+    }
+   ],
+   "sleeps": [],
+   "outcome": {
+    "ok": true
+   }
+  },
+  {
+   "effect": "stop",
+   "unit": "avatar-conversation.target",
+   "script": [
+    "gui/503/agent = {\n\tactive count = 0\n\tstate = not running\n}\n"
+   ],
+   "stop_wait": 10,
+   "calls": [
+    {
+     "args": [
+      "kill",
+      "TERM",
+      "gui/503/com.dotfiles.avatar-conversation"
+     ],
+     "check": false,
+     "timeout": 30
+    },
+    {
+     "args": [
+      "print",
+      "gui/503/com.dotfiles.avatar-conversation"
+     ],
+     "check": false,
+     "timeout": 30
+    },
+    {
+     "args": [
+      "print",
+      "gui/503/com.dotfiles.avatar-live"
+     ],
+     "check": false,
+     "timeout": 30
+    }
+   ],
+   "sleeps": [],
+   "outcome": {
+    "ok": true
+   }
+  },
+  {
+   "effect": "stop",
+   "unit": "avatar-conversation.target",
+   "script": [
+    "gui/503/agent = {\n\tactive count = 0\n\tstate = not running\n}\n"
+   ],
+   "stop_wait": -1,
+   "calls": [
+    {
+     "args": [
+      "kill",
+      "TERM",
+      "gui/503/com.dotfiles.avatar-conversation"
+     ],
+     "check": false,
+     "timeout": 30
+    },
+    {
+     "args": [
+      "print",
+      "gui/503/com.dotfiles.avatar-conversation"
+     ],
+     "check": false,
+     "timeout": 30
+    },
+    {
+     "args": [
+      "print",
+      "gui/503/com.dotfiles.avatar-live"
+     ],
+     "check": false,
+     "timeout": 30
+    }
+   ],
+   "sleeps": [],
+   "outcome": {
+    "ok": true
+   }
+  },
+  {
+   "effect": "stop",
+   "unit": "avatar-conversation.target",
+   "script": [
+    "gui/503/agent = {\n\tactive count = 1\n\tstate = running\n}\n",
+    "gui/503/agent = {\n\tactive count = 1\n\tstate = running\n}\n",
+    "gui/503/agent = {\n\tactive count = 0\n\tstate = not running\n}\n"
+   ],
+   "stop_wait": 10,
+   "calls": [
+    {
+     "args": [
+      "kill",
+      "TERM",
+      "gui/503/com.dotfiles.avatar-conversation"
+     ],
+     "check": false,
+     "timeout": 30
+    },
+    {
+     "args": [
+      "print",
+      "gui/503/com.dotfiles.avatar-conversation"
+     ],
+     "check": false,
+     "timeout": 30
+    },
+    {
+     "args": [
+      "print",
+      "gui/503/com.dotfiles.avatar-conversation"
+     ],
+     "check": false,
+     "timeout": 30
+    },
+    {
+     "args": [
+      "print",
+      "gui/503/com.dotfiles.avatar-conversation"
+     ],
+     "check": false,
+     "timeout": 30
+    },
+    {
+     "args": [
+      "print",
+      "gui/503/com.dotfiles.avatar-live"
+     ],
+     "check": false,
+     "timeout": 30
+    }
+   ],
+   "sleeps": [
+    0.1,
+    0.1
+   ],
+   "outcome": {
+    "ok": true
+   }
+  },
+  {
+   "effect": "stop",
+   "unit": "avatar-conversation.target",
+   "script": [
+    "gui/503/agent = {\n\tactive count = 1\n\tstate = running\n}\n",
+    "gui/503/agent = {\n\tactive count = 1\n\tstate = running\n}\n",
+    "gui/503/agent = {\n\tactive count = 0\n\tstate = not running\n}\n"
+   ],
+   "stop_wait": -1,
+   "calls": [
+    {
+     "args": [
+      "kill",
+      "TERM",
+      "gui/503/com.dotfiles.avatar-conversation"
+     ],
+     "check": false,
+     "timeout": 30
+    },
+    {
+     "args": [
+      "print",
+      "gui/503/com.dotfiles.avatar-conversation"
+     ],
+     "check": false,
+     "timeout": 30
+    }
+   ],
+   "sleeps": [],
+   "outcome": {
+    "ok": false,
+    "kind": "did_not_stop",
+    "message": "com.dotfiles.avatar-conversation did not stop"
+   }
+  },
+  {
+   "effect": "stop",
+   "unit": "avatar-conversation.target",
+   "script": [
+    "gui/503/agent = {\n\tactive count = 1\n\tstate = running\n}\n"
+   ],
+   "stop_wait": 10,
+   "calls": [
+    {
+     "args": [
+      "kill",
+      "TERM",
+      "gui/503/com.dotfiles.avatar-conversation"
+     ],
+     "check": false,
+     "timeout": 30
+    },
+    {
+     "args": [
+      "print",
+      "gui/503/com.dotfiles.avatar-conversation"
+     ],
+     "check": false,
+     "timeout": 30
+    },
+    {
+     "args": [
+      "print",
+      "gui/503/com.dotfiles.avatar-conversation"
+     ],
+     "check": false,
+     "timeout": 30
+    },
+    {
+     "args": [
+      "print",
+      "gui/503/com.dotfiles.avatar-conversation"
+     ],
+     "check": false,
+     "timeout": 30
+    },
+    {
+     "args": [
+      "print",
+      "gui/503/com.dotfiles.avatar-conversation"
+     ],
+     "check": false,
+     "timeout": 30
+    }
+   ],
+   "sleeps": [
+    0.1,
+    0.1,
+    0.1
+   ],
+   "outcome": {
+    "ok": false,
+    "kind": "did_not_stop",
+    "message": "com.dotfiles.avatar-conversation did not stop"
+   }
+  },
+  {
+   "effect": "stop",
+   "unit": "avatar-conversation.target",
+   "script": [
+    "gui/503/agent = {\n\tactive count = 1\n\tstate = running\n}\n"
+   ],
+   "stop_wait": -1,
+   "calls": [
+    {
+     "args": [
+      "kill",
+      "TERM",
+      "gui/503/com.dotfiles.avatar-conversation"
+     ],
+     "check": false,
+     "timeout": 30
+    },
+    {
+     "args": [
+      "print",
+      "gui/503/com.dotfiles.avatar-conversation"
+     ],
+     "check": false,
+     "timeout": 30
+    }
+   ],
+   "sleeps": [],
+   "outcome": {
+    "ok": false,
+    "kind": "did_not_stop",
+    "message": "com.dotfiles.avatar-conversation did not stop"
+   }
+  },
+  {
+   "effect": "stop",
+   "unit": "avatar-conversation.target",
+   "script": [
+    ""
+   ],
+   "stop_wait": 10,
+   "calls": [
+    {
+     "args": [
+      "kill",
+      "TERM",
+      "gui/503/com.dotfiles.avatar-conversation"
+     ],
+     "check": false,
+     "timeout": 30
+    },
+    {
+     "args": [
+      "print",
+      "gui/503/com.dotfiles.avatar-conversation"
+     ],
+     "check": false,
+     "timeout": 30
+    },
+    {
+     "args": [
+      "print",
+      "gui/503/com.dotfiles.avatar-live"
+     ],
+     "check": false,
+     "timeout": 30
+    }
+   ],
+   "sleeps": [],
+   "outcome": {
+    "ok": true
+   }
+  },
+  {
+   "effect": "stop",
+   "unit": "avatar-conversation.target",
+   "script": [
+    ""
+   ],
+   "stop_wait": -1,
+   "calls": [
+    {
+     "args": [
+      "kill",
+      "TERM",
+      "gui/503/com.dotfiles.avatar-conversation"
+     ],
+     "check": false,
+     "timeout": 30
+    },
+    {
+     "args": [
+      "print",
+      "gui/503/com.dotfiles.avatar-conversation"
+     ],
+     "check": false,
+     "timeout": 30
+    },
+    {
+     "args": [
+      "print",
+      "gui/503/com.dotfiles.avatar-live"
+     ],
+     "check": false,
+     "timeout": 30
+    }
+   ],
+   "sleeps": [],
+   "outcome": {
+    "ok": true
+   }
+  },
+  {
+   "effect": "start",
+   "unit": "avatar-control-server.service",
+   "script": [
+    "gui/503/agent = {\n\tactive count = 0\n\tstate = not running\n}\n"
+   ],
+   "stop_wait": 10,
+   "calls": [
+    {
+     "args": [
+      "kickstart",
+      "gui/503/com.dotfiles.avatar-control"
+     ],
+     "check": true,
+     "timeout": 30
+    }
+   ],
+   "sleeps": [],
+   "outcome": {
+    "ok": true
+   }
+  },
+  {
+   "effect": "stop",
+   "unit": "avatar-control-server.service",
+   "script": [
+    "gui/503/agent = {\n\tactive count = 0\n\tstate = not running\n}\n"
+   ],
+   "stop_wait": 10,
+   "calls": [
+    {
+     "args": [
+      "kill",
+      "TERM",
+      "gui/503/com.dotfiles.avatar-control"
+     ],
+     "check": false,
+     "timeout": 30
+    },
+    {
+     "args": [
+      "print",
+      "gui/503/com.dotfiles.avatar-control"
+     ],
+     "check": false,
+     "timeout": 30
+    }
+   ],
+   "sleeps": [],
+   "outcome": {
+    "ok": true
+   }
+  },
+  {
+   "effect": "stop",
+   "unit": "avatar-control-server.service",
+   "script": [
+    "gui/503/agent = {\n\tactive count = 0\n\tstate = not running\n}\n"
+   ],
+   "stop_wait": -1,
+   "calls": [
+    {
+     "args": [
+      "kill",
+      "TERM",
+      "gui/503/com.dotfiles.avatar-control"
+     ],
+     "check": false,
+     "timeout": 30
+    },
+    {
+     "args": [
+      "print",
+      "gui/503/com.dotfiles.avatar-control"
+     ],
+     "check": false,
+     "timeout": 30
+    }
+   ],
+   "sleeps": [],
+   "outcome": {
+    "ok": true
+   }
+  },
+  {
+   "effect": "stop",
+   "unit": "avatar-control-server.service",
+   "script": [
+    "gui/503/agent = {\n\tactive count = 1\n\tstate = running\n}\n",
+    "gui/503/agent = {\n\tactive count = 1\n\tstate = running\n}\n",
+    "gui/503/agent = {\n\tactive count = 0\n\tstate = not running\n}\n"
+   ],
+   "stop_wait": 10,
+   "calls": [
+    {
+     "args": [
+      "kill",
+      "TERM",
+      "gui/503/com.dotfiles.avatar-control"
+     ],
+     "check": false,
+     "timeout": 30
+    },
+    {
+     "args": [
+      "print",
+      "gui/503/com.dotfiles.avatar-control"
+     ],
+     "check": false,
+     "timeout": 30
+    },
+    {
+     "args": [
+      "print",
+      "gui/503/com.dotfiles.avatar-control"
+     ],
+     "check": false,
+     "timeout": 30
+    },
+    {
+     "args": [
+      "print",
+      "gui/503/com.dotfiles.avatar-control"
+     ],
+     "check": false,
+     "timeout": 30
+    }
+   ],
+   "sleeps": [
+    0.1,
+    0.1
+   ],
+   "outcome": {
+    "ok": true
+   }
+  },
+  {
+   "effect": "stop",
+   "unit": "avatar-control-server.service",
+   "script": [
+    "gui/503/agent = {\n\tactive count = 1\n\tstate = running\n}\n",
+    "gui/503/agent = {\n\tactive count = 1\n\tstate = running\n}\n",
+    "gui/503/agent = {\n\tactive count = 0\n\tstate = not running\n}\n"
+   ],
+   "stop_wait": -1,
+   "calls": [
+    {
+     "args": [
+      "kill",
+      "TERM",
+      "gui/503/com.dotfiles.avatar-control"
+     ],
+     "check": false,
+     "timeout": 30
+    },
+    {
+     "args": [
+      "print",
+      "gui/503/com.dotfiles.avatar-control"
+     ],
+     "check": false,
+     "timeout": 30
+    }
+   ],
+   "sleeps": [],
+   "outcome": {
+    "ok": false,
+    "kind": "did_not_stop",
+    "message": "com.dotfiles.avatar-control did not stop"
+   }
+  },
+  {
+   "effect": "stop",
+   "unit": "avatar-control-server.service",
+   "script": [
+    "gui/503/agent = {\n\tactive count = 1\n\tstate = running\n}\n"
+   ],
+   "stop_wait": 10,
+   "calls": [
+    {
+     "args": [
+      "kill",
+      "TERM",
+      "gui/503/com.dotfiles.avatar-control"
+     ],
+     "check": false,
+     "timeout": 30
+    },
+    {
+     "args": [
+      "print",
+      "gui/503/com.dotfiles.avatar-control"
+     ],
+     "check": false,
+     "timeout": 30
+    },
+    {
+     "args": [
+      "print",
+      "gui/503/com.dotfiles.avatar-control"
+     ],
+     "check": false,
+     "timeout": 30
+    },
+    {
+     "args": [
+      "print",
+      "gui/503/com.dotfiles.avatar-control"
+     ],
+     "check": false,
+     "timeout": 30
+    },
+    {
+     "args": [
+      "print",
+      "gui/503/com.dotfiles.avatar-control"
+     ],
+     "check": false,
+     "timeout": 30
+    }
+   ],
+   "sleeps": [
+    0.1,
+    0.1,
+    0.1
+   ],
+   "outcome": {
+    "ok": false,
+    "kind": "did_not_stop",
+    "message": "com.dotfiles.avatar-control did not stop"
+   }
+  },
+  {
+   "effect": "stop",
+   "unit": "avatar-control-server.service",
+   "script": [
+    "gui/503/agent = {\n\tactive count = 1\n\tstate = running\n}\n"
+   ],
+   "stop_wait": -1,
+   "calls": [
+    {
+     "args": [
+      "kill",
+      "TERM",
+      "gui/503/com.dotfiles.avatar-control"
+     ],
+     "check": false,
+     "timeout": 30
+    },
+    {
+     "args": [
+      "print",
+      "gui/503/com.dotfiles.avatar-control"
+     ],
+     "check": false,
+     "timeout": 30
+    }
+   ],
+   "sleeps": [],
+   "outcome": {
+    "ok": false,
+    "kind": "did_not_stop",
+    "message": "com.dotfiles.avatar-control did not stop"
+   }
+  },
+  {
+   "effect": "stop",
+   "unit": "avatar-control-server.service",
+   "script": [
+    ""
+   ],
+   "stop_wait": 10,
+   "calls": [
+    {
+     "args": [
+      "kill",
+      "TERM",
+      "gui/503/com.dotfiles.avatar-control"
+     ],
+     "check": false,
+     "timeout": 30
+    },
+    {
+     "args": [
+      "print",
+      "gui/503/com.dotfiles.avatar-control"
+     ],
+     "check": false,
+     "timeout": 30
+    }
+   ],
+   "sleeps": [],
+   "outcome": {
+    "ok": true
+   }
+  },
+  {
+   "effect": "stop",
+   "unit": "avatar-control-server.service",
+   "script": [
+    ""
+   ],
+   "stop_wait": -1,
+   "calls": [
+    {
+     "args": [
+      "kill",
+      "TERM",
+      "gui/503/com.dotfiles.avatar-control"
+     ],
+     "check": false,
+     "timeout": 30
+    },
+    {
+     "args": [
+      "print",
+      "gui/503/com.dotfiles.avatar-control"
+     ],
+     "check": false,
+     "timeout": 30
+    }
+   ],
+   "sleeps": [],
+   "outcome": {
+    "ok": true
+   }
+  },
+  {
+   "effect": "start",
+   "unit": "avatar-renderer.service",
+   "script": [
+    "gui/503/agent = {\n\tactive count = 0\n\tstate = not running\n}\n"
+   ],
+   "stop_wait": 10,
+   "calls": [
+    {
+     "args": [
+      "kickstart",
+      "gui/503/com.dotfiles.avatar-renderer"
+     ],
+     "check": true,
+     "timeout": 30
+    }
+   ],
+   "sleeps": [],
+   "outcome": {
+    "ok": true
+   }
+  },
+  {
+   "effect": "stop",
+   "unit": "avatar-renderer.service",
+   "script": [
+    "gui/503/agent = {\n\tactive count = 0\n\tstate = not running\n}\n"
+   ],
+   "stop_wait": 10,
+   "calls": [
+    {
+     "args": [
+      "kill",
+      "TERM",
+      "gui/503/com.dotfiles.avatar-renderer"
+     ],
+     "check": false,
+     "timeout": 30
+    },
+    {
+     "args": [
+      "print",
+      "gui/503/com.dotfiles.avatar-renderer"
+     ],
+     "check": false,
+     "timeout": 30
+    }
+   ],
+   "sleeps": [],
+   "outcome": {
+    "ok": true
+   }
+  },
+  {
+   "effect": "stop",
+   "unit": "avatar-renderer.service",
+   "script": [
+    "gui/503/agent = {\n\tactive count = 0\n\tstate = not running\n}\n"
+   ],
+   "stop_wait": -1,
+   "calls": [
+    {
+     "args": [
+      "kill",
+      "TERM",
+      "gui/503/com.dotfiles.avatar-renderer"
+     ],
+     "check": false,
+     "timeout": 30
+    },
+    {
+     "args": [
+      "print",
+      "gui/503/com.dotfiles.avatar-renderer"
+     ],
+     "check": false,
+     "timeout": 30
+    }
+   ],
+   "sleeps": [],
+   "outcome": {
+    "ok": true
+   }
+  },
+  {
+   "effect": "stop",
+   "unit": "avatar-renderer.service",
+   "script": [
+    "gui/503/agent = {\n\tactive count = 1\n\tstate = running\n}\n",
+    "gui/503/agent = {\n\tactive count = 1\n\tstate = running\n}\n",
+    "gui/503/agent = {\n\tactive count = 0\n\tstate = not running\n}\n"
+   ],
+   "stop_wait": 10,
+   "calls": [
+    {
+     "args": [
+      "kill",
+      "TERM",
+      "gui/503/com.dotfiles.avatar-renderer"
+     ],
+     "check": false,
+     "timeout": 30
+    },
+    {
+     "args": [
+      "print",
+      "gui/503/com.dotfiles.avatar-renderer"
+     ],
+     "check": false,
+     "timeout": 30
+    },
+    {
+     "args": [
+      "print",
+      "gui/503/com.dotfiles.avatar-renderer"
+     ],
+     "check": false,
+     "timeout": 30
+    },
+    {
+     "args": [
+      "print",
+      "gui/503/com.dotfiles.avatar-renderer"
+     ],
+     "check": false,
+     "timeout": 30
+    }
+   ],
+   "sleeps": [
+    0.1,
+    0.1
+   ],
+   "outcome": {
+    "ok": true
+   }
+  },
+  {
+   "effect": "stop",
+   "unit": "avatar-renderer.service",
+   "script": [
+    "gui/503/agent = {\n\tactive count = 1\n\tstate = running\n}\n",
+    "gui/503/agent = {\n\tactive count = 1\n\tstate = running\n}\n",
+    "gui/503/agent = {\n\tactive count = 0\n\tstate = not running\n}\n"
+   ],
+   "stop_wait": -1,
+   "calls": [
+    {
+     "args": [
+      "kill",
+      "TERM",
+      "gui/503/com.dotfiles.avatar-renderer"
+     ],
+     "check": false,
+     "timeout": 30
+    },
+    {
+     "args": [
+      "print",
+      "gui/503/com.dotfiles.avatar-renderer"
+     ],
+     "check": false,
+     "timeout": 30
+    }
+   ],
+   "sleeps": [],
+   "outcome": {
+    "ok": false,
+    "kind": "did_not_stop",
+    "message": "com.dotfiles.avatar-renderer did not stop"
+   }
+  },
+  {
+   "effect": "stop",
+   "unit": "avatar-renderer.service",
+   "script": [
+    "gui/503/agent = {\n\tactive count = 1\n\tstate = running\n}\n"
+   ],
+   "stop_wait": 10,
+   "calls": [
+    {
+     "args": [
+      "kill",
+      "TERM",
+      "gui/503/com.dotfiles.avatar-renderer"
+     ],
+     "check": false,
+     "timeout": 30
+    },
+    {
+     "args": [
+      "print",
+      "gui/503/com.dotfiles.avatar-renderer"
+     ],
+     "check": false,
+     "timeout": 30
+    },
+    {
+     "args": [
+      "print",
+      "gui/503/com.dotfiles.avatar-renderer"
+     ],
+     "check": false,
+     "timeout": 30
+    },
+    {
+     "args": [
+      "print",
+      "gui/503/com.dotfiles.avatar-renderer"
+     ],
+     "check": false,
+     "timeout": 30
+    },
+    {
+     "args": [
+      "print",
+      "gui/503/com.dotfiles.avatar-renderer"
+     ],
+     "check": false,
+     "timeout": 30
+    }
+   ],
+   "sleeps": [
+    0.1,
+    0.1,
+    0.1
+   ],
+   "outcome": {
+    "ok": false,
+    "kind": "did_not_stop",
+    "message": "com.dotfiles.avatar-renderer did not stop"
+   }
+  },
+  {
+   "effect": "stop",
+   "unit": "avatar-renderer.service",
+   "script": [
+    "gui/503/agent = {\n\tactive count = 1\n\tstate = running\n}\n"
+   ],
+   "stop_wait": -1,
+   "calls": [
+    {
+     "args": [
+      "kill",
+      "TERM",
+      "gui/503/com.dotfiles.avatar-renderer"
+     ],
+     "check": false,
+     "timeout": 30
+    },
+    {
+     "args": [
+      "print",
+      "gui/503/com.dotfiles.avatar-renderer"
+     ],
+     "check": false,
+     "timeout": 30
+    }
+   ],
+   "sleeps": [],
+   "outcome": {
+    "ok": false,
+    "kind": "did_not_stop",
+    "message": "com.dotfiles.avatar-renderer did not stop"
+   }
+  },
+  {
+   "effect": "stop",
+   "unit": "avatar-renderer.service",
+   "script": [
+    ""
+   ],
+   "stop_wait": 10,
+   "calls": [
+    {
+     "args": [
+      "kill",
+      "TERM",
+      "gui/503/com.dotfiles.avatar-renderer"
+     ],
+     "check": false,
+     "timeout": 30
+    },
+    {
+     "args": [
+      "print",
+      "gui/503/com.dotfiles.avatar-renderer"
+     ],
+     "check": false,
+     "timeout": 30
+    }
+   ],
+   "sleeps": [],
+   "outcome": {
+    "ok": true
+   }
+  },
+  {
+   "effect": "stop",
+   "unit": "avatar-renderer.service",
+   "script": [
+    ""
+   ],
+   "stop_wait": -1,
+   "calls": [
+    {
+     "args": [
+      "kill",
+      "TERM",
+      "gui/503/com.dotfiles.avatar-renderer"
+     ],
+     "check": false,
+     "timeout": 30
+    },
+    {
+     "args": [
+      "print",
+      "gui/503/com.dotfiles.avatar-renderer"
+     ],
+     "check": false,
+     "timeout": 30
+    }
+   ],
+   "sleeps": [],
+   "outcome": {
+    "ok": true
+   }
+  },
+  {
+   "effect": "start",
+   "unit": "avatar-audio.service",
+   "script": [
+    "gui/503/agent = {\n\tactive count = 0\n\tstate = not running\n}\n"
+   ],
+   "stop_wait": 10,
+   "calls": [],
+   "sleeps": [],
+   "outcome": {
+    "ok": false,
+    "kind": "unknown_unit"
+   }
+  },
+  {
+   "effect": "stop",
+   "unit": "avatar-audio.service",
+   "script": [
+    "gui/503/agent = {\n\tactive count = 0\n\tstate = not running\n}\n"
+   ],
+   "stop_wait": 10,
+   "calls": [],
+   "sleeps": [],
+   "outcome": {
+    "ok": false,
+    "kind": "unknown_unit"
+   }
+  },
+  {
+   "effect": "stop",
+   "unit": "avatar-audio.service",
+   "script": [
+    "gui/503/agent = {\n\tactive count = 0\n\tstate = not running\n}\n"
+   ],
+   "stop_wait": -1,
+   "calls": [],
+   "sleeps": [],
+   "outcome": {
+    "ok": false,
+    "kind": "unknown_unit"
+   }
+  },
+  {
+   "effect": "stop",
+   "unit": "avatar-audio.service",
+   "script": [
+    "gui/503/agent = {\n\tactive count = 1\n\tstate = running\n}\n",
+    "gui/503/agent = {\n\tactive count = 1\n\tstate = running\n}\n",
+    "gui/503/agent = {\n\tactive count = 0\n\tstate = not running\n}\n"
+   ],
+   "stop_wait": 10,
+   "calls": [],
+   "sleeps": [],
+   "outcome": {
+    "ok": false,
+    "kind": "unknown_unit"
+   }
+  },
+  {
+   "effect": "stop",
+   "unit": "avatar-audio.service",
+   "script": [
+    "gui/503/agent = {\n\tactive count = 1\n\tstate = running\n}\n",
+    "gui/503/agent = {\n\tactive count = 1\n\tstate = running\n}\n",
+    "gui/503/agent = {\n\tactive count = 0\n\tstate = not running\n}\n"
+   ],
+   "stop_wait": -1,
+   "calls": [],
+   "sleeps": [],
+   "outcome": {
+    "ok": false,
+    "kind": "unknown_unit"
+   }
+  },
+  {
+   "effect": "stop",
+   "unit": "avatar-audio.service",
+   "script": [
+    "gui/503/agent = {\n\tactive count = 1\n\tstate = running\n}\n"
+   ],
+   "stop_wait": 10,
+   "calls": [],
+   "sleeps": [],
+   "outcome": {
+    "ok": false,
+    "kind": "unknown_unit"
+   }
+  },
+  {
+   "effect": "stop",
+   "unit": "avatar-audio.service",
+   "script": [
+    "gui/503/agent = {\n\tactive count = 1\n\tstate = running\n}\n"
+   ],
+   "stop_wait": -1,
+   "calls": [],
+   "sleeps": [],
+   "outcome": {
+    "ok": false,
+    "kind": "unknown_unit"
+   }
+  },
+  {
+   "effect": "stop",
+   "unit": "avatar-audio.service",
+   "script": [
+    ""
+   ],
+   "stop_wait": 10,
+   "calls": [],
+   "sleeps": [],
+   "outcome": {
+    "ok": false,
+    "kind": "unknown_unit"
+   }
+  },
+  {
+   "effect": "stop",
+   "unit": "avatar-audio.service",
+   "script": [
+    ""
+   ],
+   "stop_wait": -1,
+   "calls": [],
+   "sleeps": [],
+   "outcome": {
+    "ok": false,
+    "kind": "unknown_unit"
+   }
+  }
+ ]
+}

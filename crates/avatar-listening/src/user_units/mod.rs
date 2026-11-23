@@ -1,4 +1,9 @@
+pub mod effect_error;
 pub mod launchd;
+pub mod system_clock;
+
+pub use effect_error::UnitEffectError;
+pub use system_clock::SystemClock;
 
 pub const SYSTEMD_UNREACHABLE: i32 = 1;
 pub const UNREACHABLE_RETRY_SECONDS: f64 = 30.0;

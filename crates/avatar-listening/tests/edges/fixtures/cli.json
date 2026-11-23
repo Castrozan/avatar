@@ -1,0 +1,1223 @@
+{
+ "cases": [
+  {
+   "argv": [
+    "start"
+   ],
+   "active": [],
+   "sources": [
+    "headset",
+    "AvatarMicrophone",
+    "AvatarMic.monitor",
+    "AvatarX_1.monitor",
+    "AvatarRemoteMeeting.monitor",
+    "usb.mono"
+   ],
+   "default_mic": "headset",
+   "with_transcript": false,
+   "holder": false,
+   "existing_config": null,
+   "transcript_text": null,
+   "code": 0,
+   "stdout": [
+    "{\"listening\": true, \"sources\": {\"meeting\": \"@DEFAULT_MONITOR@\", \"human\": \"headset\"}}"
+   ],
+   "stderr_present": false,
+   "stderr": "",
+   "events": [
+    [
+     "start",
+     "avatar-listener.service"
+    ]
+   ],
+   "configuration": {
+    "purpose": "meeting",
+    "sources": {
+     "meeting": "@DEFAULT_MONITOR@",
+     "human": "headset"
+    },
+    "language": null,
+    "identify_speakers": true
+   }
+  },
+  {
+   "argv": [
+    "start",
+    "--language",
+    "pt"
+   ],
+   "active": [],
+   "sources": [
+    "headset",
+    "AvatarMicrophone",
+    "AvatarMic.monitor",
+    "AvatarX_1.monitor",
+    "AvatarRemoteMeeting.monitor",
+    "usb.mono"
+   ],
+   "default_mic": "headset",
+   "with_transcript": false,
+   "holder": false,
+   "existing_config": null,
+   "transcript_text": null,
+   "code": 0,
+   "stdout": [
+    "{\"listening\": true, \"sources\": {\"meeting\": \"@DEFAULT_MONITOR@\", \"human\": \"headset\"}}"
+   ],
+   "stderr_present": false,
+   "stderr": "",
+   "events": [
+    [
+     "start",
+     "avatar-listener.service"
+    ]
+   ],
+   "configuration": {
+    "purpose": "meeting",
+    "sources": {
+     "meeting": "@DEFAULT_MONITOR@",
+     "human": "headset"
+    },
+    "language": "pt",
+    "identify_speakers": true
+   }
+  },
+  {
+   "argv": [
+    "start",
+    "--microphone",
+    "usb.mono"
+   ],
+   "active": [],
+   "sources": [
+    "headset",
+    "AvatarMicrophone",
+    "AvatarMic.monitor",
+    "AvatarX_1.monitor",
+    "AvatarRemoteMeeting.monitor",
+    "usb.mono"
+   ],
+   "default_mic": "headset",
+   "with_transcript": false,
+   "holder": false,
+   "existing_config": null,
+   "transcript_text": null,
+   "code": 0,
+   "stdout": [
+    "{\"listening\": true, \"sources\": {\"meeting\": \"@DEFAULT_MONITOR@\", \"human\": \"usb.mono\"}}"
+   ],
+   "stderr_present": false,
+   "stderr": "",
+   "events": [
+    [
+     "start",
+     "avatar-listener.service"
+    ]
+   ],
+   "configuration": {
+    "purpose": "meeting",
+    "sources": {
+     "meeting": "@DEFAULT_MONITOR@",
+     "human": "usb.mono"
+    },
+    "language": null,
+    "identify_speakers": true
+   }
+  },
+  {
+   "argv": [
+    "start",
+    "--microphone",
+    "missing"
+   ],
+   "active": [],
+   "sources": [
+    "headset",
+    "AvatarMicrophone",
+    "AvatarMic.monitor",
+    "AvatarX_1.monitor",
+    "AvatarRemoteMeeting.monitor",
+    "usb.mono"
+   ],
+   "default_mic": "headset",
+   "with_transcript": false,
+   "holder": false,
+   "existing_config": null,
+   "transcript_text": null,
+   "code": 1,
+   "stdout": [],
+   "stderr_present": true,
+   "stderr": "Source does not exist: missing",
+   "events": [],
+   "configuration": null
+  },
+  {
+   "argv": [
+    "start",
+    "--microphone",
+    ""
+   ],
+   "active": [],
+   "sources": [
+    "headset",
+    "AvatarMicrophone",
+    "AvatarMic.monitor",
+    "AvatarX_1.monitor",
+    "AvatarRemoteMeeting.monitor",
+    "usb.mono"
+   ],
+   "default_mic": "headset",
+   "with_transcript": false,
+   "holder": false,
+   "existing_config": null,
+   "transcript_text": null,
+   "code": 0,
+   "stdout": [
+    "{\"listening\": true, \"sources\": {\"meeting\": \"@DEFAULT_MONITOR@\", \"human\": \"headset\"}}"
+   ],
+   "stderr_present": false,
+   "stderr": "",
+   "events": [
+    [
+     "start",
+     "avatar-listener.service"
+    ]
+   ],
+   "configuration": {
+    "purpose": "meeting",
+    "sources": {
+     "meeting": "@DEFAULT_MONITOR@",
+     "human": "headset"
+    },
+    "language": null,
+    "identify_speakers": true
+   }
+  },
+  {
+   "argv": [
+    "start",
+    "--microphone",
+    "AvatarMicrophone"
+   ],
+   "active": [],
+   "sources": [
+    "headset",
+    "AvatarMicrophone",
+    "AvatarMic.monitor",
+    "AvatarX_1.monitor",
+    "AvatarRemoteMeeting.monitor",
+    "usb.mono"
+   ],
+   "default_mic": "headset",
+   "with_transcript": false,
+   "holder": false,
+   "existing_config": null,
+   "transcript_text": null,
+   "code": 1,
+   "stdout": [],
+   "stderr_present": true,
+   "stderr": "The avatar's own output cannot be its microphone",
+   "events": [],
+   "configuration": null
+  },
+  {
+   "argv": [
+    "start",
+    "--microphone",
+    "AvatarMic.monitor"
+   ],
+   "active": [],
+   "sources": [
+    "headset",
+    "AvatarMicrophone",
+    "AvatarMic.monitor",
+    "AvatarX_1.monitor",
+    "AvatarRemoteMeeting.monitor",
+    "usb.mono"
+   ],
+   "default_mic": "headset",
+   "with_transcript": false,
+   "holder": false,
+   "existing_config": null,
+   "transcript_text": null,
+   "code": 1,
+   "stdout": [],
+   "stderr_present": true,
+   "stderr": "The avatar's own output cannot be its microphone",
+   "events": [],
+   "configuration": null
+  },
+  {
+   "argv": [
+    "start",
+    "--microphone",
+    "AvatarX_1.monitor"
+   ],
+   "active": [],
+   "sources": [
+    "headset",
+    "AvatarMicrophone",
+    "AvatarMic.monitor",
+    "AvatarX_1.monitor",
+    "AvatarRemoteMeeting.monitor",
+    "usb.mono"
+   ],
+   "default_mic": "headset",
+   "with_transcript": false,
+   "holder": false,
+   "existing_config": null,
+   "transcript_text": null,
+   "code": 1,
+   "stdout": [],
+   "stderr_present": true,
+   "stderr": "The avatar's own output cannot be its microphone",
+   "events": [],
+   "configuration": null
+  },
+  {
+   "argv": [
+    "start",
+    "--microphone",
+    "AvatarRemoteMeeting.monitor"
+   ],
+   "active": [],
+   "sources": [
+    "headset",
+    "AvatarMicrophone",
+    "AvatarMic.monitor",
+    "AvatarX_1.monitor",
+    "AvatarRemoteMeeting.monitor",
+    "usb.mono"
+   ],
+   "default_mic": "headset",
+   "with_transcript": false,
+   "holder": false,
+   "existing_config": null,
+   "transcript_text": null,
+   "code": 1,
+   "stdout": [],
+   "stderr_present": true,
+   "stderr": "The avatar's own output cannot be its microphone",
+   "events": [],
+   "configuration": null
+  },
+  {
+   "argv": [
+    "start"
+   ],
+   "active": [],
+   "sources": [
+    "headset",
+    "AvatarMicrophone",
+    "AvatarMic.monitor",
+    "AvatarX_1.monitor",
+    "AvatarRemoteMeeting.monitor",
+    "usb.mono"
+   ],
+   "default_mic": "AvatarMicrophone",
+   "with_transcript": false,
+   "holder": false,
+   "existing_config": null,
+   "transcript_text": null,
+   "code": 1,
+   "stdout": [],
+   "stderr_present": true,
+   "stderr": "The avatar's own output cannot be its microphone",
+   "events": [],
+   "configuration": null
+  },
+  {
+   "argv": [
+    "start",
+    "--seat",
+    "remote"
+   ],
+   "active": [],
+   "sources": [
+    "headset",
+    "AvatarMicrophone",
+    "AvatarMic.monitor",
+    "AvatarX_1.monitor",
+    "AvatarRemoteMeeting.monitor",
+    "usb.mono"
+   ],
+   "default_mic": "headset",
+   "with_transcript": false,
+   "holder": false,
+   "existing_config": null,
+   "transcript_text": null,
+   "code": 0,
+   "stdout": [
+    "{\"listening\": true, \"sources\": {\"meeting\": \"AvatarRemoteMeeting.monitor\", \"human\": \"AvatarRemoteMicrophone.monitor\"}}"
+   ],
+   "stderr_present": false,
+   "stderr": "",
+   "events": [
+    [
+     "start",
+     "avatar-listener.service"
+    ]
+   ],
+   "configuration": {
+    "purpose": "meeting",
+    "sources": {
+     "meeting": "AvatarRemoteMeeting.monitor",
+     "human": "AvatarRemoteMicrophone.monitor"
+    },
+    "language": null,
+    "identify_speakers": true,
+    "seat": "remote"
+   }
+  },
+  {
+   "argv": [
+    "start",
+    "--seat",
+    "remote",
+    "--language",
+    "en"
+   ],
+   "active": [],
+   "sources": [
+    "headset",
+    "AvatarMicrophone",
+    "AvatarMic.monitor",
+    "AvatarX_1.monitor",
+    "AvatarRemoteMeeting.monitor",
+    "usb.mono"
+   ],
+   "default_mic": "headset",
+   "with_transcript": false,
+   "holder": false,
+   "existing_config": null,
+   "transcript_text": null,
+   "code": 0,
+   "stdout": [
+    "{\"listening\": true, \"sources\": {\"meeting\": \"AvatarRemoteMeeting.monitor\", \"human\": \"AvatarRemoteMicrophone.monitor\"}}"
+   ],
+   "stderr_present": false,
+   "stderr": "",
+   "events": [
+    [
+     "start",
+     "avatar-listener.service"
+    ]
+   ],
+   "configuration": {
+    "purpose": "meeting",
+    "sources": {
+     "meeting": "AvatarRemoteMeeting.monitor",
+     "human": "AvatarRemoteMicrophone.monitor"
+    },
+    "language": "en",
+    "identify_speakers": true,
+    "seat": "remote"
+   }
+  },
+  {
+   "argv": [
+    "start",
+    "--seat",
+    "remote",
+    "--microphone",
+    "headset"
+   ],
+   "active": [],
+   "sources": [
+    "headset",
+    "AvatarMicrophone",
+    "AvatarMic.monitor",
+    "AvatarX_1.monitor",
+    "AvatarRemoteMeeting.monitor",
+    "usb.mono"
+   ],
+   "default_mic": "headset",
+   "with_transcript": false,
+   "holder": false,
+   "existing_config": null,
+   "transcript_text": null,
+   "code": 1,
+   "stdout": [],
+   "stderr_present": true,
+   "stderr": "A remote seat's microphone is the Mac's; drop --microphone",
+   "events": [],
+   "configuration": null
+  },
+  {
+   "argv": [
+    "start",
+    "--seat",
+    "room",
+    "--language",
+    "fr"
+   ],
+   "active": [],
+   "sources": [
+    "headset",
+    "AvatarMicrophone",
+    "AvatarMic.monitor",
+    "AvatarX_1.monitor",
+    "AvatarRemoteMeeting.monitor",
+    "usb.mono"
+   ],
+   "default_mic": "headset",
+   "with_transcript": false,
+   "holder": false,
+   "existing_config": null,
+   "transcript_text": null,
+   "code": 0,
+   "stdout": [
+    "{\"listening\": true, \"sources\": {\"meeting\": \"@DEFAULT_MONITOR@\", \"human\": \"headset\"}}"
+   ],
+   "stderr_present": false,
+   "stderr": "",
+   "events": [
+    [
+     "start",
+     "avatar-listener.service"
+    ]
+   ],
+   "configuration": {
+    "purpose": "meeting",
+    "sources": {
+     "meeting": "@DEFAULT_MONITOR@",
+     "human": "headset"
+    },
+    "language": "fr",
+    "identify_speakers": true
+   }
+  },
+  {
+   "argv": [
+    "start",
+    "--seat",
+    "discord"
+   ],
+   "active": [],
+   "sources": [
+    "headset",
+    "AvatarMicrophone",
+    "AvatarMic.monitor",
+    "AvatarX_1.monitor",
+    "AvatarRemoteMeeting.monitor",
+    "usb.mono"
+   ],
+   "default_mic": "headset",
+   "with_transcript": false,
+   "holder": false,
+   "existing_config": null,
+   "transcript_text": null,
+   "code": 2,
+   "stdout": [],
+   "stderr_present": true,
+   "stderr": "",
+   "events": [],
+   "configuration": null
+  },
+  {
+   "argv": [
+    "start",
+    "--seat",
+    "lounge"
+   ],
+   "active": [],
+   "sources": [
+    "headset",
+    "AvatarMicrophone",
+    "AvatarMic.monitor",
+    "AvatarX_1.monitor",
+    "AvatarRemoteMeeting.monitor",
+    "usb.mono"
+   ],
+   "default_mic": "headset",
+   "with_transcript": false,
+   "holder": false,
+   "existing_config": null,
+   "transcript_text": null,
+   "code": 2,
+   "stdout": [],
+   "stderr_present": true,
+   "stderr": "",
+   "events": [],
+   "configuration": null
+  },
+  {
+   "argv": [
+    "start"
+   ],
+   "active": [
+    "avatar-listener.service"
+   ],
+   "sources": [
+    "headset",
+    "AvatarMicrophone",
+    "AvatarMic.monitor",
+    "AvatarX_1.monitor",
+    "AvatarRemoteMeeting.monitor",
+    "usb.mono"
+   ],
+   "default_mic": "headset",
+   "with_transcript": false,
+   "holder": false,
+   "existing_config": {
+    "purpose": "conversation",
+    "sources": {
+     "human": "h"
+    }
+   },
+   "transcript_text": null,
+   "code": 0,
+   "stdout": [
+    "{\"listening\": true, \"sources\": {\"meeting\": \"@DEFAULT_MONITOR@\", \"human\": \"headset\"}}"
+   ],
+   "stderr_present": false,
+   "stderr": "",
+   "events": [
+    [
+     "stop",
+     "avatar-listener.service"
+    ],
+    [
+     "start",
+     "avatar-listener.service"
+    ]
+   ],
+   "configuration": {
+    "purpose": "meeting",
+    "sources": {
+     "meeting": "@DEFAULT_MONITOR@",
+     "human": "headset"
+    },
+    "language": null,
+    "identify_speakers": true
+   }
+  },
+  {
+   "argv": [
+    "start"
+   ],
+   "active": [
+    "avatar-listener.service",
+    "avatar-conversation.target"
+   ],
+   "sources": [
+    "headset",
+    "AvatarMicrophone",
+    "AvatarMic.monitor",
+    "AvatarX_1.monitor",
+    "AvatarRemoteMeeting.monitor",
+    "usb.mono"
+   ],
+   "default_mic": "headset",
+   "with_transcript": false,
+   "holder": false,
+   "existing_config": {
+    "purpose": "conversation"
+   },
+   "transcript_text": null,
+   "code": 1,
+   "stdout": [],
+   "stderr_present": true,
+   "stderr": "A conversation is open; run avatar-talk close before transcribing a meeting",
+   "events": [],
+   "configuration": {
+    "purpose": "conversation"
+   }
+  },
+  {
+   "argv": [
+    "start"
+   ],
+   "active": [
+    "avatar-live.service",
+    "avatar-conversation.target"
+   ],
+   "sources": [
+    "headset",
+    "AvatarMicrophone",
+    "AvatarMic.monitor",
+    "AvatarX_1.monitor",
+    "AvatarRemoteMeeting.monitor",
+    "usb.mono"
+   ],
+   "default_mic": "headset",
+   "with_transcript": false,
+   "holder": false,
+   "existing_config": {
+    "purpose": "live"
+   },
+   "transcript_text": null,
+   "code": 1,
+   "stdout": [],
+   "stderr_present": true,
+   "stderr": "A conversation is open; run avatar-talk close before transcribing a meeting",
+   "events": [],
+   "configuration": {
+    "purpose": "live"
+   }
+  },
+  {
+   "argv": [
+    "start"
+   ],
+   "active": [
+    "avatar-listener.service",
+    "avatar-conversation.target"
+   ],
+   "sources": [
+    "headset",
+    "AvatarMicrophone",
+    "AvatarMic.monitor",
+    "AvatarX_1.monitor",
+    "AvatarRemoteMeeting.monitor",
+    "usb.mono"
+   ],
+   "default_mic": "headset",
+   "with_transcript": false,
+   "holder": false,
+   "existing_config": {
+    "purpose": "meeting"
+   },
+   "transcript_text": null,
+   "code": 0,
+   "stdout": [
+    "{\"listening\": true, \"sources\": {\"meeting\": \"@DEFAULT_MONITOR@\", \"human\": \"headset\"}}"
+   ],
+   "stderr_present": false,
+   "stderr": "",
+   "events": [
+    [
+     "stop",
+     "avatar-listener.service"
+    ],
+    [
+     "start",
+     "avatar-listener.service"
+    ]
+   ],
+   "configuration": {
+    "purpose": "meeting",
+    "sources": {
+     "meeting": "@DEFAULT_MONITOR@",
+     "human": "headset"
+    },
+    "language": null,
+    "identify_speakers": true
+   }
+  },
+  {
+   "argv": [
+    "start"
+   ],
+   "active": [
+    "avatar-conversation.target"
+   ],
+   "sources": [
+    "headset",
+    "AvatarMicrophone",
+    "AvatarMic.monitor",
+    "AvatarX_1.monitor",
+    "AvatarRemoteMeeting.monitor",
+    "usb.mono"
+   ],
+   "default_mic": "headset",
+   "with_transcript": false,
+   "holder": false,
+   "existing_config": null,
+   "transcript_text": null,
+   "code": 1,
+   "stdout": [],
+   "stderr_present": true,
+   "stderr": "A conversation is open; run avatar-talk close before transcribing a meeting",
+   "events": [],
+   "configuration": null
+  },
+  {
+   "argv": [
+    "start",
+    "--seat",
+    "remote"
+   ],
+   "active": [
+    "avatar-live.service"
+   ],
+   "sources": [
+    "headset",
+    "AvatarMicrophone",
+    "AvatarMic.monitor",
+    "AvatarX_1.monitor",
+    "AvatarRemoteMeeting.monitor",
+    "usb.mono"
+   ],
+   "default_mic": "headset",
+   "with_transcript": false,
+   "holder": false,
+   "existing_config": null,
+   "transcript_text": null,
+   "code": 0,
+   "stdout": [
+    "{\"listening\": true, \"sources\": {\"meeting\": \"AvatarRemoteMeeting.monitor\", \"human\": \"AvatarRemoteMicrophone.monitor\"}}"
+   ],
+   "stderr_present": false,
+   "stderr": "",
+   "events": [
+    [
+     "stop",
+     "avatar-live.service"
+    ],
+    [
+     "start",
+     "avatar-listener.service"
+    ]
+   ],
+   "configuration": {
+    "purpose": "meeting",
+    "sources": {
+     "meeting": "AvatarRemoteMeeting.monitor",
+     "human": "AvatarRemoteMicrophone.monitor"
+    },
+    "language": null,
+    "identify_speakers": true,
+    "seat": "remote"
+   }
+  },
+  {
+   "argv": [
+    "stop"
+   ],
+   "active": [],
+   "sources": [
+    "headset",
+    "AvatarMicrophone",
+    "AvatarMic.monitor",
+    "AvatarX_1.monitor",
+    "AvatarRemoteMeeting.monitor",
+    "usb.mono"
+   ],
+   "default_mic": "headset",
+   "with_transcript": false,
+   "holder": false,
+   "existing_config": null,
+   "transcript_text": null,
+   "code": 0,
+   "stdout": [
+    "{\"listening\": false}"
+   ],
+   "stderr_present": false,
+   "stderr": "",
+   "events": [],
+   "configuration": null
+  },
+  {
+   "argv": [
+    "stop"
+   ],
+   "active": [
+    "avatar-listener.service",
+    "avatar-live.service"
+   ],
+   "sources": [
+    "headset",
+    "AvatarMicrophone",
+    "AvatarMic.monitor",
+    "AvatarX_1.monitor",
+    "AvatarRemoteMeeting.monitor",
+    "usb.mono"
+   ],
+   "default_mic": "headset",
+   "with_transcript": false,
+   "holder": false,
+   "existing_config": null,
+   "transcript_text": null,
+   "code": 0,
+   "stdout": [
+    "{\"listening\": false}"
+   ],
+   "stderr_present": false,
+   "stderr": "",
+   "events": [
+    [
+     "stop",
+     "avatar-listener.service"
+    ],
+    [
+     "stop",
+     "avatar-live.service"
+    ]
+   ],
+   "configuration": null
+  },
+  {
+   "argv": [
+    "status"
+   ],
+   "active": [],
+   "sources": [
+    "headset",
+    "AvatarMicrophone",
+    "AvatarMic.monitor",
+    "AvatarX_1.monitor",
+    "AvatarRemoteMeeting.monitor",
+    "usb.mono"
+   ],
+   "default_mic": "headset",
+   "with_transcript": false,
+   "holder": false,
+   "existing_config": null,
+   "transcript_text": null,
+   "code": 0,
+   "stdout": [
+    "{\"listening\": false, \"purpose\": null, \"sources\": {}, \"last_sequence\": 0}"
+   ],
+   "stderr_present": false,
+   "stderr": "",
+   "events": [],
+   "configuration": null
+  },
+  {
+   "argv": [
+    "status"
+   ],
+   "active": [
+    "avatar-live.service"
+   ],
+   "sources": [
+    "headset",
+    "AvatarMicrophone",
+    "AvatarMic.monitor",
+    "AvatarX_1.monitor",
+    "AvatarRemoteMeeting.monitor",
+    "usb.mono"
+   ],
+   "default_mic": "headset",
+   "with_transcript": true,
+   "holder": false,
+   "existing_config": {
+    "purpose": "live",
+    "sources": {
+     "human": "h"
+    }
+   },
+   "transcript_text": "{\"sequence\": 1, \"time\": 1795430175.031931, \"source\": \"meeting\", \"text\": \"one\", \"speaker\": null, \"turn_finished\": true}\n{\"sequence\": 2, \"time\": 1795430175.0321329, \"source\": \"human\", \"text\": \"Dois Sentenca\", \"speaker\": null, \"turn_finished\": true}\n{\"sequence\": 3, \"time\": 1795430175.0322707, \"source\": \"meeting\", \"text\": \"tres\", \"speaker\": null, \"turn_finished\": true}\n",
+   "code": 0,
+   "stdout": [
+    "{\"listening\": true, \"purpose\": \"live\", \"sources\": {\"human\": \"h\"}, \"last_sequence\": 3}"
+   ],
+   "stderr_present": false,
+   "stderr": "",
+   "events": [],
+   "configuration": {
+    "purpose": "live",
+    "sources": {
+     "human": "h"
+    }
+   }
+  },
+  {
+   "argv": [
+    "status"
+   ],
+   "active": [],
+   "sources": [
+    "headset",
+    "AvatarMicrophone",
+    "AvatarMic.monitor",
+    "AvatarX_1.monitor",
+    "AvatarRemoteMeeting.monitor",
+    "usb.mono"
+   ],
+   "default_mic": "headset",
+   "with_transcript": true,
+   "holder": false,
+   "existing_config": {
+    "purpose": "meeting",
+    "sources": {
+     "meeting": "m"
+    }
+   },
+   "transcript_text": "{\"sequence\": 1, \"time\": 1795430175.0354955, \"source\": \"meeting\", \"text\": \"one\", \"speaker\": null, \"turn_finished\": true}\n{\"sequence\": 2, \"time\": 1795430175.0356982, \"source\": \"human\", \"text\": \"Dois Sentenca\", \"speaker\": null, \"turn_finished\": true}\n{\"sequence\": 3, \"time\": 1795430175.0358698, \"source\": \"meeting\", \"text\": \"tres\", \"speaker\": null, \"turn_finished\": true}\n",
+   "code": 0,
+   "stdout": [
+    "{\"listening\": false, \"purpose\": \"meeting\", \"sources\": {\"meeting\": \"m\"}, \"last_sequence\": 3}"
+   ],
+   "stderr_present": false,
+   "stderr": "",
+   "events": [],
+   "configuration": {
+    "purpose": "meeting",
+    "sources": {
+     "meeting": "m"
+    }
+   }
+  },
+  {
+   "argv": [
+    "addressee"
+   ],
+   "active": [],
+   "sources": [
+    "headset",
+    "AvatarMicrophone",
+    "AvatarMic.monitor",
+    "AvatarX_1.monitor",
+    "AvatarRemoteMeeting.monitor",
+    "usb.mono"
+   ],
+   "default_mic": "headset",
+   "with_transcript": false,
+   "holder": false,
+   "existing_config": null,
+   "transcript_text": null,
+   "code": 0,
+   "stdout": [
+    "null"
+   ],
+   "stderr_present": false,
+   "stderr": "",
+   "events": [],
+   "configuration": null
+  },
+  {
+   "argv": [
+    "addressee"
+   ],
+   "active": [],
+   "sources": [
+    "headset",
+    "AvatarMicrophone",
+    "AvatarMic.monitor",
+    "AvatarX_1.monitor",
+    "AvatarRemoteMeeting.monitor",
+    "usb.mono"
+   ],
+   "default_mic": "headset",
+   "with_transcript": false,
+   "holder": true,
+   "existing_config": null,
+   "transcript_text": null,
+   "code": 0,
+   "stdout": [
+    "{\"pane\": \"w1:p2\", \"servant\": \"Voyager\", \"heard_through\": 4, \"host\": \"kira\"}"
+   ],
+   "stderr_present": false,
+   "stderr": "",
+   "events": [],
+   "configuration": null
+  },
+  {
+   "argv": [
+    "read"
+   ],
+   "active": [],
+   "sources": [
+    "headset",
+    "AvatarMicrophone",
+    "AvatarMic.monitor",
+    "AvatarX_1.monitor",
+    "AvatarRemoteMeeting.monitor",
+    "usb.mono"
+   ],
+   "default_mic": "headset",
+   "with_transcript": true,
+   "holder": false,
+   "existing_config": null,
+   "transcript_text": "{\"sequence\": 1, \"time\": 1795430175.0471277, \"source\": \"meeting\", \"text\": \"one\", \"speaker\": null, \"turn_finished\": true}\n{\"sequence\": 2, \"time\": 1795430175.0473564, \"source\": \"human\", \"text\": \"Dois Sentenca\", \"speaker\": null, \"turn_finished\": true}\n{\"sequence\": 3, \"time\": 1795430175.0475435, \"source\": \"meeting\", \"text\": \"tres\", \"speaker\": null, \"turn_finished\": true}\n",
+   "code": 0,
+   "stdout": [
+    "{\"sequence\": 1, \"time\": 1795430175.0471277, \"source\": \"meeting\", \"text\": \"one\", \"speaker\": null, \"turn_finished\": true}",
+    "{\"sequence\": 2, \"time\": 1795430175.0473564, \"source\": \"human\", \"text\": \"Dois Sentenca\", \"speaker\": null, \"turn_finished\": true}",
+    "{\"sequence\": 3, \"time\": 1795430175.0475435, \"source\": \"meeting\", \"text\": \"tres\", \"speaker\": null, \"turn_finished\": true}"
+   ],
+   "stderr_present": false,
+   "stderr": "",
+   "events": [],
+   "configuration": null
+  },
+  {
+   "argv": [
+    "read",
+    "--since",
+    "1"
+   ],
+   "active": [],
+   "sources": [
+    "headset",
+    "AvatarMicrophone",
+    "AvatarMic.monitor",
+    "AvatarX_1.monitor",
+    "AvatarRemoteMeeting.monitor",
+    "usb.mono"
+   ],
+   "default_mic": "headset",
+   "with_transcript": true,
+   "holder": false,
+   "existing_config": null,
+   "transcript_text": "{\"sequence\": 1, \"time\": 1795430175.0507684, \"source\": \"meeting\", \"text\": \"one\", \"speaker\": null, \"turn_finished\": true}\n{\"sequence\": 2, \"time\": 1795430175.0509357, \"source\": \"human\", \"text\": \"Dois Sentenca\", \"speaker\": null, \"turn_finished\": true}\n{\"sequence\": 3, \"time\": 1795430175.051056, \"source\": \"meeting\", \"text\": \"tres\", \"speaker\": null, \"turn_finished\": true}\n",
+   "code": 0,
+   "stdout": [
+    "{\"sequence\": 2, \"time\": 1795430175.0509357, \"source\": \"human\", \"text\": \"Dois Sentenca\", \"speaker\": null, \"turn_finished\": true}",
+    "{\"sequence\": 3, \"time\": 1795430175.051056, \"source\": \"meeting\", \"text\": \"tres\", \"speaker\": null, \"turn_finished\": true}"
+   ],
+   "stderr_present": false,
+   "stderr": "",
+   "events": [],
+   "configuration": null
+  },
+  {
+   "argv": [
+    "read",
+    "--since",
+    "3"
+   ],
+   "active": [],
+   "sources": [
+    "headset",
+    "AvatarMicrophone",
+    "AvatarMic.monitor",
+    "AvatarX_1.monitor",
+    "AvatarRemoteMeeting.monitor",
+    "usb.mono"
+   ],
+   "default_mic": "headset",
+   "with_transcript": true,
+   "holder": false,
+   "existing_config": null,
+   "transcript_text": "{\"sequence\": 1, \"time\": 1795430175.0541317, \"source\": \"meeting\", \"text\": \"one\", \"speaker\": null, \"turn_finished\": true}\n{\"sequence\": 2, \"time\": 1795430175.05432, \"source\": \"human\", \"text\": \"Dois Sentenca\", \"speaker\": null, \"turn_finished\": true}\n{\"sequence\": 3, \"time\": 1795430175.054491, \"source\": \"meeting\", \"text\": \"tres\", \"speaker\": null, \"turn_finished\": true}\n",
+   "code": 0,
+   "stdout": [],
+   "stderr_present": false,
+   "stderr": "",
+   "events": [],
+   "configuration": null
+  },
+  {
+   "argv": [
+    "read",
+    "--since",
+    "7",
+    "--wait",
+    "0"
+   ],
+   "active": [],
+   "sources": [
+    "headset",
+    "AvatarMicrophone",
+    "AvatarMic.monitor",
+    "AvatarX_1.monitor",
+    "AvatarRemoteMeeting.monitor",
+    "usb.mono"
+   ],
+   "default_mic": "headset",
+   "with_transcript": true,
+   "holder": false,
+   "existing_config": null,
+   "transcript_text": "{\"sequence\": 1, \"time\": 1795430175.057672, \"source\": \"meeting\", \"text\": \"one\", \"speaker\": null, \"turn_finished\": true}\n{\"sequence\": 2, \"time\": 1795430175.0578344, \"source\": \"human\", \"text\": \"Dois Sentenca\", \"speaker\": null, \"turn_finished\": true}\n{\"sequence\": 3, \"time\": 1795430175.0579531, \"source\": \"meeting\", \"text\": \"tres\", \"speaker\": null, \"turn_finished\": true}\n",
+   "code": 0,
+   "stdout": [],
+   "stderr_present": false,
+   "stderr": "",
+   "events": [],
+   "configuration": null
+  },
+  {
+   "argv": [
+    "read"
+   ],
+   "active": [],
+   "sources": [
+    "headset",
+    "AvatarMicrophone",
+    "AvatarMic.monitor",
+    "AvatarX_1.monitor",
+    "AvatarRemoteMeeting.monitor",
+    "usb.mono"
+   ],
+   "default_mic": "headset",
+   "with_transcript": false,
+   "holder": false,
+   "existing_config": null,
+   "transcript_text": null,
+   "code": 0,
+   "stdout": [],
+   "stderr_present": false,
+   "stderr": "",
+   "events": [],
+   "configuration": null
+  },
+  {
+   "argv": [],
+   "active": [],
+   "sources": [
+    "headset",
+    "AvatarMicrophone",
+    "AvatarMic.monitor",
+    "AvatarX_1.monitor",
+    "AvatarRemoteMeeting.monitor",
+    "usb.mono"
+   ],
+   "default_mic": "headset",
+   "with_transcript": false,
+   "holder": false,
+   "existing_config": null,
+   "transcript_text": null,
+   "code": 2,
+   "stdout": [],
+   "stderr_present": true,
+   "stderr": "",
+   "events": [],
+   "configuration": null
+  },
+  {
+   "argv": [
+    "bogus"
+   ],
+   "active": [],
+   "sources": [
+    "headset",
+    "AvatarMicrophone",
+    "AvatarMic.monitor",
+    "AvatarX_1.monitor",
+    "AvatarRemoteMeeting.monitor",
+    "usb.mono"
+   ],
+   "default_mic": "headset",
+   "with_transcript": false,
+   "holder": false,
+   "existing_config": null,
+   "transcript_text": null,
+   "code": 2,
+   "stdout": [],
+   "stderr_present": true,
+   "stderr": "",
+   "events": [],
+   "configuration": null
+  },
+  {
+   "argv": [
+    "read",
+    "--since",
+    "x"
+   ],
+   "active": [],
+   "sources": [
+    "headset",
+    "AvatarMicrophone",
+    "AvatarMic.monitor",
+    "AvatarX_1.monitor",
+    "AvatarRemoteMeeting.monitor",
+    "usb.mono"
+   ],
+   "default_mic": "headset",
+   "with_transcript": false,
+   "holder": false,
+   "existing_config": null,
+   "transcript_text": null,
+   "code": 2,
+   "stdout": [],
+   "stderr_present": true,
+   "stderr": "",
+   "events": [],
+   "configuration": null
+  }
+ ]
+}
