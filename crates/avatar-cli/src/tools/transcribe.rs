@@ -1,18 +1,9 @@
 use std::io::{self, Read, Write};
-use std::path::PathBuf;
 
-use avatar_transcription::{HexClient, ReqwestSender, hex_discovery_file};
+use avatar_transcription::{HexClient, ReqwestSender};
 use tokio::runtime::Builder;
 
-fn discovery_file() -> io::Result<PathBuf> {
-    let home = std::env::var_os("HOME").ok_or_else(|| io::Error::other("HOME is not set"))?;
-    let platform = if cfg!(target_os = "macos") {
-        "darwin"
-    } else {
-        "linux"
-    };
-    Ok(hex_discovery_file(&PathBuf::from(home), platform))
-}
+use crate::support::hex::discovery_file;
 
 pub(crate) fn run() -> io::Result<()> {
     let mut pcm = Vec::new();

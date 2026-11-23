@@ -1,6 +1,6 @@
 use std::process::ExitCode;
 
-mod cli;
+mod daemons;
 mod doctor;
 mod holder;
 mod mac;
@@ -11,5 +11,5 @@ mod tools;
 mod wake;
 
 fn main() -> ExitCode {
-    cli::run()
+    support::cli::run()
 }

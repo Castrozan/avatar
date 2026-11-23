@@ -1,3 +1,4 @@
+mod daemon;
 mod doctor;
 mod holder;
 mod listen;
@@ -55,6 +56,16 @@ impl Machine {
 
     pub(crate) fn run(&self, arguments: &[&str]) -> Result<Output, Box<dyn Error>> {
         Ok(self.command(arguments).output()?)
+    }
+
+    pub(crate) fn command_with_system_tools(&self, arguments: &[&str]) -> Command {
+        let mut command = self.command(arguments);
+        let inherited = std::env::var("PATH").unwrap_or_default();
+        command.env(
+            "PATH",
+            format!("{}:{inherited}", self.path("bin").display()),
+        );
+        command
     }
 
     pub(crate) fn command(&self, arguments: &[&str]) -> Command {
