@@ -1,0 +1,544 @@
+{
+"quote": [
+{
+"input": "",
+"quoted": "''"
+},
+{
+"input": "a",
+"quoted": "a"
+},
+{
+"input": "a b",
+"quoted": "'a b'"
+},
+{
+"input": "it's",
+"quoted": "'it'\"'\"'s'"
+},
+{
+"input": "'",
+"quoted": "''\"'\"''"
+},
+{
+"input": "''",
+"quoted": "''\"'\"''\"'\"''"
+},
+{
+"input": "a'b'c",
+"quoted": "'a'\"'\"'b'\"'\"'c'"
+},
+{
+"input": "$HOME",
+"quoted": "'$HOME'"
+},
+{
+"input": "`x`",
+"quoted": "'`x`'"
+},
+{
+"input": "a;b",
+"quoted": "'a;b'"
+},
+{
+"input": "a|b",
+"quoted": "'a|b'"
+},
+{
+"input": "a&b",
+"quoted": "'a&b'"
+},
+{
+"input": "a>b",
+"quoted": "'a>b'"
+},
+{
+"input": "a<b",
+"quoted": "'a<b'"
+},
+{
+"input": "(x)",
+"quoted": "'(x)'"
+},
+{
+"input": "*",
+"quoted": "'*'"
+},
+{
+"input": "?",
+"quoted": "'?'"
+},
+{
+"input": "[x]",
+"quoted": "'[x]'"
+},
+{
+"input": "{x}",
+"quoted": "'{x}'"
+},
+{
+"input": "~",
+"quoted": "'~'"
+},
+{
+"input": "#c",
+"quoted": "'#c'"
+},
+{
+"input": "!x",
+"quoted": "'!x'"
+},
+{
+"input": "\\",
+"quoted": "'\\'"
+},
+{
+"input": "\"q\"",
+"quoted": "'\"q\"'"
+},
+{
+"input": "tab\there",
+"quoted": "'tab\there'"
+},
+{
+"input": "new\nline",
+"quoted": "'new\nline'"
+},
+{
+"input": "naïve",
+"quoted": "'naïve'"
+},
+{
+"input": "日本語",
+"quoted": "'日本語'"
+},
+{
+"input": "😀",
+"quoted": "'😀'"
+},
+{
+"input": "snake_case",
+"quoted": "snake_case"
+},
+{
+"input": "a@b%c+d=e:f,g.h/i-j",
+"quoted": "a@b%c+d=e:f,g.h/i-j"
+},
+{
+"input": "-flag",
+"quoted": "-flag"
+},
+{
+"input": "--opt=va lue",
+"quoted": "'--opt=va lue'"
+},
+{
+"input": "/usr/bin/x",
+"quoted": "/usr/bin/x"
+},
+{
+"input": "a b",
+"quoted": "'a b'"
+},
+{
+"input": "é",
+"quoted": "'é'"
+},
+{
+"input": "_",
+"quoted": "_"
+},
+{
+"input": "Z9",
+"quoted": "Z9"
+},
+{
+"input": " ",
+"quoted": "' '"
+},
+{
+"input": "  lead",
+"quoted": "'  lead'"
+},
+{
+"input": "trail ",
+"quoted": "'trail '"
+},
+{
+"input": "a b",
+"quoted": "'a b'"
+},
+{
+"input": "^",
+"quoted": "'^'"
+},
+{
+"input": "=",
+"quoted": "="
+},
+{
+"input": "%",
+"quoted": "%"
+},
+{
+"input": "+",
+"quoted": "+"
+},
+{
+"input": ",",
+"quoted": ","
+},
+{
+"input": ":",
+"quoted": ":"
+},
+{
+"input": "@",
+"quoted": "@"
+}
+],
+"dumps": [
+{
+"value": {
+"model": "m",
+"input": [
+{
+"content": "héllo",
+"role": "user"
+}
+],
+"questions": []
+},
+"text": "{\"model\": \"m\", \"input\": [{\"content\": \"h\\u00e9llo\", \"role\": \"user\"}], \"questions\": []}"
+},
+{
+"value": {
+"model": "m",
+"input": "日本語 😀",
+"questions": [
+"a",
+"b"
+]
+},
+"text": "{\"model\": \"m\", \"input\": \"\\u65e5\\u672c\\u8a9e \\ud83d\\ude00\", \"questions\": [\"a\", \"b\"]}"
+},
+{
+"value": {
+"model": "m",
+"input": {
+"f": 1.5,
+"k": 1,
+"n": null,
+"t": true,
+"x": []
+},
+"questions": {}
+},
+"text": "{\"model\": \"m\", \"input\": {\"f\": 1.5, \"k\": 1, \"n\": null, \"t\": true, \"x\": []}, \"questions\": {}}"
+},
+{
+"value": {
+"model": "m",
+"input": "quote\" back\\ nl\n tab\t cr\r ctl\u0001 del",
+"questions": [
+1,
+2,
+[
+3,
+[]
+]
+]
+},
+"text": "{\"model\": \"m\", \"input\": \"quote\\\" back\\\\ nl\\n tab\\t cr\\r ctl\\u0001 del\\u007f\", \"questions\": [1, 2, [3, []]]}"
+},
+{
+"value": {
+"model": "m",
+"input": "   😀",
+"questions": [
+-0.0,
+2.5,
+100,
+-7
+]
+},
+"text": "{\"model\": \"m\", \"input\": \"\\u2028\\u2029 \\ud83d\\ude00\", \"questions\": [-0.0, 2.5, 100, -7]}"
+},
+{
+"value": {
+"model": "m",
+"input": "",
+"questions": [
+{}
+]
+},
+"text": "{\"model\": \"m\", \"input\": \"\", \"questions\": [{}]}"
+}
+],
+"requests": [
+{
+"secret_file": "sk-test\n",
+"input": [
+{
+"content": "hé 0",
+"role": "user"
+}
+],
+"questions": [
+{
+"id": "a",
+"text": "ü?"
+}
+],
+"request": {
+"url": "https://api.openai.com/v1/decisions",
+"method": "POST",
+"headers": {
+"Content-type": "application/json",
+"Authorization": "Bearer sk-test"
+},
+"body": "{\"model\": \"gpt-6-luna\", \"input\": [{\"content\": \"h\\u00e9 0\", \"role\": \"user\"}], \"questions\": [{\"id\": \"a\", \"text\": \"\\u00fc?\"}]}",
+"timeout": 1.5
+}
+},
+{
+"secret_file": "  key with space  \n\n",
+"input": [
+{
+"content": "hé 1",
+"role": "user"
+}
+],
+"questions": [
+{
+"id": "a",
+"text": "ü?"
+}
+],
+"request": {
+"url": "https://api.openai.com/v1/decisions",
+"method": "POST",
+"headers": {
+"Content-type": "application/json",
+"Authorization": "Bearer key with space"
+},
+"body": "{\"model\": \"gpt-6-luna\", \"input\": [{\"content\": \"h\\u00e9 1\", \"role\": \"user\"}], \"questions\": [{\"id\": \"a\", \"text\": \"\\u00fc?\"}]}",
+"timeout": 1.5
+}
+},
+{
+"secret_file": "k",
+"input": [
+{
+"content": "hé 2",
+"role": "user"
+}
+],
+"questions": [
+{
+"id": "a",
+"text": "ü?"
+}
+],
+"request": {
+"url": "https://api.openai.com/v1/decisions",
+"method": "POST",
+"headers": {
+"Content-type": "application/json",
+"Authorization": "Bearer k"
+},
+"body": "{\"model\": \"gpt-6-luna\", \"input\": [{\"content\": \"h\\u00e9 2\", \"role\": \"user\"}], \"questions\": [{\"id\": \"a\", \"text\": \"\\u00fc?\"}]}",
+"timeout": 1.5
+}
+}
+],
+"rotation": [
+{
+"max_bytes": 40,
+"backups": 2,
+"lines": [
+"aaaaaaaaaa",
+"aaaaaaaaaa",
+"aaaaaaaaaa",
+"aaaaaaaaaa",
+"aaaaaaaaaa",
+"aaaaaaaaaa"
+],
+"files": {
+"wake.log": "aaaaaaaaaa\naaaaaaaaaa\naaaaaaaaaa\n",
+"wake.log.1": "aaaaaaaaaa\naaaaaaaaaa\naaaaaaaaaa\n"
+},
+"mode": "0o600"
+},
+{
+"max_bytes": 40,
+"backups": 2,
+"lines": [
+"x",
+"x",
+"x",
+"x",
+"x",
+"x",
+"x",
+"x",
+"x",
+"x",
+"x",
+"x",
+"x",
+"x",
+"x",
+"x",
+"x",
+"x",
+"x",
+"x",
+"x",
+"x",
+"x",
+"x",
+"x",
+"x",
+"x",
+"x",
+"x",
+"x",
+"x",
+"x",
+"x",
+"x",
+"x",
+"x",
+"x",
+"x",
+"x",
+"x",
+"x",
+"x",
+"x",
+"x",
+"x",
+"x",
+"x",
+"x",
+"x",
+"x"
+],
+"files": {
+"wake.log": "x\nx\nx\nx\nx\nx\nx\nx\nx\nx\nx\nx\n",
+"wake.log.1": "x\nx\nx\nx\nx\nx\nx\nx\nx\nx\nx\nx\nx\nx\nx\nx\nx\nx\nx\n",
+"wake.log.2": "x\nx\nx\nx\nx\nx\nx\nx\nx\nx\nx\nx\nx\nx\nx\nx\nx\nx\nx\n"
+},
+"mode": "0o600"
+},
+{
+"max_bytes": 10,
+"backups": 2,
+"lines": [
+"abc",
+"defghij",
+"k"
+],
+"files": {
+"wake.log": "k\n",
+"wake.log.1": "defghij\n",
+"wake.log.2": "abc\n"
+},
+"mode": "0o600"
+},
+{
+"max_bytes": 30,
+"backups": 0,
+"lines": [
+"llllllllllll",
+"llllllllllll",
+"llllllllllll",
+"llllllllllll",
+"llllllllllll"
+],
+"files": {
+"wake.log": "llllllllllll\nllllllllllll\nllllllllllll\nllllllllllll\nllllllllllll\n"
+},
+"mode": "0o600"
+},
+{
+"max_bytes": 30,
+"backups": 1,
+"lines": [
+"éééééééééééé",
+"éééééééééééé",
+"éééééééééééé",
+"éééééééééééé",
+"éééééééééééé"
+],
+"files": {
+"wake.log": "éééééééééééé\n",
+"wake.log.1": "éééééééééééé\n"
+},
+"mode": "0o600"
+},
+{
+"max_bytes": 100,
+"backups": 2,
+"lines": [
+"日本語日本語日本語日本語日本語日本語日本語日本語日本語日本語",
+"日本語日本語日本語日本語日本語日本語日本語日本語日本語日本語",
+"日本語日本語日本語日本語日本語日本語日本語日本語日本語日本語",
+"日本語日本語日本語日本語日本語日本語日本語日本語日本語日本語",
+"日本語日本語日本語日本語日本語日本語日本語日本語日本語日本語",
+"日本語日本語日本語日本語日本語日本語日本語日本語日本語日本語",
+"日本語日本語日本語日本語日本語日本語日本語日本語日本語日本語",
+"日本語日本語日本語日本語日本語日本語日本語日本語日本語日本語"
+],
+"files": {
+"wake.log": "日本語日本語日本語日本語日本語日本語日本語日本語日本語日本語\n",
+"wake.log.1": "日本語日本語日本語日本語日本語日本語日本語日本語日本語日本語\n",
+"wake.log.2": "日本語日本語日本語日本語日本語日本語日本語日本語日本語日本語\n"
+},
+"mode": "0o600"
+},
+{
+"max_bytes": 25,
+"backups": 3,
+"lines": [
+"0000000",
+"1111111",
+"2222222",
+"3333333",
+"4444444",
+"5555555",
+"6666666",
+"7777777",
+"8888888",
+"9999999",
+"10101010101010",
+"11111111111111"
+],
+"files": {
+"wake.log": "11111111111111\n",
+"wake.log.1": "9999999\n10101010101010\n",
+"wake.log.2": "6666666\n7777777\n8888888\n",
+"wake.log.3": "3333333\n4444444\n5555555\n"
+},
+"mode": "0o600"
+},
+{
+"max_bytes": 5,
+"backups": 2,
+"lines": [
+"",
+"",
+"ab",
+"abcd",
+"abcde"
+],
+"files": {
+"wake.log": "abcde\n",
+"wake.log.1": "abcd\n",
+"wake.log.2": "ab\n"
+},
+"mode": "0o600"
+}
+]
+}
