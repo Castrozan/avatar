@@ -1,0 +1,22 @@
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum ConversationAction {
+    BringUp,
+    BringUpLive,
+    KeepOpen,
+    TearDown,
+    LeaveMeeting,
+    Ask,
+    Hear,
+    Follow,
+    Say,
+    Reply,
+    Show,
+    Hide,
+    Report,
+    TranscribeMeeting,
+    RefuseClosed,
+    RefuseMeeting,
+    RefuseConversation,
+    RefuseLive,
+    RefuseSeatChange,
+}
