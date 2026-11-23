@@ -1,6 +1,9 @@
 const WebSocket = require("ws");
 
 const SPEECH_TURN_TIMEOUT_MILLISECONDS = 300000;
+const CONTROL_SERVER_URL = "ws://127.0.0.1:8765";
+const SERVER_START_PATIENCE_MILLISECONDS = 30000;
+const SERVER_START_RETRY_MILLISECONDS = 250;
 const SEAT_HEALTH_URL = "http://127.0.0.1:8769/health";
 const SEAT_HEALTH_TIMEOUT_MILLISECONDS = 300;
 const IDENTIFIED_RESPONSES = [
@@ -101,9 +104,32 @@ function handleResponse(response, context) {
   context.connection.close();
 }
 
-function sendCommand(command) {
+function connectionOpened(connection) {
+  return new Promise((resolve, reject) => {
+    connection.once("open", () => resolve(connection));
+    connection.once("error", reject);
+  });
+}
+
+async function connectToStartingServer(
+  connect = () => new WebSocket(CONTROL_SERVER_URL),
+  patienceMilliseconds = SERVER_START_PATIENCE_MILLISECONDS,
+  retryMilliseconds = SERVER_START_RETRY_MILLISECONDS,
+) {
+  const giveUpAt = Date.now() + patienceMilliseconds;
+  for (;;) {
+    try {
+      return await connectionOpened(connect());
+    } catch (error) {
+      if (error.code !== "ECONNREFUSED" || Date.now() >= giveUpAt) throw error;
+      await new Promise((resolve) => setTimeout(resolve, retryMilliseconds));
+    }
+  }
+}
+
+async function sendCommand(command) {
   command.id = require("node:crypto").randomUUID();
-  const connection = new WebSocket("ws://127.0.0.1:8765");
+  const connection = await connectToStartingServer();
   const timeout = setTimeout(
     () => {
       console.error("Avatar command timed out");
@@ -113,9 +139,6 @@ function sendCommand(command) {
     command.type === "speak" ? SPEECH_TURN_TIMEOUT_MILLISECONDS : 10000,
   );
   const context = { connection, command, timeout };
-  connection.on("open", () =>
-    connection.send(JSON.stringify({ type: "identify", role: "agent" })),
-  );
   connection.on("message", (bytes) =>
     handleResponse(JSON.parse(bytes.toString()), context),
   );
@@ -124,11 +147,12 @@ function sendCommand(command) {
     process.exitCode = 1;
   });
   connection.on("close", () => clearTimeout(timeout));
+  connection.send(JSON.stringify({ type: "identify", role: "agent" }));
 }
 
 async function run(arguments_) {
   try {
-    sendCommand(await withSpeechOutput(parseCommand(arguments_)));
+    await sendCommand(await withSpeechOutput(parseCommand(arguments_)));
   } catch (error) {
     console.error(error.message);
     process.exitCode = 1;
@@ -137,4 +161,9 @@ async function run(arguments_) {
 
 if (require.main === module) run(process.argv.slice(2));
 
-module.exports = { parseCommand, seatIsAttached, withSpeechOutput };
+module.exports = {
+  connectToStartingServer,
+  parseCommand,
+  seatIsAttached,
+  withSpeechOutput,
+};

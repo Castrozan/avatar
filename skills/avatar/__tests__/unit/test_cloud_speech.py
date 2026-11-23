@@ -161,3 +161,23 @@ def test_performing_without_a_renderer_is_an_error():
         """
     )
     assert result[0]["type"] == "error"
+
+
+@requires_node
+def test_the_cloud_voice_is_warmed_up_without_generating_audio():
+    result = evaluate_node_json(
+        """
+        const Module = require("node:module");
+        const load = Module._load;
+        const requests = [];
+        Module._load = (request, ...rest) =>
+          request === "./media-speech-client"
+            ? { runMediaSpeech: async (arguments_) => { requests.push(arguments_); return {}; } }
+            : load(request, ...rest);
+        const { ElevenLabsSpeechGenerator } = require("./speech/elevenlabs-speech-generator");
+        const result = new ElevenLabsSpeechGenerator("voice", "pt-br")
+          .warmUp()
+          .then(() => requests);
+        """
+    )
+    assert result == [["voices", "--provider", "elevenlabs", "--page-size", "1"]]

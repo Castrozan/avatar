@@ -5,6 +5,7 @@ const MODEL = "eleven_v4";
 const SHORT_REQUEST_TIMEOUT_MILLISECONDS = 15000;
 const REQUEST_TIMEOUT_MILLISECONDS_PER_CHARACTER = 30;
 const LONGEST_REQUEST_TIMEOUT_MILLISECONDS = 120000;
+const WARM_UP_TIMEOUT_MILLISECONDS = 120000;
 const NATURAL_DELIVERY = "natural and conversational";
 const EMOTION_DELIVERY = require("./emotion-delivery.json");
 
@@ -20,6 +21,17 @@ class ElevenLabsSpeechGenerator {
   constructor(defaultVoice, language) {
     this.defaultVoice = defaultVoice;
     this.language = language;
+  }
+
+  async warmUp() {
+    try {
+      await runMediaSpeech(
+        ["voices", "--provider", "elevenlabs", "--page-size", "1"],
+        WARM_UP_TIMEOUT_MILLISECONDS,
+      );
+    } catch (error) {
+      console.error(`Cloud speech warm-up failed: ${error.message}`);
+    }
   }
 
   async generate(
