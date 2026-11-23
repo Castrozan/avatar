@@ -14,11 +14,14 @@ unicode-normalization.workspace = true
 unicode-segmentation.workspace = true
 axum.workspace = true
 tokio.workspace = true
+futures-util.workspace = true
+tokio-tungstenite.workspace = true
+hyper.workspace = true
+hyper-util.workspace = true
+http-body-util.workspace = true
 
 [dev-dependencies]
-futures-util.workspace = true
 proptest.workspace = true
-tokio-tungstenite.workspace = true
 
 [lints]
 workspace = true
