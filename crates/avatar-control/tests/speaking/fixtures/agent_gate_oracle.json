@@ -1,0 +1,201 @@
+[
+ {
+  "name": "running, agent unmuted",
+  "status": {
+   "running": true,
+   "channels": {
+    "agent": {
+     "mute": false
+    }
+   }
+  },
+  "outcome": {
+   "opened": true
+  },
+  "commands": [
+   "status"
+  ]
+ },
+ {
+  "name": "running, agent muted",
+  "status": {
+   "running": true,
+   "channels": {
+    "agent": {
+     "mute": true
+    }
+   }
+  },
+  "outcome": {
+   "opened": true
+  },
+  "commands": [
+   "status",
+   "mute agent 0",
+   "mute agent 1"
+  ]
+ },
+ {
+  "name": "not running",
+  "status": {
+   "running": false,
+   "channels": {
+    "agent": {
+     "mute": false
+    }
+   }
+  },
+  "outcome": {
+   "error": "Avatar audio is not running; run avatar-start"
+  },
+  "commands": [
+   "status"
+  ]
+ },
+ {
+  "name": "not running, agent muted",
+  "status": {
+   "running": false,
+   "channels": {
+    "agent": {
+     "mute": true
+    }
+   }
+  },
+  "outcome": {
+   "error": "Avatar audio is not running; run avatar-start"
+  },
+  "commands": [
+   "status"
+  ]
+ },
+ {
+  "name": "running flag missing",
+  "status": {
+   "channels": {
+    "agent": {
+     "mute": false
+    }
+   }
+  },
+  "outcome": {
+   "error": "Avatar audio is not running; run avatar-start"
+  },
+  "commands": [
+   "status"
+  ]
+ },
+ {
+  "name": "running flag null",
+  "status": {
+   "running": null,
+   "channels": {
+    "agent": {
+     "mute": true
+    }
+   }
+  },
+  "outcome": {
+   "error": "Avatar audio is not running; run avatar-start"
+  },
+  "commands": [
+   "status"
+  ]
+ },
+ {
+  "name": "channels missing",
+  "status": {
+   "running": true
+  },
+  "outcome": {
+   "error": "Cannot read properties of undefined (reading 'agent')"
+  },
+  "commands": [
+   "status"
+  ]
+ },
+ {
+  "name": "agent channel missing",
+  "status": {
+   "running": true,
+   "channels": {}
+  },
+  "outcome": {
+   "error": "Cannot read properties of undefined (reading 'mute')"
+  },
+  "commands": [
+   "status"
+  ]
+ },
+ {
+  "name": "mute missing",
+  "status": {
+   "running": true,
+   "channels": {
+    "agent": {}
+   }
+  },
+  "outcome": {
+   "opened": true
+  },
+  "commands": [
+   "status"
+  ]
+ },
+ {
+  "name": "mute string true",
+  "status": {
+   "running": true,
+   "channels": {
+    "agent": {
+     "mute": "yes"
+    }
+   }
+  },
+  "outcome": {
+   "opened": true
+  },
+  "commands": [
+   "status",
+   "mute agent 0",
+   "mute agent 1"
+  ]
+ },
+ {
+  "name": "mute number zero",
+  "status": {
+   "running": true,
+   "channels": {
+    "agent": {
+     "mute": 0
+    }
+   }
+  },
+  "outcome": {
+   "opened": true
+  },
+  "commands": [
+   "status"
+  ]
+ },
+ {
+  "name": "extra channels kept",
+  "status": {
+   "running": true,
+   "channels": {
+    "agent": {
+     "mute": false
+    },
+    "mic": {
+     "mute": true
+    }
+   }
+  },
+  "outcome": {
+   "opened": true
+  },
+  "commands": [
+   "status"
+  ]
+ }
+]

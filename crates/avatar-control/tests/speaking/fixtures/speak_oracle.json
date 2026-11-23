@@ -1,0 +1,1269 @@
+[
+ {
+  "name": "defaults",
+  "command": {
+   "type": "speak",
+   "text": "Hello"
+  },
+  "trace": [
+   {
+    "followers": true
+   },
+   {
+    "generate": {
+     "text": "Hello",
+     "outputId": "1000-0",
+     "voice": null,
+     "emotion": "neutral",
+     "model": null
+    }
+   },
+   {
+    "renderer": {
+     "type": "startSpeaking",
+     "id": "1000",
+     "emotion": "neutral",
+     "text": "Hello",
+     "vowels": []
+    }
+   },
+   {
+    "sink": "only",
+    "sinkName": "AvatarLipSync",
+    "audioPath": "/fake/1000-0.wav"
+   },
+   {
+    "sink": "shared",
+    "sinkName": "default",
+    "audioPath": "/fake/1000-0.wav"
+   },
+   {
+    "followers": false
+   },
+   {
+    "client": {
+     "type": "speakAck",
+     "id": "1000",
+     "output": "speakers",
+     "status": "finished",
+     "source": "fake",
+     "timing": {
+      "received": 1000,
+      "synthesisStarted": 1000,
+      "synthesized": 1000,
+      "playing": 1000
+     }
+    }
+   },
+   {
+    "renderer": {
+     "type": "speechEnded",
+     "id": "1000"
+    }
+   }
+  ]
+ },
+ {
+  "name": "missing text",
+  "command": {
+   "type": "speak"
+  },
+  "trace": [
+   {
+    "client": {
+     "type": "error",
+     "error": "Missing required field: text",
+     "timestamp": 1000
+    }
+   }
+  ]
+ },
+ {
+  "name": "empty text",
+  "command": {
+   "type": "speak",
+   "text": ""
+  },
+  "trace": [
+   {
+    "client": {
+     "type": "error",
+     "error": "Missing required field: text",
+     "timestamp": 1000
+    }
+   }
+  ]
+ },
+ {
+  "name": "blank text",
+  "command": {
+   "type": "speak",
+   "text": "   \n\t"
+  },
+  "trace": [
+   {
+    "client": {
+     "type": "error",
+     "error": "Missing required field: text",
+     "timestamp": 1000
+    }
+   }
+  ]
+ },
+ {
+  "name": "numeric text",
+  "command": {
+   "type": "speak",
+   "text": 42
+  },
+  "trace": [
+   {
+    "client": {
+     "type": "error",
+     "error": "Missing required field: text",
+     "timestamp": 1000
+    }
+   }
+  ]
+ },
+ {
+  "name": "null text",
+  "command": {
+   "type": "speak",
+   "text": null
+  },
+  "trace": [
+   {
+    "client": {
+     "type": "error",
+     "error": "Missing required field: text",
+     "timestamp": 1000
+    }
+   }
+  ]
+ },
+ {
+  "name": "explicit fields",
+  "command": {
+   "type": "speak",
+   "text": "Oi",
+   "emotion": "happy",
+   "output": "mic",
+   "voice": "v1",
+   "model": "m1",
+   "id": "abc"
+  },
+  "trace": [
+   {
+    "followers": true
+   },
+   {
+    "channel": "open"
+   },
+   {
+    "generate": {
+     "text": "Oi",
+     "outputId": "abc-0",
+     "voice": "v1",
+     "emotion": "happy",
+     "model": "m1"
+    }
+   },
+   {
+    "renderer": {
+     "type": "startSpeaking",
+     "id": "abc",
+     "emotion": "happy",
+     "text": "Oi",
+     "vowels": []
+    }
+   },
+   {
+    "sink": "only",
+    "sinkName": "AvatarLipSync",
+    "audioPath": "/fake/abc-0.wav"
+   },
+   {
+    "sink": "only",
+    "sinkName": "AvatarMic",
+    "audioPath": "/fake/abc-0.wav"
+   },
+   {
+    "channel": "release"
+   },
+   {
+    "followers": false
+   },
+   {
+    "client": {
+     "type": "speakAck",
+     "id": "abc",
+     "output": "mic",
+     "status": "finished",
+     "source": "fake",
+     "timing": {
+      "received": 1000,
+      "synthesisStarted": 1000,
+      "synthesized": 1000,
+      "playing": 1000
+     }
+    }
+   },
+   {
+    "renderer": {
+     "type": "speechEnded",
+     "id": "abc"
+    }
+   }
+  ]
+ },
+ {
+  "name": "numeric id",
+  "command": {
+   "type": "speak",
+   "text": "Oi",
+   "id": 7
+  },
+  "trace": [
+   {
+    "followers": true
+   },
+   {
+    "generate": {
+     "text": "Oi",
+     "outputId": "7-0",
+     "voice": null,
+     "emotion": "neutral",
+     "model": null
+    }
+   },
+   {
+    "renderer": {
+     "type": "startSpeaking",
+     "id": 7,
+     "emotion": "neutral",
+     "text": "Oi",
+     "vowels": []
+    }
+   },
+   {
+    "sink": "only",
+    "sinkName": "AvatarLipSync",
+    "audioPath": "/fake/7-0.wav"
+   },
+   {
+    "sink": "shared",
+    "sinkName": "default",
+    "audioPath": "/fake/7-0.wav"
+   },
+   {
+    "followers": false
+   },
+   {
+    "client": {
+     "type": "speakAck",
+     "id": 7,
+     "output": "speakers",
+     "status": "finished",
+     "source": "fake",
+     "timing": {
+      "received": 1000,
+      "synthesisStarted": 1000,
+      "synthesized": 1000,
+      "playing": 1000
+     }
+    }
+   },
+   {
+    "renderer": {
+     "type": "speechEnded",
+     "id": 7
+    }
+   }
+  ]
+ },
+ {
+  "name": "output both",
+  "command": {
+   "type": "speak",
+   "text": "Oi",
+   "output": "both",
+   "id": "b"
+  },
+  "trace": [
+   {
+    "followers": true
+   },
+   {
+    "channel": "open"
+   },
+   {
+    "generate": {
+     "text": "Oi",
+     "outputId": "b-0",
+     "voice": null,
+     "emotion": "neutral",
+     "model": null
+    }
+   },
+   {
+    "renderer": {
+     "type": "startSpeaking",
+     "id": "b",
+     "emotion": "neutral",
+     "text": "Oi",
+     "vowels": []
+    }
+   },
+   {
+    "sink": "only",
+    "sinkName": "AvatarLipSync",
+    "audioPath": "/fake/b-0.wav"
+   },
+   {
+    "sink": "only",
+    "sinkName": "AvatarMic",
+    "audioPath": "/fake/b-0.wav"
+   },
+   {
+    "sink": "shared",
+    "sinkName": "default",
+    "audioPath": "/fake/b-0.wav"
+   },
+   {
+    "channel": "release"
+   },
+   {
+    "followers": false
+   },
+   {
+    "client": {
+     "type": "speakAck",
+     "id": "b",
+     "output": "both",
+     "status": "finished",
+     "source": "fake",
+     "timing": {
+      "received": 1000,
+      "synthesisStarted": 1000,
+      "synthesized": 1000,
+      "playing": 1000
+     }
+    }
+   },
+   {
+    "renderer": {
+     "type": "speechEnded",
+     "id": "b"
+    }
+   }
+  ]
+ },
+ {
+  "name": "output discord",
+  "command": {
+   "type": "speak",
+   "text": "Oi",
+   "output": "discord",
+   "id": "d"
+  },
+  "trace": [
+   {
+    "followers": true
+   },
+   {
+    "generate": {
+     "text": "Oi",
+     "outputId": "d-0",
+     "voice": null,
+     "emotion": "neutral",
+     "model": null
+    }
+   },
+   {
+    "renderer": {
+     "type": "startSpeaking",
+     "id": "d",
+     "emotion": "neutral",
+     "text": "Oi",
+     "vowels": []
+    }
+   },
+   {
+    "sink": "discord",
+    "audioPath": "/fake/d-0.wav"
+   },
+   {
+    "followers": false
+   },
+   {
+    "client": {
+     "type": "speakAck",
+     "id": "d",
+     "output": "discord",
+     "status": "finished",
+     "source": "fake",
+     "timing": {
+      "received": 1000,
+      "synthesisStarted": 1000,
+      "synthesized": 1000,
+      "playing": 1000
+     }
+    }
+   },
+   {
+    "renderer": {
+     "type": "speechEnded",
+     "id": "d"
+    }
+   }
+  ]
+ },
+ {
+  "name": "output unknown",
+  "command": {
+   "type": "speak",
+   "text": "Oi",
+   "output": "foo",
+   "id": "u"
+  },
+  "trace": [
+   {
+    "followers": true
+   },
+   {
+    "generate": {
+     "text": "Oi",
+     "outputId": "u-0",
+     "voice": null,
+     "emotion": "neutral",
+     "model": null
+    }
+   },
+   {
+    "renderer": {
+     "type": "startSpeaking",
+     "id": "u",
+     "emotion": "neutral",
+     "text": "Oi",
+     "vowels": []
+    }
+   },
+   {
+    "sink": "only",
+    "sinkName": "AvatarLipSync",
+    "audioPath": "/fake/u-0.wav"
+   },
+   {
+    "followers": false
+   },
+   {
+    "client": {
+     "type": "speakAck",
+     "id": "u",
+     "output": "foo",
+     "status": "finished",
+     "source": "fake",
+     "timing": {
+      "received": 1000,
+      "synthesisStarted": 1000,
+      "synthesized": 1000,
+      "playing": 1000
+     }
+    }
+   },
+   {
+    "renderer": {
+     "type": "speechEnded",
+     "id": "u"
+    }
+   }
+  ]
+ },
+ {
+  "name": "output speakers",
+  "command": {
+   "type": "speak",
+   "text": "Oi",
+   "output": "speakers",
+   "id": "s"
+  },
+  "trace": [
+   {
+    "followers": true
+   },
+   {
+    "generate": {
+     "text": "Oi",
+     "outputId": "s-0",
+     "voice": null,
+     "emotion": "neutral",
+     "model": null
+    }
+   },
+   {
+    "renderer": {
+     "type": "startSpeaking",
+     "id": "s",
+     "emotion": "neutral",
+     "text": "Oi",
+     "vowels": []
+    }
+   },
+   {
+    "sink": "only",
+    "sinkName": "AvatarLipSync",
+    "audioPath": "/fake/s-0.wav"
+   },
+   {
+    "sink": "shared",
+    "sinkName": "default",
+    "audioPath": "/fake/s-0.wav"
+   },
+   {
+    "followers": false
+   },
+   {
+    "client": {
+     "type": "speakAck",
+     "id": "s",
+     "output": "speakers",
+     "status": "finished",
+     "source": "fake",
+     "timing": {
+      "received": 1000,
+      "synthesisStarted": 1000,
+      "synthesized": 1000,
+      "playing": 1000
+     }
+    }
+   },
+   {
+    "renderer": {
+     "type": "speechEnded",
+     "id": "s"
+    }
+   }
+  ]
+ },
+ {
+  "name": "output mic upper",
+  "command": {
+   "type": "speak",
+   "text": "Oi",
+   "output": "MIC",
+   "id": "m"
+  },
+  "trace": [
+   {
+    "followers": true
+   },
+   {
+    "generate": {
+     "text": "Oi",
+     "outputId": "m-0",
+     "voice": null,
+     "emotion": "neutral",
+     "model": null
+    }
+   },
+   {
+    "renderer": {
+     "type": "startSpeaking",
+     "id": "m",
+     "emotion": "neutral",
+     "text": "Oi",
+     "vowels": []
+    }
+   },
+   {
+    "sink": "only",
+    "sinkName": "AvatarLipSync",
+    "audioPath": "/fake/m-0.wav"
+   },
+   {
+    "followers": false
+   },
+   {
+    "client": {
+     "type": "speakAck",
+     "id": "m",
+     "output": "MIC",
+     "status": "finished",
+     "source": "fake",
+     "timing": {
+      "received": 1000,
+      "synthesisStarted": 1000,
+      "synthesized": 1000,
+      "playing": 1000
+     }
+    }
+   },
+   {
+    "renderer": {
+     "type": "speechEnded",
+     "id": "m"
+    }
+   }
+  ]
+ },
+ {
+  "name": "explicit null voice",
+  "command": {
+   "type": "speak",
+   "text": "Oi",
+   "voice": null,
+   "id": "n"
+  },
+  "trace": [
+   {
+    "followers": true
+   },
+   {
+    "generate": {
+     "text": "Oi",
+     "outputId": "n-0",
+     "voice": null,
+     "emotion": "neutral",
+     "model": null
+    }
+   },
+   {
+    "renderer": {
+     "type": "startSpeaking",
+     "id": "n",
+     "emotion": "neutral",
+     "text": "Oi",
+     "vowels": []
+    }
+   },
+   {
+    "sink": "only",
+    "sinkName": "AvatarLipSync",
+    "audioPath": "/fake/n-0.wav"
+   },
+   {
+    "sink": "shared",
+    "sinkName": "default",
+    "audioPath": "/fake/n-0.wav"
+   },
+   {
+    "followers": false
+   },
+   {
+    "client": {
+     "type": "speakAck",
+     "id": "n",
+     "output": "speakers",
+     "status": "finished",
+     "source": "fake",
+     "timing": {
+      "received": 1000,
+      "synthesisStarted": 1000,
+      "synthesized": 1000,
+      "playing": 1000
+     }
+    }
+   },
+   {
+    "renderer": {
+     "type": "speechEnded",
+     "id": "n"
+    }
+   }
+  ]
+ },
+ {
+  "name": "explicit null output",
+  "command": {
+   "type": "speak",
+   "text": "Oi",
+   "output": null,
+   "id": "z"
+  },
+  "trace": [
+   {
+    "followers": true
+   },
+   {
+    "generate": {
+     "text": "Oi",
+     "outputId": "z-0",
+     "voice": null,
+     "emotion": "neutral",
+     "model": null
+    }
+   },
+   {
+    "renderer": {
+     "type": "startSpeaking",
+     "id": "z",
+     "emotion": "neutral",
+     "text": "Oi",
+     "vowels": []
+    }
+   },
+   {
+    "sink": "only",
+    "sinkName": "AvatarLipSync",
+    "audioPath": "/fake/z-0.wav"
+   },
+   {
+    "followers": false
+   },
+   {
+    "client": {
+     "type": "speakAck",
+     "id": "z",
+     "output": null,
+     "status": "finished",
+     "source": "fake",
+     "timing": {
+      "received": 1000,
+      "synthesisStarted": 1000,
+      "synthesized": 1000,
+      "playing": 1000
+     }
+    }
+   },
+   {
+    "renderer": {
+     "type": "speechEnded",
+     "id": "z"
+    }
+   }
+  ]
+ },
+ {
+  "name": "explicit empty voice",
+  "command": {
+   "type": "speak",
+   "text": "Oi",
+   "voice": "",
+   "id": "e"
+  },
+  "trace": [
+   {
+    "followers": true
+   },
+   {
+    "generate": {
+     "text": "Oi",
+     "outputId": "e-0",
+     "voice": "",
+     "emotion": "neutral",
+     "model": null
+    }
+   },
+   {
+    "renderer": {
+     "type": "startSpeaking",
+     "id": "e",
+     "emotion": "neutral",
+     "text": "Oi",
+     "vowels": []
+    }
+   },
+   {
+    "sink": "only",
+    "sinkName": "AvatarLipSync",
+    "audioPath": "/fake/e-0.wav"
+   },
+   {
+    "sink": "shared",
+    "sinkName": "default",
+    "audioPath": "/fake/e-0.wav"
+   },
+   {
+    "followers": false
+   },
+   {
+    "client": {
+     "type": "speakAck",
+     "id": "e",
+     "output": "speakers",
+     "status": "finished",
+     "source": "fake",
+     "timing": {
+      "received": 1000,
+      "synthesisStarted": 1000,
+      "synthesized": 1000,
+      "playing": 1000
+     }
+    }
+   },
+   {
+    "renderer": {
+     "type": "speechEnded",
+     "id": "e"
+    }
+   }
+  ]
+ },
+ {
+  "name": "whitespace padded text",
+  "command": {
+   "type": "speak",
+   "text": "  Oi  ",
+   "id": "w"
+  },
+  "trace": [
+   {
+    "followers": true
+   },
+   {
+    "generate": {
+     "text": "  Oi  ",
+     "outputId": "w-0",
+     "voice": null,
+     "emotion": "neutral",
+     "model": null
+    }
+   },
+   {
+    "renderer": {
+     "type": "startSpeaking",
+     "id": "w",
+     "emotion": "neutral",
+     "text": "  Oi  ",
+     "vowels": []
+    }
+   },
+   {
+    "sink": "only",
+    "sinkName": "AvatarLipSync",
+    "audioPath": "/fake/w-0.wav"
+   },
+   {
+    "sink": "shared",
+    "sinkName": "default",
+    "audioPath": "/fake/w-0.wav"
+   },
+   {
+    "followers": false
+   },
+   {
+    "client": {
+     "type": "speakAck",
+     "id": "w",
+     "output": "speakers",
+     "status": "finished",
+     "source": "fake",
+     "timing": {
+      "received": 1000,
+      "synthesisStarted": 1000,
+      "synthesized": 1000,
+      "playing": 1000
+     }
+    }
+   },
+   {
+    "renderer": {
+     "type": "speechEnded",
+     "id": "w"
+    }
+   }
+  ]
+ },
+ {
+  "name": "multi sentence",
+  "command": {
+   "type": "speak",
+   "text": "Oi. Tudo bem?",
+   "id": "ms"
+  },
+  "trace": [
+   {
+    "followers": true
+   },
+   {
+    "generate": {
+     "text": "Oi. Tudo bem?",
+     "outputId": "ms-0",
+     "voice": null,
+     "emotion": "neutral",
+     "model": null
+    }
+   },
+   {
+    "renderer": {
+     "type": "startSpeaking",
+     "id": "ms",
+     "emotion": "neutral",
+     "text": "Oi. Tudo bem?",
+     "vowels": []
+    }
+   },
+   {
+    "sink": "only",
+    "sinkName": "AvatarLipSync",
+    "audioPath": "/fake/ms-0.wav"
+   },
+   {
+    "sink": "shared",
+    "sinkName": "default",
+    "audioPath": "/fake/ms-0.wav"
+   },
+   {
+    "followers": false
+   },
+   {
+    "client": {
+     "type": "speakAck",
+     "id": "ms",
+     "output": "speakers",
+     "status": "finished",
+     "source": "fake",
+     "timing": {
+      "received": 1000,
+      "synthesisStarted": 1000,
+      "synthesized": 1000,
+      "playing": 1000
+     }
+    }
+   },
+   {
+    "renderer": {
+     "type": "speechEnded",
+     "id": "ms"
+    }
+   }
+  ]
+ },
+ {
+  "name": "emotion null",
+  "command": {
+   "type": "speak",
+   "text": "Oi",
+   "emotion": null,
+   "id": "en"
+  },
+  "trace": [
+   {
+    "followers": true
+   },
+   {
+    "generate": {
+     "text": "Oi",
+     "outputId": "en-0",
+     "voice": null,
+     "emotion": null,
+     "model": null
+    }
+   },
+   {
+    "renderer": {
+     "type": "startSpeaking",
+     "id": "en",
+     "emotion": null,
+     "text": "Oi",
+     "vowels": []
+    }
+   },
+   {
+    "sink": "only",
+    "sinkName": "AvatarLipSync",
+    "audioPath": "/fake/en-0.wav"
+   },
+   {
+    "sink": "shared",
+    "sinkName": "default",
+    "audioPath": "/fake/en-0.wav"
+   },
+   {
+    "followers": false
+   },
+   {
+    "client": {
+     "type": "speakAck",
+     "id": "en",
+     "output": "speakers",
+     "status": "finished",
+     "source": "fake",
+     "timing": {
+      "received": 1000,
+      "synthesisStarted": 1000,
+      "synthesized": 1000,
+      "playing": 1000
+     }
+    }
+   },
+   {
+    "renderer": {
+     "type": "speechEnded",
+     "id": "en"
+    }
+   }
+  ]
+ },
+ {
+  "name": "output number",
+  "command": {
+   "type": "speak",
+   "text": "Oi",
+   "output": 5,
+   "id": "on"
+  },
+  "trace": [
+   {
+    "followers": true
+   },
+   {
+    "generate": {
+     "text": "Oi",
+     "outputId": "on-0",
+     "voice": null,
+     "emotion": "neutral",
+     "model": null
+    }
+   },
+   {
+    "renderer": {
+     "type": "startSpeaking",
+     "id": "on",
+     "emotion": "neutral",
+     "text": "Oi",
+     "vowels": []
+    }
+   },
+   {
+    "sink": "only",
+    "sinkName": "AvatarLipSync",
+    "audioPath": "/fake/on-0.wav"
+   },
+   {
+    "followers": false
+   },
+   {
+    "client": {
+     "type": "speakAck",
+     "id": "on",
+     "output": 5,
+     "status": "finished",
+     "source": "fake",
+     "timing": {
+      "received": 1000,
+      "synthesisStarted": 1000,
+      "synthesized": 1000,
+      "playing": 1000
+     }
+    }
+   },
+   {
+    "renderer": {
+     "type": "speechEnded",
+     "id": "on"
+    }
+   }
+  ]
+ },
+ {
+  "name": "id null",
+  "command": {
+   "type": "speak",
+   "text": "Oi",
+   "id": null
+  },
+  "trace": [
+   {
+    "followers": true
+   },
+   {
+    "generate": {
+     "text": "Oi",
+     "outputId": "null-0",
+     "voice": null,
+     "emotion": "neutral",
+     "model": null
+    }
+   },
+   {
+    "renderer": {
+     "type": "startSpeaking",
+     "id": null,
+     "emotion": "neutral",
+     "text": "Oi",
+     "vowels": []
+    }
+   },
+   {
+    "sink": "only",
+    "sinkName": "AvatarLipSync",
+    "audioPath": "/fake/null-0.wav"
+   },
+   {
+    "sink": "shared",
+    "sinkName": "default",
+    "audioPath": "/fake/null-0.wav"
+   },
+   {
+    "followers": false
+   },
+   {
+    "client": {
+     "type": "speakAck",
+     "id": null,
+     "output": "speakers",
+     "status": "finished",
+     "source": "fake",
+     "timing": {
+      "received": 1000,
+      "synthesisStarted": 1000,
+      "synthesized": 1000,
+      "playing": 1000
+     }
+    }
+   },
+   {
+    "renderer": {
+     "type": "speechEnded",
+     "id": null
+    }
+   }
+  ]
+ },
+ {
+  "name": "id empty string",
+  "command": {
+   "type": "speak",
+   "text": "Oi",
+   "id": ""
+  },
+  "trace": [
+   {
+    "followers": true
+   },
+   {
+    "generate": {
+     "text": "Oi",
+     "outputId": "-0",
+     "voice": null,
+     "emotion": "neutral",
+     "model": null
+    }
+   },
+   {
+    "renderer": {
+     "type": "startSpeaking",
+     "id": "",
+     "emotion": "neutral",
+     "text": "Oi",
+     "vowels": []
+    }
+   },
+   {
+    "sink": "only",
+    "sinkName": "AvatarLipSync",
+    "audioPath": "/fake/-0.wav"
+   },
+   {
+    "sink": "shared",
+    "sinkName": "default",
+    "audioPath": "/fake/-0.wav"
+   },
+   {
+    "followers": false
+   },
+   {
+    "client": {
+     "type": "speakAck",
+     "id": "",
+     "output": "speakers",
+     "status": "finished",
+     "source": "fake",
+     "timing": {
+      "received": 1000,
+      "synthesisStarted": 1000,
+      "synthesized": 1000,
+      "playing": 1000
+     }
+    }
+   },
+   {
+    "renderer": {
+     "type": "speechEnded",
+     "id": ""
+    }
+   }
+  ]
+ },
+ {
+  "name": "both with discord-like unknown voice",
+  "command": {
+   "type": "speak",
+   "text": "Hi",
+   "output": "both",
+   "voice": "x",
+   "emotion": "sad",
+   "id": "bx"
+  },
+  "trace": [
+   {
+    "followers": true
+   },
+   {
+    "channel": "open"
+   },
+   {
+    "generate": {
+     "text": "Hi",
+     "outputId": "bx-0",
+     "voice": "x",
+     "emotion": "sad",
+     "model": null
+    }
+   },
+   {
+    "renderer": {
+     "type": "startSpeaking",
+     "id": "bx",
+     "emotion": "sad",
+     "text": "Hi",
+     "vowels": []
+    }
+   },
+   {
+    "sink": "only",
+    "sinkName": "AvatarLipSync",
+    "audioPath": "/fake/bx-0.wav"
+   },
+   {
+    "sink": "only",
+    "sinkName": "AvatarMic",
+    "audioPath": "/fake/bx-0.wav"
+   },
+   {
+    "sink": "shared",
+    "sinkName": "default",
+    "audioPath": "/fake/bx-0.wav"
+   },
+   {
+    "channel": "release"
+   },
+   {
+    "followers": false
+   },
+   {
+    "client": {
+     "type": "speakAck",
+     "id": "bx",
+     "output": "both",
+     "status": "finished",
+     "source": "fake",
+     "timing": {
+      "received": 1000,
+      "synthesisStarted": 1000,
+      "synthesized": 1000,
+      "playing": 1000
+     }
+    }
+   },
+   {
+    "renderer": {
+     "type": "speechEnded",
+     "id": "bx"
+    }
+   }
+  ]
+ }
+]
