@@ -1,0 +1,4 @@
+# file: /home/zanoni/repo/avatar-rust-rewrite/avatar/runtime/scripts/listening/launchd_units.py
+# hypothesis_version: 6.151.10
+
+[0.1, '/bin/launchctl', 'TERM', '^\\tstate = running$', 'avatar-live.service', 'kickstart', 'kill', 'print']

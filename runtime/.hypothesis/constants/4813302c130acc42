@@ -1,0 +1,4 @@
+# file: /home/zanoni/repo/avatar-rust-rewrite/avatar/runtime/scripts/listening/speaker_identity.py
+# hypothesis_version: 6.151.10
+
+[0.0, 0.55, 384, 448, 32768, '*.json', '.local', '.tmp', 'AVATAR_SPEAKER_MODEL', 'XDG_STATE_HOME', '[A-Za-z0-9_-]+', 'a', 'avatar', 'embedding', 'samples', 'sequence', 'state', 'voices', 'w']

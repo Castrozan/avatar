@@ -1,0 +1,4 @@
+# file: /home/zanoni/repo/avatar-rust-rewrite/avatar/runtime/scripts/wake/wake_claim.py
+# hypothesis_version: 6.151.10
+
+[0.0, '--claim needs --room', '--conversation', 'a+', 'avatar-wake', 'claimed_at', 'host', 'pane', 'room', 'wake-claims']

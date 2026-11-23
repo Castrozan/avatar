@@ -24,7 +24,12 @@ fn refuse(message: &str, code: u8) -> io::Result<ExitCode> {
 
 pub(super) fn conversation(machine: &Machine) -> io::Result<ExitCode> {
     let host = machine.room_name().unwrap_or_default();
-    let report = with_site(machine.directory(), &host, conversation_report)?;
+    let report = with_site(
+        machine.capture(),
+        machine.directory(),
+        &host,
+        conversation_report,
+    )?;
     print(&report)
 }
 
@@ -37,7 +42,7 @@ pub(super) fn claim(machine: &Machine, pane: &str, room: Option<&str>) -> io::Re
         return refuse("--claim needs --room", USAGE_ERROR);
     };
     let host = machine.room_name().unwrap_or_default();
-    match claim_here(machine.directory(), &host, pane, room) {
+    match claim_here(machine.capture(), machine.directory(), (&host, pane, room)) {
         Ok(won) => Ok(ExitCode::from(u8::from(!won))),
         Err(error) => refuse(&format!("Wake claim refused: {error}"), USAGE_ERROR),
     }

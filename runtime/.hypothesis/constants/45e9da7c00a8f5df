@@ -1,0 +1,4 @@
+# file: /home/zanoni/repo/avatar-rust-rewrite/avatar/runtime/scripts/listening/transcription/cloud_transcriber.py
+# hypothesis_version: 6.151.10
+
+[100, ' | ', '.secrets', 'Claude', 'Content-Type', 'ELEVENLABS_API_KEY', 'ElevenLabs', 'Hex', 'Hyprland', 'Lucas', 'Lulu', 'NixOS', '\\s*\\([^)]*\\)', 'chise', 'dotfiles', 'elevenlabs-api-key', 'false', 'keyterms', 'language_code', 'model_id', 'rebuild', 'scribe_v2', 'tag_audio_events', 'text', 'xi-api-key']

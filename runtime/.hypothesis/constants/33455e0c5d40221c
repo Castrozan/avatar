@@ -1,0 +1,4 @@
+# file: /home/zanoni/repo/avatar-rust-rewrite/avatar/runtime/scripts/listening/transcription/spoken_languages.py
+# hypothesis_version: 6.151.10
+
+['A-Za-zªºÀ-ÖØ-öø-ɏḀ-ỿ', 'en', 'eng', 'es', 'ja', 'jpn', 'por', 'pt', 'spa']

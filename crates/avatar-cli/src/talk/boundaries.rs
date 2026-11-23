@@ -9,11 +9,11 @@ use super::host::RuntimeFiles;
 
 const CHARACTERS_VARIABLE: &str = "AVATAR_SERVANT_CHARACTERS";
 
-pub(crate) struct TalkBoundaries {
+pub(crate) struct TalkBoundaries<Booted = SystemdUnits, Listening = TalkListener> {
     pub(super) process: TalkProcess,
     pub(super) files: RuntimeFiles,
-    pub(super) units: SystemdUnits,
-    pub(super) listener: TalkListener,
+    pub(super) units: Booted,
+    pub(super) listener: Listening,
     pub(super) floor: RoomFloor,
     pub(super) lock: FlockConsumerLock,
 }
@@ -28,16 +28,24 @@ fn floor(directory: &Path, process: &TalkProcess) -> RoomFloor {
     RoomFloor::new(directory, process.clone(), characters)
 }
 
-impl TalkBoundaries {
-    pub(crate) fn on_this_machine(directory: PathBuf) -> Self {
+impl<Booted, Listening> TalkBoundaries<Booted, Listening> {
+    pub(crate) fn with_parts(directory: PathBuf, booted: Booted, listening: Listening) -> Self {
         let process = TalkProcess::new(Programs::on_path());
         Self {
             files: RuntimeFiles::new(&directory),
-            units: units(&process),
-            listener: TalkListener::new(&directory, process.clone(), units(&process)),
+            units: booted,
+            listener: listening,
             floor: floor(&directory, &process),
             lock: FlockConsumerLock::new(directory),
             process,
         }
+    }
+}
+
+impl TalkBoundaries {
+    pub(crate) fn on_this_machine(directory: PathBuf) -> Self {
+        let process = TalkProcess::new(Programs::on_path());
+        let listener = TalkListener::new(&directory, process.clone(), units(&process));
+        Self::with_parts(directory, units(&process), listener)
     }
 }

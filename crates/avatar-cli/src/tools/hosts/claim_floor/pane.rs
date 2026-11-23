@@ -2,12 +2,11 @@ use std::io;
 use std::path::Path;
 use std::process::ExitCode;
 
-use avatar_floor::claim::Listening;
 use avatar_floor::floor::{FloorBoundaries, Session, claim};
 use avatar_wake::floor_cli::pane_claim_outcome;
 
 use super::conclude;
-use crate::wake::machine::{LocalCapture, local_sessions};
+use crate::wake::machine::{LocalCapture, SystemdCapture, local_sessions};
 
 const PANE_VARIABLE: &str = "HERDR_PANE_ID";
 
@@ -19,7 +18,7 @@ impl FloorBoundaries for LocalFloor {
     }
 
     fn listening(&self) -> bool {
-        LocalCapture.listening()
+        SystemdCapture.listening()
     }
 }
 

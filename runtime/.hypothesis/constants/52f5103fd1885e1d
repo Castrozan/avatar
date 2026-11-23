@@ -1,0 +1,4 @@
+# file: /home/zanoni/repo/avatar-rust-rewrite/avatar/runtime/scripts/wake/arbitration/conversation_hearing.py
+# hypothesis_version: 6.151.10
+
+['--heard-within', '-o', 'BatchMode=yes', 'ConnectTimeout=5', 'avatar', 'avatar-wake', 'human', 'source', 'speaker', 'speech_ended', 'ssh', 'time', 'transcript.jsonl']

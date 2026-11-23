@@ -1,0 +1,4 @@
+# file: /nix/store/p9s26l7x2nz1skggw2dcj2av3lcb64fi-python3-3.12.14-env/lib/python3.12/selectors.py
+# hypothesis_version: 6.151.10
+
+[0.001, 1000.0, 'Invalid events: {!r}', 'Selector is closed', 'SelectorKey', 'data', 'devpoll', 'epoll', 'events', 'fd', 'fileobj', 'kqueue', 'poll', 'win32']

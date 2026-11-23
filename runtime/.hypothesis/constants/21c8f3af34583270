@@ -1,0 +1,4 @@
+# file: /home/zanoni/repo/avatar-rust-rewrite/avatar/runtime/scripts/conversation/room_reach.py
+# hypothesis_version: 6.151.10
+
+['.', 'AVATAR_ROOM', 'avatar-talk', 'env']

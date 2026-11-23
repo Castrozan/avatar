@@ -1,0 +1,4 @@
+# file: /home/zanoni/repo/avatar-rust-rewrite/avatar/runtime/__tests__/unit/state_differential/conftest.py
+# hypothesis_version: 6.151.10
+
+['AVATAR_FLOOR_BINARY', 'session']

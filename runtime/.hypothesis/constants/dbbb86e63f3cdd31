@@ -1,0 +1,4 @@
+# file: /home/zanoni/repo/avatar-rust-rewrite/avatar/runtime/scripts/conversation/discord_call.py
+# hypothesis_version: 6.151.10
+
+[0.5, 'bridge_did_not_start', 'bridge_not_ready', 'bridge_not_running', 'discord-voice', 'error', 'join', 'joined', 'leave', 'listener_present', 'status']

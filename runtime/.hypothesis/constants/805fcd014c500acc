@@ -1,0 +1,4 @@
+# file: /home/zanoni/repo/avatar-rust-rewrite/avatar/runtime/scripts/echo/transcript_echo.py
+# hypothesis_version: 6.151.10
+
+[0.75, '[^\\w\\s]']

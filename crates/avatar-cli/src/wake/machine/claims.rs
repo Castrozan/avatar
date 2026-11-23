@@ -3,20 +3,19 @@ use std::path::Path;
 use avatar_adapters::clock::wall_seconds;
 use avatar_adapters::process::run_captured;
 use avatar_floor::claim::{Conversation, Listening, RoomQuery, Site, parse_room_answer};
-use avatar_listening::listener::runtime::listening;
-use avatar_listening::listener::units::SystemdUnits;
 use std::io;
 use std::time::Duration;
 
+use super::capture::LocalCapture;
 use super::commands::on_host;
 
 const ROOM_QUERY_SECONDS: u64 = 5;
 
-pub(crate) struct LocalCapture;
+pub(crate) struct LocalListening<'capture>(pub(crate) &'capture dyn LocalCapture);
 
-impl Listening for LocalCapture {
+impl Listening for LocalListening<'_> {
     fn listening(&self) -> bool {
-        listening(&mut SystemdUnits::new("systemctl"))
+        self.0.listening()
     }
 }
 
@@ -37,15 +36,22 @@ impl RoomQuery for Rooms {
 }
 
 pub(crate) fn with_site<Found>(
+    capture: &dyn LocalCapture,
     directory: &Path,
     host: &str,
     use_site: impl FnOnce(&Site<'_>) -> io::Result<Found>,
 ) -> io::Result<Found> {
-    use_site(&Site::new(directory, host, &LocalCapture, &Rooms))
+    let listening = LocalListening(capture);
+    use_site(&Site::new(directory, host, &listening, &Rooms))
 }
 
-pub(crate) fn claim_here(directory: &Path, host: &str, pane: &str, room: &str) -> io::Result<bool> {
-    with_site(directory, host, |site| {
+pub(crate) fn claim_here(
+    capture: &dyn LocalCapture,
+    directory: &Path,
+    claim: (&str, &str, &str),
+) -> io::Result<bool> {
+    let (host, pane, room) = claim;
+    with_site(capture, directory, host, |site| {
         avatar_floor::claim::claim(site, pane, room, wall_seconds())
     })
 }

@@ -1,0 +1,4 @@
+# file: /home/zanoni/repo/avatar-rust-rewrite/avatar/runtime/scripts/listening/listener_runtime.py
+# hypothesis_version: 6.151.10
+
+['XDG_RUNTIME_DIR', 'avatar', 'avatar-live.service', 'darwin']

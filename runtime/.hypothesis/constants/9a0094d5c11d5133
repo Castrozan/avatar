@@ -1,0 +1,4 @@
+# file: /home/zanoni/repo/avatar-rust-rewrite/avatar/runtime/scripts/listening/source_capture.py
+# hypothesis_version: 6.151.10
+
+[0.6, '--channels=1', '--format=s16le', '--latency-msec=100', '--raw', 'capture', 'discord', 'discord-voice', 'parec']

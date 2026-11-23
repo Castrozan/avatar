@@ -1,0 +1,4 @@
+# file: /nix/store/p9s26l7x2nz1skggw2dcj2av3lcb64fi-python3-3.12.14-env/lib/python3.12/asyncio/timeouts.py
+# hypothesis_version: 6.151.10
+
+['Timeout', 'active', 'created', 'expired', 'expiring', 'finished', 'timeout', 'timeout_at']

@@ -1,0 +1,4 @@
+# file: /home/zanoni/repo/avatar-rust-rewrite/avatar/runtime/scripts/conversation/remote_seat/remote_talk.py
+# hypothesis_version: 6.151.10
+
+[120, 300, 1000000000, '--agent', '--live', '--seat', '-c', '/usr/sbin/ioreg', 'IOHIDSystem', '__main__', 'avatar-talk', 'close', 'hide', 'inf', 'open', 'remote', 'seat', 'show']

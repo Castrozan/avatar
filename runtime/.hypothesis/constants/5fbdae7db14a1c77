@@ -1,0 +1,4 @@
+# file: /home/zanoni/repo/avatar-rust-rewrite/avatar/runtime/scripts/listening/conversation_addressee.py
+# hypothesis_version: 6.151.10
+
+[384, 448, '.addressee.lock', 'addressee.json', 'hermes:', 'w']

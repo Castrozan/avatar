@@ -25,7 +25,7 @@ impl ObsMeetingCamera {
     }
 }
 
-impl MeetingCamera for MacRoom {
+impl<Talk> MeetingCamera for MacRoom<Talk> {
     fn start_camera(&mut self) -> Result<(), Failure> {
         self.camera
             .with_camera(|camera| camera.start().map_err(|error| failed(&error)))

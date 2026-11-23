@@ -1,21 +1,15 @@
 use std::io::{self, Write};
-use std::path::PathBuf;
 use std::process::ExitCode;
 
-use avatar_mac::edge::room::{MacRoom, MacRoomSettings};
+use avatar_mac::edge::room::MacRoom;
 use avatar_mac::failure::Failure;
 use avatar_mac::meeting::{ListenCommand, carry_out_verb, listen_command, listen_to_the_call};
 use avatar_mac::session::Console;
-use avatar_seat::local::SeatConfig;
-use avatar_seat::meetings::camera::CameraConfig;
 use clap::Args;
-use nix::unistd::getuid;
 
-use super::environment::{CAMERA_START_SCRIPT, required, seat_config};
+use super::room::{code_of, room};
 use crate::start::listen::run_arguments;
-use crate::support::runtime::session_directory;
 
-const OBS_APPLICATION: &str = "/Applications/OBS.app";
 const LISTEN_USAGE: &str = "usage: avatar-listen start [-h] [--language LANGUAGE]";
 
 #[derive(Args)]
@@ -38,34 +32,6 @@ pub(crate) struct ListenCallOptions {
         help = "start and its options, or any avatar listen command"
     )]
     arguments: Vec<String>,
-}
-
-fn camera_of(config: &SeatConfig) -> io::Result<CameraConfig> {
-    Ok(CameraConfig {
-        home: config.home.clone(),
-        application: OBS_APPLICATION.to_owned(),
-        start_script: required(CAMERA_START_SCRIPT)?,
-    })
-}
-
-fn settings_of(config: SeatConfig) -> io::Result<MacRoomSettings> {
-    Ok(MacRoomSettings {
-        camera: camera_of(&config)?,
-        config,
-        session_directory: session_directory(),
-        user_identifier: getuid().as_raw(),
-        avatar_command: PathBuf::from("avatar-command"),
-        launchctl: PathBuf::from("/bin/launchctl"),
-    })
-}
-
-fn room() -> io::Result<MacRoom> {
-    let settings = settings_of(seat_config()?)?;
-    MacRoom::on_this_mac(settings).map_err(|failure| io::Error::other(failure.message))
-}
-
-fn code_of(code: i32) -> ExitCode {
-    ExitCode::from(u8::try_from(code).unwrap_or(1))
 }
 
 fn failed(room: &mut MacRoom, failure: &Failure) -> ExitCode {

@@ -25,14 +25,21 @@ pub fn capture_arguments() -> Vec<String> {
 
 pub struct ParecMicrophone {
     program: PathBuf,
+    arguments: Vec<String>,
     capture: Option<Child>,
 }
 
 impl ParecMicrophone {
     #[must_use]
     pub fn new(program: impl Into<PathBuf>) -> Self {
+        Self::relaying(program, capture_arguments())
+    }
+
+    #[must_use]
+    pub fn relaying(program: impl Into<PathBuf>, arguments: Vec<String>) -> Self {
         Self {
             program: program.into(),
+            arguments,
             capture: None,
         }
     }
@@ -41,7 +48,7 @@ impl ParecMicrophone {
 impl Microphone for ParecMicrophone {
     fn start(&mut self) {
         self.capture = Command::new(&self.program)
-            .args(capture_arguments())
+            .args(&self.arguments)
             .stdout(Stdio::piped())
             .spawn()
             .ok();

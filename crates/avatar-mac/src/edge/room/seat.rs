@@ -25,7 +25,7 @@ impl MacSeatControl {
     }
 }
 
-impl SeatControl for MacRoom {
+impl<Talk> SeatControl for MacRoom<Talk> {
     fn seat_attached(&mut self) -> bool {
         self.seat.client.attached()
     }
@@ -50,7 +50,7 @@ fn health_of(body: &Value) -> SeatHealth {
     }
 }
 
-pub(super) fn seat_health(_room: &MacRoom) -> Option<SeatHealth> {
+pub(super) fn seat_health<Talk>(_room: &MacRoom<Talk>) -> Option<SeatHealth> {
     HttpProbe { port: PORT }.health().as_ref().map(health_of)
 }
 

@@ -1,0 +1,4 @@
+# file: /home/zanoni/repo/avatar-rust-rewrite/avatar/runtime/scripts/conversation/remote_seat/local_window.py
+# hypothesis_version: 6.151.10
+
+['--args', '--no-first-run', '-a', '-n', '/usr/bin/open', '640,360', '?viewer']

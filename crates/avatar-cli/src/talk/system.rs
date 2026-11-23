@@ -7,7 +7,7 @@ use serde_json::{Map, Value};
 use super::boundaries::TalkBoundaries;
 use super::host::{LoggedActivity, ProcessEnvironment, SystemClock, Terminal};
 
-impl Clock for TalkBoundaries {
+impl<Booted, Listening> Clock for TalkBoundaries<Booted, Listening> {
     fn monotonic(&self) -> f64 {
         SystemClock.monotonic()
     }
@@ -21,13 +21,13 @@ impl Clock for TalkBoundaries {
     }
 }
 
-impl Subprocess for TalkBoundaries {
+impl<Booted, Listening> Subprocess for TalkBoundaries<Booted, Listening> {
     fn run(&mut self, invocation: &Invocation) -> Result<ProcessOutput, ProcessFailure> {
         self.process.run(invocation)
     }
 }
 
-impl Console for TalkBoundaries {
+impl<Booted, Listening> Console for TalkBoundaries<Booted, Listening> {
     fn print_out(&mut self, text: &str) {
         Terminal.print_out(text);
     }
@@ -37,7 +37,7 @@ impl Console for TalkBoundaries {
     }
 }
 
-impl Environment for TalkBoundaries {
+impl<Booted, Listening> Environment for TalkBoundaries<Booted, Listening> {
     fn variable(&self, name: &str) -> Option<String> {
         ProcessEnvironment.variable(name)
     }
@@ -47,7 +47,7 @@ impl Environment for TalkBoundaries {
     }
 }
 
-impl Files for TalkBoundaries {
+impl<Booted, Listening> Files for TalkBoundaries<Booted, Listening> {
     fn exists(&mut self, name: &str) -> bool {
         self.files.exists(name)
     }
@@ -69,7 +69,7 @@ impl Files for TalkBoundaries {
     }
 }
 
-impl ActivityLog for TalkBoundaries {
+impl<Booted, Listening> ActivityLog for TalkBoundaries<Booted, Listening> {
     fn report_talk(&mut self, action: &str, pane: Option<&str>) {
         LoggedActivity.report_talk(action, pane);
     }

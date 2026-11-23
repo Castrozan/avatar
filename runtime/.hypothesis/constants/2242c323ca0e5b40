@@ -1,0 +1,4 @@
+# file: /home/zanoni/repo/avatar-rust-rewrite/avatar/runtime/scripts/wake/mac/mac_wake_boundaries.py
+# hypothesis_version: 6.151.10
+
+[0.0, 120, '--agent', '--heard-through', '--since', '-o', '0', 'BatchMode=yes', 'ConnectTimeout=5', 'addressee', 'avatar-claim-floor', 'avatar-listen', 'avatar-talk', 'capture_command', 'hand_to', 'listening', 'listening_purpose', 'mac_microphone.py', 'open', 'open_conversation', 'purpose', 'quiet_seconds', 'read', 'speech_in_progress', 'ssh', 'status', 'transcript.jsonl', 'transcript_entries']

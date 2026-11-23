@@ -1,0 +1,4 @@
+# file: /home/zanoni/repo/avatar-rust-rewrite/avatar/runtime/scripts/wake/wake_prompts.py
+# hypothesis_version: 6.151.10
+
+[1000, 'notify', 'prompt']

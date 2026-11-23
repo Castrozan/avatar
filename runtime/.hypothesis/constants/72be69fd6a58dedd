@@ -1,0 +1,4 @@
+# file: /home/zanoni/repo/avatar-rust-rewrite/avatar/runtime/scripts/wake/servant_panes.py
+# hypothesis_version: 6.151.10
+
+['pane_id', 'servant']

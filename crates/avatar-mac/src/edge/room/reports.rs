@@ -28,7 +28,7 @@ fn last_heard_in(directory: &Path) -> u64 {
     last_heard(heard_through(directory), addressed_through(directory))
 }
 
-impl Reports for MacRoom {
+impl<Talk> Reports for MacRoom<Talk> {
     fn print_status(&mut self, is_open: bool, live: bool, seat: Option<&str>) {
         let heard = last_heard_in(self.session.directory.path());
         self.print_line(&status_line(is_open, live, seat, heard));

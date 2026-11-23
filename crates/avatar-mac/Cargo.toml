@@ -9,6 +9,7 @@ publish.workspace = true
 [dependencies]
 avatar-adapters = { version = "0.1.0", path = "../avatar-adapters" }
 avatar-conversation = { version = "0.1.0", path = "../libraries/avatar-conversation" }
+avatar-floor = { version = "0.1.0", path = "../libraries/avatar-floor" }
 avatar-listening = { version = "0.1.0", path = "../avatar-listening" }
 avatar-live = { version = "0.1.0", path = "../avatar-live" }
 avatar-room-audio = { version = "0.1.0", path = "../libraries/avatar-room-audio" }

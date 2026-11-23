@@ -4,8 +4,10 @@ from unittest.mock import Mock
 import conversation_addressee
 import speaking_floor
 from conversation_addressee import Addressee
-from wake_fakes import IBARAKI, VOYAGER
 from wake_phrase import LiveSession
+
+VOYAGER = LiveSession("Voyager", "wW:pPZ")
+IBARAKI = LiveSession("Ibaraki-dōji", "wW:pPY")
 
 STRANGER = LiveSession("unnamed", "wW:pXX")
 

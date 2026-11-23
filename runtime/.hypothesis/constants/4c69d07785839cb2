@@ -1,0 +1,4 @@
+# file: /home/zanoni/repo/avatar-rust-rewrite/avatar/runtime/__tests__/unit/routing_differential/strategies.py
+# hypothesis_version: 6.151.10
+
+[5000, ' ,.;:!?-', ',', '.', 'Anastasia', 'Astolfo', 'Ishtar', 'Katsushika Hokusai', 'Ozymandias', 'Quetzalcoatl', 'Ruri', 'Shuten', 'b', 'c', 'chan', 'dono', 'ei', 'hey', 'hi', 'kira', 'kun', 'l', 'moshi', 'moshimoshi', 'ne', 'nee', 'oi', 'ok', 'olá', 'qu', 'r', 'sama', 'san', 'sh', 'sy', 'ts', 'tz', 'u', 'v', 'w', 'あいうえおかきくけこアストルフォ']

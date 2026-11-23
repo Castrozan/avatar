@@ -1,0 +1,4 @@
+# file: /home/zanoni/repo/avatar-rust-rewrite/avatar/runtime/scripts/conversation/remote_seat/local_seat.py
+# hypothesis_version: 6.151.10
+
+[0.25, 3000, 8765, 8769, 8770, '--', '--args', '--headless=new', '--no-first-run', '-L', '-a', '-f', '-g', '-n', '-o', '/health', '/usr/bin/open', '/usr/bin/pgrep', '/usr/bin/pkill', '127.0.0.1', '?meeting', 'AVATAR_HOST', 'BatchMode=yes', 'GET', 'TERM', 'attached', 'failure', 'listening', 'meeting', 'seat_holder.py', 'ssh']

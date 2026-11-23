@@ -26,6 +26,11 @@ fn agent_command(host: Option<&str>, words: &[&str]) -> Boundary<i32> {
     exit_status(&on_host(host, words), COMMAND_SECONDS).map_err(|error| unavailable(&error))
 }
 
+fn claimed_here(machine: &Machine, session: &Session, room: &str) -> bool {
+    let claim = (room, session.pane.as_str(), room);
+    claim_here(machine.capture(), &machine.directory, claim).unwrap_or(false)
+}
+
 fn claimed_at_servant_machine(session: &Session, room: &str) -> bool {
     thread::sleep(PEER_HEAD_START);
     let words = ["avatar-wake", "--claim", &session.pane, "--room", room];
@@ -67,7 +72,7 @@ impl WakeEffects for Machine {
         let room = room_name().unwrap_or_default();
         match session.host {
             Some(_) => claimed_at_servant_machine(session, &room),
-            None => claim_here(&self.directory, &room, &session.pane, &room).unwrap_or(false),
+            None => claimed_here(self, session, &room),
         }
     }
 

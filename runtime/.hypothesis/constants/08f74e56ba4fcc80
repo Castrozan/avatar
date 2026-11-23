@@ -1,0 +1,4 @@
+# file: /home/zanoni/repo/avatar-rust-rewrite/avatar/runtime/scripts/wake/peer_sessions.py
+# hypothesis_version: 6.151.10
+
+['--sessions', '-o', 'BatchMode=yes', 'ConnectTimeout=5', 'avatar-wake', 'conversation_seat', 'pane', 'servant', 'sessions', 'ssh']

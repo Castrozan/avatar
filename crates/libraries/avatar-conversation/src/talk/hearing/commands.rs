@@ -39,7 +39,7 @@ pub fn hear(boundary: &mut impl Boundaries, hearing: &WaitArguments) -> Result<(
     })
 }
 
-fn listen_after(
+pub fn listen_after(
     boundary: &mut impl Boundaries,
     completed: &CompletedSpeech,
     wait_seconds: f64,

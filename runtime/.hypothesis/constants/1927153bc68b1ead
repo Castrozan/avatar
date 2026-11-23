@@ -1,0 +1,4 @@
+# file: /home/zanoni/repo/avatar-rust-rewrite/avatar/runtime/scripts/listening/user_units.py
+# hypothesis_version: 6.151.10
+
+[0.5, '--quiet', '--user', 'darwin', 'is-active', 'systemctl']

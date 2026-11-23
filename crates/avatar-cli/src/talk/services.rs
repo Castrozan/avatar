@@ -6,7 +6,7 @@ use avatar_listening::conversation_addressee::Addressee;
 
 use super::boundaries::TalkBoundaries;
 
-impl Units for TalkBoundaries {
+impl<Booted: Units, Listening> Units for TalkBoundaries<Booted, Listening> {
     fn unit_active(&mut self, unit: &str) -> bool {
         self.units.unit_active(unit)
     }
@@ -28,7 +28,7 @@ impl Units for TalkBoundaries {
     }
 }
 
-impl ListenerSession for TalkBoundaries {
+impl<Booted, Listening: ListenerSession> ListenerSession for TalkBoundaries<Booted, Listening> {
     fn begin_listening(&mut self, request: &ListeningRequest) -> Result<(), TalkFailure> {
         self.listener.begin_listening(request)
     }
@@ -38,7 +38,7 @@ impl ListenerSession for TalkBoundaries {
     }
 }
 
-impl Floor for TalkBoundaries {
+impl<Booted, Listening> Floor for TalkBoundaries<Booted, Listening> {
     fn give_the_room_to(&mut self, addressee: &Addressee) -> Result<(), TalkFailure> {
         self.floor.give_the_room_to(addressee)
     }
@@ -48,7 +48,7 @@ impl Floor for TalkBoundaries {
     }
 }
 
-impl ConsumerLock for TalkBoundaries {
+impl<Booted, Listening> ConsumerLock for TalkBoundaries<Booted, Listening> {
     fn acquire(&mut self) -> Result<(), TalkFailure> {
         self.lock.acquire()
     }
