@@ -17,6 +17,12 @@ impl Subprocess for Fake {
         let (status, stdout) = self.outputs.get(&program).cloned().unwrap_or_default();
         Ok(ProcessOutput { status, stdout })
     }
+
+    fn relay(&mut self, invocation: &Invocation) -> Result<i32, ProcessFailure> {
+        let output = self.run(invocation)?;
+        self.out.push_str(&output.stdout);
+        Ok(output.status)
+    }
 }
 
 impl Units for Fake {

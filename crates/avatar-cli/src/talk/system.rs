@@ -25,6 +25,10 @@ impl<Booted, Listening> Subprocess for TalkBoundaries<Booted, Listening> {
     fn run(&mut self, invocation: &Invocation) -> Result<ProcessOutput, ProcessFailure> {
         self.process.run(invocation)
     }
+
+    fn relay(&mut self, invocation: &Invocation) -> Result<i32, ProcessFailure> {
+        self.process.relay(invocation)
+    }
 }
 
 impl<Booted, Listening> Console for TalkBoundaries<Booted, Listening> {

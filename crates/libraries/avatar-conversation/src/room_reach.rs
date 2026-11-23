@@ -1,4 +1,5 @@
 pub const PANE_VARIABLE: &str = "HERDR_PANE_ID";
+pub const CALLER_HOLDS_INPUT_VARIABLE: &str = "AVATAR_CALLER_HOLDS_INPUT";
 const TALK_COMMAND: &str = "avatar-talk";
 
 #[derive(Debug, Clone, PartialEq, Eq)]

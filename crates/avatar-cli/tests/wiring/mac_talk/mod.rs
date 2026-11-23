@@ -1,15 +1,17 @@
+mod reach;
+
 use std::error::Error;
 use std::fs;
 use std::process::{Command, Output};
 
 use super::{Machine, TestResult, text};
 
-const STATUS: &str = "{\"open\": true, \"live\": false, \"seat\": \"room\", \"last_heard\": 0}";
-const FORWARDED: &str =
-    "-o BatchMode=yes -o ConnectTimeout=10 elsewhere env HERDR_PANE_ID=p1 avatar-talk say hi";
+pub(super) const STATUS: &str =
+    "{\"open\": true, \"live\": false, \"seat\": \"room\", \"last_heard\": 0}";
+const FORWARDED: &str = "-o BatchMode=yes -o ConnectTimeout=10 elsewhere env AVATAR_CALLER_HOLDS_INPUT=1 env HERDR_PANE_ID=p1 avatar-talk say hi";
 const OPENED: &str = "-o BatchMode=yes -o ConnectTimeout=10 chise avatar-talk open --seat remote";
 
-fn configured(machine: &Machine, arguments: &[&str]) -> Command {
+pub(super) fn configured(machine: &Machine, arguments: &[&str]) -> Command {
     let mut command = machine.command(&["mac", "talk"]);
     command.args(arguments);
     command
@@ -18,11 +20,11 @@ fn configured(machine: &Machine, arguments: &[&str]) -> Command {
     command
 }
 
-fn mac_talk(machine: &Machine, arguments: &[&str]) -> Result<Output, Box<dyn Error>> {
+pub(super) fn mac_talk(machine: &Machine, arguments: &[&str]) -> Result<Output, Box<dyn Error>> {
     Ok(configured(machine, arguments).output()?)
 }
 
-fn ssh_machine(ending: &str) -> Result<Machine, Box<dyn Error>> {
+pub(super) fn ssh_machine(ending: &str) -> Result<Machine, Box<dyn Error>> {
     let machine = Machine::with_tools(&[])?;
     let log = machine.path("ssh.log");
     machine.install(
@@ -32,7 +34,7 @@ fn ssh_machine(ending: &str) -> Result<Machine, Box<dyn Error>> {
     Ok(machine)
 }
 
-fn ssh_log(machine: &Machine) -> Result<String, Box<dyn Error>> {
+pub(super) fn ssh_log(machine: &Machine) -> Result<String, Box<dyn Error>> {
     Ok(fs::read_to_string(machine.path("ssh.log"))?
         .trim()
         .to_owned())
@@ -47,6 +49,7 @@ fn a_command_for_another_room_is_forwarded_and_its_status_is_returned() -> TestR
         .env("HERDR_PANE_ID", "p1")
         .output()?;
     assert_eq!(output.status.code(), Some(7));
+    assert_eq!(text(&output.stdout).trim(), STATUS);
     assert_eq!(ssh_log(&machine)?, FORWARDED);
     Ok(())
 }
@@ -75,5 +78,17 @@ fn a_mac_talk_without_the_avatar_host_names_the_missing_variable() -> TestResult
     let output = Machine::with_tools(&[])?.run(&["mac", "talk", "status"])?;
     assert_eq!(output.status.code(), Some(1));
     assert!(text(&output.stderr).contains("AVATAR_HOST is not set"));
+    Ok(())
+}
+
+#[test]
+fn the_error_stream_of_the_room_is_shown_too() -> TestResult {
+    let machine = Machine::with_tools(&[("ssh", "echo refused >&2\nexit 1")])?;
+    let mut command = configured(&machine, &["hear"]);
+    let output = command.env("AVATAR_ROOM", "elsewhere").output()?;
+    assert_eq!(
+        (output.status.code(), text(&output.stderr).trim()),
+        (Some(1), "refused")
+    );
     Ok(())
 }

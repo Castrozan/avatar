@@ -98,10 +98,11 @@ Mac too: its tasks reach your session there, and the seat rule above decides whe
 ### Discord calls
 
 A Discord call is an avatar conversation with seat `discord`. Run `avatar-talk open --seat discord` only when the user
-asks for it, on the machine that runs the Discord bridge; from another machine it forwards there. The bot joins the
-user's current voice channel once and never follows them, and the call closes by itself when the user leaves the
-channel. Speak with `avatar-talk say` and hear with `avatar-talk follow` exactly as in the room, with
-`AVATAR_ROOM=MACHINE` when the turn prompt says so.
+asks for it, on the machine that runs the Discord bridge; from another machine it forwards there, and that machine's
+later `avatar-talk` commands reach the call by themselves until it closes. The bot joins the user's current voice
+channel once and never follows them, and the call closes by itself when the user leaves the channel. Speak with
+`avatar-talk say` and hear with `avatar-talk follow` exactly as in the room, with `AVATAR_ROOM=MACHINE` when the turn
+prompt says so.
 
 Silver answers only in the `silver` voice channel and only when the user enters it. When a Servant is named in that call
 and later runs `avatar-talk close`, the floor returns to Silver and the call stays open.

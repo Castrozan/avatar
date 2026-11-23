@@ -33,12 +33,12 @@ pub fn run_captured(command: &[String], stdin: &[u8], timeout: Duration) -> io::
     })
 }
 
-fn timed_out(timeout: Duration) -> io::Error {
+pub(super) fn timed_out(timeout: Duration) -> io::Error {
     let message = format!("command did not finish within {} s", timeout.as_secs());
     io::Error::new(io::ErrorKind::TimedOut, message)
 }
 
-fn exit_code_of(status: ExitStatus) -> i32 {
+pub(super) fn exit_code_of(status: ExitStatus) -> i32 {
     status
         .code()
         .or_else(|| status.signal().map(|signal| -signal))

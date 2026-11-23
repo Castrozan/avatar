@@ -28,6 +28,11 @@ pub trait RoomCommands {
 
 pub trait HostTalk {
     fn forwarded_from_this_machine(&mut self, arguments: &[String]) -> Option<i32>;
+    fn forwarded_to_the_conversation_opened_elsewhere(
+        &mut self,
+        arguments: &[String],
+    ) -> Option<i32>;
+    fn remember_the_conversation_at_the_host(&mut self);
     fn with_the_agent_that_receives_live_tasks(&mut self, arguments: &[String]) -> Vec<String>;
     fn carry_out_at_host(&mut self, arguments: &[String]) -> Result<i32, Failure>;
 }

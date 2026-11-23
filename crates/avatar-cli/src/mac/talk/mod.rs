@@ -14,7 +14,7 @@ use units::LaunchdTalkUnits;
 use super::environment::seat_config;
 use super::room::{code_of, room};
 use crate::support::runtime::session_directory;
-use crate::talk::TalkBoundaries;
+use crate::talk::{TalkBoundaries, end_a_listening_command_with_its_caller};
 
 type MacBoundaries = TalkBoundaries<LaunchdTalkUnits, LaunchdTalkListener>;
 
@@ -54,6 +54,7 @@ fn run_with(
 }
 
 pub(super) fn run(options: &TalkOptions) -> io::Result<ExitCode> {
+    end_a_listening_command_with_its_caller(&options.arguments);
     let mut host = host()?;
     let mut seat = room()?.with_talk(boundaries());
     Ok(run_with(&mut seat, &mut host, &options.arguments))
