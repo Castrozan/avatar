@@ -2,6 +2,7 @@ use std::error::Error;
 use std::fs;
 use std::io::{Read, Write};
 use std::net::{Ipv4Addr, TcpListener, TcpStream};
+use std::path::Path;
 use std::process::{Child, Command, Stdio};
 use std::thread::sleep;
 use std::time::{Duration, Instant};
@@ -50,15 +51,41 @@ pub(super) fn tools_path(machine: &Machine) -> String {
 }
 
 pub(super) fn start(machine: &Machine) -> Result<Seat, Box<dyn Error>> {
+    spawn(machine, Some(&machine.path("page")))
+}
+
+pub(super) fn start_with_embedded_page(machine: &Machine) -> Result<Seat, Box<dyn Error>> {
+    spawn(machine, None)
+}
+
+fn spawn(machine: &Machine, page: Option<&Path>) -> Result<Seat, Box<dyn Error>> {
     let port = free_port()?;
-    let child = machine
-        .command(&["remote-seat", "--port", &port.to_string()])
-        .env("PATH", tools_path(machine))
-        .env("AVATAR_SEAT_PAGE", machine.path("page"))
-        .stdout(Stdio::null())
-        .stderr(Stdio::null())
-        .spawn()?;
+    let mut command = machine.command(&["remote-seat", "--port", &port.to_string()]);
+    command.env("PATH", tools_path(machine));
+    command.env("AVATAR_DATA_DIRECTORY", machine.path("data"));
+    if let Some(directory) = page {
+        command.env("AVATAR_SEAT_PAGE", directory);
+    }
+    let child = spawn_quiet(command)?;
     Ok(Seat { child, port })
+}
+
+fn spawn_quiet(mut command: Command) -> std::io::Result<Child> {
+    command.stdout(Stdio::null()).stderr(Stdio::null()).spawn()
+}
+
+pub(super) fn serves_index(port: u16) -> bool {
+    index_page(port).is_some_and(|reply| reply.contains("<!doctype html>"))
+}
+
+fn index_page(port: u16) -> Option<String> {
+    let mut stream = TcpStream::connect((Ipv4Addr::LOCALHOST, port)).ok()?;
+    stream
+        .write_all(b"GET / HTTP/1.1\r\nHost: localhost\r\nConnection: close\r\n\r\n")
+        .ok()?;
+    let mut reply = String::new();
+    stream.read_to_string(&mut reply).ok()?;
+    Some(reply)
 }
 
 pub(super) fn health(port: u16) -> Option<Value> {

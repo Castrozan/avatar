@@ -34,10 +34,7 @@ let
     exec ${avatarExecutable} transcribe
   '';
   renderer = import ./packages/renderer.nix { inherit pkgs; };
-  speakerModel = pkgs.fetchurl {
-    url = "https://github.com/k2-fsa/sherpa-onnx/releases/download/speaker-recongition-models/3dspeaker_speech_campplus_sv_zh_en_16k-common_advanced.onnx";
-    sha256 = "18pb1kqg82x3qa07yd4b6n6yjmvbdmfh7xckjdm5h41sjqbgqg5a";
-  };
+  speakerModel = (import ../runtime/assets { inherit pkgs; }).fetch "speaker-embedding";
   turnModel = import ../runtime/home-manager/avatar-turn-model.nix { inherit pkgs; };
   voiceActivityModel = import ../runtime/home-manager/avatar-voice-activity-model.nix {
     inherit pkgs;

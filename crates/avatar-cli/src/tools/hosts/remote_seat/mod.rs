@@ -3,6 +3,7 @@ use std::path::PathBuf;
 use std::sync::Arc;
 use std::time::Duration;
 
+use avatar_assets::Asset;
 use avatar_seat::bridge::{
     Bridge, BridgeSettings, DirectoryFiles, FIRST_ATTACH_SECONDS, HOST, PORT, REATTACH_SECONDS,
     SpawnedTools, serve_remote_seat,
@@ -18,8 +19,6 @@ mod probe;
 
 use crate::tools::interruption::Interruption;
 
-const PAGE_VARIABLE: &str = "AVATAR_SEAT_PAGE";
-
 #[derive(Args)]
 pub(crate) struct RemoteSeatOptions {
     #[arg(long, default_value_t = PORT, help = "Port to serve the seat on, at 127.0.0.1")]
@@ -27,9 +26,7 @@ pub(crate) struct RemoteSeatOptions {
 }
 
 pub(crate) fn run(options: &RemoteSeatOptions) -> io::Result<()> {
-    let page = std::env::var_os(PAGE_VARIABLE)
-        .map(PathBuf::from)
-        .ok_or_else(|| io::Error::other(format!("{PAGE_VARIABLE} is not set")))?;
+    let page = avatar_assets::resolve(Asset::SeatPage)?;
     Builder::new_multi_thread()
         .enable_all()
         .build()?

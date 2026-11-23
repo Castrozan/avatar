@@ -1,14 +1,13 @@
+use avatar_assets::ProcessEnvironment;
+
 use crate::text::folding::folded;
 use std::collections::HashMap;
 
 pub type Vocabulary = HashMap<String, usize>;
 
-const VOCABULARY_ENVIRONMENT_VARIABLE: &str = "AVATAR_ORDINARY_WORDS";
-
 #[must_use]
 pub fn frequency_ranks() -> Option<Vocabulary> {
-    let paths = std::env::var(VOCABULARY_ENVIRONMENT_VARIABLE).unwrap_or_default();
-    ranks_from_paths(&paths)
+    ranks_from_paths(&avatar_assets::ordinary_word_paths(&ProcessEnvironment))
 }
 
 #[must_use]

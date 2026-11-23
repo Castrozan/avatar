@@ -1,0 +1,166 @@
+{
+  "downloads": [
+    {
+      "name": "silero-vad",
+      "url": "https://raw.githubusercontent.com/snakers4/silero-vad/v6.2.3/src/silero_vad/data/silero_vad.onnx",
+      "integrity": "sha256-GhU6IvRQnikqlOZ9b5uF6N6yW0mIaCt+F0xlJ52HiOM=",
+      "destination": "models/silero_vad.onnx"
+    },
+    {
+      "name": "smart-turn",
+      "url": "https://huggingface.co/pipecat-ai/smart-turn-v3/resolve/f766f81d3cfdf7737ac64aad813d91bbfd56bf93/smart-turn-v3.2-cpu.onnx",
+      "integrity": "sha256-K7AmMWsUpmBIanWxczzT+6uML9AxTcmve+SfjMqWfk8=",
+      "destination": "models/smart-turn-v3.2-cpu.onnx"
+    },
+    {
+      "name": "speaker-embedding",
+      "url": "https://github.com/k2-fsa/sherpa-onnx/releases/download/speaker-recongition-models/3dspeaker_speech_campplus_sv_zh_en_16k-common_advanced.onnx",
+      "integrity": "sha256-qjz8FpY6EFhqk5P1A11ta1fpjTWLNH+AwqML9PAM66I=",
+      "destination": "models/speaker-embedding.onnx"
+    },
+    {
+      "name": "transcription",
+      "url": "https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-small-q5_1.bin",
+      "integrity": "sha256-roXkqTXXpWe9EC/lWvwWu1lb22GOEbL8dZG8CBIEEbs=",
+      "destination": "models/ggml-small-q5_1.bin"
+    },
+    {
+      "name": "voice-pt_BR-faber-medium",
+      "url": "https://huggingface.co/rhasspy/piper-voices/resolve/v1.0.0/pt/pt_BR/faber/medium/pt_BR-faber-medium.onnx",
+      "integrity": "sha256-hYVV46BkIJxXCI/mvXDEw9xU0D6qAMRdXsr0OjP5Wqc=",
+      "destination": "voices/pt_BR-faber-medium.onnx",
+      "storeName": "pt_BR-faber-medium.onnx"
+    },
+    {
+      "name": "voice-pt_BR-faber-medium-configuration",
+      "url": "https://huggingface.co/rhasspy/piper-voices/resolve/v1.0.0/pt/pt_BR/faber/medium/pt_BR-faber-medium.onnx.json",
+      "integrity": "sha256-fmlN4ZWuP8Nt1zLEResE+0m2SYVIk8tVBrl48NUKHW8=",
+      "destination": "voices/pt_BR-faber-medium.onnx.json",
+      "storeName": "pt_BR-faber-medium.onnx.json"
+    },
+    {
+      "name": "voice-en_US-lessac-medium",
+      "url": "https://huggingface.co/rhasspy/piper-voices/resolve/v1.0.0/en/en_US/lessac/medium/en_US-lessac-medium.onnx",
+      "integrity": "sha256-Xv4J5pkCGHgnr2RuGm6dJp3udp+Yd9F7FrG0buqvAZ8=",
+      "destination": "voices/en_US-lessac-medium.onnx",
+      "storeName": "en_US-lessac-medium.onnx"
+    },
+    {
+      "name": "voice-en_US-lessac-medium-configuration",
+      "url": "https://huggingface.co/rhasspy/piper-voices/resolve/v1.0.0/en/en_US/lessac/medium/en_US-lessac-medium.onnx.json",
+      "integrity": "sha256-7+GcQXvtBV8taZCCSMa6ZQ+hNbyGiw5quz2hgdq2kKA=",
+      "destination": "voices/en_US-lessac-medium.onnx.json",
+      "storeName": "en_US-lessac-medium.onnx.json"
+    },
+    {
+      "name": "words-en",
+      "url": "https://raw.githubusercontent.com/hermitdave/FrequencyWords/525f9b560de45753a5ea01069454e72e9aa541c6/content/2018/en/en_50k.txt",
+      "integrity": "sha256-U1H/QFsRJu9VV5HdTZeYpI4+mlAan8SBqdqVd1LPtFg=",
+      "destination": "words/en_50k.txt"
+    },
+    {
+      "name": "words-pt_br",
+      "url": "https://raw.githubusercontent.com/hermitdave/FrequencyWords/525f9b560de45753a5ea01069454e72e9aa541c6/content/2018/pt_br/pt_br_50k.txt",
+      "integrity": "sha256-ph1vLt6XxdqtX7OQe3KiKPCv8SZovm0k2lkNIIBPphE=",
+      "destination": "words/pt_br_50k.txt"
+    },
+    {
+      "name": "three",
+      "url": "https://registry.npmjs.org/three/-/three-0.149.0.tgz",
+      "integrity": "sha512-tohpUxPDht0qExRLDTM8sjRLc5d9STURNrdnK3w9A+V4pxaTBfKWWT/IqtiLfg23Vfc3Z+ImNfvRw1/0CtxrkQ==",
+      "destination": "renderer/vendor/three",
+      "archive": "tar.gz"
+    },
+    {
+      "name": "three-vrm",
+      "url": "https://registry.npmjs.org/@pixiv/three-vrm/-/three-vrm-1.0.9.tgz",
+      "integrity": "sha512-OXExupt3p/6oT3acM236Z5f6nVGAU0nYz2Al8UZXkaZKwVklaIBTCy0iC+57PFTkdpj+6Urxa9CiWagKg3ihXA==",
+      "destination": "renderer/vendor/vrm",
+      "archive": "tar.gz"
+    },
+    {
+      "name": "character-darkness-shibu",
+      "url": "https://raw.githubusercontent.com/madjin/vrm-samples/e16eb187100149a315ad92c3c9968f1d5baa6c7d/vroid/beta/Darkness_Shibu.vrm",
+      "integrity": "sha256-C1BXPS0FTZjApvxaXOhy4bLIv/hxhHb/cqmmjEhnT9g=",
+      "destination": "renderer/characters/darkness-shibu.vrm",
+      "storeName": "darkness-shibu.vrm"
+    },
+    {
+      "name": "character-sendagaya-shino",
+      "url": "https://raw.githubusercontent.com/madjin/vrm-samples/e16eb187100149a315ad92c3c9968f1d5baa6c7d/vroid/beta/Sendagaya_Shino.vrm",
+      "integrity": "sha256-Hhd8GnsU94OpxIOVgx24YWJg073dQVTLJ4S3ea3KSbU=",
+      "destination": "renderer/characters/sendagaya-shino.vrm",
+      "storeName": "sendagaya-shino.vrm"
+    },
+    {
+      "name": "character-sendagaya-shibu",
+      "url": "https://raw.githubusercontent.com/madjin/vrm-samples/e16eb187100149a315ad92c3c9968f1d5baa6c7d/vroid/beta/Sendagaya_Shibu.vrm",
+      "integrity": "sha256-t7ytXliQq8TXxl+a/DHaJEXbAxl9RPHsEER/nbWr6v8=",
+      "destination": "renderer/characters/sendagaya-shibu.vrm",
+      "storeName": "sendagaya-shibu.vrm"
+    },
+    {
+      "name": "character-victoria-rubin",
+      "url": "https://raw.githubusercontent.com/madjin/vrm-samples/e16eb187100149a315ad92c3c9968f1d5baa6c7d/vroid/beta/Victoria_Rubin.vrm",
+      "integrity": "sha256-sTchMb2/Iz9GMgFG1WXzQqfk9vS48q77MB8aKD7Afh4=",
+      "destination": "renderer/characters/victoria-rubin.vrm",
+      "storeName": "victoria-rubin.vrm"
+    },
+    {
+      "name": "character-vita",
+      "url": "https://raw.githubusercontent.com/madjin/vrm-samples/e16eb187100149a315ad92c3c9968f1d5baa6c7d/vroid/beta/Vita.vrm",
+      "integrity": "sha256-8r948ook4vdfXKC2w7ZGZUw5TksDWS36oNBjPvCXK00=",
+      "destination": "renderer/characters/vita.vrm",
+      "storeName": "vita.vrm"
+    },
+    {
+      "name": "character-vivi",
+      "url": "https://raw.githubusercontent.com/madjin/vrm-samples/e16eb187100149a315ad92c3c9968f1d5baa6c7d/vroid/beta/Vivi.vrm",
+      "integrity": "sha256-6vkC4EGnqBDxQjWZrnVoL2EYSrbvAgbamo7ZyqjsOp0=",
+      "destination": "renderer/characters/vivi.vrm",
+      "storeName": "vivi.vrm"
+    },
+    {
+      "name": "character-hair-sample-female",
+      "url": "https://raw.githubusercontent.com/madjin/vrm-samples/e16eb187100149a315ad92c3c9968f1d5baa6c7d/vroid/beta/HairSample_Female.vrm",
+      "integrity": "sha256-rf0kIxeqq8dz8x9//3sBOXn7tbqkfpdCeniRPZy06Xk=",
+      "destination": "renderer/characters/hair-sample-female.vrm",
+      "storeName": "hair-sample-female.vrm"
+    },
+    {
+      "name": "character-avatar-sample-a",
+      "url": "https://raw.githubusercontent.com/madjin/vrm-samples/e16eb187100149a315ad92c3c9968f1d5baa6c7d/vroid/stable/AvatarSample_A.vrm",
+      "integrity": "sha256-uGsLimbUiRFDHW+SClIRqXQib4OqZy7KPz363lisNG4=",
+      "destination": "renderer/characters/avatar-sample-a.vrm",
+      "storeName": "avatar-sample-a.vrm"
+    },
+    {
+      "name": "character-avatar-sample-b",
+      "url": "https://raw.githubusercontent.com/madjin/vrm-samples/e16eb187100149a315ad92c3c9968f1d5baa6c7d/vroid/stable/AvatarSample_B.vrm",
+      "integrity": "sha256-Sicb07Wj0Z4FT9ET7hVGNbcucUH0qMy826PH+c6m7o0=",
+      "destination": "renderer/characters/avatar-sample-b.vrm",
+      "storeName": "avatar-sample-b.vrm"
+    },
+    {
+      "name": "character-sakurada-fumiriya",
+      "url": "https://raw.githubusercontent.com/madjin/vrm-samples/e16eb187100149a315ad92c3c9968f1d5baa6c7d/vroid/beta/Sakurada_Fumiriya.vrm",
+      "integrity": "sha256-2PsF8z43ffAoy2udWMRBzmgybEH6I/bHNdQMZa49xxA=",
+      "destination": "renderer/characters/sakurada-fumiriya.vrm",
+      "storeName": "sakurada-fumiriya.vrm"
+    },
+    {
+      "name": "character-hair-sample-male",
+      "url": "https://raw.githubusercontent.com/madjin/vrm-samples/e16eb187100149a315ad92c3c9968f1d5baa6c7d/vroid/beta/HairSample_Male.vrm",
+      "integrity": "sha256-euyhQtq7wmug9bnJmMjzy23zQSh9Z3iEJ6yDciN4Wj8=",
+      "destination": "renderer/characters/hair-sample-male.vrm",
+      "storeName": "hair-sample-male.vrm"
+    },
+    {
+      "name": "character-avatar-sample-c",
+      "url": "https://raw.githubusercontent.com/madjin/vrm-samples/e16eb187100149a315ad92c3c9968f1d5baa6c7d/vroid/stable/AvatarSample_C.vrm",
+      "integrity": "sha256-OV1bBGluiI8HvIVq4Bv3KpdLfncxMsdEPcWdFogEW4o=",
+      "destination": "renderer/characters/avatar-sample-c.vrm",
+      "storeName": "avatar-sample-c.vrm"
+    }
+  ]
+}

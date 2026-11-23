@@ -6,16 +6,19 @@ use std::fs;
 use serde_json::Value;
 use tokio::runtime::Builder;
 
-use crate::machine::{TestResult, text};
-use seat::{end_on_request, health, host_known, seat_machine, start, wait_until};
+use crate::machine::TestResult;
+use seat::{
+    end_on_request, health, host_known, seat_machine, serves_index, start,
+    start_with_embedded_page, wait_until,
+};
 use socket::carry_through_the_audio_socket;
 
 #[test]
-fn the_seat_needs_its_page_directory() -> TestResult {
+fn the_seat_serves_its_embedded_page_when_no_directory_is_given() -> TestResult {
     let machine = seat_machine()?;
-    let output = machine.run(&["remote-seat"])?;
-    assert_eq!(output.status.code(), Some(1));
-    assert!(text(&output.stderr).contains("AVATAR_SEAT_PAGE is not set"));
+    let seat = start_with_embedded_page(&machine)?;
+    assert!(wait_until(|| serves_index(seat.port)));
+    assert!(machine.path("data/seat-page/seat.js").is_file());
     Ok(())
 }
 

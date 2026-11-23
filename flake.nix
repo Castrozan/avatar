@@ -55,7 +55,11 @@
 
       packages = forAllSystems (
         system:
-        import ./nix/packages { pkgs = packagesFor system; } // { avatar = (rustFor system).package; }
+        import ./nix/packages { pkgs = packagesFor system; }
+        // {
+          avatar = (rustFor system).package;
+          default = (rustFor system).package;
+        }
       );
 
       checks = forAllSystems (

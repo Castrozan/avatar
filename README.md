@@ -11,7 +11,32 @@ browser JavaScript under `runtime/`, and Nix wires everything into services.
 
 ## Install
 
-Add the flake as an input and import its modules:
+The `avatar` binary is self-contained: it embeds the renderer, the seat and wake pages, the cast tables and a default
+portrait, and with no environment variables set it runs from those defaults. Models and the renderer's libraries are
+too large to embed, so `avatar setup` downloads them (see [Setup](#setup)).
+
+### Install script
+
+```sh
+curl -fsSL https://raw.githubusercontent.com/Castrozan/avatar/main/install.sh | sh
+```
+
+The script detects the operating system and architecture, downloads the matching release archive, verifies its sha256,
+installs `avatar` into `~/.local/bin` (`AVATAR_INSTALL_DIRECTORY` changes that) and copies the portraits into the data
+directory. `AVATAR_VERSION=v0.1.0` picks a release instead of the latest.
+
+### Release archives
+
+Each release at [Castrozan/avatar releases](https://github.com/Castrozan/avatar/releases) carries one archive per
+platform, `avatar-<target>.tar.gz`, with a matching `.sha256` file. Each holds the `avatar` binary, `LICENSE`, this
+README and the `avatars/` portraits. Targets: `x86_64-unknown-linux-gnu`, `aarch64-unknown-linux-gnu`,
+`x86_64-apple-darwin` and `aarch64-apple-darwin`. Pushing a tag `v*` builds and publishes them
+([`release.yml`](.github/workflows/release.yml)).
+
+### Nix
+
+Add the flake as an input and import its modules. The modules wrap the binary and point it at store paths through the
+environment variables below, which override the defaults:
 
 ```nix
 inputs.avatar.url = "github:Castrozan/avatar";
@@ -43,6 +68,61 @@ Castrozan/avatar`, then `codex plugin add avatar@avatar`. [`plugin.json`](plugin
 its directory. A Nix consumer can register the pinned flake source as a local marketplace instead, so the skill and the
 runtime move with one pin. The plugin carries the instructions only: the commands the skill calls, such as
 `avatar-talk`, still come from the modules above.
+
+## Setup
+
+```sh
+avatar setup
+```
+
+downloads everything the binary does not embed into the data directory: the voice activity, turn and speaker models,
+the transcription model for a local `whisper-server`, the Piper speech voices, the ordinary-word frequency lists, the
+renderer's `three` and `three-vrm` libraries and the character models. Every file is checked against the digest pinned
+in [`runtime/assets/manifest.json`](runtime/assets/manifest.json) and is replaced only when it verifies, so an
+interrupted run leaves nothing half written and a repeated run downloads nothing that is already present. `--manifest
+FILE` reads another manifest.
+
+The data directory is `$XDG_DATA_HOME/avatar` (`~/.local/share/avatar`) on Linux and `~/Library/Application
+Support/avatar` on macOS; `AVATAR_DATA_DIRECTORY` replaces it. The Nix modules read the same manifest, so a Nix install
+and `avatar setup` fetch identical bytes.
+
+Each asset resolves in the same order: its environment variable, then the data directory.
+
+| Variable | Default |
+| --- | --- |
+| `AVATAR_RENDERER_ROOT` | embedded renderer written to `<data>/renderer`, with the downloaded libraries and characters |
+| `AVATAR_SEAT_PAGE`, `AVATAR_WAKE_PAGE` | embedded pages written to `<data>/seat-page` and `<data>/wake-page` |
+| `AVATAR_CHARACTER_VOICES`, `AVATAR_SERVANT_CHARACTERS` | embedded cast tables written to `<data>/cast` |
+| `AVATAR_ORDINARY_WORDS` | `<data>/words/*.txt` |
+| `AVATAR_TURN_MODEL`, `AVATAR_VOICE_ACTIVITY_MODEL`, `AVATAR_SPEAKER_MODEL` | `<data>/models/` (after `avatar setup`) |
+| `AVATAR_TTS_VOICE_DIRECTORY` | `<data>/voices` |
+
+The portraits beyond the embedded `jarvis.jpeg` are not in the binary: the install script and the release archives put
+them in `<data>/renderer/portraits`.
+
+## Platform support
+
+| Platform | Status |
+| --- | --- |
+| Linux x86_64, aarch64 | Release binaries and the Nix modules. The host role runs here. |
+| macOS x86_64, aarch64 | Release binaries and the Nix modules. The remote role runs here. |
+| Windows | Not supported. |
+
+Windows does not build, and a port is a project of its own, not a flag. `cargo check --workspace --target
+x86_64-pc-windows-gnu` fails in six library crates (`avatar-audio-graph`, `avatar-control`, `avatar-doctor`,
+`avatar-floor`, `avatar-transcript`, `avatar-wake-log`) before `avatar-cli` is reached, and 44 source files outside the
+tests use Unix-only APIs:
+
+- `std::os::unix` in 22 files: `PermissionsExt` file modes, `OpenOptionsExt::mode` and `DirBuilderExt::mode` on the state
+  and lock files, `symlink`, `CommandExt::process_group` for the owned browser and `ExitStatusExt`.
+- The `nix` crate in 17 files: `nix::unistd` and `nix::sys` (users, hostnames, signals, process groups), which do not
+  exist on Windows.
+- `tokio::signal::unix` for SIGINT and SIGTERM handling in 5 files, `flock` based locks in 4 and `/proc` in 2.
+- Runtime paths and tools with no Windows counterpart in this design: `/run/user/<uid>`, `/dev/video*`, `systemctl`,
+  `pactl` and `parec`, `hyprctl` and `herdr`.
+
+The binary's own asset code (`avatar-assets`: the embedded files, the data directory and `avatar setup`) is portable and
+compiles for that target.
 
 ## Test
 

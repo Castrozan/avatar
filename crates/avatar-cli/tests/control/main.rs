@@ -4,7 +4,6 @@ mod process;
 use std::error::Error;
 use std::ffi::OsStr;
 use std::path::{Path, PathBuf};
-use std::process::Command;
 
 use process::{ControlProcess, identify_agent};
 
@@ -20,13 +19,15 @@ fn control_subcommand_answers_identify_over_websocket() -> TestResult {
 }
 
 #[test]
-fn control_subcommand_refuses_to_start_without_speech_configuration() -> TestResult {
-    let output = Command::new(env!("CARGO_BIN_EXE_avatar"))
-        .args(["control", "--address", "127.0.0.1:0"])
-        .env_remove("AVATAR_CHARACTER_VOICES")
-        .output()?;
-    assert!(!output.status.success());
-    assert!(String::from_utf8_lossy(&output.stderr).starts_with("avatar: "));
+fn control_subcommand_serves_from_the_embedded_cast_without_any_variable() -> TestResult {
+    let home = tempfile::tempdir()?;
+    let environment: [(&str, &OsStr); 2] = [
+        ("HOME", home.path().as_os_str()),
+        ("AVATAR_DATA_DIRECTORY", home.path().as_os_str()),
+    ];
+    let process = ControlProcess::start_with(&[], &environment)?;
+    assert_eq!(identify_agent(&process.address)?["type"], "identifyAck");
+    assert!(home.path().join("cast/character-voices.json").is_file());
     Ok(())
 }
 

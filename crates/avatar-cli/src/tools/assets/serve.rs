@@ -2,6 +2,7 @@ use std::io::{self, Write};
 use std::net::SocketAddr;
 use std::path::PathBuf;
 
+use avatar_assets::Asset;
 use avatar_control::site::RendererSite;
 use clap::Args;
 use tokio::runtime::Builder;
@@ -19,9 +20,7 @@ pub(crate) struct ServeOptions {
 }
 
 pub(crate) fn run(options: &ServeOptions) -> io::Result<()> {
-    let root = std::env::var_os("AVATAR_RENDERER_ROOT")
-        .map(PathBuf::from)
-        .ok_or_else(|| io::Error::other("AVATAR_RENDERER_ROOT is not set"))?;
+    let root = avatar_assets::resolve(Asset::RendererRoot)?;
     Builder::new_multi_thread()
         .enable_all()
         .build()?

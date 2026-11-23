@@ -4,10 +4,9 @@ use avatar_adapters::commands::{
     Endpoints, FlockConsumerLock, HealthProbe, Programs, ReadinessTiming, RoomFloor, SystemdUnits,
     TalkListener, TalkProcess,
 };
+use avatar_assets::Asset;
 
 use super::host::RuntimeFiles;
-
-const CHARACTERS_VARIABLE: &str = "AVATAR_SERVANT_CHARACTERS";
 
 pub(crate) struct TalkBoundaries<Booted = SystemdUnits, Listening = TalkListener> {
     pub(super) process: TalkProcess,
@@ -24,7 +23,7 @@ fn units(process: &TalkProcess) -> SystemdUnits {
 }
 
 fn floor(directory: &Path, process: &TalkProcess) -> RoomFloor {
-    let characters = std::env::var_os(CHARACTERS_VARIABLE).map(PathBuf::from);
+    let characters = avatar_assets::resolve(Asset::ServantCharacters).ok();
     RoomFloor::new(directory, process.clone(), characters)
 }
 
