@@ -5,15 +5,18 @@ use serde_json::{Value, json};
 
 use super::World;
 
+fn process_keys(world: &World) -> Vec<String> {
+    let table = world.scenario_field("processes").as_object();
+    let mut keys: Vec<String> = table
+        .map(|entries| entries.keys().cloned().collect())
+        .unwrap_or_default();
+    keys.sort_by_key(|key| Reverse(key.len()));
+    keys
+}
+
 impl World {
     fn process_result(&mut self, key_text: &str) -> Value {
-        let mut keys: Vec<String> = self
-            .scenario_field("processes")
-            .as_object()
-            .map(|table| table.keys().cloned().collect())
-            .unwrap_or_default();
-        keys.sort_by_key(|key| Reverse(key.len()));
-        let matching = keys
+        let matching = process_keys(self)
             .into_iter()
             .find(|key| key_text.starts_with(key.as_str()));
         matching.map_or_else(
@@ -42,18 +45,18 @@ fn failure_of(result: &Value) -> Option<ProcessFailure> {
     }
 }
 
+fn output_of(result: &Value) -> ProcessOutput {
+    let status = i32::try_from(result["status"].as_i64().unwrap_or_default()).unwrap_or_default();
+    ProcessOutput {
+        status,
+        stdout: result["stdout"].as_str().unwrap_or_default().to_owned(),
+    }
+}
+
 impl Subprocess for World {
     fn run(&mut self, invocation: &Invocation) -> Result<ProcessOutput, ProcessFailure> {
         self.stamp(json!({"call": "process", "argv": invocation.argv, "timeout": invocation.timeout_seconds}));
         let result = self.process_result(&invocation.argv.join(" "));
-        if let Some(failure) = failure_of(&result) {
-            return Err(failure);
-        }
-        let status =
-            i32::try_from(result["status"].as_i64().unwrap_or_default()).unwrap_or_default();
-        Ok(ProcessOutput {
-            status,
-            stdout: result["stdout"].as_str().unwrap_or_default().to_owned(),
-        })
+        failure_of(&result).map_or_else(|| Ok(output_of(&result)), Err)
     }
 }

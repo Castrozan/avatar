@@ -23,6 +23,15 @@ fn check_names(checks: &[Readiness]) -> Vec<&'static str> {
     checks.iter().map(|check| check.name()).collect()
 }
 
+fn acquire_consumer(world: &mut World) -> Result<(), TalkFailure> {
+    let busy = world.scenario_field("consumer_busy") == &Value::Bool(true);
+    if !busy {
+        world.stamp(json!({"call": "consumer", "event": "acquire"}));
+    }
+    busy.then(|| TalkFailure::new(BUSY_MESSAGE))
+        .map_or(Ok(()), Err)
+}
+
 impl Units for World {
     fn unit_active(&mut self, unit: &str) -> bool {
         let series = self.scenario_field("units")[unit].clone();
@@ -91,11 +100,7 @@ impl ActivityLog for World {
 
 impl ConsumerLock for World {
     fn acquire(&mut self) -> Result<(), TalkFailure> {
-        if self.scenario_field("consumer_busy") == &Value::Bool(true) {
-            return Err(TalkFailure::new(BUSY_MESSAGE));
-        }
-        self.stamp(json!({"call": "consumer", "event": "acquire"}));
-        Ok(())
+        acquire_consumer(self)
     }
 
     fn release(&mut self) {

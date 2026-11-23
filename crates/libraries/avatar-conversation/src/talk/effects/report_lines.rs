@@ -10,19 +10,19 @@ fn line(fields: Vec<(&str, Json)>) -> String {
     ascii_only(&encode(&Json::Object(object)))
 }
 
-fn ascii_only(encoded: &str) -> String {
-    let mut escaped = String::new();
-    for character in encoded.chars() {
-        let mut units = [0_u16; 2];
-        match character.is_ascii() {
-            true => escaped.push(character),
-            false => character
-                .encode_utf16(&mut units)
-                .iter()
-                .for_each(|unit| escaped.push_str(&format!("\\u{unit:04x}"))),
-        }
+fn escaped(character: char) -> String {
+    if character.is_ascii() {
+        return character.to_string();
     }
-    escaped
+    let mut units = [0_u16; 2];
+    let encoded = character.encode_utf16(&mut units);
+    encoded
+        .iter()
+        .fold(String::new(), |text, unit| text + &format!("\\u{unit:04x}"))
+}
+
+fn ascii_only(encoded: &str) -> String {
+    encoded.chars().map(escaped).collect()
 }
 
 fn text(value: &str) -> Json {

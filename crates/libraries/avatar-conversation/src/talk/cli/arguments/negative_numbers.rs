@@ -24,14 +24,11 @@ fn unclassifiable(token: &str) -> bool {
 
 pub(super) fn reject_unclassifiable_numbers(arguments: &[String]) -> Result<(), Error> {
     let before_separator = arguments.iter().take_while(|token| token.as_str() != "--");
-    match before_separator
+    let offender = before_separator
         .map(String::as_str)
-        .find(|token| unclassifiable(token))
-    {
-        Some(token) => Err(Error::raw(
-            ErrorKind::UnknownArgument,
-            format!("unrecognized arguments: {token}\n"),
-        )),
-        None => Ok(()),
-    }
+        .find(|token| unclassifiable(token));
+    offender.map_or(Ok(()), |token| {
+        let message = format!("unrecognized arguments: {token}\n");
+        Err(Error::raw(ErrorKind::UnknownArgument, message))
+    })
 }

@@ -1,5 +1,7 @@
 mod arguments;
+mod entries;
 mod fake;
+mod properties;
 mod scenarios;
 
 use serde_json::Value;
