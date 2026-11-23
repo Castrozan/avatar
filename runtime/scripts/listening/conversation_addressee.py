@@ -59,6 +59,13 @@ def forget(directory):
         (directory / ADDRESSEE_FILE).unlink(missing_ok=True)
 
 
+def holder_other_than(directory, pane):
+    addressee = current(directory)
+    if addressee is None or pane is None or addressee.pane == pane:
+        return None
+    return addressee
+
+
 def addresses(directory, pane):
     addressee = current(directory)
     return addressee is None or pane is None or addressee.pane == pane

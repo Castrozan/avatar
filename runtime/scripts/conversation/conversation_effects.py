@@ -3,6 +3,7 @@ import os
 import subprocess
 import sys
 
+import conversation_addressee
 import conversation_report
 import default_holder
 import discord_call
@@ -28,6 +29,7 @@ CONVERSATION_OWNS_THE_ROOM = (
     "avatar-talk open --live to move the room to the live voice"
 )
 COMMAND_TIMEOUT_SECONDS = 120
+HELD_PHASES = (ConversationPhase.OPEN, ConversationPhase.LIVE)
 
 
 class WindowPresence(enum.StrEnum):
@@ -118,7 +120,13 @@ def refuse_closed(arguments, directory):
 
 def close_or_return_the_floor(arguments, directory):
     pane = os.environ.get(remote_agent.PANE_ENVIRONMENT_VARIABLE)
-    open_now = conversation_state.observe(directory) is ConversationPhase.OPEN
+    phase = conversation_state.observe(directory)
+    held = phase in HELD_PHASES
+    other = conversation_addressee.holder_other_than(directory, pane) if held else None
+    if other:
+        conversation_report.print_room_held_by(other.servant)
+        return
+    open_now = phase is ConversationPhase.OPEN
     holder = default_holder.floor_returns_to(directory, pane) if open_now else None
     if holder is None:
         close_conversation(arguments, directory)

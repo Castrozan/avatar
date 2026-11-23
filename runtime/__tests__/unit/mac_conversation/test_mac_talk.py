@@ -162,6 +162,19 @@ def test_closing_leaves_no_record_of_what_was_said(this_mac, tmp_path, capsys):
     assert json.loads(capsys.readouterr().out) == {"open": False}
 
 
+def test_a_pane_the_room_turned_away_from_cannot_close_this_macs_conversation(
+    this_mac, tmp_path, monkeypatch, capsys
+):
+    conversation_addressee.hand_to(tmp_path, Addressee("w1:p1", "Sasaki Kojirou", 0))
+    monkeypatch.setenv("HERDR_PANE_ID", "w1:p2")
+    mac_talk.close_conversation(SimpleNamespace(), tmp_path)
+    this_mac.stop.assert_not_called()
+    assert json.loads(capsys.readouterr().out) == {
+        "open": True,
+        "room_held_by": "Sasaki Kojirou",
+    }
+
+
 def test_hearing_a_closed_conversation_is_refused(this_mac):
     this_mac.phase = ConversationPhase.CLOSED
     with pytest.raises(mac_talk.utterances.ConversationClosed):

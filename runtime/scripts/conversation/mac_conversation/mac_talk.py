@@ -1,6 +1,8 @@
+import os
 import subprocess
 import sys
 
+import conversation_addressee
 import conversation_report
 import conversation_state
 import listener_runtime
@@ -11,6 +13,7 @@ import mac_meeting
 import mac_seat_client
 import mac_stage
 import mac_turns
+import remote_agent
 import remote_talk
 import room_reach
 import utterances
@@ -90,6 +93,11 @@ def open_conversation(arguments, directory):
 
 
 def close_conversation(arguments, directory):
+    pane = os.environ.get(remote_agent.PANE_ENVIRONMENT_VARIABLE)
+    other = conversation_addressee.holder_other_than(directory, pane)
+    if other:
+        conversation_report.print_room_held_by(other.servant)
+        return
     end_conversation(directory)
     conversation_report.print_closed()
 
