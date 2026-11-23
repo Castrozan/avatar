@@ -68,7 +68,7 @@ fn decision_fields(utterance: &Utterance, names: &[String], elapsed: f64) -> Val
     })
 }
 
-fn whole_milliseconds(seconds: f64) -> Value {
+pub(crate) fn whole_milliseconds(seconds: f64) -> Value {
     let rounded = format!("{:.0}", seconds * 1000.0);
     json!(rounded.parse::<i64>().unwrap_or_default())
 }

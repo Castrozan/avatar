@@ -16,6 +16,12 @@ pub struct VoiceAddressing<'a> {
     pub(super) recent_turns: VecDeque<Turn>,
 }
 
+#[derive(Clone, Debug, Default)]
+pub struct AddressingState {
+    pub vocabulary: Option<Vocabulary>,
+    pub recent_turns: VecDeque<Turn>,
+}
+
 impl<'a> VoiceAddressing<'a> {
     #[must_use]
     pub fn new(
@@ -28,6 +34,28 @@ impl<'a> VoiceAddressing<'a> {
             sessions,
             vocabulary,
             recent_turns: VecDeque::new(),
+        }
+    }
+
+    #[must_use]
+    pub fn resume(
+        boundaries: &'a dyn AddressingBoundaries,
+        sessions: &'a dyn SessionSource,
+        state: AddressingState,
+    ) -> Self {
+        Self {
+            boundaries,
+            sessions,
+            vocabulary: state.vocabulary,
+            recent_turns: state.recent_turns,
+        }
+    }
+
+    #[must_use]
+    pub fn into_state(self) -> AddressingState {
+        AddressingState {
+            vocabulary: self.vocabulary,
+            recent_turns: self.recent_turns,
         }
     }
 

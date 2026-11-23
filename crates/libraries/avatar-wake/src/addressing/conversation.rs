@@ -44,12 +44,13 @@ fn turned_to(
 ) -> Option<WakeMatch> {
     let holder = addressing.boundaries.addressee();
     let candidates = by_called_name(&unheld(named, holder.as_ref()));
-    let discord = addressing.boundaries.open_seat() == Some(Seat::Discord);
-    match (candidates.is_empty(), discord) {
-        (true, _) => None,
-        (false, true) => discord_greeting(addressing, entry, holder.as_ref()),
-        (false, false) => turned_utterance(addressing, entry, holder, &candidates),
+    if candidates.is_empty() {
+        return None;
     }
+    if addressing.boundaries.open_seat() == Some(Seat::Discord) {
+        return discord_greeting(addressing, entry, holder.as_ref());
+    }
+    turned_utterance(addressing, entry, holder, &candidates)
 }
 
 fn discord_greeting(
