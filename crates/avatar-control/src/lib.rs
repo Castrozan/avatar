@@ -2,6 +2,7 @@ pub mod browser;
 pub mod camera;
 pub mod command;
 pub mod control;
+pub mod owned_browser;
 pub mod playback;
 pub mod server;
 pub mod session;

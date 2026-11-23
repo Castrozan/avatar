@@ -4,11 +4,13 @@ use clap::{Parser, Subcommand};
 use std::io::{self, Write};
 use std::process::ExitCode;
 
+mod browser;
 mod control;
 mod dispatch;
 mod interruption;
 mod serve;
 
+use browser::BrowserOptions;
 use control::ControlOptions;
 use dispatch::DispatchOptions;
 use serve::ServeOptions;
@@ -35,6 +37,8 @@ enum Command {
     Dispatch(DispatchOptions),
     #[command(about = "Serve the renderer directory from AVATAR_RENDERER_ROOT without caching")]
     Serve(ServeOptions),
+    #[command(about = "Run the owned avatar browser: supervise URL, endpoint, stop or controls")]
+    Browser(BrowserOptions),
 }
 
 fn main() -> ExitCode {
@@ -52,6 +56,7 @@ impl Command {
             Self::Control(options) => succeed(control::run(&options)),
             Self::Dispatch(options) => dispatch::run(&options),
             Self::Serve(options) => succeed(serve::run(&options)),
+            Self::Browser(options) => succeed(browser::run(&options)),
         }
     }
 }
