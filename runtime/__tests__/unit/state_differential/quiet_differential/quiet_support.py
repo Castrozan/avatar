@@ -1,6 +1,7 @@
 from conversation_seat import Seat
 from hypothesis import strategies as st
 from listener_session import ListenerPurpose
+from rust_floor_recording import closing_reason
 
 SECONDS = st.integers(0, 40_000).map(lambda tenths: tenths / 10)
 
@@ -27,7 +28,7 @@ class RecordingBoundaries:
         return self.ended
 
     def report(self, message):
-        self.reports.append(message)
+        self.reports.append(closing_reason(message))
 
     def close_conversation(self):
         self.close_calls += 1

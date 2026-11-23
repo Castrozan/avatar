@@ -1,9 +1,18 @@
+import json
+
 UNOBSERVED_DEFAULTS = {
     "quiet_seconds": 0.0,
     "purpose": "conversation",
     "seat": "room",
     "call_ended": False,
 }
+
+
+def closing_reason(message):
+    try:
+        return json.loads(message)["reason"]
+    except (ValueError, KeyError, TypeError):
+        return message
 
 
 class RecordingFloorBoundaries:
@@ -45,7 +54,7 @@ class RecordingQuietBoundaries:
         return self.observe("call_ended", self.boundaries.discord_call_ended())
 
     def report(self, message):
-        self.reports.append(message)
+        self.reports.append(closing_reason(message))
         self.boundaries.report(message)
 
     def close_conversation(self):

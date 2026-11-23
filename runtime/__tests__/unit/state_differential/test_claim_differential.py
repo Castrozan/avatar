@@ -5,7 +5,7 @@ import threading
 import time
 
 import conversation_addressee
-import wake_claim
+from arbitration import wake_claim
 from claim_differential.world import (
     HOST,
     NO_FIXTURE_CHECK,

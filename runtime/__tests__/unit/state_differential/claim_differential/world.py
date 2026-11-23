@@ -4,7 +4,7 @@ import types
 
 import listener_runtime
 import remote_agent
-import wake_claim
+from arbitration import wake_claim
 from hypothesis import HealthCheck, settings
 from hypothesis import strategies as st
 

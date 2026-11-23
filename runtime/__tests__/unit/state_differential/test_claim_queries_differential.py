@@ -3,7 +3,7 @@ import pathlib
 import tempfile
 
 import remote_agent
-import wake_claim
+from arbitration import wake_claim
 from claim_differential.world import (
     CONVERSATIONS,
     DIRECTORY,
