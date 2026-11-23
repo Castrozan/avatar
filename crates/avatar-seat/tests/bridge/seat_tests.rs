@@ -14,7 +14,7 @@ async fn the_page_and_its_health_are_served_and_nothing_else() -> Outcome<()> {
         running.get("/listener.json").await?,
     );
     assert_eq!((page, missing.0), ((200, "<p>seat</p>".to_owned()), 404));
-    assert_eq!(flags(&running.health().await?), (json!(false), json!(true)));
+    assert_eq!(flags(&wait_meeting(&running).await?), (json!(false), json!(true)));
     Ok(())
 }
 

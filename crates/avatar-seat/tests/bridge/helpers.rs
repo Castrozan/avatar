@@ -79,6 +79,19 @@ pub(crate) async fn wait_released(running: &Running) -> Outcome<Value> {
     timeout(FIVE_SECONDS, poll_released(running)).await?
 }
 
+async fn poll_meeting(running: &Running) -> Outcome<Value> {
+    let mut health = running.health().await?;
+    while health["meeting"] != true {
+        tokio::time::sleep(Duration::from_millis(10)).await;
+        health = running.health().await?;
+    }
+    Ok(health)
+}
+
+pub(crate) async fn wait_meeting(running: &Running) -> Outcome<Value> {
+    timeout(FIVE_SECONDS, poll_meeting(running)).await?
+}
+
 pub(crate) fn flags(health: &Value) -> (Value, Value) {
     (health["attached"].clone(), health["meeting"].clone())
 }

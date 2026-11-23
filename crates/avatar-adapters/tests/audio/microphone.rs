@@ -1,4 +1,4 @@
-use std::path::Path;
+use std::process::{Command, Stdio};
 use std::thread::sleep;
 use std::time::{Duration, Instant};
 
@@ -38,13 +38,21 @@ fn recorder_pid(tools: &Tools) -> String {
     tools.read("pid").trim().to_owned()
 }
 
+fn is_alive(process: &str) -> bool {
+    Command::new("kill")
+        .args(["-0", process])
+        .stderr(Stdio::null())
+        .status()
+        .is_ok_and(|status| status.success())
+}
+
 #[test]
 fn dropping_the_stream_terminates_a_recorder_that_never_ends() -> TestResult {
     let tools = Tools::with(&[("parec", "echo $$ > \"${0%/*}/pid\"; exec sleep 30")])?;
     let chunks = start(&tools, 16000)?;
-    let process = format!("/proc/{}", recorder_pid(&tools));
-    assert!(Path::new(&process).exists());
+    let process = recorder_pid(&tools);
+    assert!(is_alive(&process));
     drop(chunks);
-    assert!(!Path::new(&process).exists());
+    assert!(!is_alive(&process));
     Ok(())
 }
