@@ -1,4 +1,0 @@
-# file: /home/zanoni/repo/avatar-rust-rewrite/avatar/runtime/scripts/addressing/rust_shadow.py
-# hypothesis_version: 6.151.10
-
-['AVATAR_RUST_ROUTING', 'addressed_session', 'capture_output', 'check', 'error', 'message', 'ok', 'op', 'opens_with_greeting', 'session', 'sessions', 'text', 'timeout']

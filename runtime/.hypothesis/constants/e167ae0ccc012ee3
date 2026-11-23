@@ -1,4 +1,0 @@
-# file: /home/zanoni/repo/avatar-rust-rewrite/avatar/runtime/__tests__/unit/state_differential/claim_differential/world.py
-# hypothesis_version: 6.151.10
-
-[1000000000.0, 100, 150, '\x00', '/srv/avatar-claims', 'Cs', '[1]', 'addressee', 'addressee.json', 'chise room', 'claim', 'claim.claim', 'claimed_at', 'error', 'files', 'garbage é', 'heard_through', 'host', 'kira', 'listening', 'not json', 'now', 'pane', 'result', 'room', 'rooms', 'run', 'servant', 'ssh', 'thishost', 'utf-8', 'wsl:é', '{', '{"host": 1}']

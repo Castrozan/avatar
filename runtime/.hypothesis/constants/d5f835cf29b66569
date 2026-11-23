@@ -1,4 +1,0 @@
-# file: /nix/store/p9s26l7x2nz1skggw2dcj2av3lcb64fi-python3-3.12.14-env/lib/python3.12/shlex.py
-# hypothesis_version: 6.151.10
-
-['"', '"%s", line %d: ', '#', "'", '\'"', '\'"\'"\'', "''", '();<>|&', 'No closing quotation', 'No escaped character', 'Token: ', '[^\\w@%+=:,./-]', '\\', '__main__', 'a', 'c', 'join', 'quote', 'r', 'shlex', 'shlex: raw token=', 'shlex: raw token=EOF', 'shlex: token=', 'shlex: token=EOF', 'split', '~-./*?=']

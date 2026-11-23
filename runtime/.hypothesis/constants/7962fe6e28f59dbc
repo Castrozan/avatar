@@ -1,4 +1,0 @@
-# file: /home/zanoni/repo/avatar-rust-rewrite/avatar/runtime/scripts/listening/transcription/spoken_names.py
-# hypothesis_version: 6.151.10
-
-['Hokusai', 'Katsushika', 'Kingprotea', 'Ozymandias', 'Ozzie', 'Ozzy', 'Protea', 'Quetzal', 'Quetzalcoatl', 'Sanzang', 'Scheherazade', 'Shera', 'Shira', 'Ushiwaka', 'Ushiwakamaru', 'Xuanzang', '[^\\W_]+']

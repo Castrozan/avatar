@@ -1,4 +1,0 @@
-# file: /home/zanoni/repo/avatar-rust-rewrite/avatar/runtime/scripts/wake/wake_boundaries.py
-# hypothesis_version: 6.151.10
-
-[1.0, 120, '--channels=1', '--claim', '--format=s16le', '--latency-msec=100', '--raw', '--room', '--sender', '@DEFAULT_SOURCE@', 'AVATAR_PEER_HOSTS', 'a2a', 'agent', 'avatar-talk', 'avatar-wake', 'close', 'darwin', 'herdr', 'notify', 'open', 'parec', 'prompt', 'transcript.jsonl', 'voice']

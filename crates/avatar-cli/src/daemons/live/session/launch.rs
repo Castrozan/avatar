@@ -12,7 +12,7 @@ use tokio::task::JoinHandle;
 use super::Environment;
 use super::seat::configured_seat;
 use super::tasks::Launch;
-use crate::daemons::live::devices::{PacatSpeaker, sinks_of, stream_microphone};
+use crate::daemons::live::devices::{RoomSpeaker, stream_microphone};
 use crate::daemons::live::records::{RoomHolder, RunClock, StandardOutput, VoiceChoice};
 use crate::daemons::live::room::Room;
 use crate::daemons::live::shutdown::Shutdown;
@@ -84,7 +84,7 @@ pub(super) async fn launch(
 ) -> io::Result<Running> {
     let mut foundation = Foundation::new(environment)?;
     let client = foundation.connect().await?;
-    let speaker = PacatSpeaker::start(RATE, &sinks_of(foundation.seat)?, Arc::clone(shutdown))?;
+    let speaker = RoomSpeaker::start(RATE, foundation.seat, Arc::clone(shutdown))?;
     let (voice, line, received) = voice_line();
     let launch = Launch::new((environment, shutdown), foundation, voice);
     Ok(launch.running(client, speaker, (line, received)))

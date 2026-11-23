@@ -1,4 +1,0 @@
-# file: /home/zanoni/repo/avatar-rust-rewrite/avatar/runtime/scripts/addressing/voice_addressing.py
-# hypothesis_version: 6.151.10
-
-[1000, 'conversation', 'human', 'sequence', 'source', 'speaker', 'text', 'wake']

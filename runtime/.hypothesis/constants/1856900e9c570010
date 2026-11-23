@@ -1,4 +1,0 @@
-# file: /home/zanoni/repo/avatar-rust-rewrite/avatar/runtime/__tests__/floor_runner.py
-# hypothesis_version: 6.151.10
-
-['argv', 'avatar-claim-floor', 'runtime_directory']

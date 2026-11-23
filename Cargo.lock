@@ -164,6 +164,7 @@ dependencies = [
  "avatar-listening",
  "avatar-live",
  "avatar-mac",
+ "avatar-room-audio",
  "avatar-routing",
  "avatar-seat",
  "avatar-transcript",

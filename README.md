@@ -55,7 +55,6 @@ runtime move with one pin. The plugin carries the instructions only: the command
 nix flake check -L
 ```
 
-This builds the packages, runs the unit and integration tests in the Nix sandbox, lints, and evaluates the modules:
-the host role and the NixOS module on Linux, the remote role and the nix-darwin module on macOS. CI runs it on both. To
-run one tier, build `.#checks.x86_64-linux.unit-tests` or `.#checks.x86_64-linux.integration-tests` (or
-`aarch64-darwin`); [`pytest.ini`](pytest.ini) holds the test selection.
+This builds the packages and the Rust workspace checks, lints, and evaluates the modules: the host role and the NixOS
+module on Linux, the remote role and the nix-darwin module on macOS. CI runs it on both. `scripts/check` runs the Rust
+gates alone.

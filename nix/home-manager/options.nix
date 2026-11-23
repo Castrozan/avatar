@@ -81,12 +81,6 @@ in
       description = "The agent-to-agent client providing `bin/a2a`.";
     };
 
-    peerIdentityPythonPath = mkOption {
-      type = types.listOf types.path;
-      default = [ ];
-      description = "Directories that make the Python module `a2a_cli.peer_identity` importable for the floor and wake programs.";
-    };
-
     speechPackage = mkOption {
       type = types.package;
       description = "Package providing `bin/media-speech`, the control server's speech synthesizer.";

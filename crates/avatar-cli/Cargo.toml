@@ -21,6 +21,7 @@ avatar-live = { version = "0.1.0", path = "../avatar-live" }
 avatar-mac = { version = "0.1.0", path = "../avatar-mac" }
 avatar-listening = { version = "0.1.0", path = "../avatar-listening" }
 avatar-floor = { version = "0.1.0", path = "../libraries/avatar-floor" }
+avatar-room-audio = { version = "0.1.0", path = "../libraries/avatar-room-audio" }
 avatar-routing = { version = "0.1.0", path = "../libraries/avatar-routing" }
 avatar-seat = { version = "0.1.0", path = "../avatar-seat" }
 avatar-transcript = { version = "0.1.0", path = "../libraries/avatar-transcript" }

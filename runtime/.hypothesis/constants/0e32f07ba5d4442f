@@ -1,4 +1,0 @@
-# file: /home/zanoni/repo/avatar-rust-rewrite/avatar/runtime/scripts/listening/transcription/transcriber.py
-# hypothesis_version: 6.151.10
-
-[200, '.local/share/hex', '/models', '127.0.0.1', 'Authorization', 'Content-Type', 'GET', 'POST', '__main__', 'audio/wav', 'darwin', 'id', 'installed', 'language', 'local-api.json', 'model', 'parakeet_v3', 'port', 'transcript', 'wb']

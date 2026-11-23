@@ -11,21 +11,9 @@
 let
   scripts = ../../runtime/scripts;
   characters = import ../../runtime/cast/characters.nix { inherit pkgs; };
-  conversationPython = pkgs.python312.withPackages (
-    packages: with packages; [
-      numpy
-      onnxruntime
-      websockets
-    ]
-  );
-  modules = lib.concatStringsSep ":" [
+  seatHolderModules = lib.concatStringsSep ":" [
     "${scripts}/listening"
-    "${scripts}/echo"
-    "${scripts}/conversation"
     "${scripts}/conversation/remote_seat"
-    "${scripts}/conversation/mac_conversation"
-    "${scripts}/wake"
-    "${scripts}/wake/mac"
   ];
   environment = ''
     export AVATAR_HOST=${host}
@@ -43,7 +31,6 @@ let
     }
     export AVATAR_ORDINARY_WORDS=${programs.ordinaryWords}
     export AVATAR_SERVANT_ROSTER=${servantRoster}
-    export PYTHONPATH=${modules}
   '';
   seatPlay = pkgs.writeShellScriptBin "avatar-seat-play" ''
     ${environment}
@@ -51,7 +38,6 @@ let
   '';
 in
 {
-  inherit modules;
   command = programs.unclaimedCommand;
   controlServer = pkgs.writeShellScriptBin "avatar-control-server" ''
     export PATH=${
@@ -75,8 +61,8 @@ in
       ]
     }:$PATH
     ${environment}
-    export PYTHONPATH=$PYTHONPATH:${scripts}
-    export AVATAR_SEAT_HOLDER_PYTHON=${conversationPython}/bin/python3
+    export PYTHONPATH=${seatHolderModules}
+    export AVATAR_SEAT_HOLDER_PYTHON=${pkgs.python312}/bin/python3
     export AVATAR_SEAT_HOLDER=${scripts}/conversation/remote_seat/seat_holder.py
     exec ${programs.avatarExecutable} mac talk "$@"
   '';
@@ -89,7 +75,7 @@ in
     '';
   listener = pkgs.writeShellScriptBin "avatar-conversation-listener" ''
     ${environment}
-    exec ${conversationPython}/bin/python3 ${scripts}/listening/listener.py
+    exec ${programs.avatarExecutable} listener
   '';
   live = pkgs.writeShellScriptBin "avatar-live" ''
     export PATH=${
@@ -100,7 +86,6 @@ in
     }:$PATH
     ${environment}
     export AVATAR_CHARACTER_VOICES=${import ../../runtime/cast/character-voices.nix { inherit pkgs; }}
-    export PYTHONPATH=${scripts}/live:$PYTHONPATH
-    exec ${conversationPython}/bin/python3 ${scripts}/live/live_bridge.py
+    exec ${programs.avatarExecutable} live
   '';
 }

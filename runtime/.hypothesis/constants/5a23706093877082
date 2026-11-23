@@ -1,4 +1,0 @@
-# file: /home/zanoni/repo/avatar-rust-rewrite/avatar/runtime/scripts/wake/floor_cli.py
-# hypothesis_version: 6.151.10
-
-['--agent', '--heard-through', '--speaker', '__main__', 'avatar-claim-floor']

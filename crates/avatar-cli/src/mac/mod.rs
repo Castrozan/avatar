@@ -6,7 +6,7 @@ use clap::{Args, Subcommand};
 use crate::wake::WakeOptions;
 
 mod call_capture;
-mod environment;
+pub(crate) mod environment;
 mod hosting;
 mod meeting;
 mod play;

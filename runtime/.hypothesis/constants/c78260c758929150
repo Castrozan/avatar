@@ -1,4 +1,0 @@
-# file: /nix/store/p9s26l7x2nz1skggw2dcj2av3lcb64fi-python3-3.12.14-env/lib/python3.12/importlib/util.py
-# hypothesis_version: 6.151.10
-
-['.', '__class__', '__dict__', '__path__', '__spec__', 'exec_module', 'is_loading', 'lock']

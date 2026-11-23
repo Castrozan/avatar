@@ -9,13 +9,13 @@ use tokio::sync::mpsc;
 use tokio::time::{Instant, Interval, MissedTickBehavior, interval_at};
 
 use super::hand_offs::HandOffs;
-use crate::daemons::live::devices::PacatSpeaker;
+use crate::daemons::live::devices::RoomSpeaker;
 use crate::daemons::live::records::{RunClock, StandardOutput, TranscriptLog};
 use crate::daemons::live::voice::Occurrence;
 
 const TURN_CHECK: Duration = Duration::from_millis(200);
 
-pub(crate) type Room = Conversation<PacatSpeaker, TranscriptLog, StandardOutput>;
+pub(crate) type Room = Conversation<RoomSpeaker, TranscriptLog, StandardOutput>;
 
 enum Step {
     Occurred(Occurrence),

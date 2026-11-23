@@ -16,11 +16,20 @@ use super::hearing::{Hearing, ReplyHandle};
 use super::models::{
     SharedTurnModel, TurnJudge, load_turn_model, load_voice_activity, voice_activity_path,
 };
+use crate::support::mac_capture::mac_capture_command;
 
 type CaptureWords = fn(&str) -> Vec<String>;
 
+fn machine_words(device: &str) -> Vec<String> {
+    if cfg!(target_os = "macos") {
+        mac_capture_command(device)
+    } else {
+        capture_command(device)
+    }
+}
+
 fn capture_words(device: &str) -> Vec<String> {
-    command_by_device(capture_command)(device)
+    command_by_device(machine_words)(device)
 }
 
 struct BargeInSetup {
