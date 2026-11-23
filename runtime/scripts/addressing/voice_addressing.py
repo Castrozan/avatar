@@ -5,6 +5,12 @@ import addressing_decision
 import transcript_log
 from addressing_decision import Route, Turn
 from conversation_seat import Seat
+from rust_shadow import (
+    ADDRESSED_SESSION,
+    OPENS_WITH_GREETING,
+    SESSIONS_HEARD_ANYWHERE,
+    RustShadow,
+)
 from transcription.spoken_names import called_name
 from wake_phrase import (
     MESSAGE_EDGE,
@@ -52,15 +58,31 @@ class VoiceAddressing:
         self.known_sessions = known_sessions
         self.refreshed_sessions = refreshed_sessions
         self.recent_turns = collections.deque(maxlen=CONTEXT_TURNS)
+        self.shadow = RustShadow(boundaries.report)
 
     def forget_turns(self):
         self.recent_turns.clear()
 
+    def opens_with_greeting(self, text):
+        found = opens_with_greeting(text)
+        self.shadow.compare(OPENS_WITH_GREETING, text, (), found)
+        return found
+
+    def sessions_heard_anywhere(self, text, sessions):
+        found = sessions_heard_anywhere(text, sessions)
+        self.shadow.compare(SESSIONS_HEARD_ANYWHERE, text, sessions, found)
+        return found
+
+    def addressed_session(self, text, sessions):
+        found = addressed_session(text, sessions)
+        self.shadow.compare(ADDRESSED_SESSION, text, sessions, found)
+        return found
+
     def live_sessions_named(self, text):
-        if opens_with_greeting(text) or sessions_heard_anywhere(
+        if self.opens_with_greeting(text) or self.sessions_heard_anywhere(
             text, self.known_sessions()
         ):
-            return sessions_heard_anywhere(text, self.refreshed_sessions())
+            return self.sessions_heard_anywhere(text, self.refreshed_sessions())
         return []
 
     def wake_match(self, heard):
@@ -77,10 +99,10 @@ class VoiceAddressing:
         return match
 
     def greeted_at_the_wake(self, heard):
-        if not opens_with_greeting(heard):
+        if not self.opens_with_greeting(heard):
             self.boundaries.report("Ignored wake: no opening greeting")
             return None
-        match = addressed_session(heard, self.refreshed_sessions())
+        match = self.addressed_session(heard, self.refreshed_sessions())
         if match is None:
             self.boundaries.report("Ignored wake: no unique live servant")
         return match
@@ -122,9 +144,9 @@ class VoiceAddressing:
         return self.chosen(verdict, candidates, utterance.text)
 
     def greeted_in_conversation(self, text, holder_of):
-        if not opens_with_greeting(text):
+        if not self.opens_with_greeting(text):
             return None
-        match = addressed_session(text, self.refreshed_sessions())
+        match = self.addressed_session(text, self.refreshed_sessions())
         if match is None or holds_the_floor(holder_of(), match.session):
             return None
         return match
