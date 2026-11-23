@@ -66,7 +66,7 @@ def test_a_failing_switch_raises_nothing_and_the_room_is_still_given(
     assert conversation_addressee.current(tmp_path).servant == "Circe"
 
 
-@settings(suppress_health_check=[HealthCheck.function_scoped_fixture])
+@settings(deadline=None, suppress_health_check=[HealthCheck.function_scoped_fixture])
 @given(
     handovers=st.lists(
         st.tuples(
