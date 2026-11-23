@@ -37,13 +37,18 @@ fn aligned(row: &VowelRow) -> Vec<AlignedCharacter<'_>> {
         .collect()
 }
 
+fn check_vowel(vowel: &SpokenVowel, record: &VowelRecord) {
+    assert_eq!(vowel.shape.name(), record.shape);
+    assert_eq!(vowel.start.to_bits(), record.start.to_bits());
+    assert_eq!(vowel.end.to_bits(), record.end.to_bits());
+}
+
 fn check_vowels(actual: &[SpokenVowel], expected: &[VowelRecord]) {
     assert_eq!(actual.len(), expected.len());
-    for (vowel, record) in actual.iter().zip(expected) {
-        assert_eq!(vowel.shape.name(), record.shape);
-        assert_eq!(vowel.start.to_bits(), record.start.to_bits());
-        assert_eq!(vowel.end.to_bits(), record.end.to_bits());
-    }
+    actual
+        .iter()
+        .zip(expected)
+        .for_each(|(vowel, record)| check_vowel(vowel, record));
 }
 
 fn check_row(row: &VowelRow) {
