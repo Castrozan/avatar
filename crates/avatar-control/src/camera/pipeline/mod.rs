@@ -33,6 +33,7 @@ impl VideoDeviceFramePipeline {
         }
     }
 
+    #[must_use]
     pub fn write_frame(&self, frame: Vec<u8>) -> bool {
         self.frames
             .as_ref()
