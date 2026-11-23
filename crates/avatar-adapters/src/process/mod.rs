@@ -1,9 +1,11 @@
+mod captured;
 mod timed;
 
 use std::time::Duration;
 
 use avatar_wake::reach::CommandRunner;
 
+pub use captured::{Captured, run_captured};
 pub use timed::{Completed, run_with_timeout};
 
 pub struct SubprocessRunner;

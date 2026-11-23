@@ -77,13 +77,18 @@ checksum = "f2032f911046de80f0a198e0901378627c33f59ea0ac00e363d481118bd70a53"
 name = "avatar-adapters"
 version = "0.1.0"
 dependencies = [
+ "avatar-conversation",
+ "avatar-doctor",
+ "avatar-holder",
  "avatar-wake",
+ "jiff",
  "nix",
  "proptest",
  "reqwest",
  "serde",
  "serde_json",
  "tempfile",
+ "tokio",
 ]
 
 [[package]]
@@ -983,6 +988,7 @@ dependencies = [
  "portable-atomic",
  "portable-atomic-util",
  "serde_core",
+ "windows-link",
 ]
 
 [[package]]
