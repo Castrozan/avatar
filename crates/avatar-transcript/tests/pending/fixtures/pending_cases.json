@@ -1,0 +1,187 @@
+[
+ {
+  "program": [
+   "begin",
+   "finish"
+  ],
+  "states": [
+   {
+    "count": 0,
+    "marker": false
+   },
+   {
+    "count": 1,
+    "marker": true
+   },
+   {
+    "count": 0,
+    "marker": false
+   }
+  ]
+ },
+ {
+  "program": [
+   "finish"
+  ],
+  "states": [
+   {
+    "count": 0,
+    "marker": false
+   },
+   {
+    "count": -1,
+    "marker": false
+   }
+  ]
+ },
+ {
+  "program": [
+   "begin",
+   "begin",
+   "finish"
+  ],
+  "states": [
+   {
+    "count": 0,
+    "marker": false
+   },
+   {
+    "count": 1,
+    "marker": true
+   },
+   {
+    "count": 2,
+    "marker": true
+   },
+   {
+    "count": 1,
+    "marker": true
+   }
+  ]
+ },
+ {
+  "program": [
+   "begin",
+   "begin",
+   "finish",
+   "finish"
+  ],
+  "states": [
+   {
+    "count": 0,
+    "marker": false
+   },
+   {
+    "count": 1,
+    "marker": true
+   },
+   {
+    "count": 2,
+    "marker": true
+   },
+   {
+    "count": 1,
+    "marker": true
+   },
+   {
+    "count": 0,
+    "marker": false
+   }
+  ]
+ },
+ {
+  "program": [
+   "begin",
+   "clear"
+  ],
+  "states": [
+   {
+    "count": 0,
+    "marker": false
+   },
+   {
+    "count": 1,
+    "marker": true
+   },
+   {
+    "count": 0,
+    "marker": false
+   }
+  ]
+ },
+ {
+  "program": [
+   "begin",
+   "begin",
+   "clear",
+   "finish"
+  ],
+  "states": [
+   {
+    "count": 0,
+    "marker": false
+   },
+   {
+    "count": 1,
+    "marker": true
+   },
+   {
+    "count": 2,
+    "marker": true
+   },
+   {
+    "count": 0,
+    "marker": false
+   },
+   {
+    "count": -1,
+    "marker": false
+   }
+  ]
+ },
+ {
+  "program": [
+   "clear"
+  ],
+  "states": [
+   {
+    "count": 0,
+    "marker": false
+   },
+   {
+    "count": 0,
+    "marker": false
+   }
+  ]
+ },
+ {
+  "program": [
+   "begin",
+   "finish",
+   "finish",
+   "begin"
+  ],
+  "states": [
+   {
+    "count": 0,
+    "marker": false
+   },
+   {
+    "count": 1,
+    "marker": true
+   },
+   {
+    "count": 0,
+    "marker": false
+   },
+   {
+    "count": -1,
+    "marker": false
+   },
+   {
+    "count": 0,
+    "marker": true
+   }
+  ]
+ }
+]

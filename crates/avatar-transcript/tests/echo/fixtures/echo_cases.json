@@ -1,0 +1,478 @@
+{
+ "normalize": [
+  {
+   "text": "Let's start the review, everyone.",
+   "normalized": "lets start the review everyone"
+  },
+  {
+   "text": "  Hello,   WORLD!!  ",
+   "normalized": "hello world"
+  },
+  {
+   "text": "",
+   "normalized": ""
+  },
+  {
+   "text": "...",
+   "normalized": ""
+  },
+  {
+   "text": "tab\there\nnewline",
+   "normalized": "tab here newline"
+  },
+  {
+   "text": "Café naïve ÉCOLE",
+   "normalized": "café naïve école"
+  },
+  {
+   "text": "snake_case-dash 123",
+   "normalized": "snake_casedash 123"
+  },
+  {
+   "text": "emoji 😀 ok",
+   "normalized": "emoji ok"
+  },
+  {
+   "text": "İstanbul",
+   "normalized": "istanbul"
+  },
+  {
+   "text": "a\u001cb",
+   "normalized": "a b"
+  },
+  {
+   "text": "x y",
+   "normalized": "x y"
+  }
+ ],
+ "resemble": [
+  {
+   "first": "start the review",
+   "second": "lets start the review everyone",
+   "resembles": true,
+   "ratio": 0.6956521739130435
+  },
+  {
+   "first": "yes sure",
+   "second": "yes sure that works for the whole team",
+   "resembles": false,
+   "ratio": 0.34782608695652173
+  },
+  {
+   "first": "see you tomorrow morning",
+   "second": "see you tomorrow morning",
+   "resembles": true,
+   "ratio": 1.0
+  },
+  {
+   "first": "no no no",
+   "second": "no no no",
+   "resembles": true,
+   "ratio": 1.0
+  },
+  {
+   "first": "",
+   "second": "",
+   "resembles": true,
+   "ratio": 1.0
+  },
+  {
+   "first": "",
+   "second": "abc",
+   "resembles": false,
+   "ratio": 0.0
+  },
+  {
+   "first": "abc",
+   "second": "",
+   "resembles": false,
+   "ratio": 0.0
+  },
+  {
+   "first": "abcd",
+   "second": "abce",
+   "resembles": true,
+   "ratio": 0.75
+  },
+  {
+   "first": "abcdefgh",
+   "second": "abcdxfgh",
+   "resembles": true,
+   "ratio": 0.875
+  },
+  {
+   "first": "the quick brown fox",
+   "second": "the quick brown dog jumps",
+   "resembles": true,
+   "ratio": 0.7727272727272727
+  },
+  {
+   "first": "one two three four",
+   "second": "four three two one",
+   "resembles": false,
+   "ratio": 0.5
+  },
+  {
+   "first": "hello world",
+   "second": "hello world hello world",
+   "resembles": false,
+   "ratio": 0.6470588235294118
+  },
+  {
+   "first": "abc def",
+   "second": "xyz abc def qrs",
+   "resembles": false,
+   "ratio": 0.6363636363636364
+  },
+  {
+   "first": "alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta",
+   "second": "alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta extra",
+   "resembles": true,
+   "ratio": 0.9945848375451264
+  },
+  {
+   "first": "alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta",
+   "second": "omega beta gamma delta epsilon zeta eta theta omega beta gamma delta epsilon zeta eta theta omega beta gamma delta epsilon zeta eta theta omega beta gamma delta epsilon zeta eta theta omega beta gamma delta epsilon zeta eta theta omega beta gamma delta epsilon zeta eta theta omega beta gamma delta epsilon zeta eta theta omega beta gamma delta epsilon zeta eta theta omega beta gamma delta epsilon zeta eta theta omega beta gamma delta epsilon zeta eta theta omega beta gamma delta epsilon zeta eta theta omega beta gamma delta epsilon zeta eta theta",
+   "resembles": false,
+   "ratio": 0.0
+  },
+  {
+   "first": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+   "second": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaab",
+   "resembles": true,
+   "ratio": 0.9966666666666667
+  },
+  {
+   "first": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbcccccccccc",
+   "second": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+   "resembles": true,
+   "ratio": 0.9803921568627451
+  },
+  {
+   "first": "qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq w w w w w w w w w w w w w w w w w w w w w w w w w w w w w w w w w w w w w w w w w w w w w w w w w w w w w w w w w w w w",
+   "second": "qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq z z z z z z z z z z z z z z z z z z z z z z z z z z z z z z z z z z z z z z z z z z z z z z z z z z z z z z z z z z z z",
+   "resembles": false,
+   "ratio": 0.47058823529411764
+  }
+ ],
+ "scenarios": [
+  {
+   "steps": [
+    {
+     "source": "meeting",
+     "text": "Let's start the review, everyone.",
+     "now": 100
+    },
+    {
+     "source": "human",
+     "text": "lets start the review everyone",
+     "now": 103
+    }
+   ],
+   "echoes": [
+    false,
+    true
+   ]
+  },
+  {
+   "steps": [
+    {
+     "source": "human",
+     "text": "start the review",
+     "now": 100
+    },
+    {
+     "source": "meeting",
+     "text": "okay so let us start the review now",
+     "now": 101
+    }
+   ],
+   "echoes": [
+    false,
+    true
+   ]
+  },
+  {
+   "steps": [
+    {
+     "source": "human",
+     "text": "yes sure",
+     "now": 100
+    },
+    {
+     "source": "meeting",
+     "text": "yes sure that works for the whole team",
+     "now": 101
+    }
+   ],
+   "echoes": [
+    false,
+    false
+   ]
+  },
+  {
+   "steps": [
+    {
+     "source": "human",
+     "text": "no no no",
+     "now": 100
+    },
+    {
+     "source": "human",
+     "text": "no no no",
+     "now": 101
+    }
+   ],
+   "echoes": [
+    false,
+    false
+   ]
+  },
+  {
+   "steps": [
+    {
+     "source": "meeting",
+     "text": "see you tomorrow morning",
+     "now": 100
+    },
+    {
+     "source": "human",
+     "text": "see you tomorrow morning",
+     "now": 116
+    }
+   ],
+   "echoes": [
+    false,
+    false
+   ]
+  },
+  {
+   "steps": [
+    {
+     "source": "meeting",
+     "text": "see you tomorrow morning",
+     "now": 100
+    },
+    {
+     "source": "human",
+     "text": "see you tomorrow morning",
+     "now": 115
+    }
+   ],
+   "echoes": [
+    false,
+    true
+   ]
+  },
+  {
+   "steps": [
+    {
+     "source": "a",
+     "text": "hello there friend",
+     "now": 0
+    },
+    {
+     "source": "b",
+     "text": "hello there friend",
+     "now": 15
+    },
+    {
+     "source": "c",
+     "text": "hello there friend!",
+     "now": 15
+    }
+   ],
+   "echoes": [
+    false,
+    true,
+    true
+   ]
+  },
+  {
+   "steps": [
+    {
+     "source": "a",
+     "text": "good morning team",
+     "now": 10
+    },
+    {
+     "source": "a",
+     "text": "good morning team",
+     "now": 11
+    },
+    {
+     "source": "b",
+     "text": "good morning team",
+     "now": 12
+    }
+   ],
+   "echoes": [
+    false,
+    false,
+    true
+   ]
+  },
+  {
+   "steps": [
+    {
+     "source": "a",
+     "text": "hi there all",
+     "now": 0
+    },
+    {
+     "source": "b",
+     "text": "...",
+     "now": 1
+    },
+    {
+     "source": "c",
+     "text": "",
+     "now": 2
+    }
+   ],
+   "echoes": [
+    false,
+    false,
+    true
+   ]
+  },
+  {
+   "steps": [
+    {
+     "source": "a",
+     "text": "one two three",
+     "now": 0
+    },
+    {
+     "source": "b",
+     "text": "one two three",
+     "now": 0
+    },
+    {
+     "source": "a",
+     "text": "one two three",
+     "now": 1
+    }
+   ],
+   "echoes": [
+    false,
+    true,
+    false
+   ]
+  },
+  {
+   "steps": [
+    {
+     "source": "x",
+     "text": "alpha beta gamma",
+     "now": 1
+    },
+    {
+     "source": "y",
+     "text": "gamma beta alpha",
+     "now": 2
+    },
+    {
+     "source": "y",
+     "text": "alpha beta gamma delta",
+     "now": 3
+    }
+   ],
+   "echoes": [
+    false,
+    false,
+    true
+   ]
+  },
+  {
+   "steps": [
+    {
+     "source": "p",
+     "text": "the same words again",
+     "now": 0
+    },
+    {
+     "source": "q",
+     "text": "the same words again",
+     "now": 20
+    },
+    {
+     "source": "r",
+     "text": "the same words again",
+     "now": 21
+    }
+   ],
+   "echoes": [
+    false,
+    false,
+    true
+   ]
+  },
+  {
+   "steps": [
+    {
+     "source": "m",
+     "text": "please move the slide forward",
+     "now": 5
+    },
+    {
+     "source": "h",
+     "text": "please move the slide",
+     "now": 6
+    },
+    {
+     "source": "h",
+     "text": "move the slide forward please",
+     "now": 7
+    }
+   ],
+   "echoes": [
+    false,
+    true,
+    true
+   ]
+  },
+  {
+   "steps": [
+    {
+     "source": "m",
+     "text": "alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta",
+     "now": 0
+    },
+    {
+     "source": "h",
+     "text": "alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta alpha beta gamma delta epsilon zeta eta theta extra",
+     "now": 1
+    }
+   ],
+   "echoes": [
+    false,
+    true
+   ]
+  },
+  {
+   "steps": [
+    {
+     "source": "m",
+     "text": "ok",
+     "now": 0
+    },
+    {
+     "source": "h",
+     "text": "ok",
+     "now": 1
+    },
+    {
+     "source": "h",
+     "text": "okay so yes",
+     "now": 2
+    }
+   ],
+   "echoes": [
+    false,
+    true,
+    false
+   ]
+  }
+ ]
+}

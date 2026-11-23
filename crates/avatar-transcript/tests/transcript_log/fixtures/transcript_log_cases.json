@@ -1,0 +1,1078 @@
+{
+ "append": [
+  {
+   "time": 1700000000.5,
+   "source": "meeting",
+   "text": "plain",
+   "speaker": "Ana Ruiz",
+   "details": [
+    [
+     "reason",
+     "wake"
+    ],
+    [
+     "pane",
+     "w1:p1"
+    ]
+   ],
+   "line": "{\"sequence\": 1, \"time\": 1700000000.5, \"source\": \"meeting\", \"text\": \"plain\", \"speaker\": \"Ana Ruiz\", \"turn_finished\": true, \"reason\": \"wake\", \"pane\": \"w1:p1\"}\n",
+   "sequence": 1
+  },
+  {
+   "time": 1700000000.5,
+   "source": "meeting",
+   "text": "",
+   "speaker": "Ana Ruiz",
+   "details": [
+    [
+     "sequence_note",
+     null
+    ],
+    [
+     "flag",
+     false
+    ],
+    [
+     "count",
+     7
+    ],
+    [
+     "ratio",
+     0.5
+    ]
+   ],
+   "line": "{\"sequence\": 1, \"time\": 1700000000.5, \"source\": \"meeting\", \"text\": \"\", \"speaker\": \"Ana Ruiz\", \"turn_finished\": true, \"sequence_note\": null, \"flag\": false, \"count\": 7, \"ratio\": 0.5}\n",
+   "sequence": 1
+  },
+  {
+   "time": 1700000000.5,
+   "source": "meeting",
+   "text": "quote \" and \\ backslash",
+   "speaker": null,
+   "details": [
+    [
+     "time",
+     5.0
+    ],
+    [
+     "turn_finished",
+     false
+    ]
+   ],
+   "line": "{\"sequence\": 1, \"time\": 5.0, \"source\": \"meeting\", \"text\": \"quote \\\" and \\\\ backslash\", \"speaker\": null, \"turn_finished\": false}\n",
+   "sequence": 1
+  },
+  {
+   "time": 1700000000.5,
+   "source": "meeting",
+   "text": "line\nbreak\ttab\rcr",
+   "speaker": "Ana Ruiz",
+   "details": [
+    [
+     "sequence",
+     9
+    ],
+    [
+     "reason",
+     "override"
+    ]
+   ],
+   "line": "{\"sequence\": 9, \"time\": 1700000000.5, \"source\": \"meeting\", \"text\": \"line\\nbreak\\ttab\\rcr\", \"speaker\": \"Ana Ruiz\", \"turn_finished\": true, \"reason\": \"override\"}\n",
+   "sequence": 9
+  },
+  {
+   "time": 1700000000.5,
+   "source": "meeting",
+   "text": "\b\f\u0001\u001f",
+   "speaker": "Ana Ruiz",
+   "details": [
+    [
+     "nested",
+     {
+      "inner": [
+       1,
+       null,
+       true
+      ]
+     }
+    ],
+    [
+     "empty",
+     []
+    ]
+   ],
+   "line": "{\"sequence\": 1, \"time\": 1700000000.5, \"source\": \"meeting\", \"text\": \"\\b\\f\\u0001\\u001f\", \"speaker\": \"Ana Ruiz\", \"turn_finished\": true, \"nested\": {\"inner\": [1, null, true]}, \"empty\": []}\n",
+   "sequence": 1
+  },
+  {
+   "time": 1700000000.5,
+   "source": "meeting",
+   "text": "café ünï 😀",
+   "speaker": null,
+   "details": [],
+   "line": "{\"sequence\": 1, \"time\": 1700000000.5, \"source\": \"meeting\", \"text\": \"café ünï 😀\", \"speaker\": null, \"turn_finished\": true}\n",
+   "sequence": 1
+  },
+  {
+   "time": 1700000000.5,
+   "source": "meeting",
+   "text": "  sep",
+   "speaker": "Ana Ruiz",
+   "details": [
+    [
+     "reason",
+     "wake"
+    ],
+    [
+     "pane",
+     "w1:p1"
+    ]
+   ],
+   "line": "{\"sequence\": 1, \"time\": 1700000000.5, \"source\": \"meeting\", \"text\": \"  sep\", \"speaker\": \"Ana Ruiz\", \"turn_finished\": true, \"reason\": \"wake\", \"pane\": \"w1:p1\"}\n",
+   "sequence": 1
+  },
+  {
+   "time": 1700000000.5,
+   "source": "meeting",
+   "text": "{\"nested\": [1, 2]}",
+   "speaker": "Ana Ruiz",
+   "details": [
+    [
+     "sequence_note",
+     null
+    ],
+    [
+     "flag",
+     false
+    ],
+    [
+     "count",
+     7
+    ],
+    [
+     "ratio",
+     0.5
+    ]
+   ],
+   "line": "{\"sequence\": 1, \"time\": 1700000000.5, \"source\": \"meeting\", \"text\": \"{\\\"nested\\\": [1, 2]}\", \"speaker\": \"Ana Ruiz\", \"turn_finished\": true, \"sequence_note\": null, \"flag\": false, \"count\": 7, \"ratio\": 0.5}\n",
+   "sequence": 1
+  },
+  {
+   "time": 1767225600.123456,
+   "source": "meeting",
+   "text": "plain",
+   "speaker": null,
+   "details": [
+    [
+     "time",
+     5.0
+    ],
+    [
+     "turn_finished",
+     false
+    ]
+   ],
+   "line": "{\"sequence\": 1, \"time\": 5.0, \"source\": \"meeting\", \"text\": \"plain\", \"speaker\": null, \"turn_finished\": false}\n",
+   "sequence": 1
+  },
+  {
+   "time": 1767225600.123456,
+   "source": "meeting",
+   "text": "",
+   "speaker": "Ana Ruiz",
+   "details": [
+    [
+     "sequence",
+     9
+    ],
+    [
+     "reason",
+     "override"
+    ]
+   ],
+   "line": "{\"sequence\": 9, \"time\": 1767225600.123456, \"source\": \"meeting\", \"text\": \"\", \"speaker\": \"Ana Ruiz\", \"turn_finished\": true, \"reason\": \"override\"}\n",
+   "sequence": 9
+  },
+  {
+   "time": 1767225600.123456,
+   "source": "meeting",
+   "text": "quote \" and \\ backslash",
+   "speaker": "Ana Ruiz",
+   "details": [
+    [
+     "nested",
+     {
+      "inner": [
+       1,
+       null,
+       true
+      ]
+     }
+    ],
+    [
+     "empty",
+     []
+    ]
+   ],
+   "line": "{\"sequence\": 1, \"time\": 1767225600.123456, \"source\": \"meeting\", \"text\": \"quote \\\" and \\\\ backslash\", \"speaker\": \"Ana Ruiz\", \"turn_finished\": true, \"nested\": {\"inner\": [1, null, true]}, \"empty\": []}\n",
+   "sequence": 1
+  },
+  {
+   "time": 1767225600.123456,
+   "source": "meeting",
+   "text": "line\nbreak\ttab\rcr",
+   "speaker": null,
+   "details": [],
+   "line": "{\"sequence\": 1, \"time\": 1767225600.123456, \"source\": \"meeting\", \"text\": \"line\\nbreak\\ttab\\rcr\", \"speaker\": null, \"turn_finished\": true}\n",
+   "sequence": 1
+  },
+  {
+   "time": 1767225600.123456,
+   "source": "meeting",
+   "text": "\b\f\u0001\u001f",
+   "speaker": "Ana Ruiz",
+   "details": [
+    [
+     "reason",
+     "wake"
+    ],
+    [
+     "pane",
+     "w1:p1"
+    ]
+   ],
+   "line": "{\"sequence\": 1, \"time\": 1767225600.123456, \"source\": \"meeting\", \"text\": \"\\b\\f\\u0001\\u001f\", \"speaker\": \"Ana Ruiz\", \"turn_finished\": true, \"reason\": \"wake\", \"pane\": \"w1:p1\"}\n",
+   "sequence": 1
+  },
+  {
+   "time": 1767225600.123456,
+   "source": "meeting",
+   "text": "café ünï 😀",
+   "speaker": "Ana Ruiz",
+   "details": [
+    [
+     "sequence_note",
+     null
+    ],
+    [
+     "flag",
+     false
+    ],
+    [
+     "count",
+     7
+    ],
+    [
+     "ratio",
+     0.5
+    ]
+   ],
+   "line": "{\"sequence\": 1, \"time\": 1767225600.123456, \"source\": \"meeting\", \"text\": \"café ünï 😀\", \"speaker\": \"Ana Ruiz\", \"turn_finished\": true, \"sequence_note\": null, \"flag\": false, \"count\": 7, \"ratio\": 0.5}\n",
+   "sequence": 1
+  },
+  {
+   "time": 1767225600.123456,
+   "source": "meeting",
+   "text": "  sep",
+   "speaker": null,
+   "details": [
+    [
+     "time",
+     5.0
+    ],
+    [
+     "turn_finished",
+     false
+    ]
+   ],
+   "line": "{\"sequence\": 1, \"time\": 5.0, \"source\": \"meeting\", \"text\": \"  sep\", \"speaker\": null, \"turn_finished\": false}\n",
+   "sequence": 1
+  },
+  {
+   "time": 1767225600.123456,
+   "source": "meeting",
+   "text": "{\"nested\": [1, 2]}",
+   "speaker": "Ana Ruiz",
+   "details": [
+    [
+     "sequence",
+     9
+    ],
+    [
+     "reason",
+     "override"
+    ]
+   ],
+   "line": "{\"sequence\": 9, \"time\": 1767225600.123456, \"source\": \"meeting\", \"text\": \"{\\\"nested\\\": [1, 2]}\", \"speaker\": \"Ana Ruiz\", \"turn_finished\": true, \"reason\": \"override\"}\n",
+   "sequence": 9
+  },
+  {
+   "time": 0.25,
+   "source": "meeting",
+   "text": "plain",
+   "speaker": "Ana Ruiz",
+   "details": [
+    [
+     "nested",
+     {
+      "inner": [
+       1,
+       null,
+       true
+      ]
+     }
+    ],
+    [
+     "empty",
+     []
+    ]
+   ],
+   "line": "{\"sequence\": 1, \"time\": 0.25, \"source\": \"meeting\", \"text\": \"plain\", \"speaker\": \"Ana Ruiz\", \"turn_finished\": true, \"nested\": {\"inner\": [1, null, true]}, \"empty\": []}\n",
+   "sequence": 1
+  },
+  {
+   "time": 0.25,
+   "source": "meeting",
+   "text": "",
+   "speaker": null,
+   "details": [],
+   "line": "{\"sequence\": 1, \"time\": 0.25, \"source\": \"meeting\", \"text\": \"\", \"speaker\": null, \"turn_finished\": true}\n",
+   "sequence": 1
+  },
+  {
+   "time": 0.25,
+   "source": "meeting",
+   "text": "quote \" and \\ backslash",
+   "speaker": "Ana Ruiz",
+   "details": [
+    [
+     "reason",
+     "wake"
+    ],
+    [
+     "pane",
+     "w1:p1"
+    ]
+   ],
+   "line": "{\"sequence\": 1, \"time\": 0.25, \"source\": \"meeting\", \"text\": \"quote \\\" and \\\\ backslash\", \"speaker\": \"Ana Ruiz\", \"turn_finished\": true, \"reason\": \"wake\", \"pane\": \"w1:p1\"}\n",
+   "sequence": 1
+  },
+  {
+   "time": 0.25,
+   "source": "meeting",
+   "text": "line\nbreak\ttab\rcr",
+   "speaker": "Ana Ruiz",
+   "details": [
+    [
+     "sequence_note",
+     null
+    ],
+    [
+     "flag",
+     false
+    ],
+    [
+     "count",
+     7
+    ],
+    [
+     "ratio",
+     0.5
+    ]
+   ],
+   "line": "{\"sequence\": 1, \"time\": 0.25, \"source\": \"meeting\", \"text\": \"line\\nbreak\\ttab\\rcr\", \"speaker\": \"Ana Ruiz\", \"turn_finished\": true, \"sequence_note\": null, \"flag\": false, \"count\": 7, \"ratio\": 0.5}\n",
+   "sequence": 1
+  },
+  {
+   "time": 0.25,
+   "source": "meeting",
+   "text": "\b\f\u0001\u001f",
+   "speaker": null,
+   "details": [
+    [
+     "time",
+     5.0
+    ],
+    [
+     "turn_finished",
+     false
+    ]
+   ],
+   "line": "{\"sequence\": 1, \"time\": 5.0, \"source\": \"meeting\", \"text\": \"\\b\\f\\u0001\\u001f\", \"speaker\": null, \"turn_finished\": false}\n",
+   "sequence": 1
+  },
+  {
+   "time": 0.25,
+   "source": "meeting",
+   "text": "café ünï 😀",
+   "speaker": "Ana Ruiz",
+   "details": [
+    [
+     "sequence",
+     9
+    ],
+    [
+     "reason",
+     "override"
+    ]
+   ],
+   "line": "{\"sequence\": 9, \"time\": 0.25, \"source\": \"meeting\", \"text\": \"café ünï 😀\", \"speaker\": \"Ana Ruiz\", \"turn_finished\": true, \"reason\": \"override\"}\n",
+   "sequence": 9
+  },
+  {
+   "time": 0.25,
+   "source": "meeting",
+   "text": "  sep",
+   "speaker": "Ana Ruiz",
+   "details": [
+    [
+     "nested",
+     {
+      "inner": [
+       1,
+       null,
+       true
+      ]
+     }
+    ],
+    [
+     "empty",
+     []
+    ]
+   ],
+   "line": "{\"sequence\": 1, \"time\": 0.25, \"source\": \"meeting\", \"text\": \"  sep\", \"speaker\": \"Ana Ruiz\", \"turn_finished\": true, \"nested\": {\"inner\": [1, null, true]}, \"empty\": []}\n",
+   "sequence": 1
+  },
+  {
+   "time": 0.25,
+   "source": "meeting",
+   "text": "{\"nested\": [1, 2]}",
+   "speaker": null,
+   "details": [],
+   "line": "{\"sequence\": 1, \"time\": 0.25, \"source\": \"meeting\", \"text\": \"{\\\"nested\\\": [1, 2]}\", \"speaker\": null, \"turn_finished\": true}\n",
+   "sequence": 1
+  },
+  {
+   "time": 3.0,
+   "source": "meeting",
+   "text": "plain",
+   "speaker": "Ana Ruiz",
+   "details": [
+    [
+     "reason",
+     "wake"
+    ],
+    [
+     "pane",
+     "w1:p1"
+    ]
+   ],
+   "line": "{\"sequence\": 1, \"time\": 3.0, \"source\": \"meeting\", \"text\": \"plain\", \"speaker\": \"Ana Ruiz\", \"turn_finished\": true, \"reason\": \"wake\", \"pane\": \"w1:p1\"}\n",
+   "sequence": 1
+  },
+  {
+   "time": 3.0,
+   "source": "meeting",
+   "text": "",
+   "speaker": "Ana Ruiz",
+   "details": [
+    [
+     "sequence_note",
+     null
+    ],
+    [
+     "flag",
+     false
+    ],
+    [
+     "count",
+     7
+    ],
+    [
+     "ratio",
+     0.5
+    ]
+   ],
+   "line": "{\"sequence\": 1, \"time\": 3.0, \"source\": \"meeting\", \"text\": \"\", \"speaker\": \"Ana Ruiz\", \"turn_finished\": true, \"sequence_note\": null, \"flag\": false, \"count\": 7, \"ratio\": 0.5}\n",
+   "sequence": 1
+  },
+  {
+   "time": 3.0,
+   "source": "meeting",
+   "text": "quote \" and \\ backslash",
+   "speaker": null,
+   "details": [
+    [
+     "time",
+     5.0
+    ],
+    [
+     "turn_finished",
+     false
+    ]
+   ],
+   "line": "{\"sequence\": 1, \"time\": 5.0, \"source\": \"meeting\", \"text\": \"quote \\\" and \\\\ backslash\", \"speaker\": null, \"turn_finished\": false}\n",
+   "sequence": 1
+  },
+  {
+   "time": 3.0,
+   "source": "meeting",
+   "text": "line\nbreak\ttab\rcr",
+   "speaker": "Ana Ruiz",
+   "details": [
+    [
+     "sequence",
+     9
+    ],
+    [
+     "reason",
+     "override"
+    ]
+   ],
+   "line": "{\"sequence\": 9, \"time\": 3.0, \"source\": \"meeting\", \"text\": \"line\\nbreak\\ttab\\rcr\", \"speaker\": \"Ana Ruiz\", \"turn_finished\": true, \"reason\": \"override\"}\n",
+   "sequence": 9
+  },
+  {
+   "time": 3.0,
+   "source": "meeting",
+   "text": "\b\f\u0001\u001f",
+   "speaker": "Ana Ruiz",
+   "details": [
+    [
+     "nested",
+     {
+      "inner": [
+       1,
+       null,
+       true
+      ]
+     }
+    ],
+    [
+     "empty",
+     []
+    ]
+   ],
+   "line": "{\"sequence\": 1, \"time\": 3.0, \"source\": \"meeting\", \"text\": \"\\b\\f\\u0001\\u001f\", \"speaker\": \"Ana Ruiz\", \"turn_finished\": true, \"nested\": {\"inner\": [1, null, true]}, \"empty\": []}\n",
+   "sequence": 1
+  },
+  {
+   "time": 3.0,
+   "source": "meeting",
+   "text": "café ünï 😀",
+   "speaker": null,
+   "details": [],
+   "line": "{\"sequence\": 1, \"time\": 3.0, \"source\": \"meeting\", \"text\": \"café ünï 😀\", \"speaker\": null, \"turn_finished\": true}\n",
+   "sequence": 1
+  },
+  {
+   "time": 3.0,
+   "source": "meeting",
+   "text": "  sep",
+   "speaker": "Ana Ruiz",
+   "details": [
+    [
+     "reason",
+     "wake"
+    ],
+    [
+     "pane",
+     "w1:p1"
+    ]
+   ],
+   "line": "{\"sequence\": 1, \"time\": 3.0, \"source\": \"meeting\", \"text\": \"  sep\", \"speaker\": \"Ana Ruiz\", \"turn_finished\": true, \"reason\": \"wake\", \"pane\": \"w1:p1\"}\n",
+   "sequence": 1
+  },
+  {
+   "time": 3.0,
+   "source": "meeting",
+   "text": "{\"nested\": [1, 2]}",
+   "speaker": "Ana Ruiz",
+   "details": [
+    [
+     "sequence_note",
+     null
+    ],
+    [
+     "flag",
+     false
+    ],
+    [
+     "count",
+     7
+    ],
+    [
+     "ratio",
+     0.5
+    ]
+   ],
+   "line": "{\"sequence\": 1, \"time\": 3.0, \"source\": \"meeting\", \"text\": \"{\\\"nested\\\": [1, 2]}\", \"speaker\": \"Ana Ruiz\", \"turn_finished\": true, \"sequence_note\": null, \"flag\": false, \"count\": 7, \"ratio\": 0.5}\n",
+   "sequence": 1
+  },
+  {
+   "time": 1e+16,
+   "source": "meeting",
+   "text": "plain",
+   "speaker": null,
+   "details": [
+    [
+     "time",
+     5.0
+    ],
+    [
+     "turn_finished",
+     false
+    ]
+   ],
+   "line": "{\"sequence\": 1, \"time\": 5.0, \"source\": \"meeting\", \"text\": \"plain\", \"speaker\": null, \"turn_finished\": false}\n",
+   "sequence": 1
+  },
+  {
+   "time": 1e+16,
+   "source": "meeting",
+   "text": "",
+   "speaker": "Ana Ruiz",
+   "details": [
+    [
+     "sequence",
+     9
+    ],
+    [
+     "reason",
+     "override"
+    ]
+   ],
+   "line": "{\"sequence\": 9, \"time\": 1e+16, \"source\": \"meeting\", \"text\": \"\", \"speaker\": \"Ana Ruiz\", \"turn_finished\": true, \"reason\": \"override\"}\n",
+   "sequence": 9
+  },
+  {
+   "time": 1e+16,
+   "source": "meeting",
+   "text": "quote \" and \\ backslash",
+   "speaker": "Ana Ruiz",
+   "details": [
+    [
+     "nested",
+     {
+      "inner": [
+       1,
+       null,
+       true
+      ]
+     }
+    ],
+    [
+     "empty",
+     []
+    ]
+   ],
+   "line": "{\"sequence\": 1, \"time\": 1e+16, \"source\": \"meeting\", \"text\": \"quote \\\" and \\\\ backslash\", \"speaker\": \"Ana Ruiz\", \"turn_finished\": true, \"nested\": {\"inner\": [1, null, true]}, \"empty\": []}\n",
+   "sequence": 1
+  },
+  {
+   "time": 1e+16,
+   "source": "meeting",
+   "text": "line\nbreak\ttab\rcr",
+   "speaker": null,
+   "details": [],
+   "line": "{\"sequence\": 1, \"time\": 1e+16, \"source\": \"meeting\", \"text\": \"line\\nbreak\\ttab\\rcr\", \"speaker\": null, \"turn_finished\": true}\n",
+   "sequence": 1
+  },
+  {
+   "time": 1e+16,
+   "source": "meeting",
+   "text": "\b\f\u0001\u001f",
+   "speaker": "Ana Ruiz",
+   "details": [
+    [
+     "reason",
+     "wake"
+    ],
+    [
+     "pane",
+     "w1:p1"
+    ]
+   ],
+   "line": "{\"sequence\": 1, \"time\": 1e+16, \"source\": \"meeting\", \"text\": \"\\b\\f\\u0001\\u001f\", \"speaker\": \"Ana Ruiz\", \"turn_finished\": true, \"reason\": \"wake\", \"pane\": \"w1:p1\"}\n",
+   "sequence": 1
+  },
+  {
+   "time": 1e+16,
+   "source": "meeting",
+   "text": "café ünï 😀",
+   "speaker": "Ana Ruiz",
+   "details": [
+    [
+     "sequence_note",
+     null
+    ],
+    [
+     "flag",
+     false
+    ],
+    [
+     "count",
+     7
+    ],
+    [
+     "ratio",
+     0.5
+    ]
+   ],
+   "line": "{\"sequence\": 1, \"time\": 1e+16, \"source\": \"meeting\", \"text\": \"café ünï 😀\", \"speaker\": \"Ana Ruiz\", \"turn_finished\": true, \"sequence_note\": null, \"flag\": false, \"count\": 7, \"ratio\": 0.5}\n",
+   "sequence": 1
+  },
+  {
+   "time": 1e+16,
+   "source": "meeting",
+   "text": "  sep",
+   "speaker": null,
+   "details": [
+    [
+     "time",
+     5.0
+    ],
+    [
+     "turn_finished",
+     false
+    ]
+   ],
+   "line": "{\"sequence\": 1, \"time\": 5.0, \"source\": \"meeting\", \"text\": \"  sep\", \"speaker\": null, \"turn_finished\": false}\n",
+   "sequence": 1
+  },
+  {
+   "time": 1e+16,
+   "source": "meeting",
+   "text": "{\"nested\": [1, 2]}",
+   "speaker": "Ana Ruiz",
+   "details": [
+    [
+     "sequence",
+     9
+    ],
+    [
+     "reason",
+     "override"
+    ]
+   ],
+   "line": "{\"sequence\": 9, \"time\": 1e+16, \"source\": \"meeting\", \"text\": \"{\\\"nested\\\": [1, 2]}\", \"speaker\": \"Ana Ruiz\", \"turn_finished\": true, \"reason\": \"override\"}\n",
+   "sequence": 9
+  },
+  {
+   "time": 1.5e-05,
+   "source": "meeting",
+   "text": "plain",
+   "speaker": "Ana Ruiz",
+   "details": [
+    [
+     "nested",
+     {
+      "inner": [
+       1,
+       null,
+       true
+      ]
+     }
+    ],
+    [
+     "empty",
+     []
+    ]
+   ],
+   "line": "{\"sequence\": 1, \"time\": 1.5e-05, \"source\": \"meeting\", \"text\": \"plain\", \"speaker\": \"Ana Ruiz\", \"turn_finished\": true, \"nested\": {\"inner\": [1, null, true]}, \"empty\": []}\n",
+   "sequence": 1
+  },
+  {
+   "time": 1.5e-05,
+   "source": "meeting",
+   "text": "",
+   "speaker": null,
+   "details": [],
+   "line": "{\"sequence\": 1, \"time\": 1.5e-05, \"source\": \"meeting\", \"text\": \"\", \"speaker\": null, \"turn_finished\": true}\n",
+   "sequence": 1
+  },
+  {
+   "time": 1.5e-05,
+   "source": "meeting",
+   "text": "quote \" and \\ backslash",
+   "speaker": "Ana Ruiz",
+   "details": [
+    [
+     "reason",
+     "wake"
+    ],
+    [
+     "pane",
+     "w1:p1"
+    ]
+   ],
+   "line": "{\"sequence\": 1, \"time\": 1.5e-05, \"source\": \"meeting\", \"text\": \"quote \\\" and \\\\ backslash\", \"speaker\": \"Ana Ruiz\", \"turn_finished\": true, \"reason\": \"wake\", \"pane\": \"w1:p1\"}\n",
+   "sequence": 1
+  },
+  {
+   "time": 1.5e-05,
+   "source": "meeting",
+   "text": "line\nbreak\ttab\rcr",
+   "speaker": "Ana Ruiz",
+   "details": [
+    [
+     "sequence_note",
+     null
+    ],
+    [
+     "flag",
+     false
+    ],
+    [
+     "count",
+     7
+    ],
+    [
+     "ratio",
+     0.5
+    ]
+   ],
+   "line": "{\"sequence\": 1, \"time\": 1.5e-05, \"source\": \"meeting\", \"text\": \"line\\nbreak\\ttab\\rcr\", \"speaker\": \"Ana Ruiz\", \"turn_finished\": true, \"sequence_note\": null, \"flag\": false, \"count\": 7, \"ratio\": 0.5}\n",
+   "sequence": 1
+  },
+  {
+   "time": 1.5e-05,
+   "source": "meeting",
+   "text": "\b\f\u0001\u001f",
+   "speaker": null,
+   "details": [
+    [
+     "time",
+     5.0
+    ],
+    [
+     "turn_finished",
+     false
+    ]
+   ],
+   "line": "{\"sequence\": 1, \"time\": 5.0, \"source\": \"meeting\", \"text\": \"\\b\\f\\u0001\\u001f\", \"speaker\": null, \"turn_finished\": false}\n",
+   "sequence": 1
+  },
+  {
+   "time": 1.5e-05,
+   "source": "meeting",
+   "text": "café ünï 😀",
+   "speaker": "Ana Ruiz",
+   "details": [
+    [
+     "sequence",
+     9
+    ],
+    [
+     "reason",
+     "override"
+    ]
+   ],
+   "line": "{\"sequence\": 9, \"time\": 1.5e-05, \"source\": \"meeting\", \"text\": \"café ünï 😀\", \"speaker\": \"Ana Ruiz\", \"turn_finished\": true, \"reason\": \"override\"}\n",
+   "sequence": 9
+  },
+  {
+   "time": 1.5e-05,
+   "source": "meeting",
+   "text": "  sep",
+   "speaker": "Ana Ruiz",
+   "details": [
+    [
+     "nested",
+     {
+      "inner": [
+       1,
+       null,
+       true
+      ]
+     }
+    ],
+    [
+     "empty",
+     []
+    ]
+   ],
+   "line": "{\"sequence\": 1, \"time\": 1.5e-05, \"source\": \"meeting\", \"text\": \"  sep\", \"speaker\": \"Ana Ruiz\", \"turn_finished\": true, \"nested\": {\"inner\": [1, null, true]}, \"empty\": []}\n",
+   "sequence": 1
+  },
+  {
+   "time": 1.5e-05,
+   "source": "meeting",
+   "text": "{\"nested\": [1, 2]}",
+   "speaker": null,
+   "details": [],
+   "line": "{\"sequence\": 1, \"time\": 1.5e-05, \"source\": \"meeting\", \"text\": \"{\\\"nested\\\": [1, 2]}\", \"speaker\": null, \"turn_finished\": true}\n",
+   "sequence": 1
+  },
+  {
+   "time": -0.0,
+   "source": "meeting",
+   "text": "plain",
+   "speaker": "Ana Ruiz",
+   "details": [
+    [
+     "reason",
+     "wake"
+    ],
+    [
+     "pane",
+     "w1:p1"
+    ]
+   ],
+   "line": "{\"sequence\": 1, \"time\": -0.0, \"source\": \"meeting\", \"text\": \"plain\", \"speaker\": \"Ana Ruiz\", \"turn_finished\": true, \"reason\": \"wake\", \"pane\": \"w1:p1\"}\n",
+   "sequence": 1
+  },
+  {
+   "time": -0.0,
+   "source": "meeting",
+   "text": "",
+   "speaker": "Ana Ruiz",
+   "details": [
+    [
+     "sequence_note",
+     null
+    ],
+    [
+     "flag",
+     false
+    ],
+    [
+     "count",
+     7
+    ],
+    [
+     "ratio",
+     0.5
+    ]
+   ],
+   "line": "{\"sequence\": 1, \"time\": -0.0, \"source\": \"meeting\", \"text\": \"\", \"speaker\": \"Ana Ruiz\", \"turn_finished\": true, \"sequence_note\": null, \"flag\": false, \"count\": 7, \"ratio\": 0.5}\n",
+   "sequence": 1
+  },
+  {
+   "time": -0.0,
+   "source": "meeting",
+   "text": "quote \" and \\ backslash",
+   "speaker": null,
+   "details": [
+    [
+     "time",
+     5.0
+    ],
+    [
+     "turn_finished",
+     false
+    ]
+   ],
+   "line": "{\"sequence\": 1, \"time\": 5.0, \"source\": \"meeting\", \"text\": \"quote \\\" and \\\\ backslash\", \"speaker\": null, \"turn_finished\": false}\n",
+   "sequence": 1
+  },
+  {
+   "time": -0.0,
+   "source": "meeting",
+   "text": "line\nbreak\ttab\rcr",
+   "speaker": "Ana Ruiz",
+   "details": [
+    [
+     "sequence",
+     9
+    ],
+    [
+     "reason",
+     "override"
+    ]
+   ],
+   "line": "{\"sequence\": 9, \"time\": -0.0, \"source\": \"meeting\", \"text\": \"line\\nbreak\\ttab\\rcr\", \"speaker\": \"Ana Ruiz\", \"turn_finished\": true, \"reason\": \"override\"}\n",
+   "sequence": 9
+  },
+  {
+   "time": -0.0,
+   "source": "meeting",
+   "text": "\b\f\u0001\u001f",
+   "speaker": "Ana Ruiz",
+   "details": [
+    [
+     "nested",
+     {
+      "inner": [
+       1,
+       null,
+       true
+      ]
+     }
+    ],
+    [
+     "empty",
+     []
+    ]
+   ],
+   "line": "{\"sequence\": 1, \"time\": -0.0, \"source\": \"meeting\", \"text\": \"\\b\\f\\u0001\\u001f\", \"speaker\": \"Ana Ruiz\", \"turn_finished\": true, \"nested\": {\"inner\": [1, null, true]}, \"empty\": []}\n",
+   "sequence": 1
+  },
+  {
+   "time": -0.0,
+   "source": "meeting",
+   "text": "café ünï 😀",
+   "speaker": null,
+   "details": [],
+   "line": "{\"sequence\": 1, \"time\": -0.0, \"source\": \"meeting\", \"text\": \"café ünï 😀\", \"speaker\": null, \"turn_finished\": true}\n",
+   "sequence": 1
+  },
+  {
+   "time": -0.0,
+   "source": "meeting",
+   "text": "  sep",
+   "speaker": "Ana Ruiz",
+   "details": [
+    [
+     "reason",
+     "wake"
+    ],
+    [
+     "pane",
+     "w1:p1"
+    ]
+   ],
+   "line": "{\"sequence\": 1, \"time\": -0.0, \"source\": \"meeting\", \"text\": \"  sep\", \"speaker\": \"Ana Ruiz\", \"turn_finished\": true, \"reason\": \"wake\", \"pane\": \"w1:p1\"}\n",
+   "sequence": 1
+  },
+  {
+   "time": -0.0,
+   "source": "meeting",
+   "text": "{\"nested\": [1, 2]}",
+   "speaker": "Ana Ruiz",
+   "details": [
+    [
+     "sequence_note",
+     null
+    ],
+    [
+     "flag",
+     false
+    ],
+    [
+     "count",
+     7
+    ],
+    [
+     "ratio",
+     0.5
+    ]
+   ],
+   "line": "{\"sequence\": 1, \"time\": -0.0, \"source\": \"meeting\", \"text\": \"{\\\"nested\\\": [1, 2]}\", \"speaker\": \"Ana Ruiz\", \"turn_finished\": true, \"sequence_note\": null, \"flag\": false, \"count\": 7, \"ratio\": 0.5}\n",
+   "sequence": 1
+  }
+ ],
+ "read": {
+  "since_0": [
+   1,
+   2
+  ],
+  "since_1": [
+   2
+  ],
+  "since_3": [],
+  "last": 2,
+  "missing_last": 0,
+  "missing_since": []
+ }
+}
