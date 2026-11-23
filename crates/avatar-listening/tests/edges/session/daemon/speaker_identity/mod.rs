@@ -17,11 +17,19 @@ pub(super) fn vector_of(hexes: &Value) -> Result<Vec<f64>, Box<dyn std::error::E
     rows(hexes)?.iter().map(bits_of).collect()
 }
 
+fn canonical_bits(value: f64) -> u64 {
+    if value.is_nan() {
+        f64::NAN.to_bits()
+    } else {
+        value.to_bits()
+    }
+}
+
 fn assert_same_bits(actual: &[f64], expected: &[f64]) {
     let bits = |values: &[f64]| {
         values
             .iter()
-            .map(|value| value.to_bits())
+            .map(|value| canonical_bits(*value))
             .collect::<Vec<_>>()
     };
     assert_eq!(bits(actual), bits(expected));
@@ -37,7 +45,7 @@ fn mean_of(first: &[f64], second: &[f64]) -> Vec<f64> {
 }
 
 fn assert_bits(actual: f64, expected: &Value) -> Outcome {
-    assert_eq!(actual.to_bits(), bits_of(expected)?.to_bits());
+    assert_eq!(canonical_bits(actual), canonical_bits(bits_of(expected)?));
     Ok(())
 }
 

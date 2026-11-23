@@ -28,9 +28,11 @@ fn serve_hex(listener: &TcpListener) {
 }
 
 fn discover(home: &Path, port: u16) -> TestResult {
-    fs::create_dir_all(home.join(".local/share/hex"))?;
     let discovery = format!(r#"{{"port": {port}, "token": "t"}}"#);
-    fs::write(home.join(".local/share/hex/local-api.json"), discovery)?;
+    for directory in [".local/share/hex", "Library/Application Support/hex"] {
+        fs::create_dir_all(home.join(directory))?;
+        fs::write(home.join(directory).join("local-api.json"), &discovery)?;
+    }
     Ok(())
 }
 
