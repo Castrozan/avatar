@@ -6,7 +6,7 @@ static WORD_PATTERN: LazyLock<Option<Regex>> = LazyLock::new(|| Regex::new(r"[\p
 
 #[must_use]
 pub fn folded(text: &str) -> String {
-    text.to_lowercase()
+    caseless::default_case_fold_str(text)
         .nfd()
         .filter(|character| !unicode_normalization::char::is_combining_mark(*character))
         .collect()

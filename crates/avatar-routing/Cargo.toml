@@ -11,6 +11,7 @@ regex.workspace = true
 serde.workspace = true
 serde_json.workspace = true
 unicode-normalization.workspace = true
+caseless.workspace = true
 
 [dev-dependencies]
 proptest.workspace = true
