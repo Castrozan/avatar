@@ -1,35 +1,15 @@
 use avatar_mac::client::{
-    SeatPrograms, Speakers, call_capture_exit, capture_command, copy_call_audio, hush_and_leave,
-    play_recording, stream_header,
+    Speakers, call_capture_exit, copy_call_audio, hush_and_leave, play_recording, stream_header,
 };
 use avatar_mac::failure::Failure;
 use serde_json::{Value, json};
 
 use super::fake_endpoint::FakeEndpoint;
-use crate::support::{assert_same, each, entries, frame_of, hex_bytes, hex_text, parse, strings};
+use crate::support::{assert_same, each, entries, frame_of, hex_bytes, hex_text, parse};
 use crate::world::Log;
 
 fn fixture() -> Value {
     parse(include_str!("../fixtures/client.json"))
-}
-
-fn program(key: &str) -> String {
-    let programs = &fixture()["programs"];
-    programs[key].as_str().unwrap_or_default().to_owned()
-}
-
-fn programs() -> SeatPrograms {
-    let (python, seat) = (program("python"), program("seat"));
-    SeatPrograms {
-        python,
-        seat,
-        call_capture: program("call_capture"),
-    }
-}
-
-fn check_capture(case: &Value) {
-    let device = case[0].as_str().unwrap_or_default();
-    assert_eq!(capture_command(&programs(), device), strings(&case[1]));
 }
 
 fn check_header(case: &Value) {
@@ -38,8 +18,7 @@ fn check_header(case: &Value) {
 }
 
 #[test]
-fn capture_commands_and_stream_headers_match_python() {
-    each(&fixture()["capture"], check_capture);
+fn stream_headers_match_python() {
     each(&fixture()["headers"], check_header);
 }
 

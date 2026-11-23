@@ -1,12 +1,10 @@
 mod call_capture;
-mod capture;
 mod endpoint;
 mod playback;
 mod stream;
 mod wav;
 
 pub use call_capture::{call_capture_exit, copy_call_audio};
-pub use capture::{SeatPrograms, capture_command};
 pub use endpoint::{SeatEndpoint, StreamConnection};
 pub use playback::{Speakers, hush_and_leave, play_recording};
 pub use stream::{SeatStream, open_stream_connection, stream_header};
