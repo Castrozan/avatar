@@ -117,6 +117,7 @@ dependencies = [
  "avatar-floor",
  "avatar-holder",
  "avatar-listening",
+ "avatar-mac",
  "avatar-routing",
  "avatar-seat",
  "avatar-transcription",
@@ -237,9 +238,21 @@ dependencies = [
 name = "avatar-mac"
 version = "0.1.0"
 dependencies = [
+ "avatar-adapters",
+ "avatar-conversation",
  "avatar-listening",
+ "avatar-live",
+ "avatar-room-audio",
+ "avatar-seat",
+ "avatar-wake",
+ "axum",
+ "futures-util",
+ "percent-encoding",
  "proptest",
  "serde_json",
+ "tempfile",
+ "tokio",
+ "tokio-tungstenite 0.28.0",
 ]
 
 [[package]]
