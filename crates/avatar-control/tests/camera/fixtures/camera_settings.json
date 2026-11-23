@@ -1,0 +1,279 @@
+[
+ {
+  "env": {},
+  "argv": [],
+  "result": {
+   "CDP_PORT": 9222,
+   "V4L2_DEVICE": "/dev/video10",
+   "FPS": 60,
+   "WIDTH": 1280,
+   "HEIGHT": 720,
+   "RENDERER": "3000",
+   "URL": "http://localhost:3000/?output=1"
+  },
+  "nan": {}
+ },
+ {
+  "env": {
+   "CDP_PORT": "9333"
+  },
+  "argv": [],
+  "result": {
+   "CDP_PORT": 9333,
+   "V4L2_DEVICE": "/dev/video10",
+   "FPS": 60,
+   "WIDTH": 1280,
+   "HEIGHT": 720,
+   "RENDERER": "3000",
+   "URL": "http://localhost:3000/?output=1"
+  },
+  "nan": {}
+ },
+ {
+  "env": {
+   "CDP_PORT": ""
+  },
+  "argv": [],
+  "result": {
+   "CDP_PORT": 9222,
+   "V4L2_DEVICE": "/dev/video10",
+   "FPS": 60,
+   "WIDTH": 1280,
+   "HEIGHT": 720,
+   "RENDERER": "3000",
+   "URL": "http://localhost:3000/?output=1"
+  },
+  "nan": {}
+ },
+ {
+  "env": {
+   "CDP_PORT": "abc"
+  },
+  "argv": [],
+  "result": {
+   "CDP_PORT": null,
+   "V4L2_DEVICE": "/dev/video10",
+   "FPS": 60,
+   "WIDTH": 1280,
+   "HEIGHT": 720,
+   "RENDERER": "3000",
+   "URL": "http://localhost:3000/?output=1"
+  },
+  "nan": {
+   "CDP_PORT": true
+  }
+ },
+ {
+  "env": {
+   "V4L2_DEVICE": "/dev/video3"
+  },
+  "argv": [],
+  "result": {
+   "CDP_PORT": 9222,
+   "V4L2_DEVICE": "/dev/video3",
+   "FPS": 60,
+   "WIDTH": 1280,
+   "HEIGHT": 720,
+   "RENDERER": "3000",
+   "URL": "http://localhost:3000/?output=1"
+  },
+  "nan": {}
+ },
+ {
+  "env": {
+   "V4L2_DEVICE": ""
+  },
+  "argv": [],
+  "result": {
+   "CDP_PORT": 9222,
+   "V4L2_DEVICE": "/dev/video10",
+   "FPS": 60,
+   "WIDTH": 1280,
+   "HEIGHT": 720,
+   "RENDERER": "3000",
+   "URL": "http://localhost:3000/?output=1"
+  },
+  "nan": {}
+ },
+ {
+  "env": {
+   "AVATAR_RENDERER_PORT": "3100"
+  },
+  "argv": [],
+  "result": {
+   "CDP_PORT": 9222,
+   "V4L2_DEVICE": "/dev/video10",
+   "FPS": 60,
+   "WIDTH": 1280,
+   "HEIGHT": 720,
+   "RENDERER": "3100",
+   "URL": "http://localhost:3100/?output=1"
+  },
+  "nan": {}
+ },
+ {
+  "env": {},
+  "argv": [
+   "--fps",
+   "30"
+  ],
+  "result": {
+   "CDP_PORT": 9222,
+   "V4L2_DEVICE": "/dev/video10",
+   "FPS": 30,
+   "WIDTH": 1280,
+   "HEIGHT": 720,
+   "RENDERER": "3000",
+   "URL": "http://localhost:3000/?output=1"
+  },
+  "nan": {}
+ },
+ {
+  "env": {},
+  "argv": [
+   "--width",
+   "640",
+   "--height",
+   "360"
+  ],
+  "result": {
+   "CDP_PORT": 9222,
+   "V4L2_DEVICE": "/dev/video10",
+   "FPS": 60,
+   "WIDTH": 640,
+   "HEIGHT": 360,
+   "RENDERER": "3000",
+   "URL": "http://localhost:3000/?output=1"
+  },
+  "nan": {}
+ },
+ {
+  "env": {},
+  "argv": [
+   "--fps",
+   "30",
+   "--fps",
+   "15"
+  ],
+  "result": {
+   "CDP_PORT": 9222,
+   "V4L2_DEVICE": "/dev/video10",
+   "FPS": 30,
+   "WIDTH": 1280,
+   "HEIGHT": 720,
+   "RENDERER": "3000",
+   "URL": "http://localhost:3000/?output=1"
+  },
+  "nan": {}
+ },
+ {
+  "env": {},
+  "argv": [
+   "--fps"
+  ],
+  "result": {
+   "CDP_PORT": 9222,
+   "V4L2_DEVICE": "/dev/video10",
+   "FPS": 60,
+   "WIDTH": 1280,
+   "HEIGHT": 720,
+   "RENDERER": "3000",
+   "URL": "http://localhost:3000/?output=1"
+  },
+  "nan": {}
+ },
+ {
+  "env": {},
+  "argv": [
+   "--fps",
+   "abc"
+  ],
+  "result": {
+   "CDP_PORT": 9222,
+   "V4L2_DEVICE": "/dev/video10",
+   "FPS": null,
+   "WIDTH": 1280,
+   "HEIGHT": 720,
+   "RENDERER": "3000",
+   "URL": "http://localhost:3000/?output=1"
+  },
+  "nan": {
+   "FPS": true
+  }
+ },
+ {
+  "env": {},
+  "argv": [
+   "--fps",
+   "24.9"
+  ],
+  "result": {
+   "CDP_PORT": 9222,
+   "V4L2_DEVICE": "/dev/video10",
+   "FPS": 24,
+   "WIDTH": 1280,
+   "HEIGHT": 720,
+   "RENDERER": "3000",
+   "URL": "http://localhost:3000/?output=1"
+  },
+  "nan": {}
+ },
+ {
+  "env": {},
+  "argv": [
+   "--width",
+   "--height",
+   "100"
+  ],
+  "result": {
+   "CDP_PORT": 9222,
+   "V4L2_DEVICE": "/dev/video10",
+   "FPS": 60,
+   "WIDTH": null,
+   "HEIGHT": 100,
+   "RENDERER": "3000",
+   "URL": "http://localhost:3000/?output=1"
+  },
+  "nan": {
+   "WIDTH": true
+  }
+ },
+ {
+  "env": {},
+  "argv": [
+   "--height",
+   "480x"
+  ],
+  "result": {
+   "CDP_PORT": 9222,
+   "V4L2_DEVICE": "/dev/video10",
+   "FPS": 60,
+   "WIDTH": 1280,
+   "HEIGHT": 480,
+   "RENDERER": "3000",
+   "URL": "http://localhost:3000/?output=1"
+  },
+  "nan": {}
+ },
+ {
+  "env": {},
+  "argv": [
+   "--fps",
+   "30",
+   "--width",
+   "1920",
+   "--height",
+   "1080"
+  ],
+  "result": {
+   "CDP_PORT": 9222,
+   "V4L2_DEVICE": "/dev/video10",
+   "FPS": 30,
+   "WIDTH": 1920,
+   "HEIGHT": 1080,
+   "RENDERER": "3000",
+   "URL": "http://localhost:3000/?output=1"
+  },
+  "nan": {}
+ }
+]
