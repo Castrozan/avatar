@@ -2,7 +2,6 @@ mod actor;
 mod command;
 mod connection;
 mod event;
-mod keep_alive;
 mod listener;
 mod loop_support;
 mod origin;

@@ -1,49 +1,23 @@
 mod forward;
 mod modal;
 mod settings;
+mod workers;
 
 use std::net::SocketAddr;
 
-use tokio::sync::{mpsc, watch};
-use tokio::task::JoinHandle;
-
 use crate::browser::{BrowserError, DevToolsSession, TargetLocator, WebSocketDevToolsSession};
 use crate::camera::{FrameSocketServer, VideoDeviceFramePipeline};
+use workers::{Workers, bind_frame_server, transport};
 
 pub use settings::VirtualCameraSettings;
 
-const RGBA_BYTES_PER_PIXEL: usize = 4;
 const UNKNOWN_ADDRESS: SocketAddr =
     SocketAddr::new(std::net::IpAddr::V4(std::net::Ipv4Addr::LOCALHOST), 0);
-
-struct Workers {
-    stop: watch::Sender<bool>,
-    server: JoinHandle<()>,
-    forwarder: JoinHandle<u64>,
-}
-
-impl Workers {
-    fn spawn(server: FrameSocketServer, pipeline: VideoDeviceFramePipeline) -> Self {
-        let (frames, received) = mpsc::unbounded_channel();
-        let (stop, stopped) = watch::channel(false);
-        let forwarder = tokio::spawn(forward::forward_frames(pipeline, received, stopped));
-        let server = tokio::spawn(server.serve(frames));
-        Self {
-            stop,
-            server,
-            forwarder,
-        }
-    }
-}
 
 pub struct VirtualCamera {
     frame_address: SocketAddr,
     session: WebSocketDevToolsSession,
     workers: Workers,
-}
-
-fn transport(error: impl std::fmt::Display) -> BrowserError {
-    BrowserError::Transport(error.to_string())
 }
 
 impl VirtualCamera {
@@ -109,15 +83,4 @@ fn missing_tab(settings: &VirtualCameraSettings) -> BrowserError {
             settings.renderer_port
         ),
     }
-}
-
-async fn bind_frame_server(
-    settings: &VirtualCameraSettings,
-) -> Result<FrameSocketServer, BrowserError> {
-    let video = &settings.video;
-    let frame_bytes = video.width as usize * video.height as usize * RGBA_BYTES_PER_PIXEL;
-    let origins = vec![format!("http://localhost:{}", settings.renderer_port)];
-    FrameSocketServer::bind(settings.frame_port, frame_bytes, origins)
-        .await
-        .map_err(transport)
 }

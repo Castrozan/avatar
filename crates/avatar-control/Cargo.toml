@@ -26,5 +26,21 @@ http-body-util.workspace = true
 tempfile.workspace = true
 proptest.workspace = true
 
+[[test]]
+name = "command"
+path = "tests/wiring/command/main.rs"
+
+[[test]]
+name = "control"
+path = "tests/wiring/control/main.rs"
+
+[[test]]
+name = "owned_browser"
+path = "tests/wiring/owned_browser/main.rs"
+
+[[test]]
+name = "site"
+path = "tests/wiring/site/main.rs"
+
 [lints]
 workspace = true
