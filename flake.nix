@@ -27,10 +27,12 @@
       ];
       forAllSystems = nixpkgs.lib.genAttrs supportedSystems;
       packagesFor = system: nixpkgs.legacyPackages.${system};
-      rustFor = system: import ./nix/rust.nix {
-        pkgs = packagesFor system;
-        inherit crane;
-      };
+      rustFor =
+        system:
+        import ./nix/rust.nix {
+          pkgs = packagesFor system;
+          inherit crane;
+        };
     in
     {
       homeManagerModules.default =
