@@ -122,6 +122,11 @@ dependencies = [
 name = "avatar-conversation"
 version = "0.1.0"
 dependencies = [
+ "avatar-floor",
+ "avatar-holder",
+ "avatar-listening",
+ "avatar-transcript",
+ "clap",
  "proptest",
  "serde_json",
 ]

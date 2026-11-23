@@ -7,6 +7,11 @@ license.workspace = true
 publish.workspace = true
 
 [dependencies]
+avatar-floor = { version = "0.1.0", path = "../avatar-floor" }
+avatar-holder = { version = "0.1.0", path = "../avatar-holder" }
+avatar-listening = { version = "0.1.0", path = "../../avatar-listening" }
+avatar-transcript = { version = "0.1.0", path = "../avatar-transcript" }
+clap.workspace = true
 serde_json.workspace = true
 
 [dev-dependencies]
