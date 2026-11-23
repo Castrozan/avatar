@@ -1,0 +1,2704 @@
+{
+ "cases": [
+  {
+   "name": "unknown_command_type_reports_name",
+   "startedAt": 1000,
+   "speechPhase": "idle",
+   "knownVoices": [],
+   "steps": [
+    {
+     "op": "receive",
+     "client": 1,
+     "frame": "{\"type\":\"identify\",\"role\":\"agent\"}",
+     "now": 1010
+    },
+    {
+     "op": "receive",
+     "client": 1,
+     "frame": "{\"type\":\"danceWildly\"}",
+     "now": 1020
+    }
+   ],
+   "expected": [
+    {
+     "sent": [
+      [
+       1,
+       {
+        "type": "identifyAck",
+        "role": "agent",
+        "status": "connected",
+        "serverVersion": "1.0.0"
+       }
+      ]
+     ],
+     "closed": [],
+     "handoff": null
+    },
+    {
+     "sent": [
+      [
+       1,
+       {
+        "type": "error",
+        "error": "Unknown command type: danceWildly",
+        "timestamp": 1020
+       }
+      ]
+     ],
+     "closed": [],
+     "handoff": null
+    }
+   ]
+  },
+  {
+   "name": "command_without_type_reports_undefined",
+   "startedAt": 1000,
+   "speechPhase": "idle",
+   "knownVoices": [],
+   "steps": [
+    {
+     "op": "receive",
+     "client": 1,
+     "frame": "{\"type\":\"identify\",\"role\":\"agent\"}",
+     "now": 1010
+    },
+    {
+     "op": "receive",
+     "client": 1,
+     "frame": "{}",
+     "now": 1020
+    }
+   ],
+   "expected": [
+    {
+     "sent": [
+      [
+       1,
+       {
+        "type": "identifyAck",
+        "role": "agent",
+        "status": "connected",
+        "serverVersion": "1.0.0"
+       }
+      ]
+     ],
+     "closed": [],
+     "handoff": null
+    },
+    {
+     "sent": [
+      [
+       1,
+       {
+        "type": "error",
+        "error": "Unknown command type: undefined",
+        "timestamp": 1020
+       }
+      ]
+     ],
+     "closed": [],
+     "handoff": null
+    }
+   ]
+  },
+  {
+   "name": "set_expression_missing_name",
+   "startedAt": 1000,
+   "speechPhase": "idle",
+   "knownVoices": [],
+   "steps": [
+    {
+     "op": "receive",
+     "client": 1,
+     "frame": "{\"type\":\"identify\",\"role\":\"agent\"}",
+     "now": 1010
+    },
+    {
+     "op": "receive",
+     "client": 1,
+     "frame": "{\"type\":\"setExpression\",\"intensity\":0.5}",
+     "now": 1020
+    }
+   ],
+   "expected": [
+    {
+     "sent": [
+      [
+       1,
+       {
+        "type": "identifyAck",
+        "role": "agent",
+        "status": "connected",
+        "serverVersion": "1.0.0"
+       }
+      ]
+     ],
+     "closed": [],
+     "handoff": null
+    },
+    {
+     "sent": [
+      [
+       1,
+       {
+        "type": "error",
+        "error": "Missing required field: name",
+        "timestamp": 1020
+       }
+      ]
+     ],
+     "closed": [],
+     "handoff": null
+    }
+   ]
+  },
+  {
+   "name": "set_expression_empty_name_is_missing",
+   "startedAt": 1000,
+   "speechPhase": "idle",
+   "knownVoices": [],
+   "steps": [
+    {
+     "op": "receive",
+     "client": 1,
+     "frame": "{\"type\":\"identify\",\"role\":\"agent\"}",
+     "now": 1010
+    },
+    {
+     "op": "receive",
+     "client": 1,
+     "frame": "{\"type\":\"setExpression\",\"name\":\"\"}",
+     "now": 1020
+    }
+   ],
+   "expected": [
+    {
+     "sent": [
+      [
+       1,
+       {
+        "type": "identifyAck",
+        "role": "agent",
+        "status": "connected",
+        "serverVersion": "1.0.0"
+       }
+      ]
+     ],
+     "closed": [],
+     "handoff": null
+    },
+    {
+     "sent": [
+      [
+       1,
+       {
+        "type": "error",
+        "error": "Missing required field: name",
+        "timestamp": 1020
+       }
+      ]
+     ],
+     "closed": [],
+     "handoff": null
+    }
+   ]
+  },
+  {
+   "name": "set_expression_defaults_forwarded_to_renderer",
+   "startedAt": 1000,
+   "speechPhase": "idle",
+   "knownVoices": [],
+   "steps": [
+    {
+     "op": "receive",
+     "client": 1,
+     "frame": "{\"type\":\"identify\",\"role\":\"agent\"}",
+     "now": 1010
+    },
+    {
+     "op": "receive",
+     "client": 2,
+     "frame": "{\"type\":\"identify\",\"role\":\"renderer\"}",
+     "now": 1020
+    },
+    {
+     "op": "receive",
+     "client": 1,
+     "frame": "{\"type\":\"setExpression\",\"name\":\"happy\"}",
+     "now": 1030
+    }
+   ],
+   "expected": [
+    {
+     "sent": [
+      [
+       1,
+       {
+        "type": "identifyAck",
+        "role": "agent",
+        "status": "connected",
+        "serverVersion": "1.0.0"
+       }
+      ]
+     ],
+     "closed": [],
+     "handoff": null
+    },
+    {
+     "sent": [
+      [
+       2,
+       {
+        "type": "identifyAck",
+        "role": "renderer",
+        "status": "connected",
+        "serverVersion": "1.0.0"
+       }
+      ],
+      [
+       2,
+       {
+        "type": "initialState",
+        "state": "idle",
+        "expression": "neutral",
+        "idleMode": "breathing",
+        "intensity": 1
+       }
+      ]
+     ],
+     "closed": [],
+     "handoff": null
+    },
+    {
+     "sent": [
+      [
+       2,
+       {
+        "type": "updateExpression",
+        "expression": "happy",
+        "intensity": 1,
+        "transitionMs": 2000
+       }
+      ],
+      [
+       1,
+       {
+        "type": "expressionAck",
+        "expression": "happy",
+        "intensity": 1,
+        "status": "updated"
+       }
+      ]
+     ],
+     "closed": [],
+     "handoff": null
+    }
+   ]
+  },
+  {
+   "name": "set_expression_without_renderer_only_acks",
+   "startedAt": 1000,
+   "speechPhase": "idle",
+   "knownVoices": [],
+   "steps": [
+    {
+     "op": "receive",
+     "client": 1,
+     "frame": "{\"type\":\"identify\",\"role\":\"agent\"}",
+     "now": 1010
+    },
+    {
+     "op": "receive",
+     "client": 1,
+     "frame": "{\"type\":\"setExpression\",\"name\":\"sad\",\"intensity\":0.4,\"duration\":500}",
+     "now": 1020
+    }
+   ],
+   "expected": [
+    {
+     "sent": [
+      [
+       1,
+       {
+        "type": "identifyAck",
+        "role": "agent",
+        "status": "connected",
+        "serverVersion": "1.0.0"
+       }
+      ]
+     ],
+     "closed": [],
+     "handoff": null
+    },
+    {
+     "sent": [
+      [
+       1,
+       {
+        "type": "expressionAck",
+        "expression": "sad",
+        "intensity": 0.4,
+        "status": "updated"
+       }
+      ]
+     ],
+     "closed": [],
+     "handoff": null
+    }
+   ]
+  },
+  {
+   "name": "set_idle_defaults_to_breathing",
+   "startedAt": 1000,
+   "speechPhase": "idle",
+   "knownVoices": [],
+   "steps": [
+    {
+     "op": "receive",
+     "client": 1,
+     "frame": "{\"type\":\"identify\",\"role\":\"agent\"}",
+     "now": 1010
+    },
+    {
+     "op": "receive",
+     "client": 1,
+     "frame": "{\"type\":\"setIdle\"}",
+     "now": 1020
+    }
+   ],
+   "expected": [
+    {
+     "sent": [
+      [
+       1,
+       {
+        "type": "identifyAck",
+        "role": "agent",
+        "status": "connected",
+        "serverVersion": "1.0.0"
+       }
+      ]
+     ],
+     "closed": [],
+     "handoff": null
+    },
+    {
+     "sent": [
+      [
+       1,
+       {
+        "type": "idleAck",
+        "mode": "breathing",
+        "status": "updated"
+       }
+      ]
+     ],
+     "closed": [],
+     "handoff": null
+    }
+   ]
+  },
+  {
+   "name": "set_idle_forwarded_to_renderer_and_viewer",
+   "startedAt": 1000,
+   "speechPhase": "idle",
+   "knownVoices": [],
+   "steps": [
+    {
+     "op": "receive",
+     "client": 1,
+     "frame": "{\"type\":\"identify\",\"role\":\"agent\"}",
+     "now": 1010
+    },
+    {
+     "op": "receive",
+     "client": 2,
+     "frame": "{\"type\":\"identify\",\"role\":\"renderer\"}",
+     "now": 1020
+    },
+    {
+     "op": "receive",
+     "client": 3,
+     "frame": "{\"type\":\"identify\",\"role\":\"viewer\"}",
+     "now": 1030
+    },
+    {
+     "op": "receive",
+     "client": 1,
+     "frame": "{\"type\":\"setIdle\",\"mode\":\"floating\"}",
+     "now": 1040
+    }
+   ],
+   "expected": [
+    {
+     "sent": [
+      [
+       1,
+       {
+        "type": "identifyAck",
+        "role": "agent",
+        "status": "connected",
+        "serverVersion": "1.0.0"
+       }
+      ]
+     ],
+     "closed": [],
+     "handoff": null
+    },
+    {
+     "sent": [
+      [
+       2,
+       {
+        "type": "identifyAck",
+        "role": "renderer",
+        "status": "connected",
+        "serverVersion": "1.0.0"
+       }
+      ],
+      [
+       2,
+       {
+        "type": "initialState",
+        "state": "idle",
+        "expression": "neutral",
+        "idleMode": "breathing",
+        "intensity": 1
+       }
+      ]
+     ],
+     "closed": [],
+     "handoff": null
+    },
+    {
+     "sent": [
+      [
+       3,
+       {
+        "type": "identifyAck",
+        "role": "viewer",
+        "status": "connected",
+        "serverVersion": "1.0.0"
+       }
+      ],
+      [
+       3,
+       {
+        "type": "initialState",
+        "state": "idle",
+        "expression": "neutral",
+        "idleMode": "breathing",
+        "intensity": 1
+       }
+      ]
+     ],
+     "closed": [],
+     "handoff": null
+    },
+    {
+     "sent": [
+      [
+       3,
+       {
+        "type": "setIdle",
+        "mode": "floating"
+       }
+      ],
+      [
+       2,
+       {
+        "type": "setIdle",
+        "mode": "floating"
+       }
+      ],
+      [
+       1,
+       {
+        "type": "idleAck",
+        "mode": "floating",
+        "status": "updated"
+       }
+      ]
+     ],
+     "closed": [],
+     "handoff": null
+    }
+   ]
+  },
+  {
+   "name": "set_character_same_name_answers_changed",
+   "startedAt": 1000,
+   "speechPhase": "idle",
+   "knownVoices": [
+    "vita"
+   ],
+   "steps": [
+    {
+     "op": "receive",
+     "client": 1,
+     "frame": "{\"type\":\"identify\",\"role\":\"renderer\"}",
+     "now": 1010
+    },
+    {
+     "op": "receive",
+     "client": 1,
+     "frame": "{\"type\":\"characterChanged\",\"name\":\"vita\"}",
+     "now": 1020
+    },
+    {
+     "op": "receive",
+     "client": 2,
+     "frame": "{\"type\":\"identify\",\"role\":\"agent\"}",
+     "now": 1030
+    },
+    {
+     "op": "receive",
+     "client": 2,
+     "frame": "{\"type\":\"setCharacter\",\"name\":\"vita\",\"id\":\"c1\"}",
+     "now": 1040
+    }
+   ],
+   "expected": [
+    {
+     "sent": [
+      [
+       1,
+       {
+        "type": "identifyAck",
+        "role": "renderer",
+        "status": "connected",
+        "serverVersion": "1.0.0"
+       }
+      ],
+      [
+       1,
+       {
+        "type": "initialState",
+        "state": "idle",
+        "expression": "neutral",
+        "idleMode": "breathing",
+        "intensity": 1
+       }
+      ]
+     ],
+     "closed": [],
+     "handoff": null
+    },
+    {
+     "sent": [],
+     "closed": [],
+     "handoff": {
+      "kind": "selectVoice",
+      "name": "vita"
+     }
+    },
+    {
+     "sent": [
+      [
+       2,
+       {
+        "type": "identifyAck",
+        "role": "agent",
+        "status": "connected",
+        "serverVersion": "1.0.0"
+       }
+      ]
+     ],
+     "closed": [],
+     "handoff": null
+    },
+    {
+     "sent": [
+      [
+       2,
+       {
+        "type": "characterChanged",
+        "name": "vita",
+        "id": "c1"
+       }
+      ]
+     ],
+     "closed": [],
+     "handoff": {
+      "kind": "selectVoice",
+      "name": "vita"
+     }
+    }
+   ]
+  },
+  {
+   "name": "set_character_with_renderer_requests_it",
+   "startedAt": 1000,
+   "speechPhase": "idle",
+   "knownVoices": [
+    "vita"
+   ],
+   "steps": [
+    {
+     "op": "receive",
+     "client": 1,
+     "frame": "{\"type\":\"identify\",\"role\":\"agent\"}",
+     "now": 1010
+    },
+    {
+     "op": "receive",
+     "client": 2,
+     "frame": "{\"type\":\"identify\",\"role\":\"renderer\"}",
+     "now": 1020
+    },
+    {
+     "op": "receive",
+     "client": 3,
+     "frame": "{\"type\":\"identify\",\"role\":\"stage\"}",
+     "now": 1030
+    },
+    {
+     "op": "receive",
+     "client": 1,
+     "frame": "{\"type\":\"setCharacter\",\"name\":\"vita\",\"id\":\"c2\"}",
+     "now": 1040
+    }
+   ],
+   "expected": [
+    {
+     "sent": [
+      [
+       1,
+       {
+        "type": "identifyAck",
+        "role": "agent",
+        "status": "connected",
+        "serverVersion": "1.0.0"
+       }
+      ]
+     ],
+     "closed": [],
+     "handoff": null
+    },
+    {
+     "sent": [
+      [
+       2,
+       {
+        "type": "identifyAck",
+        "role": "renderer",
+        "status": "connected",
+        "serverVersion": "1.0.0"
+       }
+      ],
+      [
+       2,
+       {
+        "type": "initialState",
+        "state": "idle",
+        "expression": "neutral",
+        "idleMode": "breathing",
+        "intensity": 1
+       }
+      ]
+     ],
+     "closed": [],
+     "handoff": null
+    },
+    {
+     "sent": [
+      [
+       3,
+       {
+        "type": "identifyAck",
+        "role": "stage",
+        "status": "connected",
+        "serverVersion": "1.0.0"
+       }
+      ],
+      [
+       3,
+       {
+        "type": "initialState",
+        "state": "idle",
+        "expression": "neutral",
+        "idleMode": "breathing",
+        "intensity": 1
+       }
+      ]
+     ],
+     "closed": [],
+     "handoff": null
+    },
+    {
+     "sent": [
+      [
+       3,
+       {
+        "type": "setCharacter",
+        "name": "vita",
+        "id": "c2"
+       }
+      ],
+      [
+       2,
+       {
+        "type": "setCharacter",
+        "name": "vita",
+        "id": "c2"
+       }
+      ],
+      [
+       1,
+       {
+        "type": "characterRequested",
+        "name": "vita",
+        "id": "c2"
+       }
+      ]
+     ],
+     "closed": [],
+     "handoff": null
+    }
+   ]
+  },
+  {
+   "name": "set_character_without_renderer_adopts_known",
+   "startedAt": 1000,
+   "speechPhase": "idle",
+   "knownVoices": [
+    "vita"
+   ],
+   "steps": [
+    {
+     "op": "receive",
+     "client": 1,
+     "frame": "{\"type\":\"identify\",\"role\":\"agent\"}",
+     "now": 1010
+    },
+    {
+     "op": "receive",
+     "client": 1,
+     "frame": "{\"type\":\"setCharacter\",\"name\":\"vita\",\"id\":\"c3\"}",
+     "now": 1020
+    }
+   ],
+   "expected": [
+    {
+     "sent": [
+      [
+       1,
+       {
+        "type": "identifyAck",
+        "role": "agent",
+        "status": "connected",
+        "serverVersion": "1.0.0"
+       }
+      ]
+     ],
+     "closed": [],
+     "handoff": null
+    },
+    {
+     "sent": [
+      [
+       1,
+       {
+        "type": "characterChanged",
+        "name": "vita",
+        "id": "c3"
+       }
+      ]
+     ],
+     "closed": [],
+     "handoff": {
+      "kind": "selectVoice",
+      "name": "vita"
+     }
+    }
+   ]
+  },
+  {
+   "name": "set_character_without_renderer_refuses_unknown",
+   "startedAt": 1000,
+   "speechPhase": "idle",
+   "knownVoices": [
+    "vita"
+   ],
+   "steps": [
+    {
+     "op": "receive",
+     "client": 1,
+     "frame": "{\"type\":\"identify\",\"role\":\"agent\"}",
+     "now": 1010
+    },
+    {
+     "op": "receive",
+     "client": 1,
+     "frame": "{\"type\":\"setCharacter\",\"name\":\"nobody\",\"id\":\"c4\"}",
+     "now": 1020
+    }
+   ],
+   "expected": [
+    {
+     "sent": [
+      [
+       1,
+       {
+        "type": "identifyAck",
+        "role": "agent",
+        "status": "connected",
+        "serverVersion": "1.0.0"
+       }
+      ]
+     ],
+     "closed": [],
+     "handoff": null
+    },
+    {
+     "sent": [
+      [
+       1,
+       {
+        "type": "error",
+        "error": "Unknown character: nobody",
+        "timestamp": 1020
+       }
+      ]
+     ],
+     "closed": [],
+     "handoff": {
+      "kind": "selectVoice",
+      "name": "nobody"
+     }
+    }
+   ]
+  },
+  {
+   "name": "renderer_character_changed_reaches_agents_and_voice",
+   "startedAt": 1000,
+   "speechPhase": "idle",
+   "knownVoices": [
+    "vita"
+   ],
+   "steps": [
+    {
+     "op": "receive",
+     "client": 1,
+     "frame": "{\"type\":\"identify\",\"role\":\"agent\"}",
+     "now": 1010
+    },
+    {
+     "op": "receive",
+     "client": 2,
+     "frame": "{\"type\":\"identify\",\"role\":\"renderer\"}",
+     "now": 1020
+    },
+    {
+     "op": "receive",
+     "client": 2,
+     "frame": "{\"type\":\"characterChanged\",\"name\":\"vita\"}",
+     "now": 1030
+    }
+   ],
+   "expected": [
+    {
+     "sent": [
+      [
+       1,
+       {
+        "type": "identifyAck",
+        "role": "agent",
+        "status": "connected",
+        "serverVersion": "1.0.0"
+       }
+      ]
+     ],
+     "closed": [],
+     "handoff": null
+    },
+    {
+     "sent": [
+      [
+       2,
+       {
+        "type": "identifyAck",
+        "role": "renderer",
+        "status": "connected",
+        "serverVersion": "1.0.0"
+       }
+      ],
+      [
+       2,
+       {
+        "type": "initialState",
+        "state": "idle",
+        "expression": "neutral",
+        "idleMode": "breathing",
+        "intensity": 1
+       }
+      ]
+     ],
+     "closed": [],
+     "handoff": null
+    },
+    {
+     "sent": [
+      [
+       1,
+       {
+        "type": "characterChanged",
+        "name": "vita"
+       }
+      ]
+     ],
+     "closed": [],
+     "handoff": {
+      "kind": "selectVoice",
+      "name": "vita"
+     }
+    }
+   ]
+  },
+  {
+   "name": "set_video_mode_invalid",
+   "startedAt": 1000,
+   "speechPhase": "idle",
+   "knownVoices": [],
+   "steps": [
+    {
+     "op": "receive",
+     "client": 1,
+     "frame": "{\"type\":\"identify\",\"role\":\"agent\"}",
+     "now": 1010
+    },
+    {
+     "op": "receive",
+     "client": 2,
+     "frame": "{\"type\":\"identify\",\"role\":\"renderer\"}",
+     "now": 1020
+    },
+    {
+     "op": "receive",
+     "client": 1,
+     "frame": "{\"type\":\"setVideoMode\",\"mode\":\"film\",\"id\":\"v1\"}",
+     "now": 1030
+    }
+   ],
+   "expected": [
+    {
+     "sent": [
+      [
+       1,
+       {
+        "type": "identifyAck",
+        "role": "agent",
+        "status": "connected",
+        "serverVersion": "1.0.0"
+       }
+      ]
+     ],
+     "closed": [],
+     "handoff": null
+    },
+    {
+     "sent": [
+      [
+       2,
+       {
+        "type": "identifyAck",
+        "role": "renderer",
+        "status": "connected",
+        "serverVersion": "1.0.0"
+       }
+      ],
+      [
+       2,
+       {
+        "type": "initialState",
+        "state": "idle",
+        "expression": "neutral",
+        "idleMode": "breathing",
+        "intensity": 1
+       }
+      ]
+     ],
+     "closed": [],
+     "handoff": null
+    },
+    {
+     "sent": [
+      [
+       1,
+       {
+        "type": "error",
+        "error": "Video mode must be avatar, camera, or composite",
+        "timestamp": 1030
+       }
+      ]
+     ],
+     "closed": [],
+     "handoff": null
+    }
+   ]
+  },
+  {
+   "name": "set_video_mode_without_owner_fails",
+   "startedAt": 1000,
+   "speechPhase": "idle",
+   "knownVoices": [],
+   "steps": [
+    {
+     "op": "receive",
+     "client": 1,
+     "frame": "{\"type\":\"identify\",\"role\":\"agent\"}",
+     "now": 1010
+    },
+    {
+     "op": "receive",
+     "client": 1,
+     "frame": "{\"type\":\"setVideoMode\",\"mode\":\"camera\",\"id\":\"v2\"}",
+     "now": 1020
+    }
+   ],
+   "expected": [
+    {
+     "sent": [
+      [
+       1,
+       {
+        "type": "identifyAck",
+        "role": "agent",
+        "status": "connected",
+        "serverVersion": "1.0.0"
+       }
+      ]
+     ],
+     "closed": [],
+     "handoff": null
+    },
+    {
+     "sent": [
+      [
+       1,
+       {
+        "type": "error",
+        "error": "No renderer is connected",
+        "timestamp": 1020
+       }
+      ]
+     ],
+     "closed": [],
+     "handoff": null
+    }
+   ]
+  },
+  {
+   "name": "set_video_mode_goes_to_renderer",
+   "startedAt": 1000,
+   "speechPhase": "idle",
+   "knownVoices": [],
+   "steps": [
+    {
+     "op": "receive",
+     "client": 1,
+     "frame": "{\"type\":\"identify\",\"role\":\"agent\"}",
+     "now": 1010
+    },
+    {
+     "op": "receive",
+     "client": 2,
+     "frame": "{\"type\":\"identify\",\"role\":\"renderer\"}",
+     "now": 1020
+    },
+    {
+     "op": "receive",
+     "client": 1,
+     "frame": "{\"type\":\"setVideoMode\",\"mode\":\"composite\",\"id\":\"v3\"}",
+     "now": 1030
+    }
+   ],
+   "expected": [
+    {
+     "sent": [
+      [
+       1,
+       {
+        "type": "identifyAck",
+        "role": "agent",
+        "status": "connected",
+        "serverVersion": "1.0.0"
+       }
+      ]
+     ],
+     "closed": [],
+     "handoff": null
+    },
+    {
+     "sent": [
+      [
+       2,
+       {
+        "type": "identifyAck",
+        "role": "renderer",
+        "status": "connected",
+        "serverVersion": "1.0.0"
+       }
+      ],
+      [
+       2,
+       {
+        "type": "initialState",
+        "state": "idle",
+        "expression": "neutral",
+        "idleMode": "breathing",
+        "intensity": 1
+       }
+      ]
+     ],
+     "closed": [],
+     "handoff": null
+    },
+    {
+     "sent": [
+      [
+       2,
+       {
+        "type": "setVideoMode",
+        "mode": "composite",
+        "id": "v3"
+       }
+      ],
+      [
+       1,
+       {
+        "type": "videoModeRequested",
+        "mode": "composite",
+        "id": "v3"
+       }
+      ]
+     ],
+     "closed": [],
+     "handoff": null
+    }
+   ]
+  },
+  {
+   "name": "set_video_mode_goes_to_stage_over_renderer",
+   "startedAt": 1000,
+   "speechPhase": "idle",
+   "knownVoices": [],
+   "steps": [
+    {
+     "op": "receive",
+     "client": 1,
+     "frame": "{\"type\":\"identify\",\"role\":\"agent\"}",
+     "now": 1010
+    },
+    {
+     "op": "receive",
+     "client": 2,
+     "frame": "{\"type\":\"identify\",\"role\":\"renderer\"}",
+     "now": 1020
+    },
+    {
+     "op": "receive",
+     "client": 3,
+     "frame": "{\"type\":\"identify\",\"role\":\"viewer\"}",
+     "now": 1030
+    },
+    {
+     "op": "receive",
+     "client": 4,
+     "frame": "{\"type\":\"identify\",\"role\":\"stage\"}",
+     "now": 1040
+    },
+    {
+     "op": "receive",
+     "client": 1,
+     "frame": "{\"type\":\"setVideoMode\",\"mode\":\"camera\",\"id\":\"v4\"}",
+     "now": 1050
+    },
+    {
+     "op": "disconnect",
+     "client": 4,
+     "now": 1060
+    },
+    {
+     "op": "receive",
+     "client": 1,
+     "frame": "{\"type\":\"setVideoMode\",\"mode\":\"avatar\",\"id\":\"v5\"}",
+     "now": 1070
+    }
+   ],
+   "expected": [
+    {
+     "sent": [
+      [
+       1,
+       {
+        "type": "identifyAck",
+        "role": "agent",
+        "status": "connected",
+        "serverVersion": "1.0.0"
+       }
+      ]
+     ],
+     "closed": [],
+     "handoff": null
+    },
+    {
+     "sent": [
+      [
+       2,
+       {
+        "type": "identifyAck",
+        "role": "renderer",
+        "status": "connected",
+        "serverVersion": "1.0.0"
+       }
+      ],
+      [
+       2,
+       {
+        "type": "initialState",
+        "state": "idle",
+        "expression": "neutral",
+        "idleMode": "breathing",
+        "intensity": 1
+       }
+      ]
+     ],
+     "closed": [],
+     "handoff": null
+    },
+    {
+     "sent": [
+      [
+       3,
+       {
+        "type": "identifyAck",
+        "role": "viewer",
+        "status": "connected",
+        "serverVersion": "1.0.0"
+       }
+      ],
+      [
+       3,
+       {
+        "type": "initialState",
+        "state": "idle",
+        "expression": "neutral",
+        "idleMode": "breathing",
+        "intensity": 1
+       }
+      ]
+     ],
+     "closed": [],
+     "handoff": null
+    },
+    {
+     "sent": [
+      [
+       4,
+       {
+        "type": "identifyAck",
+        "role": "stage",
+        "status": "connected",
+        "serverVersion": "1.0.0"
+       }
+      ],
+      [
+       4,
+       {
+        "type": "initialState",
+        "state": "idle",
+        "expression": "neutral",
+        "idleMode": "breathing",
+        "intensity": 1
+       }
+      ]
+     ],
+     "closed": [],
+     "handoff": null
+    },
+    {
+     "sent": [
+      [
+       4,
+       {
+        "type": "setVideoMode",
+        "mode": "camera",
+        "id": "v4"
+       }
+      ],
+      [
+       1,
+       {
+        "type": "videoModeRequested",
+        "mode": "camera",
+        "id": "v4"
+       }
+      ]
+     ],
+     "closed": [],
+     "handoff": null
+    },
+    {
+     "sent": [],
+     "closed": [],
+     "handoff": null
+    },
+    {
+     "sent": [
+      [
+       2,
+       {
+        "type": "setVideoMode",
+        "mode": "avatar",
+        "id": "v5"
+       }
+      ],
+      [
+       1,
+       {
+        "type": "videoModeRequested",
+        "mode": "avatar",
+        "id": "v5"
+       }
+      ]
+     ],
+     "closed": [],
+     "handoff": null
+    }
+   ]
+  },
+  {
+   "name": "set_presented_with_renderer",
+   "startedAt": 1000,
+   "speechPhase": "idle",
+   "knownVoices": [],
+   "steps": [
+    {
+     "op": "receive",
+     "client": 1,
+     "frame": "{\"type\":\"identify\",\"role\":\"agent\"}",
+     "now": 1010
+    },
+    {
+     "op": "receive",
+     "client": 2,
+     "frame": "{\"type\":\"identify\",\"role\":\"renderer\"}",
+     "now": 1020
+    },
+    {
+     "op": "receive",
+     "client": 1,
+     "frame": "{\"type\":\"setPresented\",\"presented\":false}",
+     "now": 1030
+    }
+   ],
+   "expected": [
+    {
+     "sent": [
+      [
+       1,
+       {
+        "type": "identifyAck",
+        "role": "agent",
+        "status": "connected",
+        "serverVersion": "1.0.0"
+       }
+      ]
+     ],
+     "closed": [],
+     "handoff": null
+    },
+    {
+     "sent": [
+      [
+       2,
+       {
+        "type": "identifyAck",
+        "role": "renderer",
+        "status": "connected",
+        "serverVersion": "1.0.0"
+       }
+      ],
+      [
+       2,
+       {
+        "type": "initialState",
+        "state": "idle",
+        "expression": "neutral",
+        "idleMode": "breathing",
+        "intensity": 1
+       }
+      ]
+     ],
+     "closed": [],
+     "handoff": null
+    },
+    {
+     "sent": [
+      [
+       2,
+       {
+        "type": "setPresented",
+        "presented": false
+       }
+      ],
+      [
+       1,
+       {
+        "type": "presentedAck",
+        "presented": false
+       }
+      ]
+     ],
+     "closed": [],
+     "handoff": null
+    }
+   ]
+  },
+  {
+   "name": "set_presented_without_renderer_still_informs_stage",
+   "startedAt": 1000,
+   "speechPhase": "idle",
+   "knownVoices": [],
+   "steps": [
+    {
+     "op": "receive",
+     "client": 1,
+     "frame": "{\"type\":\"identify\",\"role\":\"agent\"}",
+     "now": 1010
+    },
+    {
+     "op": "receive",
+     "client": 2,
+     "frame": "{\"type\":\"identify\",\"role\":\"stage\"}",
+     "now": 1020
+    },
+    {
+     "op": "receive",
+     "client": 1,
+     "frame": "{\"type\":\"setPresented\",\"presented\":true}",
+     "now": 1030
+    }
+   ],
+   "expected": [
+    {
+     "sent": [
+      [
+       1,
+       {
+        "type": "identifyAck",
+        "role": "agent",
+        "status": "connected",
+        "serverVersion": "1.0.0"
+       }
+      ]
+     ],
+     "closed": [],
+     "handoff": null
+    },
+    {
+     "sent": [
+      [
+       2,
+       {
+        "type": "identifyAck",
+        "role": "stage",
+        "status": "connected",
+        "serverVersion": "1.0.0"
+       }
+      ],
+      [
+       2,
+       {
+        "type": "initialState",
+        "state": "idle",
+        "expression": "neutral",
+        "idleMode": "breathing",
+        "intensity": 1
+       }
+      ]
+     ],
+     "closed": [],
+     "handoff": null
+    },
+    {
+     "sent": [
+      [
+       2,
+       {
+        "type": "setPresented",
+        "presented": true
+       }
+      ],
+      [
+       1,
+       {
+        "type": "error",
+        "error": "No renderer is connected",
+        "timestamp": 1030
+       }
+      ]
+     ],
+     "closed": [],
+     "handoff": null
+    }
+   ]
+  },
+  {
+   "name": "perform_with_renderer",
+   "startedAt": 1000,
+   "speechPhase": "idle",
+   "knownVoices": [],
+   "steps": [
+    {
+     "op": "receive",
+     "client": 1,
+     "frame": "{\"type\":\"identify\",\"role\":\"agent\"}",
+     "now": 1010
+    },
+    {
+     "op": "receive",
+     "client": 2,
+     "frame": "{\"type\":\"identify\",\"role\":\"renderer\"}",
+     "now": 1020
+    },
+    {
+     "op": "receive",
+     "client": 1,
+     "frame": "{\"type\":\"perform\",\"action\":\"wave\",\"name\":\"hi\",\"id\":\"p1\"}",
+     "now": 1030
+    }
+   ],
+   "expected": [
+    {
+     "sent": [
+      [
+       1,
+       {
+        "type": "identifyAck",
+        "role": "agent",
+        "status": "connected",
+        "serverVersion": "1.0.0"
+       }
+      ]
+     ],
+     "closed": [],
+     "handoff": null
+    },
+    {
+     "sent": [
+      [
+       2,
+       {
+        "type": "identifyAck",
+        "role": "renderer",
+        "status": "connected",
+        "serverVersion": "1.0.0"
+       }
+      ],
+      [
+       2,
+       {
+        "type": "initialState",
+        "state": "idle",
+        "expression": "neutral",
+        "idleMode": "breathing",
+        "intensity": 1
+       }
+      ]
+     ],
+     "closed": [],
+     "handoff": null
+    },
+    {
+     "sent": [
+      [
+       2,
+       {
+        "type": "perform",
+        "action": "wave",
+        "name": "hi",
+        "id": "p1"
+       }
+      ],
+      [
+       1,
+       {
+        "type": "performanceRequested",
+        "action": "wave",
+        "name": "hi",
+        "id": "p1"
+       }
+      ]
+     ],
+     "closed": [],
+     "handoff": null
+    }
+   ]
+  },
+  {
+   "name": "perform_without_renderer_fails",
+   "startedAt": 1000,
+   "speechPhase": "idle",
+   "knownVoices": [],
+   "steps": [
+    {
+     "op": "receive",
+     "client": 1,
+     "frame": "{\"type\":\"identify\",\"role\":\"agent\"}",
+     "now": 1010
+    },
+    {
+     "op": "receive",
+     "client": 1,
+     "frame": "{\"type\":\"perform\",\"action\":\"wave\",\"id\":\"p2\"}",
+     "now": 1020
+    }
+   ],
+   "expected": [
+    {
+     "sent": [
+      [
+       1,
+       {
+        "type": "identifyAck",
+        "role": "agent",
+        "status": "connected",
+        "serverVersion": "1.0.0"
+       }
+      ]
+     ],
+     "closed": [],
+     "handoff": null
+    },
+    {
+     "sent": [
+      [
+       1,
+       {
+        "type": "error",
+        "error": "No renderer is connected",
+        "timestamp": 1020
+       }
+      ]
+     ],
+     "closed": [],
+     "handoff": null
+    }
+   ]
+  },
+  {
+   "name": "perform_omits_missing_fields",
+   "startedAt": 1000,
+   "speechPhase": "idle",
+   "knownVoices": [],
+   "steps": [
+    {
+     "op": "receive",
+     "client": 1,
+     "frame": "{\"type\":\"identify\",\"role\":\"agent\"}",
+     "now": 1010
+    },
+    {
+     "op": "receive",
+     "client": 2,
+     "frame": "{\"type\":\"identify\",\"role\":\"renderer\"}",
+     "now": 1020
+    },
+    {
+     "op": "receive",
+     "client": 1,
+     "frame": "{\"type\":\"perform\",\"action\":\"nod\"}",
+     "now": 1030
+    }
+   ],
+   "expected": [
+    {
+     "sent": [
+      [
+       1,
+       {
+        "type": "identifyAck",
+        "role": "agent",
+        "status": "connected",
+        "serverVersion": "1.0.0"
+       }
+      ]
+     ],
+     "closed": [],
+     "handoff": null
+    },
+    {
+     "sent": [
+      [
+       2,
+       {
+        "type": "identifyAck",
+        "role": "renderer",
+        "status": "connected",
+        "serverVersion": "1.0.0"
+       }
+      ],
+      [
+       2,
+       {
+        "type": "initialState",
+        "state": "idle",
+        "expression": "neutral",
+        "idleMode": "breathing",
+        "intensity": 1
+       }
+      ]
+     ],
+     "closed": [],
+     "handoff": null
+    },
+    {
+     "sent": [
+      [
+       2,
+       {
+        "type": "perform",
+        "action": "nod"
+       }
+      ],
+      [
+       1,
+       {
+        "type": "performanceRequested",
+        "action": "nod"
+       }
+      ]
+     ],
+     "closed": [],
+     "handoff": null
+    }
+   ]
+  },
+  {
+   "name": "get_status_with_agent_only",
+   "startedAt": 1000,
+   "speechPhase": "idle",
+   "knownVoices": [],
+   "steps": [
+    {
+     "op": "receive",
+     "client": 1,
+     "frame": "{\"type\":\"identify\",\"role\":\"agent\"}",
+     "now": 1010
+    },
+    {
+     "op": "receive",
+     "client": 1,
+     "frame": "{\"type\":\"getStatus\"}",
+     "now": 1020
+    }
+   ],
+   "expected": [
+    {
+     "sent": [
+      [
+       1,
+       {
+        "type": "identifyAck",
+        "role": "agent",
+        "status": "connected",
+        "serverVersion": "1.0.0"
+       }
+      ]
+     ],
+     "closed": [],
+     "handoff": null
+    },
+    {
+     "sent": [
+      [
+       1,
+       {
+        "type": "status",
+        "state": "idle",
+        "currentExpression": "neutral",
+        "currentCharacter": null,
+        "currentIdleMode": "breathing",
+        "intensity": 1,
+        "speaking": false,
+        "uptime": 0,
+        "agentConnected": true,
+        "rendererConnected": false,
+        "timestamp": 1020
+       }
+      ]
+     ],
+     "closed": [],
+     "handoff": null
+    }
+   ]
+  },
+  {
+   "name": "get_status_reports_speech_phase_and_uptime",
+   "startedAt": 1000,
+   "speechPhase": "playing",
+   "knownVoices": [],
+   "steps": [
+    {
+     "op": "receive",
+     "client": 1,
+     "frame": "{\"type\":\"identify\",\"role\":\"agent\"}",
+     "now": 1010
+    },
+    {
+     "op": "receive",
+     "client": 2,
+     "frame": "{\"type\":\"identify\",\"role\":\"renderer\"}",
+     "now": 1020
+    },
+    {
+     "op": "receive",
+     "client": 1,
+     "frame": "{\"type\":\"getStatus\"}",
+     "now": 6500
+    }
+   ],
+   "expected": [
+    {
+     "sent": [
+      [
+       1,
+       {
+        "type": "identifyAck",
+        "role": "agent",
+        "status": "connected",
+        "serverVersion": "1.0.0"
+       }
+      ]
+     ],
+     "closed": [],
+     "handoff": null
+    },
+    {
+     "sent": [
+      [
+       2,
+       {
+        "type": "identifyAck",
+        "role": "renderer",
+        "status": "connected",
+        "serverVersion": "1.0.0"
+       }
+      ],
+      [
+       2,
+       {
+        "type": "initialState",
+        "state": "playing",
+        "expression": "neutral",
+        "idleMode": "breathing",
+        "intensity": 1
+       }
+      ]
+     ],
+     "closed": [],
+     "handoff": null
+    },
+    {
+     "sent": [
+      [
+       1,
+       {
+        "type": "status",
+        "state": "playing",
+        "currentExpression": "neutral",
+        "currentCharacter": null,
+        "currentIdleMode": "breathing",
+        "intensity": 1,
+        "speaking": true,
+        "uptime": 5,
+        "agentConnected": true,
+        "rendererConnected": true,
+        "timestamp": 6500
+       }
+      ]
+     ],
+     "closed": [],
+     "handoff": null
+    }
+   ]
+  },
+  {
+   "name": "stop_speaking_acks_and_hands_off",
+   "startedAt": 1000,
+   "speechPhase": "idle",
+   "knownVoices": [],
+   "steps": [
+    {
+     "op": "receive",
+     "client": 1,
+     "frame": "{\"type\":\"identify\",\"role\":\"agent\"}",
+     "now": 1010
+    },
+    {
+     "op": "receive",
+     "client": 1,
+     "frame": "{\"type\":\"stopSpeaking\"}",
+     "now": 1020
+    }
+   ],
+   "expected": [
+    {
+     "sent": [
+      [
+       1,
+       {
+        "type": "identifyAck",
+        "role": "agent",
+        "status": "connected",
+        "serverVersion": "1.0.0"
+       }
+      ]
+     ],
+     "closed": [],
+     "handoff": null
+    },
+    {
+     "sent": [
+      [
+       1,
+       {
+        "type": "stopSpeakingAck",
+        "status": "stopped"
+       }
+      ]
+     ],
+     "closed": [],
+     "handoff": {
+      "kind": "stopSpeaking"
+     }
+    }
+   ]
+  },
+  {
+   "name": "camera_choices_reach_stage_alone",
+   "startedAt": 1000,
+   "speechPhase": "idle",
+   "knownVoices": [],
+   "steps": [
+    {
+     "op": "receive",
+     "client": 1,
+     "frame": "{\"type\":\"identify\",\"role\":\"agent\"}",
+     "now": 1010
+    },
+    {
+     "op": "receive",
+     "client": 2,
+     "frame": "{\"type\":\"identify\",\"role\":\"renderer\"}",
+     "now": 1020
+    },
+    {
+     "op": "receive",
+     "client": 3,
+     "frame": "{\"type\":\"identify\",\"role\":\"viewer\"}",
+     "now": 1030
+    },
+    {
+     "op": "receive",
+     "client": 4,
+     "frame": "{\"type\":\"identify\",\"role\":\"stage\"}",
+     "now": 1040
+    },
+    {
+     "op": "receive",
+     "client": 1,
+     "frame": "{\"type\":\"listCameras\",\"id\":\"1\"}",
+     "now": 1050
+    },
+    {
+     "op": "receive",
+     "client": 1,
+     "frame": "{\"type\":\"enableCamera\",\"deviceId\":\"desk\",\"id\":\"2\"}",
+     "now": 1060
+    },
+    {
+     "op": "receive",
+     "client": 1,
+     "frame": "{\"type\":\"disableCamera\",\"id\":\"3\"}",
+     "now": 1070
+    }
+   ],
+   "expected": [
+    {
+     "sent": [
+      [
+       1,
+       {
+        "type": "identifyAck",
+        "role": "agent",
+        "status": "connected",
+        "serverVersion": "1.0.0"
+       }
+      ]
+     ],
+     "closed": [],
+     "handoff": null
+    },
+    {
+     "sent": [
+      [
+       2,
+       {
+        "type": "identifyAck",
+        "role": "renderer",
+        "status": "connected",
+        "serverVersion": "1.0.0"
+       }
+      ],
+      [
+       2,
+       {
+        "type": "initialState",
+        "state": "idle",
+        "expression": "neutral",
+        "idleMode": "breathing",
+        "intensity": 1
+       }
+      ]
+     ],
+     "closed": [],
+     "handoff": null
+    },
+    {
+     "sent": [
+      [
+       3,
+       {
+        "type": "identifyAck",
+        "role": "viewer",
+        "status": "connected",
+        "serverVersion": "1.0.0"
+       }
+      ],
+      [
+       3,
+       {
+        "type": "initialState",
+        "state": "idle",
+        "expression": "neutral",
+        "idleMode": "breathing",
+        "intensity": 1
+       }
+      ]
+     ],
+     "closed": [],
+     "handoff": null
+    },
+    {
+     "sent": [
+      [
+       4,
+       {
+        "type": "identifyAck",
+        "role": "stage",
+        "status": "connected",
+        "serverVersion": "1.0.0"
+       }
+      ],
+      [
+       4,
+       {
+        "type": "initialState",
+        "state": "idle",
+        "expression": "neutral",
+        "idleMode": "breathing",
+        "intensity": 1
+       }
+      ]
+     ],
+     "closed": [],
+     "handoff": null
+    },
+    {
+     "sent": [
+      [
+       4,
+       {
+        "type": "listCameras",
+        "id": "1"
+       }
+      ]
+     ],
+     "closed": [],
+     "handoff": null
+    },
+    {
+     "sent": [
+      [
+       4,
+       {
+        "type": "enableCamera",
+        "deviceId": "desk",
+        "id": "2"
+       }
+      ]
+     ],
+     "closed": [],
+     "handoff": null
+    },
+    {
+     "sent": [
+      [
+       4,
+       {
+        "type": "disableCamera",
+        "id": "3"
+       }
+      ]
+     ],
+     "closed": [],
+     "handoff": null
+    }
+   ]
+  },
+  {
+   "name": "camera_choices_reach_renderer_without_stage",
+   "startedAt": 1000,
+   "speechPhase": "idle",
+   "knownVoices": [],
+   "steps": [
+    {
+     "op": "receive",
+     "client": 1,
+     "frame": "{\"type\":\"identify\",\"role\":\"agent\"}",
+     "now": 1010
+    },
+    {
+     "op": "receive",
+     "client": 2,
+     "frame": "{\"type\":\"identify\",\"role\":\"renderer\"}",
+     "now": 1020
+    },
+    {
+     "op": "receive",
+     "client": 1,
+     "frame": "{\"type\":\"enableCamera\",\"deviceId\":\"desk\",\"id\":\"2\"}",
+     "now": 1030
+    }
+   ],
+   "expected": [
+    {
+     "sent": [
+      [
+       1,
+       {
+        "type": "identifyAck",
+        "role": "agent",
+        "status": "connected",
+        "serverVersion": "1.0.0"
+       }
+      ]
+     ],
+     "closed": [],
+     "handoff": null
+    },
+    {
+     "sent": [
+      [
+       2,
+       {
+        "type": "identifyAck",
+        "role": "renderer",
+        "status": "connected",
+        "serverVersion": "1.0.0"
+       }
+      ],
+      [
+       2,
+       {
+        "type": "initialState",
+        "state": "idle",
+        "expression": "neutral",
+        "idleMode": "breathing",
+        "intensity": 1
+       }
+      ]
+     ],
+     "closed": [],
+     "handoff": null
+    },
+    {
+     "sent": [
+      [
+       2,
+       {
+        "type": "enableCamera",
+        "deviceId": "desk",
+        "id": "2"
+       }
+      ]
+     ],
+     "closed": [],
+     "handoff": null
+    }
+   ]
+  },
+  {
+   "name": "camera_choice_without_owner_fails",
+   "startedAt": 1000,
+   "speechPhase": "idle",
+   "knownVoices": [],
+   "steps": [
+    {
+     "op": "receive",
+     "client": 1,
+     "frame": "{\"type\":\"identify\",\"role\":\"agent\"}",
+     "now": 1010
+    },
+    {
+     "op": "receive",
+     "client": 1,
+     "frame": "{\"type\":\"listCameras\",\"id\":\"1\"}",
+     "now": 1020
+    }
+   ],
+   "expected": [
+    {
+     "sent": [
+      [
+       1,
+       {
+        "type": "identifyAck",
+        "role": "agent",
+        "status": "connected",
+        "serverVersion": "1.0.0"
+       }
+      ]
+     ],
+     "closed": [],
+     "handoff": null
+    },
+    {
+     "sent": [
+      [
+       1,
+       {
+        "type": "error",
+        "error": "No renderer is connected",
+        "timestamp": 1020
+       }
+      ]
+     ],
+     "closed": [],
+     "handoff": null
+    }
+   ]
+  },
+  {
+   "name": "camera_owner_answers_reach_every_agent",
+   "startedAt": 1000,
+   "speechPhase": "idle",
+   "knownVoices": [],
+   "steps": [
+    {
+     "op": "receive",
+     "client": 1,
+     "frame": "{\"type\":\"identify\",\"role\":\"agent\"}",
+     "now": 1010
+    },
+    {
+     "op": "receive",
+     "client": 2,
+     "frame": "{\"type\":\"identify\",\"role\":\"agent\"}",
+     "now": 1020
+    },
+    {
+     "op": "receive",
+     "client": 3,
+     "frame": "{\"type\":\"identify\",\"role\":\"stage\"}",
+     "now": 1030
+    },
+    {
+     "op": "receive",
+     "client": 3,
+     "frame": "{\"type\":\"cameraList\",\"cameras\":[],\"id\":\"1\"}",
+     "now": 1040
+    },
+    {
+     "op": "receive",
+     "client": 3,
+     "frame": "{\"type\":\"cameraResult\",\"message\":\"Camera enabled\",\"id\":\"2\"}",
+     "now": 1050
+    }
+   ],
+   "expected": [
+    {
+     "sent": [
+      [
+       1,
+       {
+        "type": "identifyAck",
+        "role": "agent",
+        "status": "connected",
+        "serverVersion": "1.0.0"
+       }
+      ]
+     ],
+     "closed": [],
+     "handoff": null
+    },
+    {
+     "sent": [
+      [
+       2,
+       {
+        "type": "identifyAck",
+        "role": "agent",
+        "status": "connected",
+        "serverVersion": "1.0.0"
+       }
+      ]
+     ],
+     "closed": [],
+     "handoff": null
+    },
+    {
+     "sent": [
+      [
+       3,
+       {
+        "type": "identifyAck",
+        "role": "stage",
+        "status": "connected",
+        "serverVersion": "1.0.0"
+       }
+      ],
+      [
+       3,
+       {
+        "type": "initialState",
+        "state": "idle",
+        "expression": "neutral",
+        "idleMode": "breathing",
+        "intensity": 1
+       }
+      ]
+     ],
+     "closed": [],
+     "handoff": null
+    },
+    {
+     "sent": [
+      [
+       1,
+       {
+        "type": "cameraList",
+        "cameras": [],
+        "id": "1"
+       }
+      ],
+      [
+       2,
+       {
+        "type": "cameraList",
+        "cameras": [],
+        "id": "1"
+       }
+      ]
+     ],
+     "closed": [],
+     "handoff": null
+    },
+    {
+     "sent": [
+      [
+       1,
+       {
+        "type": "cameraResult",
+        "message": "Camera enabled",
+        "id": "2"
+       }
+      ],
+      [
+       2,
+       {
+        "type": "cameraResult",
+        "message": "Camera enabled",
+        "id": "2"
+       }
+      ]
+     ],
+     "closed": [],
+     "handoff": null
+    }
+   ]
+  },
+  {
+   "name": "viewer_cannot_answer_for_camera",
+   "startedAt": 1000,
+   "speechPhase": "idle",
+   "knownVoices": [],
+   "steps": [
+    {
+     "op": "receive",
+     "client": 1,
+     "frame": "{\"type\":\"identify\",\"role\":\"agent\"}",
+     "now": 1010
+    },
+    {
+     "op": "receive",
+     "client": 2,
+     "frame": "{\"type\":\"identify\",\"role\":\"viewer\"}",
+     "now": 1020
+    },
+    {
+     "op": "receive",
+     "client": 2,
+     "frame": "{\"type\":\"cameraResult\",\"message\":\"Camera enabled\",\"id\":\"1\"}",
+     "now": 1030
+    }
+   ],
+   "expected": [
+    {
+     "sent": [
+      [
+       1,
+       {
+        "type": "identifyAck",
+        "role": "agent",
+        "status": "connected",
+        "serverVersion": "1.0.0"
+       }
+      ]
+     ],
+     "closed": [],
+     "handoff": null
+    },
+    {
+     "sent": [
+      [
+       2,
+       {
+        "type": "identifyAck",
+        "role": "viewer",
+        "status": "connected",
+        "serverVersion": "1.0.0"
+       }
+      ],
+      [
+       2,
+       {
+        "type": "initialState",
+        "state": "idle",
+        "expression": "neutral",
+        "idleMode": "breathing",
+        "intensity": 1
+       }
+      ]
+     ],
+     "closed": [],
+     "handoff": null
+    },
+    {
+     "sent": [],
+     "closed": [],
+     "handoff": null
+    }
+   ]
+  },
+  {
+   "name": "renderer_speech_end_is_quiet",
+   "startedAt": 1000,
+   "speechPhase": "idle",
+   "knownVoices": [],
+   "steps": [
+    {
+     "op": "receive",
+     "client": 1,
+     "frame": "{\"type\":\"identify\",\"role\":\"agent\"}",
+     "now": 1010
+    },
+    {
+     "op": "receive",
+     "client": 2,
+     "frame": "{\"type\":\"identify\",\"role\":\"renderer\"}",
+     "now": 1020
+    },
+    {
+     "op": "receive",
+     "client": 2,
+     "frame": "{\"type\":\"speechEnd\"}",
+     "now": 1030
+    }
+   ],
+   "expected": [
+    {
+     "sent": [
+      [
+       1,
+       {
+        "type": "identifyAck",
+        "role": "agent",
+        "status": "connected",
+        "serverVersion": "1.0.0"
+       }
+      ]
+     ],
+     "closed": [],
+     "handoff": null
+    },
+    {
+     "sent": [
+      [
+       2,
+       {
+        "type": "identifyAck",
+        "role": "renderer",
+        "status": "connected",
+        "serverVersion": "1.0.0"
+       }
+      ],
+      [
+       2,
+       {
+        "type": "initialState",
+        "state": "idle",
+        "expression": "neutral",
+        "idleMode": "breathing",
+        "intensity": 1
+       }
+      ]
+     ],
+     "closed": [],
+     "handoff": null
+    },
+    {
+     "sent": [],
+     "closed": [],
+     "handoff": null
+    }
+   ]
+  },
+  {
+   "name": "renderer_performance_applied_reaches_agents",
+   "startedAt": 1000,
+   "speechPhase": "idle",
+   "knownVoices": [],
+   "steps": [
+    {
+     "op": "receive",
+     "client": 1,
+     "frame": "{\"type\":\"identify\",\"role\":\"agent\"}",
+     "now": 1010
+    },
+    {
+     "op": "receive",
+     "client": 2,
+     "frame": "{\"type\":\"identify\",\"role\":\"renderer\"}",
+     "now": 1020
+    },
+    {
+     "op": "receive",
+     "client": 2,
+     "frame": "{\"type\":\"performanceApplied\",\"name\":\"wave\",\"id\":\"p9\"}",
+     "now": 1030
+    }
+   ],
+   "expected": [
+    {
+     "sent": [
+      [
+       1,
+       {
+        "type": "identifyAck",
+        "role": "agent",
+        "status": "connected",
+        "serverVersion": "1.0.0"
+       }
+      ]
+     ],
+     "closed": [],
+     "handoff": null
+    },
+    {
+     "sent": [
+      [
+       2,
+       {
+        "type": "identifyAck",
+        "role": "renderer",
+        "status": "connected",
+        "serverVersion": "1.0.0"
+       }
+      ],
+      [
+       2,
+       {
+        "type": "initialState",
+        "state": "idle",
+        "expression": "neutral",
+        "idleMode": "breathing",
+        "intensity": 1
+       }
+      ]
+     ],
+     "closed": [],
+     "handoff": null
+    },
+    {
+     "sent": [
+      [
+       1,
+       {
+        "type": "performanceApplied",
+        "name": "wave",
+        "id": "p9"
+       }
+      ]
+     ],
+     "closed": [],
+     "handoff": null
+    }
+   ]
+  },
+  {
+   "name": "tick_without_pending_is_quiet",
+   "startedAt": 1000,
+   "speechPhase": "idle",
+   "knownVoices": [],
+   "steps": [
+    {
+     "op": "receive",
+     "client": 1,
+     "frame": "{\"type\":\"identify\",\"role\":\"agent\"}",
+     "now": 1010
+    },
+    {
+     "op": "tick",
+     "now": 2000
+    }
+   ],
+   "expected": [
+    {
+     "sent": [
+      [
+       1,
+       {
+        "type": "identifyAck",
+        "role": "agent",
+        "status": "connected",
+        "serverVersion": "1.0.0"
+       }
+      ]
+     ],
+     "closed": [],
+     "handoff": null
+    },
+    {
+     "sent": [],
+     "closed": [],
+     "handoff": null
+    }
+   ]
+  }
+ ]
+}
