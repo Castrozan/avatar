@@ -1,12 +1,12 @@
 use serde_json::Value;
 
+use super::POLL_SECONDS;
 use super::failure::SeatFailure;
 use super::seat::LocalSeat;
 use crate::support::truth::python_truthy;
 
 const TUNNEL_WAIT_SECONDS: f64 = 15.0;
 const ATTACH_WAIT_SECONDS: f64 = 20.0;
-const POLL_SECONDS: f64 = 0.25;
 
 fn refuse_on_failure(seat: &Value) -> Result<(), SeatFailure> {
     let failure = seat.get("failure").filter(|reason| python_truthy(reason));
