@@ -1,11 +1,9 @@
 use std::fs;
 use std::path::PathBuf;
 
+use avatar_assets::Asset;
 use avatar_live::voices::voice_for;
 use avatar_wake::character::listing::parse_listed_characters;
-
-const CHARACTERS_VARIABLE: &str = "AVATAR_SERVANT_CHARACTERS";
-const VOICES_VARIABLE: &str = "AVATAR_CHARACTER_VOICES";
 
 #[derive(Clone)]
 pub(crate) struct VoiceChoice {
@@ -20,8 +18,8 @@ fn text_of(path: Option<&PathBuf>) -> Option<String> {
 impl VoiceChoice {
     pub(crate) fn from_environment() -> Self {
         Self {
-            characters: std::env::var_os(CHARACTERS_VARIABLE).map(PathBuf::from),
-            voices: std::env::var_os(VOICES_VARIABLE).map(PathBuf::from),
+            characters: avatar_assets::resolve(Asset::ServantCharacters).ok(),
+            voices: avatar_assets::resolve(Asset::CharacterVoices).ok(),
         }
     }
 

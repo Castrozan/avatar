@@ -1,0 +1,191 @@
+[
+  {
+    "cloudVoice": "cgSgspJ2msm6clMCkdW9",
+    "description": "Young woman, crimson bob, dark ornate dress; bright playful voice",
+    "gender": "female",
+    "liveVoice": "delta",
+    "localVoice": "pf_dora",
+    "model": "darkness-shibu",
+    "name": "darkness-shibu"
+  },
+  {
+    "cloudVoice": "pFZP5JQG7iQjIQuC4Bku",
+    "description": "Young woman, long black hair, school uniform; velvety theatrical voice",
+    "gender": "female",
+    "liveVoice": "willow",
+    "localVoice": "pf_dora",
+    "model": "sendagaya-shino",
+    "name": "sendagaya-shino"
+  },
+  {
+    "cloudVoice": "EXAVITQu4vr4xnSDxMaL",
+    "description": "Young woman, black bob, school uniform; mature confident voice",
+    "gender": "female",
+    "liveVoice": "quartz",
+    "localVoice": "pf_dora",
+    "model": "sendagaya-shibu",
+    "name": "sendagaya-shibu"
+  },
+  {
+    "cloudVoice": "XrExE9yKIg1WjnnlVkGX",
+    "description": "Young woman, blonde ponytail, frilled white dress; knowledgeable professional voice",
+    "gender": "female",
+    "liveVoice": "gleam",
+    "localVoice": "pf_dora",
+    "model": "victoria-rubin",
+    "name": "victoria-rubin"
+  },
+  {
+    "cloudVoice": "Xb7hH8MSUJpSbSDYk0k2",
+    "description": "Young woman, short silver hair, futuristic armor; clear engaging voice",
+    "gender": "female",
+    "liveVoice": "bossa",
+    "localVoice": "pf_dora",
+    "model": "vita",
+    "name": "vita"
+  },
+  {
+    "cloudVoice": "FGY2WhTYpPnrIDTdsKH5",
+    "description": "Girl, brown bob, folk dress; quirky enthusiastic voice",
+    "gender": "female",
+    "liveVoice": "delta",
+    "localVoice": "pf_dora",
+    "model": "vivi",
+    "name": "vivi"
+  },
+  {
+    "cloudVoice": "Xb7hH8MSUJpSbSDYk0k2",
+    "description": "Young woman, black twin tails, cat ears; clear engaging voice",
+    "gender": "female",
+    "liveVoice": "willow",
+    "localVoice": "pf_dora",
+    "model": "hair-sample-female",
+    "name": "hair-sample-female"
+  },
+  {
+    "cloudVoice": "hpp4J3VqNfWAUOO0d1Us",
+    "description": "Young woman, short brown hair, gentle face; warm bright voice",
+    "gender": "female",
+    "liveVoice": "bossa",
+    "localVoice": "pf_dora",
+    "model": "avatar-sample-a",
+    "name": "avatar-sample-a"
+  },
+  {
+    "cloudVoice": "cgSgspJ2msm6clMCkdW9",
+    "description": "Young woman, long purple hair, horns and star clips; playful bright voice",
+    "gender": "female",
+    "liveVoice": "gleam",
+    "localVoice": "pf_dora",
+    "model": "avatar-sample-b",
+    "name": "avatar-sample-b"
+  },
+  {
+    "cloudVoice": "TX3LPaxmHKxFdv7VOQHJ",
+    "description": "Young man, light brown hair, school vest; energetic voice",
+    "gender": "male",
+    "liveVoice": "meridian",
+    "localVoice": "pm_alex",
+    "model": "sakurada-fumiriya",
+    "name": "sakurada-fumiriya"
+  },
+  {
+    "cloudVoice": "iP95p4xoKVk53GoZ742B",
+    "description": "Young man, light brown hair, school vest; charming down-to-earth voice",
+    "gender": "male",
+    "liveVoice": "stone",
+    "localVoice": "pm_santa",
+    "model": "sakurada-fumiriya",
+    "name": "sakurada-fumiriya-chris"
+  },
+  {
+    "cloudVoice": "N2lVS1w4EtoT3dr4eOWO",
+    "description": "Young man, light brown hair, school vest; husky trickster voice",
+    "gender": "male",
+    "liveVoice": "vesper",
+    "localVoice": "pm_alex",
+    "model": "sakurada-fumiriya",
+    "name": "sakurada-fumiriya-callum"
+  },
+  {
+    "cloudVoice": "IKne3meq5aSn9XLyUdCD",
+    "description": "Young man, light brown hair, school vest; deep confident energetic voice",
+    "gender": "male",
+    "liveVoice": "ripple",
+    "localVoice": "pm_santa",
+    "model": "sakurada-fumiriya",
+    "name": "sakurada-fumiriya-charlie"
+  },
+  {
+    "cloudVoice": "bIHbv24MWmeRgasZH58o",
+    "description": "Young man, black hair, white hoodie; relaxed optimistic voice",
+    "gender": "male",
+    "liveVoice": "tempo",
+    "localVoice": "pm_santa",
+    "model": "hair-sample-male",
+    "name": "hair-sample-male"
+  },
+  {
+    "cloudVoice": "CwhRBWXzGAHq8TQ4Fs17",
+    "description": "Young man, black hair, white hoodie; laid-back resonant voice",
+    "gender": "male",
+    "liveVoice": "cinder",
+    "localVoice": "pm_alex",
+    "model": "hair-sample-male",
+    "name": "hair-sample-male-roger"
+  },
+  {
+    "cloudVoice": "cjVigY5qzO86Huf0OWal",
+    "description": "Young man, black hair, white hoodie; smooth trustworthy voice",
+    "gender": "male",
+    "liveVoice": "beacon",
+    "localVoice": "pm_santa",
+    "model": "hair-sample-male",
+    "name": "hair-sample-male-eric"
+  },
+  {
+    "cloudVoice": "onwK4e9ZLuTAKqWW03F9",
+    "description": "Young man, black hair, white hoodie; steady broadcaster voice",
+    "gender": "male",
+    "liveVoice": "meridian",
+    "localVoice": "pm_alex",
+    "model": "hair-sample-male",
+    "name": "hair-sample-male-daniel"
+  },
+  {
+    "cloudVoice": "SOYHLrjzK2X1ezoPC6cr",
+    "description": "Young man, dark shaggy hair, red eyes, black coat; fierce warrior voice",
+    "gender": "male",
+    "liveVoice": "stone",
+    "localVoice": "pm_santa",
+    "model": "avatar-sample-c",
+    "name": "avatar-sample-c"
+  },
+  {
+    "cloudVoice": "JBFqnCBsd6RMkjVDRZzb",
+    "description": "Young man, dark shaggy hair, red eyes, black coat; warm storyteller voice",
+    "gender": "male",
+    "liveVoice": "vesper",
+    "localVoice": "pm_alex",
+    "model": "avatar-sample-c",
+    "name": "avatar-sample-c-george"
+  },
+  {
+    "cloudVoice": "nPczCjzI2devNBz1zQrb",
+    "description": "Young man, dark shaggy hair, red eyes, black coat; deep resonant comforting voice",
+    "gender": "male",
+    "liveVoice": "tempo",
+    "localVoice": "pm_santa",
+    "model": "avatar-sample-c",
+    "name": "avatar-sample-c-brian"
+  },
+  {
+    "cloudVoice": "pNInz6obpgDQGcFmaJgB",
+    "description": "Young man, dark shaggy hair, red eyes, black coat; dominant firm voice",
+    "gender": "male",
+    "liveVoice": "ripple",
+    "localVoice": "pm_alex",
+    "model": "avatar-sample-c",
+    "name": "avatar-sample-c-adam"
+  }
+]

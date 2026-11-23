@@ -1,13 +1,8 @@
 { pkgs }:
 let
-  three = pkgs.fetchurl {
-    url = "https://registry.npmjs.org/three/-/three-0.149.0.tgz";
-    hash = "sha512-tohpUxPDht0qExRLDTM8sjRLc5d9STURNrdnK3w9A+V4pxaTBfKWWT/IqtiLfg23Vfc3Z+ImNfvRw1/0CtxrkQ==";
-  };
-  vrm = pkgs.fetchurl {
-    url = "https://registry.npmjs.org/@pixiv/three-vrm/-/three-vrm-1.0.9.tgz";
-    hash = "sha512-OXExupt3p/6oT3acM236Z5f6nVGAU0nYz2Al8UZXkaZKwVklaIBTCy0iC+57PFTkdpj+6Urxa9CiWagKg3ihXA==";
-  };
+  assets = import ../../runtime/assets { inherit pkgs; };
+  three = assets.fetch "three";
+  vrm = assets.fetch "three-vrm";
   characters = import ../../runtime/cast/characters.nix { inherit pkgs; };
   characterCatalog = pkgs.writeText "characters.json" (
     builtins.toJSON (map (character: { inherit (character) name description; }) characters)

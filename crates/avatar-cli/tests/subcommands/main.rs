@@ -4,6 +4,7 @@ mod floor;
 mod machine;
 mod remote_seat;
 mod routing;
+mod setup;
 mod version;
 mod window_reveal;
 

@@ -1,8 +1,9 @@
 use std::path::PathBuf;
 
+use avatar_assets::Asset;
 use avatar_listening::listener::speaker_identity::{
-    Embedder, EmbedderLoader, MODEL_ENVIRONMENT_VARIABLE, SpeakerIdentification, VoiceProfiles,
-    configured_identifier, voices_directory,
+    Embedder, EmbedderLoader, SpeakerIdentification, VoiceProfiles, configured_identifier,
+    voices_directory,
 };
 
 const UNAVAILABLE: &str = "this avatar has no speaker embedder";
@@ -32,6 +33,8 @@ fn voice_profiles() -> VoiceProfiles {
 }
 
 pub(super) fn identifier_for(enabled: bool) -> Box<dyn SpeakerIdentification> {
-    let model = std::env::var(MODEL_ENVIRONMENT_VARIABLE).ok();
+    let model = avatar_assets::resolve(Asset::SpeakerModel)
+        .ok()
+        .map(|path| path.to_string_lossy().into_owned());
     configured_identifier(enabled, voice_profiles(), model, UnavailableEmbedder)
 }

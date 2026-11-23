@@ -5,22 +5,23 @@ use avatar_floor::protocol::json_lines::run_json_lines as run_floor_json_lines;
 use avatar_routing::protocol::json_lines::run_json_lines as run_routing_json_lines;
 use clap::Subcommand;
 
+mod assets;
 pub(crate) mod audio;
 mod browser;
 mod control;
 mod dispatch;
 mod hosts;
 pub(crate) mod interruption;
-mod serve;
 mod stop;
 mod transcribe;
 
+use assets::serve::{self, ServeOptions};
+use assets::setup::{self, SetupOptions};
 use audio::AudioOptions;
 use browser::BrowserOptions;
 use control::ControlOptions;
 use dispatch::DispatchOptions;
 use hosts::HostCommand;
-use serve::ServeOptions;
 
 #[derive(Subcommand)]
 pub(crate) enum ToolCommand {
@@ -35,10 +36,14 @@ pub(crate) enum ToolCommand {
         about = "Send one command to the avatar control server and print its answer"
     )]
     Dispatch(DispatchOptions),
-    #[command(about = "Serve the renderer directory from AVATAR_RENDERER_ROOT without caching")]
+    #[command(
+        about = "Serve the renderer, from AVATAR_RENDERER_ROOT or the embedded files, without caching"
+    )]
     Serve(ServeOptions),
     #[command(about = "Run the owned avatar browser: supervise URL, endpoint, stop or controls")]
     Browser(BrowserOptions),
+    #[command(about = "Download the speech, turn and renderer assets into the data directory")]
+    Setup(SetupOptions),
     #[command(about = "Operate the avatar audio graph and print its state as JSON")]
     Audio(AudioOptions),
     #[command(about = "Stop the avatar services and tear down the audio graph")]
@@ -59,12 +64,13 @@ impl ToolCommand {
             Self::Serve(options) => succeed(serve::run(&options)),
             Self::Browser(options) => succeed(browser::run(&options)),
             Self::Host(command) => command.run(),
-            other => other.run_audio_tools(),
+            other => other.run_local_tools(),
         }
     }
 
-    fn run_audio_tools(self) -> io::Result<ExitCode> {
+    fn run_local_tools(self) -> io::Result<ExitCode> {
         match self {
+            Self::Setup(options) => succeed(setup::run(&options)),
             Self::Audio(options) => audio::run(&options.action),
             Self::Transcribe => succeed(transcribe::run()),
             _ => Ok(stop::run()),

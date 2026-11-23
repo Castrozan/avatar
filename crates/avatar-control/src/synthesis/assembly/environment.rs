@@ -1,5 +1,7 @@
 use std::path::{Path, PathBuf};
 
+use avatar_assets::Asset;
+
 use super::{
     CloudVoiceSettings, Configuration, LocalVoiceSettings, SpeechStack, assemble_speech_generator,
 };
@@ -14,7 +16,7 @@ const PIPER_PROGRAM: &str = "piper";
 const PORTUGUESE_KOKORO_VOICE: &str = "pf_dora";
 const ENGLISH_KOKORO_VOICE: &str = "af_heart";
 const ENGLISH_PIPER_VOICE: &str = "en_US-lessac-medium";
-const DEFAULT_PIPER_VOICE: &str = "@ttsVoice@";
+const DEFAULT_PIPER_VOICE: &str = "pt_BR-faber-medium";
 
 pub fn language_from_tag(tag: &str) -> Result<SpokenLanguage, SynthesisError> {
     match tag {
@@ -57,7 +59,7 @@ fn cloud_settings() -> Result<CloudVoiceSettings, SynthesisError> {
 fn local_settings(home: &Path) -> LocalVoiceSettings {
     LocalVoiceSettings {
         output_root_directory: home.join(".cache").join("clever-avatar").join("tts"),
-        voice_model_directory: PathBuf::from(variable_or("AVATAR_TTS_VOICE_DIRECTORY", "")),
+        voice_model_directory: avatar_assets::resolve(Asset::VoiceDirectory).unwrap_or_default(),
         by_language: local_voices(),
     }
 }
@@ -76,8 +78,7 @@ fn local_voices() -> LocalVoicesByLanguage {
 }
 
 async fn read_characters() -> Result<Vec<CharacterVoice>, SynthesisError> {
-    let path = std::env::var("AVATAR_CHARACTER_VOICES")
-        .map_err(|error| SynthesisError::Failed(error.to_string()))?;
+    let path = avatar_assets::resolve(Asset::CharacterVoices)?;
     let text = tokio::fs::read_to_string(path).await?;
     serde_json::from_str(&text).map_err(|error| SynthesisError::MalformedOutput(error.to_string()))
 }

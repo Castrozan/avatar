@@ -80,7 +80,7 @@ fn the_daemon_refuses_to_start_without_its_models() -> TestResult {
     fs::write(machine.runtime().join("listener.json"), r#"{"sources":{}}"#)?;
     let output = machine.run(&["listener"])?;
     assert_eq!(output.status.code(), Some(1));
-    assert!(text(&output.stderr).contains("AVATAR_TURN_MODEL is not set"));
+    assert!(text(&output.stderr).contains("turn model not found"));
     Ok(())
 }
 

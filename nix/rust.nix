@@ -3,9 +3,15 @@ let
   craneLib = crane.mkLib pkgs;
   inherit (pkgs) lib;
   crateFixtureData = path: _type: builtins.match ".*/crates/.*\\.(json|log)$" path != null;
+  embeddedAsset =
+    path: _type:
+    builtins.match ".*/(runtime/(renderer|scripts/conversation/remote_seat/page|scripts/wake/page|cast|assets)/[^/]+|skills/avatar/avatars/jarvis\\.jpeg)$" path
+    != null;
   src = lib.cleanSourceWith {
     src = ../.;
-    filter = path: type: crateFixtureData path type || craneLib.filterCargoSources path type;
+    filter =
+      path: type:
+      crateFixtureData path type || embeddedAsset path type || craneLib.filterCargoSources path type;
     name = "source";
   };
   commonArguments = {
