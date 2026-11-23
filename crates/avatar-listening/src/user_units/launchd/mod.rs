@@ -1,3 +1,6 @@
+pub mod effects;
+pub mod process;
+
 pub const CONVERSATION_AGENT: &str = "com.dotfiles.avatar-conversation";
 pub const LIVE_AGENT: &str = "com.dotfiles.avatar-live";
 const CONVERSATION_TARGET: &str = "avatar-conversation.target";
@@ -8,7 +11,7 @@ pub trait LaunchctlPrint {
 }
 
 #[must_use]
-fn agents_for(unit: &str) -> &'static [&'static str] {
+pub(crate) fn agents_for(unit: &str) -> &'static [&'static str] {
     match unit {
         CONVERSATION_TARGET => &[CONVERSATION_AGENT, LIVE_AGENT],
         "avatar-listener.service" => &[CONVERSATION_AGENT],
@@ -20,7 +23,7 @@ fn agents_for(unit: &str) -> &'static [&'static str] {
 }
 
 #[must_use]
-fn agent_target(user_identifier: u32, agent: &str) -> String {
+pub(crate) fn agent_target(user_identifier: u32, agent: &str) -> String {
     format!("gui/{user_identifier}/{agent}")
 }
 

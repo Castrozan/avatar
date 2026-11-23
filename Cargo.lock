@@ -193,10 +193,14 @@ dependencies = [
 name = "avatar-listening"
 version = "0.1.0"
 dependencies = [
+ "avatar-transcript",
  "axum",
+ "clap",
  "futures-util",
+ "nix",
  "num-traits",
  "proptest",
+ "regex",
  "serde",
  "serde_json",
  "tempfile",

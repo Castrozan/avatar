@@ -1,6 +1,7 @@
 mod barge_in;
 mod conversation_addressee;
 mod conversation_state;
+mod edges;
 mod mel;
 mod speech_segmenter;
 mod support;

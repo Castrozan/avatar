@@ -1,0 +1,925 @@
+{
+ "cases": [
+  {
+   "kind": "begin",
+   "purpose": "conversation",
+   "active": [],
+   "settings": {
+    "language": "pt",
+    "identify_speakers": true
+   },
+   "existing": [
+    "transcript.jsonl",
+    "embeddings.jsonl",
+    "heard",
+    "spoken",
+    "listener.json",
+    "unrelated.txt"
+   ],
+   "addressee": true,
+   "fresh": false,
+   "events": [
+    [
+     "start",
+     "avatar-listener.service"
+    ]
+   ],
+   "files": {
+    ".addressee.lock": "0o600",
+    "listener.json": "0o644",
+    "unrelated.txt": "0o644"
+   },
+   "directory_mode": "0o755",
+   "configuration": {
+    "purpose": "conversation",
+    "sources": {
+     "meeting": "m",
+     "human": "h"
+    },
+    "language": "pt",
+    "identify_speakers": true
+   },
+   "purpose_read": "conversation",
+   "sources_read": {
+    "meeting": "m",
+    "human": "h"
+   }
+  },
+  {
+   "kind": "begin",
+   "purpose": "conversation",
+   "active": [
+    "avatar-listener.service"
+   ],
+   "settings": {
+    "language": "pt",
+    "identify_speakers": true
+   },
+   "existing": [
+    "transcript.jsonl",
+    "embeddings.jsonl",
+    "heard",
+    "spoken",
+    "listener.json",
+    "unrelated.txt"
+   ],
+   "addressee": true,
+   "fresh": false,
+   "events": [
+    [
+     "stop",
+     "avatar-listener.service"
+    ],
+    [
+     "start",
+     "avatar-listener.service"
+    ]
+   ],
+   "files": {
+    ".addressee.lock": "0o600",
+    "listener.json": "0o644",
+    "unrelated.txt": "0o644"
+   },
+   "directory_mode": "0o755",
+   "configuration": {
+    "purpose": "conversation",
+    "sources": {
+     "meeting": "m",
+     "human": "h"
+    },
+    "language": "pt",
+    "identify_speakers": true
+   },
+   "purpose_read": "conversation",
+   "sources_read": {
+    "meeting": "m",
+    "human": "h"
+   }
+  },
+  {
+   "kind": "begin",
+   "purpose": "conversation",
+   "active": [
+    "avatar-live.service"
+   ],
+   "settings": {
+    "language": "pt",
+    "identify_speakers": true
+   },
+   "existing": [
+    "transcript.jsonl",
+    "embeddings.jsonl",
+    "heard",
+    "spoken",
+    "listener.json",
+    "unrelated.txt"
+   ],
+   "addressee": true,
+   "fresh": false,
+   "events": [
+    [
+     "stop",
+     "avatar-live.service"
+    ],
+    [
+     "start",
+     "avatar-listener.service"
+    ]
+   ],
+   "files": {
+    ".addressee.lock": "0o600",
+    "listener.json": "0o644",
+    "unrelated.txt": "0o644"
+   },
+   "directory_mode": "0o755",
+   "configuration": {
+    "purpose": "conversation",
+    "sources": {
+     "meeting": "m",
+     "human": "h"
+    },
+    "language": "pt",
+    "identify_speakers": true
+   },
+   "purpose_read": "conversation",
+   "sources_read": {
+    "meeting": "m",
+    "human": "h"
+   }
+  },
+  {
+   "kind": "begin",
+   "purpose": "conversation",
+   "active": [
+    "avatar-listener.service",
+    "avatar-live.service"
+   ],
+   "settings": {
+    "language": "pt",
+    "identify_speakers": true
+   },
+   "existing": [
+    "transcript.jsonl",
+    "embeddings.jsonl",
+    "heard",
+    "spoken",
+    "listener.json",
+    "unrelated.txt"
+   ],
+   "addressee": true,
+   "fresh": false,
+   "events": [
+    [
+     "stop",
+     "avatar-listener.service"
+    ],
+    [
+     "stop",
+     "avatar-live.service"
+    ],
+    [
+     "start",
+     "avatar-listener.service"
+    ]
+   ],
+   "files": {
+    ".addressee.lock": "0o600",
+    "listener.json": "0o644",
+    "unrelated.txt": "0o644"
+   },
+   "directory_mode": "0o755",
+   "configuration": {
+    "purpose": "conversation",
+    "sources": {
+     "meeting": "m",
+     "human": "h"
+    },
+    "language": "pt",
+    "identify_speakers": true
+   },
+   "purpose_read": "conversation",
+   "sources_read": {
+    "meeting": "m",
+    "human": "h"
+   }
+  },
+  {
+   "kind": "begin",
+   "purpose": "meeting",
+   "active": [],
+   "settings": {
+    "language": "pt",
+    "identify_speakers": true
+   },
+   "existing": [
+    "transcript.jsonl",
+    "embeddings.jsonl",
+    "heard",
+    "spoken",
+    "listener.json",
+    "unrelated.txt"
+   ],
+   "addressee": true,
+   "fresh": false,
+   "events": [
+    [
+     "start",
+     "avatar-listener.service"
+    ]
+   ],
+   "files": {
+    ".addressee.lock": "0o600",
+    "listener.json": "0o644",
+    "unrelated.txt": "0o644"
+   },
+   "directory_mode": "0o755",
+   "configuration": {
+    "purpose": "meeting",
+    "sources": {
+     "meeting": "m",
+     "human": "h"
+    },
+    "language": "pt",
+    "identify_speakers": true
+   },
+   "purpose_read": "meeting",
+   "sources_read": {
+    "meeting": "m",
+    "human": "h"
+   }
+  },
+  {
+   "kind": "begin",
+   "purpose": "meeting",
+   "active": [
+    "avatar-listener.service"
+   ],
+   "settings": {
+    "language": "pt",
+    "identify_speakers": true
+   },
+   "existing": [
+    "transcript.jsonl",
+    "embeddings.jsonl",
+    "heard",
+    "spoken",
+    "listener.json",
+    "unrelated.txt"
+   ],
+   "addressee": true,
+   "fresh": false,
+   "events": [
+    [
+     "stop",
+     "avatar-listener.service"
+    ],
+    [
+     "start",
+     "avatar-listener.service"
+    ]
+   ],
+   "files": {
+    ".addressee.lock": "0o600",
+    "listener.json": "0o644",
+    "unrelated.txt": "0o644"
+   },
+   "directory_mode": "0o755",
+   "configuration": {
+    "purpose": "meeting",
+    "sources": {
+     "meeting": "m",
+     "human": "h"
+    },
+    "language": "pt",
+    "identify_speakers": true
+   },
+   "purpose_read": "meeting",
+   "sources_read": {
+    "meeting": "m",
+    "human": "h"
+   }
+  },
+  {
+   "kind": "begin",
+   "purpose": "meeting",
+   "active": [
+    "avatar-live.service"
+   ],
+   "settings": {
+    "language": "pt",
+    "identify_speakers": true
+   },
+   "existing": [
+    "transcript.jsonl",
+    "embeddings.jsonl",
+    "heard",
+    "spoken",
+    "listener.json",
+    "unrelated.txt"
+   ],
+   "addressee": true,
+   "fresh": false,
+   "events": [
+    [
+     "stop",
+     "avatar-live.service"
+    ],
+    [
+     "start",
+     "avatar-listener.service"
+    ]
+   ],
+   "files": {
+    ".addressee.lock": "0o600",
+    "listener.json": "0o644",
+    "unrelated.txt": "0o644"
+   },
+   "directory_mode": "0o755",
+   "configuration": {
+    "purpose": "meeting",
+    "sources": {
+     "meeting": "m",
+     "human": "h"
+    },
+    "language": "pt",
+    "identify_speakers": true
+   },
+   "purpose_read": "meeting",
+   "sources_read": {
+    "meeting": "m",
+    "human": "h"
+   }
+  },
+  {
+   "kind": "begin",
+   "purpose": "meeting",
+   "active": [
+    "avatar-listener.service",
+    "avatar-live.service"
+   ],
+   "settings": {
+    "language": "pt",
+    "identify_speakers": true
+   },
+   "existing": [
+    "transcript.jsonl",
+    "embeddings.jsonl",
+    "heard",
+    "spoken",
+    "listener.json",
+    "unrelated.txt"
+   ],
+   "addressee": true,
+   "fresh": false,
+   "events": [
+    [
+     "stop",
+     "avatar-listener.service"
+    ],
+    [
+     "stop",
+     "avatar-live.service"
+    ],
+    [
+     "start",
+     "avatar-listener.service"
+    ]
+   ],
+   "files": {
+    ".addressee.lock": "0o600",
+    "listener.json": "0o644",
+    "unrelated.txt": "0o644"
+   },
+   "directory_mode": "0o755",
+   "configuration": {
+    "purpose": "meeting",
+    "sources": {
+     "meeting": "m",
+     "human": "h"
+    },
+    "language": "pt",
+    "identify_speakers": true
+   },
+   "purpose_read": "meeting",
+   "sources_read": {
+    "meeting": "m",
+    "human": "h"
+   }
+  },
+  {
+   "kind": "begin",
+   "purpose": "live",
+   "active": [],
+   "settings": {
+    "language": "pt",
+    "identify_speakers": true
+   },
+   "existing": [
+    "transcript.jsonl",
+    "embeddings.jsonl",
+    "heard",
+    "spoken",
+    "listener.json",
+    "unrelated.txt"
+   ],
+   "addressee": true,
+   "fresh": false,
+   "events": [
+    [
+     "start",
+     "avatar-live.service"
+    ]
+   ],
+   "files": {
+    ".addressee.lock": "0o600",
+    "listener.json": "0o644",
+    "unrelated.txt": "0o644"
+   },
+   "directory_mode": "0o755",
+   "configuration": {
+    "purpose": "live",
+    "sources": {
+     "meeting": "m",
+     "human": "h"
+    },
+    "language": "pt",
+    "identify_speakers": true
+   },
+   "purpose_read": "live",
+   "sources_read": {
+    "meeting": "m",
+    "human": "h"
+   }
+  },
+  {
+   "kind": "begin",
+   "purpose": "live",
+   "active": [
+    "avatar-listener.service"
+   ],
+   "settings": {
+    "language": "pt",
+    "identify_speakers": true
+   },
+   "existing": [
+    "transcript.jsonl",
+    "embeddings.jsonl",
+    "heard",
+    "spoken",
+    "listener.json",
+    "unrelated.txt"
+   ],
+   "addressee": true,
+   "fresh": false,
+   "events": [
+    [
+     "stop",
+     "avatar-listener.service"
+    ],
+    [
+     "start",
+     "avatar-live.service"
+    ]
+   ],
+   "files": {
+    ".addressee.lock": "0o600",
+    "listener.json": "0o644",
+    "unrelated.txt": "0o644"
+   },
+   "directory_mode": "0o755",
+   "configuration": {
+    "purpose": "live",
+    "sources": {
+     "meeting": "m",
+     "human": "h"
+    },
+    "language": "pt",
+    "identify_speakers": true
+   },
+   "purpose_read": "live",
+   "sources_read": {
+    "meeting": "m",
+    "human": "h"
+   }
+  },
+  {
+   "kind": "begin",
+   "purpose": "live",
+   "active": [
+    "avatar-live.service"
+   ],
+   "settings": {
+    "language": "pt",
+    "identify_speakers": true
+   },
+   "existing": [
+    "transcript.jsonl",
+    "embeddings.jsonl",
+    "heard",
+    "spoken",
+    "listener.json",
+    "unrelated.txt"
+   ],
+   "addressee": true,
+   "fresh": false,
+   "events": [
+    [
+     "stop",
+     "avatar-live.service"
+    ],
+    [
+     "start",
+     "avatar-live.service"
+    ]
+   ],
+   "files": {
+    ".addressee.lock": "0o600",
+    "listener.json": "0o644",
+    "unrelated.txt": "0o644"
+   },
+   "directory_mode": "0o755",
+   "configuration": {
+    "purpose": "live",
+    "sources": {
+     "meeting": "m",
+     "human": "h"
+    },
+    "language": "pt",
+    "identify_speakers": true
+   },
+   "purpose_read": "live",
+   "sources_read": {
+    "meeting": "m",
+    "human": "h"
+   }
+  },
+  {
+   "kind": "begin",
+   "purpose": "live",
+   "active": [
+    "avatar-listener.service",
+    "avatar-live.service"
+   ],
+   "settings": {
+    "language": "pt",
+    "identify_speakers": true
+   },
+   "existing": [
+    "transcript.jsonl",
+    "embeddings.jsonl",
+    "heard",
+    "spoken",
+    "listener.json",
+    "unrelated.txt"
+   ],
+   "addressee": true,
+   "fresh": false,
+   "events": [
+    [
+     "stop",
+     "avatar-listener.service"
+    ],
+    [
+     "stop",
+     "avatar-live.service"
+    ],
+    [
+     "start",
+     "avatar-live.service"
+    ]
+   ],
+   "files": {
+    ".addressee.lock": "0o600",
+    "listener.json": "0o644",
+    "unrelated.txt": "0o644"
+   },
+   "directory_mode": "0o755",
+   "configuration": {
+    "purpose": "live",
+    "sources": {
+     "meeting": "m",
+     "human": "h"
+    },
+    "language": "pt",
+    "identify_speakers": true
+   },
+   "purpose_read": "live",
+   "sources_read": {
+    "meeting": "m",
+    "human": "h"
+   }
+  },
+  {
+   "kind": "begin",
+   "purpose": "conversation",
+   "active": [],
+   "settings": {
+    "language": null,
+    "barge_in": true,
+    "seat": "discord"
+   },
+   "existing": [],
+   "addressee": false,
+   "fresh": true,
+   "events": [
+    [
+     "start",
+     "avatar-listener.service"
+    ]
+   ],
+   "files": {
+    ".addressee.lock": "0o600",
+    "listener.json": "0o600"
+   },
+   "directory_mode": "0o700",
+   "configuration": {
+    "purpose": "conversation",
+    "sources": {
+     "meeting": "m",
+     "human": "h"
+    },
+    "language": null,
+    "barge_in": true,
+    "seat": "discord"
+   },
+   "purpose_read": "conversation",
+   "sources_read": {
+    "meeting": "m",
+    "human": "h"
+   }
+  },
+  {
+   "kind": "begin",
+   "purpose": "live",
+   "active": [],
+   "settings": {},
+   "existing": [
+    "transcript.jsonl"
+   ],
+   "addressee": false,
+   "fresh": false,
+   "events": [
+    [
+     "start",
+     "avatar-live.service"
+    ]
+   ],
+   "files": {
+    ".addressee.lock": "0o600",
+    "listener.json": "0o600"
+   },
+   "directory_mode": "0o755",
+   "configuration": {
+    "purpose": "live",
+    "sources": {
+     "meeting": "m",
+     "human": "h"
+    }
+   },
+   "purpose_read": "live",
+   "sources_read": {
+    "meeting": "m",
+    "human": "h"
+   }
+  },
+  {
+   "kind": "erase",
+   "existing": [],
+   "addressee": false,
+   "files": [
+    ".addressee.lock"
+   ]
+  },
+  {
+   "kind": "erase",
+   "existing": [],
+   "addressee": true,
+   "files": [
+    ".addressee.lock"
+   ]
+  },
+  {
+   "kind": "erase",
+   "existing": [
+    "transcript.jsonl"
+   ],
+   "addressee": false,
+   "files": [
+    ".addressee.lock"
+   ]
+  },
+  {
+   "kind": "erase",
+   "existing": [
+    "transcript.jsonl"
+   ],
+   "addressee": true,
+   "files": [
+    ".addressee.lock"
+   ]
+  },
+  {
+   "kind": "erase",
+   "existing": [
+    "transcript.jsonl",
+    "embeddings.jsonl",
+    "heard",
+    "spoken",
+    "listener.json",
+    "unrelated.txt"
+   ],
+   "addressee": false,
+   "files": [
+    ".addressee.lock",
+    "listener.json",
+    "unrelated.txt"
+   ]
+  },
+  {
+   "kind": "erase",
+   "existing": [
+    "transcript.jsonl",
+    "embeddings.jsonl",
+    "heard",
+    "spoken",
+    "listener.json",
+    "unrelated.txt"
+   ],
+   "addressee": true,
+   "files": [
+    ".addressee.lock",
+    "listener.json",
+    "unrelated.txt"
+   ]
+  },
+  {
+   "kind": "stop",
+   "active": [],
+   "events": []
+  },
+  {
+   "kind": "stop",
+   "active": [
+    "avatar-listener.service"
+   ],
+   "events": [
+    [
+     "stop",
+     "avatar-listener.service"
+    ]
+   ]
+  },
+  {
+   "kind": "stop",
+   "active": [
+    "avatar-live.service"
+   ],
+   "events": [
+    [
+     "stop",
+     "avatar-live.service"
+    ]
+   ]
+  },
+  {
+   "kind": "stop",
+   "active": [
+    "avatar-listener.service",
+    "avatar-live.service"
+   ],
+   "events": [
+    [
+     "stop",
+     "avatar-listener.service"
+    ],
+    [
+     "stop",
+     "avatar-live.service"
+    ]
+   ]
+  },
+  {
+   "kind": "live",
+   "listening": false,
+   "configured": null,
+   "live": null
+  },
+  {
+   "kind": "live",
+   "listening": false,
+   "configured": "conversation",
+   "live": null
+  },
+  {
+   "kind": "live",
+   "listening": false,
+   "configured": "meeting",
+   "live": null
+  },
+  {
+   "kind": "live",
+   "listening": false,
+   "configured": "live",
+   "live": null
+  },
+  {
+   "kind": "live",
+   "listening": false,
+   "configured": "bogus",
+   "live": null
+  },
+  {
+   "kind": "live",
+   "listening": true,
+   "configured": null,
+   "live": null
+  },
+  {
+   "kind": "live",
+   "listening": true,
+   "configured": "conversation",
+   "live": "conversation"
+  },
+  {
+   "kind": "live",
+   "listening": true,
+   "configured": "meeting",
+   "live": "meeting"
+  },
+  {
+   "kind": "live",
+   "listening": true,
+   "configured": "live",
+   "live": "live"
+  },
+  {
+   "kind": "live",
+   "listening": true,
+   "configured": "bogus",
+   "live": null
+  },
+  {
+   "kind": "config",
+   "text": null,
+   "purpose": null,
+   "sources": {}
+  },
+  {
+   "kind": "config",
+   "text": "{\"purpose\": \"meeting\", \"sources\": {\"a\": \"b\"}}",
+   "purpose": "meeting",
+   "sources": {
+    "a": "b"
+   }
+  },
+  {
+   "kind": "config",
+   "text": "{}",
+   "purpose": null,
+   "sources": {}
+  },
+  {
+   "kind": "config",
+   "text": "{\"sources\": {}}",
+   "purpose": null,
+   "sources": {}
+  },
+  {
+   "kind": "quiet",
+   "config_age": null,
+   "spoken_age": null,
+   "approx": 0.0
+  },
+  {
+   "kind": "quiet",
+   "config_age": 100,
+   "spoken_age": null,
+   "approx": 100.0
+  },
+  {
+   "kind": "quiet",
+   "config_age": null,
+   "spoken_age": 30,
+   "approx": 30.0
+  },
+  {
+   "kind": "quiet",
+   "config_age": 100,
+   "spoken_age": 30,
+   "approx": 30.0
+  },
+  {
+   "kind": "quiet",
+   "config_age": 10,
+   "spoken_age": 500,
+   "approx": 10.0
+  },
+  {
+   "kind": "spoken",
+   "files": {
+    "spoken": "0o600"
+   },
+   "directory_mode": "0o700"
+  }
+ ]
+}
