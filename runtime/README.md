@@ -80,14 +80,13 @@ and one sent right behind an interrupted or withheld reply is withheld, as
 A pause alone does not end the speaker's turn. After each pause, [Smart Turn](https://github.com/pipecat-ai/smart-turn)
 v3.2 judges the turn's last 8 seconds of audio locally, and an unfinished turn holds the reply 2.5 seconds for the rest
 of the sentence instead of 0.5. Each transcript entry records that verdict as `turn_finished`. Its Whisper log-mel input
-is computed in numpy, matching `transformers` to 1e-6, because `transformers` would pull in torch. The listener runs on
-the default Python rather than 3.12 because only the default Python's `onnxruntime` is in the binary cache; the 3.12
-one compiles for hours.
+is computed in Rust by `crates/avatar-listening/src/mel`, and the model runs on `tract-onnx`, so the listener needs no
+Python or torch.
 
 The renderer presents its canvas only while an agent shows the window: a presented canvas in a hidden window intermittently
 stalled the camera near one frame per second, while a hidden canvas held 60.
 
-The window code is the Hyprland boundary in `scripts/conversation/desktop_window.py`; the rest of the conversation
+The window code is the Hyprland boundary in `crates/libraries/avatar-conversation/src/talk/surfaces/desktop.rs`; the rest of the conversation
 depends only on the shared services. It addresses the first Hyprland instance by index, because a command forwarded
 over ssh carries no `HYPRLAND_INSTANCE_SIGNATURE`. This module is NixOS only because its audio graph is PipeWire.
 
@@ -165,7 +164,7 @@ opens it in the room; while such a conversation is seated, every `avatar-talk` v
 | `AvatarRemoteMicrophone` | chise | Null sink the Mac's microphone plays into; the listener hears its monitor |
 | `AvatarRemoteMeeting` | chise | Null sink the call's audio plays into over the `/meeting` socket; the listener hears its monitor as `meeting` |
 | `AvatarLipSync.monitor` | chise | The avatar's voice, which the relay sends to the Mac; speech uses the `remote` output, so chise's speakers stay silent |
-| ssh tunnel | Mac | Forwards local port 8769 for as long as the service runs, then closes the browser |
+| ssh tunnel | Mac | Forwards local port 8769 for as long as the service runs, then closes the browser; `avatar mac seat-holder` holds it and keeps the meeting camera alive, logging to `~/.local/share/avatar/seat-holder.log` |
 | Headless Chrome | Mac | Captures the default microphone, or the built-in one when the default is Bluetooth, with echo cancellation and plays the voice; headless because a window manager shows a merely hidden window |
 
 The page runs in Chrome because macOS grants the microphone to Chrome itself, asking once per machine, and because
@@ -228,8 +227,8 @@ with the service stopped, `avatar-wake --dry-run` reports matches without delive
 On a Mac the same listener runs as the `com.dotfiles.avatar-wake` launchd agent, logging to
 `~/Library/Logs/avatar-wake.log`. It is a rebuild-safe launch agent: a rebuild never unloads it, and when the wake code
 changes the rebuild restarts it in place with `launchctl kickstart -k`, because a reload once left it unloaded
-overnight. A rebuild that finds it unloaded loads it again. Its machine effects swapped in `mac_wake_boundaries.py`.
-`mac_microphone.py` serves a capture page on `127.0.0.1:8771`, opens it in headless Chrome on the profile
+overnight. A rebuild that finds it unloaded loads it again. Its machine effects live in `crates/avatar-cli/src/mac/wake`.
+`avatar mac microphone` serves a capture page on `127.0.0.1:8771`, opens it in headless Chrome on the profile
 `~/.local/share/avatar/wake-browser` and writes the page's frames to stdout in place of `parec`. The page opens the
 default input, or the built-in microphone when the default is Bluetooth, which would otherwise force call-quality sound
 on everything the Mac plays. Each utterance is transcribed by Hex on the Mac itself, with Parakeet v3 when that Mac has
@@ -266,7 +265,7 @@ conversation for an unverified voice, so without the word lists only an exact na
 A Brazilian R at the start of a word sounds like an H, so the key hears "Hama" as Rama. A name heard as ordinary words,
 as "Hey Rama" once came out "her mom", still wakes nobody.
 
-A Servant with a long or hard name also answers to the nicknames `NICKNAMES` in `spoken_names.py` gives it, such as
+A Servant with a long or hard name also answers to the nicknames `NICKNAMES` in `crates/libraries/avatar-routing/src/names/spoken_names.rs` gives it, such as
 "Shera" for Scheherazade. A short name only matches exactly, so its list also holds the spelling Parakeet writes for it,
 "Shira", but never an ordinary word such as "Sara", which would wake that Servant on ordinary speech.
 
@@ -348,7 +347,7 @@ Transcription posts each utterance to ElevenLabs [Scribe](https://elevenlabs.io/
 about one second each, through the key `media-speech` uses, which needs the Speech to Text permission. On room audio it
 beat Hex's Parakeet and Whisper and invented nothing in silence; Parakeet ignores a pinned language and Whisper invents
 "Obrigado." A failed request falls back to the running [Hex](https://github.com/anomalyco/hex) service's Parakeet v3.
-`RECOGNIZED_TERMS` in `cloud_transcriber.py`, the first word of each roster Servant's name, the one the wake listens
+`RECOGNIZED_TERMS` in `crates/avatar-transcription/src/scribe/keyterms.rs`, the first word of each roster Servant's name, the one the wake listens
 for, and its nicknames are sent as
 [keyterms](https://elevenlabs.io/docs/eleven-api/guides/how-to/speech-to-text/batch/keyterm-prompting), which add 20%
 to the transcription cost and turned "X" and "Eleven Labs" into "Hex" and "ElevenLabs". The full name biases nothing

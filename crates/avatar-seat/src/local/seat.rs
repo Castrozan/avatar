@@ -7,8 +7,8 @@ use crate::edges::{Clock, EdgeFailure, Processes, SeatProbe};
 use crate::support::truth::python_truthy;
 
 pub(crate) const TERMINATE_SIGNAL: &str = "TERM";
-pub(crate) const HOLDER_SCRIPT: &str = "remote_seat/seat_holder.py";
-const MEETING_HOLDER_PATTERN: &str = r"remote_seat/seat_holder\.py\ \?meeting";
+pub(crate) const HOLDER_COMMAND_LINE: &str = "mac seat-holder";
+const MEETING_HOLDER_PATTERN: &str = r"mac\ seat-holder\ \?meeting";
 
 pub struct LocalSeat<'edges> {
     pub config: &'edges SeatConfig,
@@ -27,7 +27,7 @@ fn words(parts: &[&str]) -> Vec<String> {
 }
 
 fn holder_command(config: &SeatConfig, query: &str) -> Vec<String> {
-    words(&[&config.python, &config.holder_path, query])
+    words(&[&config.holder_program, "mac", "seat-holder", query])
 }
 
 pub(crate) fn end_matching(
@@ -93,7 +93,7 @@ impl LocalSeat<'_> {
     }
 
     pub fn leave(&self) -> Result<(), EdgeFailure> {
-        self.end_processes_matching(HOLDER_SCRIPT)?;
+        self.end_processes_matching(HOLDER_COMMAND_LINE)?;
         self.end_processes_matching(&tunnel_forward())?;
         self.close_browsers()
     }

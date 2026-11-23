@@ -15,8 +15,7 @@ fn configured(arguments: &[&str], home: &Path) -> Result<Output, Box<dyn Error>>
     command
         .env("HOME", home)
         .env("AVATAR_HOST", "chise")
-        .env("AVATAR_BROWSER_APPLICATION", "/Applications/Chromium.app")
-        .env("AVATAR_CAMERA_START_SCRIPT", home.join("start.lua"));
+        .env("AVATAR_BROWSER_APPLICATION", "/Applications/Chromium.app");
     Ok(command.output()?)
 }
 
@@ -24,13 +23,15 @@ fn text(bytes: &[u8]) -> String {
     String::from_utf8_lossy(bytes).into_owned()
 }
 
-const COMMAND_NAMES: [&str; 6] = [
+const COMMAND_NAMES: [&str; 8] = [
     "seat",
     "microphone",
     "play",
     "call-capture",
     "meeting",
     "listen",
+    "seat-holder",
+    "install-call-audio-drivers",
 ];
 
 #[test]
@@ -80,5 +81,13 @@ fn the_seat_needs_its_page_directory() -> TestResult {
     let output = configured(&["mac", "seat"], home.path())?;
     assert_eq!(output.status.code(), Some(1));
     assert!(text(&output.stderr).contains("AVATAR_SEAT_PAGE is not set"));
+    Ok(())
+}
+
+#[test]
+fn installing_no_drivers_changes_nothing() -> TestResult {
+    let output = avatar(&["mac", "install-call-audio-drivers"]).output()?;
+    assert_eq!(output.status.code(), Some(0));
+    assert!(output.stdout.is_empty());
     Ok(())
 }

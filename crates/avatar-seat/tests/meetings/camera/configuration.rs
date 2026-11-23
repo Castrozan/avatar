@@ -23,11 +23,17 @@ fn assert_files(scenario: &Value, store: &MemoryStore, home: &str) {
     }
 }
 
+fn assert_start_script(store: &MemoryStore, home: &str) {
+    let script = store.file(&format!("{home}/start_virtual_camera.lua"));
+    assert!(script.is_some_and(|text| text.contains("obs_frontend_start_virtualcam")));
+}
+
 fn check(scenario: &Value) {
     let home = format!("/Users/{}", scenario["home"].as_str().unwrap_or_default());
     let harness = Harness::new(&home, &[]);
     harness.camera().write_configuration().unwrap_or_default();
     assert_files(scenario, &harness.store, &home);
+    assert_start_script(&harness.store, &home);
     let directories: Vec<String> =
         serde_json::from_value(scenario["directories"].clone()).unwrap_or_default();
     assert_eq!(harness.store.relative_directories(), directories);

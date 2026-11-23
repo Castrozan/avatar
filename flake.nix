@@ -42,7 +42,14 @@
           services.avatar.rustPackage = lib.mkDefault self.packages.${pkgs.stdenv.hostPlatform.system}.avatar;
         };
       nixosModules.default = ./nix/nixos.nix;
-      darwinModules.default = ./nix/nix-darwin.nix;
+      darwinModules.default =
+        { lib, pkgs, ... }:
+        {
+          imports = [ ./nix/nix-darwin.nix ];
+          services.avatar.callDevices.package =
+            lib.mkDefault
+              self.packages.${pkgs.stdenv.hostPlatform.system}.avatar;
+        };
       skillSourceDirectory = ./skills;
       lib.browserWindowClass = "avatar-browser";
 

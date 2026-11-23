@@ -46,8 +46,7 @@ pub(crate) fn config() -> SeatConfig {
         avatar_host: "chise".to_owned(),
         browser_application: "app".to_owned(),
         home: "<home>".to_owned(),
-        python: "p".to_owned(),
-        holder_path: "h".to_owned(),
+        holder_program: "<avatar>".to_owned(),
     }
 }
 

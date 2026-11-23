@@ -2,7 +2,6 @@
 pkgs.runCommand "avatar-lint"
   {
     nativeBuildInputs = [
-      pkgs.ruff
       pkgs.biome
       pkgs.shellcheck
       pkgs.nixfmt
@@ -12,7 +11,6 @@ pkgs.runCommand "avatar-lint"
   }
   ''
     cd ${self}
-    ruff check --no-cache .
     find . -type f \( -name '*.js' -o -name '*.mjs' -o -name '*.json' \) -exec biome lint --diagnostic-level=error {} +
     grep -rlE '^#!.*\b(bash|sh)$' . | xargs shellcheck --severity=warning --external-sources --source-path=SCRIPTDIR
     find . -type f -name '*.nix' -exec nixfmt --check {} +

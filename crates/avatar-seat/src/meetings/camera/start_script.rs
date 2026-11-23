@@ -1,4 +1,4 @@
-obs = obslua
+pub(crate) const START_VIRTUAL_CAMERA: &str = r#"obs = obslua
 
 local START_DELAY_MILLISECONDS = 3000
 local REPORT_DELAY_MILLISECONDS = 2000
@@ -31,3 +31,4 @@ function script_load(settings)
     report_path = obs.obs_data_get_string(settings, "report_path")
     obs.timer_add(start_virtual_camera, START_DELAY_MILLISECONDS)
 end
+"#;

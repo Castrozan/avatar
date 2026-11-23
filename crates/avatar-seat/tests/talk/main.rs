@@ -31,8 +31,7 @@ fn config() -> SeatConfig {
         avatar_host: "chise".to_owned(),
         browser_application: "/nix/store/browser/Google Chrome for Testing.app".to_owned(),
         home: "<home>".to_owned(),
-        python: "<python>".to_owned(),
-        holder_path: "<holder>".to_owned(),
+        holder_program: "<avatar>".to_owned(),
     }
 }
 

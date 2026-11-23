@@ -21,8 +21,7 @@ pub(super) fn config_of(directory: &Path) -> SeatConfig {
         avatar_host: "chise".to_owned(),
         browser_application: "/Applications/Chromium.app".to_owned(),
         home: directory.display().to_string(),
-        python: String::new(),
-        holder_path: String::new(),
+        holder_program: String::new(),
     }
 }
 
