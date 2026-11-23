@@ -7,6 +7,7 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     nix-darwin.url = "github:nix-darwin/nix-darwin/nix-darwin-26.05";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
+    crane.url = "github:ipetkov/crane";
   };
 
   outputs =
@@ -15,6 +16,7 @@
       nixpkgs,
       home-manager,
       nix-darwin,
+      crane,
     }:
     let
       supportedSystems = [
@@ -23,6 +25,10 @@
       ];
       forAllSystems = nixpkgs.lib.genAttrs supportedSystems;
       packagesFor = system: nixpkgs.legacyPackages.${system};
+      rustFor = system: import ./nix/rust.nix {
+        pkgs = packagesFor system;
+        inherit crane;
+      };
     in
     {
       homeManagerModules.default = ./nix/home-manager;
@@ -31,7 +37,10 @@
       skillSourceDirectory = ./skills;
       lib.browserWindowClass = "avatar-browser";
 
-      packages = forAllSystems (system: import ./nix/packages { pkgs = packagesFor system; });
+      packages = forAllSystems (
+        system:
+        import ./nix/packages { pkgs = packagesFor system; } // { avatar = (rustFor system).package; }
+      );
 
       checks = forAllSystems (
         system:
@@ -39,6 +48,7 @@
           inherit self home-manager nix-darwin;
           pkgs = packagesFor system;
         }
+        // (rustFor system).checks
       );
 
       devShells = forAllSystems (system: {
