@@ -3,11 +3,14 @@ use std::net::SocketAddr;
 use std::time::Duration;
 
 use avatar_control::server::{DiscardingSpeechPort, ShutdownHandle, serve};
+use avatar_control::session::control_origins;
 use futures_util::{SinkExt, StreamExt};
 use serde_json::Value;
 use tokio::net::TcpStream;
 use tokio::time::timeout;
 use tokio_tungstenite::tungstenite::Message;
+use tokio_tungstenite::tungstenite::client::IntoClientRequest;
+use tokio_tungstenite::tungstenite::http::header::ORIGIN;
 use tokio_tungstenite::{MaybeTlsStream, WebSocketStream, connect_async};
 
 use crate::TestResult;
@@ -18,12 +21,20 @@ pub(crate) type Socket = WebSocketStream<MaybeTlsStream<TcpStream>>;
 
 pub(crate) async fn start() -> Result<(String, ShutdownHandle), Box<dyn Error>> {
     let loopback = SocketAddr::from(([127, 0, 0, 1], 0));
-    let (address, shutdown) = serve(loopback, DiscardingSpeechPort).await?;
+    let (address, shutdown) =
+        serve(loopback, DiscardingSpeechPort, control_origins("3000")).await?;
     Ok((format!("ws://{address}/"), shutdown))
 }
 
 pub(crate) async fn connect(url: &str) -> Result<Socket, Box<dyn Error>> {
     let (socket, _) = connect_async(url).await?;
+    Ok(socket)
+}
+
+pub(crate) async fn connect_from_origin(url: &str, origin: &str) -> Result<Socket, Box<dyn Error>> {
+    let mut request = url.into_client_request()?;
+    request.headers_mut().insert(ORIGIN, origin.parse()?);
+    let (socket, _) = connect_async(request).await?;
     Ok(socket)
 }
 

@@ -11,9 +11,15 @@ name = "avatar"
 path = "src/main.rs"
 
 [dependencies]
+avatar-control = { version = "0.1.0", path = "../avatar-control" }
 avatar-floor = { version = "0.1.0", path = "../avatar-floor" }
 avatar-routing = { version = "0.1.0", path = "../avatar-routing" }
 clap.workspace = true
+tokio = { version = "1", default-features = false, features = ["rt-multi-thread", "signal"] }
+
+[dev-dependencies]
+serde_json.workspace = true
+tokio-tungstenite.workspace = true
 
 [lints]
 workspace = true

@@ -27,17 +27,23 @@ impl ShutdownHandle {
 pub async fn serve<Port: SpeechPort>(
     address: SocketAddr,
     speech_port: Port,
+    origins: Vec<String>,
 ) -> io::Result<(SocketAddr, ShutdownHandle)> {
     let listener = TcpListener::bind(address).await?;
     let (stop, stopped) = watch::channel(false);
     let local_address = listener.local_addr()?;
-    tokio::spawn(run(listener, speech_port, stopped));
+    tokio::spawn(run(listener, speech_port, origins, stopped));
     Ok((local_address, ShutdownHandle(stop)))
 }
 
-async fn run<Port: SpeechPort>(listener: TcpListener, port: Port, stopped: watch::Receiver<bool>) {
+async fn run<Port: SpeechPort>(
+    listener: TcpListener,
+    port: Port,
+    origins: Vec<String>,
+    stopped: watch::Receiver<bool>,
+) {
     let commands = start_actor(port, stopped.clone());
-    let router = build_router(commands);
+    let router = build_router(commands, origins);
     let _ = axum::serve(listener, router)
         .with_graceful_shutdown(await_stop(stopped))
         .await;
@@ -49,10 +55,11 @@ fn start_actor<Port: SpeechPort>(port: Port, stopped: watch::Receiver<bool>) -> 
     commands
 }
 
-fn build_router(commands: Sender<Command>) -> Router {
+fn build_router(commands: Sender<Command>, origins: Vec<String>) -> Router {
     let state = ConnectionState {
         commands,
         client_ids: Arc::new(AtomicU64::new(1)),
+        origins: origins.into(),
     };
     Router::new().route("/", get(upgrade)).with_state(state)
 }
