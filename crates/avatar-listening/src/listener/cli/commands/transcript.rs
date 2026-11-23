@@ -1,13 +1,12 @@
 use regex::Regex;
 use serde_json::Value;
 
-use super::TRANSCRIPT_FILE;
 use crate::listener::cli::arguments::{FollowArguments, ReadArguments};
 use crate::listener::cli::failure::ListenFailure;
 use crate::listener::cli::ports::ListenPorts;
 use crate::listener::cli::python_json::python_json;
 use crate::listener::cli::transcript_wait::wait_since;
-use crate::listener::session::SessionDirectory;
+use crate::listener::session::{SessionDirectory, TRANSCRIPT_FILE};
 
 const FOLLOW_WAIT_SECONDS: f64 = 30.0;
 

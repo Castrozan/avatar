@@ -8,7 +8,8 @@ mod sources;
 mod transcript_wait;
 
 pub use arguments::{
-    FollowArguments, ListenArguments, ListenCommand, MeetingSeat, ReadArguments, StartArguments,
+    EnrollArguments, FollowArguments, ForgetArguments, ListenArguments, ListenCommand, MeetingSeat,
+    ReadArguments, StartArguments,
 };
 pub use commands::run;
 pub use entry::listen_main;

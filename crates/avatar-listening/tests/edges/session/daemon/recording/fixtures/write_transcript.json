@@ -1,0 +1,1409 @@
+{
+ "scenarios": [
+  {
+   "language": null,
+   "seed": null,
+   "extra_iterations": 0,
+   "items": [
+    [
+     "human",
+     "82b70eee7f1a",
+     true,
+     99.5,
+     100.0
+    ]
+   ],
+   "outcomes": [
+    [
+     "ok",
+     "hello there"
+    ]
+   ],
+   "identities": [
+    [
+     null,
+     null
+    ]
+   ],
+   "transcript": "{\"sequence\": 1, \"time\": 1700000000.5, \"source\": \"human\", \"text\": \"hello there\", \"speaker\": null, \"turn_finished\": true, \"speech_ended\": 99.5, \"segment_closed\": 100.0, \"transcription_started\": 1700000000.0}\n",
+   "embeddings": null,
+   "sleeps": [],
+   "calls": [
+    [
+     6,
+     null
+    ]
+   ],
+   "events": [
+    "finish",
+    "clear"
+   ],
+   "stderr": []
+  },
+  {
+   "language": "pt",
+   "seed": null,
+   "extra_iterations": 0,
+   "items": [
+    [
+     "meeting",
+     "5039bef07ec2347f",
+     false,
+     10.125,
+     11.5
+    ]
+   ],
+   "outcomes": [
+    [
+     "ok",
+     "a\u00e7\u00e3o \u00e9 ok"
+    ]
+   ],
+   "identities": [
+    [
+     "ana",
+     [
+      -0.9737716208221956,
+      -0.5665403990723037,
+      -0.44103526797777937
+     ]
+    ]
+   ],
+   "transcript": "{\"sequence\": 1, \"time\": 1700000000.5, \"source\": \"meeting\", \"text\": \"a\u00e7\u00e3o \u00e9 ok\", \"speaker\": \"ana\", \"turn_finished\": false, \"speech_ended\": 10.125, \"segment_closed\": 11.5, \"transcription_started\": 1700000000.0}\n",
+   "embeddings": "{\"sequence\": 1, \"embedding\": [-0.9737716208221956, -0.5665403990723037, -0.44103526797777937]}\n",
+   "sleeps": [],
+   "calls": [
+    [
+     8,
+     "pt"
+    ]
+   ],
+   "events": [
+    "finish",
+    "clear"
+   ],
+   "stderr": []
+  },
+  {
+   "language": null,
+   "seed": null,
+   "extra_iterations": 0,
+   "items": [
+    [
+     "human",
+     "c7512447",
+     true,
+     99.5,
+     100.0
+    ],
+    [
+     "meeting",
+     "e3404300",
+     true,
+     99.5,
+     100.0
+    ]
+   ],
+   "outcomes": [
+    [
+     "ok",
+     "start the review now"
+    ],
+    [
+     "ok",
+     "Start the review, now!"
+    ]
+   ],
+   "identities": [
+    [
+     null,
+     null
+    ],
+    [
+     "bia",
+     [
+      0.9446745793730726,
+      -0.9893737255117838
+     ]
+    ]
+   ],
+   "transcript": "{\"sequence\": 1, \"time\": 1700000000.5, \"source\": \"human\", \"text\": \"start the review now\", \"speaker\": null, \"turn_finished\": true, \"speech_ended\": 99.5, \"segment_closed\": 100.0, \"transcription_started\": 1700000000.0}\n",
+   "embeddings": null,
+   "sleeps": [],
+   "calls": [
+    [
+     4,
+     null
+    ],
+    [
+     4,
+     null
+    ]
+   ],
+   "events": [
+    "finish",
+    "finish",
+    "clear"
+   ],
+   "stderr": []
+  },
+  {
+   "language": "en",
+   "seed": "{\"sequence\": 1, \"time\": 5.0, \"source\": \"a\", \"text\": \"x\", \"speaker\": null, \"turn_finished\": true}\n{\"sequence\": 2, \"time\": 6.0, \"source\": \"b\", \"text\": \"y\", \"speaker\": null, \"turn_finished\": true}\n",
+   "extra_iterations": 0,
+   "items": [
+    [
+     "human",
+     "6e545594",
+     true,
+     99.5,
+     100.0
+    ],
+    [
+     "human",
+     "a065685d",
+     true,
+     99.5,
+     100.0
+    ]
+   ],
+   "outcomes": [
+    [
+     "ok",
+     "no no no"
+    ],
+    [
+     "ok",
+     "no no no"
+    ]
+   ],
+   "identities": [
+    [
+     "ana",
+     [
+      0.8819520021759981,
+      0.3812838822138165,
+      0.9331286246343908,
+      0.787483355152957
+     ]
+    ],
+    [
+     "ana",
+     [
+      -0.4024222042922645,
+      -0.2776201305552317,
+      -0.6680878857405088,
+      -0.708596180918635
+     ]
+    ]
+   ],
+   "transcript": "{\"sequence\": 1, \"time\": 5.0, \"source\": \"a\", \"text\": \"x\", \"speaker\": null, \"turn_finished\": true}\n{\"sequence\": 2, \"time\": 6.0, \"source\": \"b\", \"text\": \"y\", \"speaker\": null, \"turn_finished\": true}\n{\"sequence\": 3, \"time\": 1700000000.5, \"source\": \"human\", \"text\": \"no no no\", \"speaker\": \"ana\", \"turn_finished\": true, \"speech_ended\": 99.5, \"segment_closed\": 100.0, \"transcription_started\": 1700000000.0}\n{\"sequence\": 4, \"time\": 1700000001.25, \"source\": \"human\", \"text\": \"no no no\", \"speaker\": \"ana\", \"turn_finished\": true, \"speech_ended\": 99.5, \"segment_closed\": 100.0, \"transcription_started\": 1700000000.75}\n",
+   "embeddings": "{\"sequence\": 3, \"embedding\": [0.8819520021759981, 0.3812838822138165, 0.9331286246343908, 0.787483355152957]}\n{\"sequence\": 4, \"embedding\": [-0.4024222042922645, -0.2776201305552317, -0.6680878857405088, -0.708596180918635]}\n",
+   "sleeps": [],
+   "calls": [
+    [
+     4,
+     "en"
+    ],
+    [
+     4,
+     "en"
+    ]
+   ],
+   "events": [
+    "finish",
+    "finish",
+    "clear"
+   ],
+   "stderr": []
+  },
+  {
+   "language": null,
+   "seed": null,
+   "extra_iterations": 0,
+   "items": [
+    [
+     "human",
+     "21a99a01",
+     true,
+     99.5,
+     100.0
+    ]
+   ],
+   "outcomes": [
+    [
+     "ok",
+     ""
+    ]
+   ],
+   "identities": [],
+   "transcript": null,
+   "embeddings": null,
+   "sleeps": [],
+   "calls": [
+    [
+     4,
+     null
+    ]
+   ],
+   "events": [
+    "finish",
+    "clear"
+   ],
+   "stderr": []
+  },
+  {
+   "language": null,
+   "seed": "{\"sequence\": 1, \"time\": 5.0, \"source\": \"a\", \"text\": \"x\", \"speaker\": null, \"turn_finished\": true}\n{\"sequence\": 2, \"time\": 6.0, \"source\": \"b\", \"text\": \"y\", \"speaker\": null, \"turn_finished\": true}\n",
+   "extra_iterations": 0,
+   "items": [
+    [
+     "human",
+     "ad219eb5",
+     true,
+     99.5,
+     100.0
+    ]
+   ],
+   "outcomes": [
+    [
+     "ok",
+     ""
+    ]
+   ],
+   "identities": [],
+   "transcript": "{\"sequence\": 1, \"time\": 5.0, \"source\": \"a\", \"text\": \"x\", \"speaker\": null, \"turn_finished\": true}\n{\"sequence\": 2, \"time\": 6.0, \"source\": \"b\", \"text\": \"y\", \"speaker\": null, \"turn_finished\": true}\n",
+   "embeddings": null,
+   "sleeps": [],
+   "calls": [
+    [
+     4,
+     null
+    ]
+   ],
+   "events": [
+    "finish",
+    "clear"
+   ],
+   "stderr": []
+  },
+  {
+   "language": "pt",
+   "seed": null,
+   "extra_iterations": 0,
+   "items": [
+    [
+     "human",
+     "9cf6a15e",
+     true,
+     99.5,
+     100.0
+    ]
+   ],
+   "outcomes": [
+    [
+     "oserror",
+     "down"
+    ],
+    [
+     "oserror",
+     "down"
+    ],
+    [
+     "ok",
+     "finally"
+    ]
+   ],
+   "identities": [
+    [
+     null,
+     null
+    ]
+   ],
+   "transcript": "{\"sequence\": 1, \"time\": 1700000000.5, \"source\": \"human\", \"text\": \"finally\", \"speaker\": null, \"turn_finished\": true, \"speech_ended\": 99.5, \"segment_closed\": 100.0, \"transcription_started\": 1700000000.0}\n",
+   "embeddings": null,
+   "sleeps": [
+    1,
+    1
+   ],
+   "calls": [
+    [
+     4,
+     "pt"
+    ],
+    [
+     4,
+     "pt"
+    ],
+    [
+     4,
+     "pt"
+    ]
+   ],
+   "events": [
+    "finish",
+    "clear"
+   ],
+   "stderr": []
+  },
+  {
+   "language": null,
+   "seed": null,
+   "extra_iterations": 0,
+   "items": [
+    [
+     "human",
+     "f6f15a1d",
+     true,
+     99.5,
+     100.0
+    ]
+   ],
+   "outcomes": [
+    [
+     "oserror",
+     "down"
+    ],
+    [
+     "oserror",
+     "down"
+    ],
+    [
+     "oserror",
+     "down"
+    ],
+    [
+     "oserror",
+     "down"
+    ],
+    [
+     "oserror",
+     "down"
+    ],
+    [
+     "oserror",
+     "down"
+    ],
+    [
+     "oserror",
+     "down"
+    ],
+    [
+     "oserror",
+     "down"
+    ],
+    [
+     "oserror",
+     "down"
+    ],
+    [
+     "oserror",
+     "down"
+    ],
+    [
+     "oserror",
+     "down"
+    ],
+    [
+     "oserror",
+     "down"
+    ],
+    [
+     "oserror",
+     "down"
+    ],
+    [
+     "oserror",
+     "down"
+    ],
+    [
+     "oserror",
+     "down"
+    ],
+    [
+     "oserror",
+     "down"
+    ],
+    [
+     "oserror",
+     "down"
+    ],
+    [
+     "oserror",
+     "down"
+    ],
+    [
+     "oserror",
+     "down"
+    ],
+    [
+     "oserror",
+     "down"
+    ],
+    [
+     "oserror",
+     "down"
+    ],
+    [
+     "oserror",
+     "down"
+    ],
+    [
+     "oserror",
+     "down"
+    ],
+    [
+     "oserror",
+     "down"
+    ],
+    [
+     "oserror",
+     "down"
+    ],
+    [
+     "oserror",
+     "down"
+    ],
+    [
+     "oserror",
+     "down"
+    ],
+    [
+     "oserror",
+     "down"
+    ],
+    [
+     "oserror",
+     "down"
+    ],
+    [
+     "oserror",
+     "down"
+    ]
+   ],
+   "identities": [],
+   "transcript": null,
+   "embeddings": null,
+   "sleeps": [
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1
+   ],
+   "calls": [
+    [
+     4,
+     null
+    ],
+    [
+     4,
+     null
+    ],
+    [
+     4,
+     null
+    ],
+    [
+     4,
+     null
+    ],
+    [
+     4,
+     null
+    ],
+    [
+     4,
+     null
+    ],
+    [
+     4,
+     null
+    ],
+    [
+     4,
+     null
+    ],
+    [
+     4,
+     null
+    ],
+    [
+     4,
+     null
+    ],
+    [
+     4,
+     null
+    ],
+    [
+     4,
+     null
+    ],
+    [
+     4,
+     null
+    ],
+    [
+     4,
+     null
+    ],
+    [
+     4,
+     null
+    ],
+    [
+     4,
+     null
+    ],
+    [
+     4,
+     null
+    ],
+    [
+     4,
+     null
+    ],
+    [
+     4,
+     null
+    ],
+    [
+     4,
+     null
+    ],
+    [
+     4,
+     null
+    ],
+    [
+     4,
+     null
+    ],
+    [
+     4,
+     null
+    ],
+    [
+     4,
+     null
+    ],
+    [
+     4,
+     null
+    ],
+    [
+     4,
+     null
+    ],
+    [
+     4,
+     null
+    ],
+    [
+     4,
+     null
+    ],
+    [
+     4,
+     null
+    ],
+    [
+     4,
+     null
+    ]
+   ],
+   "events": [
+    "finish",
+    "clear"
+   ],
+   "stderr": [
+    "Dropped a human segment: No transcriber answered"
+   ]
+  },
+  {
+   "language": null,
+   "seed": null,
+   "extra_iterations": 0,
+   "items": [
+    [
+     "human",
+     "830bb7ce",
+     true,
+     99.5,
+     100.0
+    ],
+    [
+     "meeting",
+     "09d6bbc004",
+     true,
+     99.5,
+     100.0
+    ]
+   ],
+   "outcomes": [
+    [
+     "oserror",
+     "down"
+    ],
+    [
+     "oserror",
+     "down"
+    ],
+    [
+     "oserror",
+     "down"
+    ],
+    [
+     "oserror",
+     "down"
+    ],
+    [
+     "oserror",
+     "down"
+    ],
+    [
+     "oserror",
+     "down"
+    ],
+    [
+     "oserror",
+     "down"
+    ],
+    [
+     "oserror",
+     "down"
+    ],
+    [
+     "oserror",
+     "down"
+    ],
+    [
+     "oserror",
+     "down"
+    ],
+    [
+     "oserror",
+     "down"
+    ],
+    [
+     "oserror",
+     "down"
+    ],
+    [
+     "oserror",
+     "down"
+    ],
+    [
+     "oserror",
+     "down"
+    ],
+    [
+     "oserror",
+     "down"
+    ],
+    [
+     "oserror",
+     "down"
+    ],
+    [
+     "oserror",
+     "down"
+    ],
+    [
+     "oserror",
+     "down"
+    ],
+    [
+     "oserror",
+     "down"
+    ],
+    [
+     "oserror",
+     "down"
+    ],
+    [
+     "oserror",
+     "down"
+    ],
+    [
+     "oserror",
+     "down"
+    ],
+    [
+     "oserror",
+     "down"
+    ],
+    [
+     "oserror",
+     "down"
+    ],
+    [
+     "oserror",
+     "down"
+    ],
+    [
+     "oserror",
+     "down"
+    ],
+    [
+     "oserror",
+     "down"
+    ],
+    [
+     "oserror",
+     "down"
+    ],
+    [
+     "oserror",
+     "down"
+    ],
+    [
+     "ok",
+     "just in time"
+    ],
+    [
+     "ok",
+     "after"
+    ]
+   ],
+   "identities": [
+    [
+     "ana",
+     [
+      -0.09435549308766267,
+      0.41551651330172246
+     ]
+    ],
+    [
+     null,
+     []
+    ]
+   ],
+   "transcript": "{\"sequence\": 1, \"time\": 1700000000.5, \"source\": \"human\", \"text\": \"just in time\", \"speaker\": \"ana\", \"turn_finished\": true, \"speech_ended\": 99.5, \"segment_closed\": 100.0, \"transcription_started\": 1700000000.0}\n{\"sequence\": 2, \"time\": 1700000001.25, \"source\": \"meeting\", \"text\": \"after\", \"speaker\": null, \"turn_finished\": true, \"speech_ended\": 99.5, \"segment_closed\": 100.0, \"transcription_started\": 1700000000.75}\n",
+   "embeddings": "{\"sequence\": 1, \"embedding\": [-0.09435549308766267, 0.41551651330172246]}\n",
+   "sleeps": [
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1
+   ],
+   "calls": [
+    [
+     4,
+     null
+    ],
+    [
+     4,
+     null
+    ],
+    [
+     4,
+     null
+    ],
+    [
+     4,
+     null
+    ],
+    [
+     4,
+     null
+    ],
+    [
+     4,
+     null
+    ],
+    [
+     4,
+     null
+    ],
+    [
+     4,
+     null
+    ],
+    [
+     4,
+     null
+    ],
+    [
+     4,
+     null
+    ],
+    [
+     4,
+     null
+    ],
+    [
+     4,
+     null
+    ],
+    [
+     4,
+     null
+    ],
+    [
+     4,
+     null
+    ],
+    [
+     4,
+     null
+    ],
+    [
+     4,
+     null
+    ],
+    [
+     4,
+     null
+    ],
+    [
+     4,
+     null
+    ],
+    [
+     4,
+     null
+    ],
+    [
+     4,
+     null
+    ],
+    [
+     4,
+     null
+    ],
+    [
+     4,
+     null
+    ],
+    [
+     4,
+     null
+    ],
+    [
+     4,
+     null
+    ],
+    [
+     4,
+     null
+    ],
+    [
+     4,
+     null
+    ],
+    [
+     4,
+     null
+    ],
+    [
+     4,
+     null
+    ],
+    [
+     4,
+     null
+    ],
+    [
+     4,
+     null
+    ],
+    [
+     5,
+     null
+    ]
+   ],
+   "events": [
+    "finish",
+    "finish",
+    "clear"
+   ],
+   "stderr": []
+  },
+  {
+   "language": null,
+   "seed": null,
+   "extra_iterations": 0,
+   "items": [
+    [
+     "human",
+     "643c7dec",
+     true,
+     99.5,
+     100.0
+    ],
+    [
+     "meeting",
+     "b0b580ec37",
+     true,
+     99.5,
+     100.0
+    ]
+   ],
+   "outcomes": [
+    [
+     "error",
+     "boom"
+    ],
+    [
+     "ok",
+     "recovered"
+    ]
+   ],
+   "identities": [
+    [
+     null,
+     null
+    ]
+   ],
+   "transcript": "{\"sequence\": 1, \"time\": 1700000000.75, \"source\": \"meeting\", \"text\": \"recovered\", \"speaker\": null, \"turn_finished\": true, \"speech_ended\": 99.5, \"segment_closed\": 100.0, \"transcription_started\": 1700000000.25}\n",
+   "embeddings": null,
+   "sleeps": [],
+   "calls": [
+    [
+     4,
+     null
+    ],
+    [
+     5,
+     null
+    ]
+   ],
+   "events": [
+    "finish",
+    "finish",
+    "clear"
+   ],
+   "stderr": [
+    "Dropped a human segment: boom"
+   ]
+  },
+  {
+   "language": null,
+   "seed": null,
+   "extra_iterations": 0,
+   "items": [
+    [
+     "human",
+     "bc9712dd",
+     true,
+     99.5,
+     100.0
+    ]
+   ],
+   "outcomes": [
+    [
+     "ok",
+     "silent embedding"
+    ]
+   ],
+   "identities": [
+    [
+     "zed",
+     []
+    ]
+   ],
+   "transcript": "{\"sequence\": 1, \"time\": 1700000000.5, \"source\": \"human\", \"text\": \"silent embedding\", \"speaker\": \"zed\", \"turn_finished\": true, \"speech_ended\": 99.5, \"segment_closed\": 100.0, \"transcription_started\": 1700000000.0}\n",
+   "embeddings": null,
+   "sleeps": [],
+   "calls": [
+    [
+     4,
+     null
+    ]
+   ],
+   "events": [
+    "finish",
+    "clear"
+   ],
+   "stderr": []
+  },
+  {
+   "language": null,
+   "seed": null,
+   "extra_iterations": 1,
+   "items": [
+    [
+     "meeting",
+     "2e6aaeb9",
+     true,
+     99.5,
+     100.0
+    ]
+   ],
+   "outcomes": [
+    [
+     "ok",
+     "x"
+    ]
+   ],
+   "identities": [
+    [
+     null,
+     null
+    ]
+   ],
+   "transcript": "{\"sequence\": 1, \"time\": 1700000000.5, \"source\": \"meeting\", \"text\": \"x\", \"speaker\": null, \"turn_finished\": true, \"speech_ended\": 99.5, \"segment_closed\": 100.0, \"transcription_started\": 1700000000.0}\n",
+   "embeddings": null,
+   "sleeps": [],
+   "calls": [
+    [
+     4,
+     null
+    ]
+   ],
+   "events": [
+    "finish",
+    "clear"
+   ],
+   "stderr": []
+  },
+  {
+   "language": null,
+   "seed": null,
+   "extra_iterations": 2,
+   "items": [],
+   "outcomes": [],
+   "identities": [],
+   "transcript": null,
+   "embeddings": null,
+   "sleeps": [],
+   "calls": [],
+   "events": [
+    "clear"
+   ],
+   "stderr": []
+  },
+  {
+   "language": "en",
+   "seed": "{\"sequence\": 1, \"time\": 5.0, \"source\": \"a\", \"text\": \"x\", \"speaker\": null, \"turn_finished\": true}\n{\"sequence\": 2, \"time\": 6.0, \"source\": \"b\", \"text\": \"y\", \"speaker\": null, \"turn_finished\": true}\n",
+   "extra_iterations": 0,
+   "items": [
+    [
+     "meeting",
+     "4c9ef7521829",
+     false,
+     13.062,
+     27.988
+    ],
+    [
+     "meeting",
+     "80e9d74a1c10fcab",
+     true,
+     17.406,
+     23.438
+    ],
+    [
+     "human",
+     "d33656debe",
+     true,
+     17.317,
+     29.498
+    ]
+   ],
+   "outcomes": [
+    [
+     "ok",
+     "one two three four five"
+    ],
+    [
+     "ok",
+     "alpha beta gamma delta"
+    ],
+    [
+     "ok",
+     "unique words appear here only"
+    ]
+   ],
+   "identities": [
+    [
+     "ana",
+     null
+    ],
+    [
+     "ana",
+     [
+      0.9202626867318002,
+      0.37767809226371374,
+      -0.36459549547668635
+     ]
+    ],
+    [
+     "ana",
+     null
+    ]
+   ],
+   "transcript": "{\"sequence\": 1, \"time\": 5.0, \"source\": \"a\", \"text\": \"x\", \"speaker\": null, \"turn_finished\": true}\n{\"sequence\": 2, \"time\": 6.0, \"source\": \"b\", \"text\": \"y\", \"speaker\": null, \"turn_finished\": true}\n{\"sequence\": 3, \"time\": 1700000000.5, \"source\": \"meeting\", \"text\": \"one two three four five\", \"speaker\": \"ana\", \"turn_finished\": false, \"speech_ended\": 13.062, \"segment_closed\": 27.988, \"transcription_started\": 1700000000.0}\n{\"sequence\": 4, \"time\": 1700000001.25, \"source\": \"meeting\", \"text\": \"alpha beta gamma delta\", \"speaker\": \"ana\", \"turn_finished\": true, \"speech_ended\": 17.406, \"segment_closed\": 23.438, \"transcription_started\": 1700000000.75}\n{\"sequence\": 5, \"time\": 1700000002.0, \"source\": \"human\", \"text\": \"unique words appear here only\", \"speaker\": \"ana\", \"turn_finished\": true, \"speech_ended\": 17.317, \"segment_closed\": 29.498, \"transcription_started\": 1700000001.5}\n",
+   "embeddings": "{\"sequence\": 4, \"embedding\": [0.9202626867318002, 0.37767809226371374, -0.36459549547668635]}\n",
+   "sleeps": [],
+   "calls": [
+    [
+     6,
+     "en"
+    ],
+    [
+     8,
+     "en"
+    ],
+    [
+     5,
+     "en"
+    ]
+   ],
+   "events": [
+    "finish",
+    "finish",
+    "finish",
+    "clear"
+   ],
+   "stderr": []
+  },
+  {
+   "language": "en",
+   "seed": null,
+   "extra_iterations": 0,
+   "items": [
+    [
+     "human",
+     "119cba8ff88796",
+     true,
+     17.952,
+     23.557
+    ],
+    [
+     "human",
+     "80a68ced93b6b2",
+     false,
+     15.807,
+     20.116
+    ],
+    [
+     "meeting",
+     "b358e6baab48",
+     false,
+     17.378,
+     28.282
+    ],
+    [
+     "meeting",
+     "9028d557",
+     true,
+     13.62,
+     28.539
+    ]
+   ],
+   "outcomes": [
+    [
+     "ok",
+     "unique words appear here only"
+    ],
+    [
+     "ok",
+     "gamma delta alpha beta"
+    ],
+    [
+     "ok",
+     "gamma delta alpha beta"
+    ],
+    [
+     "ok",
+     "alpha beta gamma delta"
+    ]
+   ],
+   "identities": [
+    [
+     null,
+     null
+    ],
+    [
+     null,
+     null
+    ],
+    [
+     null,
+     null
+    ],
+    [
+     "ana",
+     [
+      -0.6132797964167485,
+      -0.9286848989801144,
+      -0.06933967245966444
+     ]
+    ]
+   ],
+   "transcript": "{\"sequence\": 1, \"time\": 1700000000.5, \"source\": \"human\", \"text\": \"unique words appear here only\", \"speaker\": null, \"turn_finished\": true, \"speech_ended\": 17.952, \"segment_closed\": 23.557, \"transcription_started\": 1700000000.0}\n{\"sequence\": 2, \"time\": 1700000001.25, \"source\": \"human\", \"text\": \"gamma delta alpha beta\", \"speaker\": null, \"turn_finished\": false, \"speech_ended\": 15.807, \"segment_closed\": 20.116, \"transcription_started\": 1700000000.75}\n{\"sequence\": 3, \"time\": 1700000002.5, \"source\": \"meeting\", \"text\": \"alpha beta gamma delta\", \"speaker\": null, \"turn_finished\": true, \"speech_ended\": 13.62, \"segment_closed\": 28.539, \"transcription_started\": 1700000002.0}\n",
+   "embeddings": null,
+   "sleeps": [],
+   "calls": [
+    [
+     7,
+     "en"
+    ],
+    [
+     7,
+     "en"
+    ],
+    [
+     6,
+     "en"
+    ],
+    [
+     4,
+     "en"
+    ]
+   ],
+   "events": [
+    "finish",
+    "finish",
+    "finish",
+    "finish",
+    "clear"
+   ],
+   "stderr": []
+  },
+  {
+   "language": "pt",
+   "seed": "{\"sequence\": 1, \"time\": 5.0, \"source\": \"a\", \"text\": \"x\", \"speaker\": null, \"turn_finished\": true}\n{\"sequence\": 2, \"time\": 6.0, \"source\": \"b\", \"text\": \"y\", \"speaker\": null, \"turn_finished\": true}\n",
+   "extra_iterations": 0,
+   "items": [
+    [
+     "human",
+     "3abf129a3097ad",
+     true,
+     12.785,
+     24.1
+    ],
+    [
+     "meeting",
+     "bdef4850c3f4",
+     false,
+     18.185,
+     24.191
+    ],
+    [
+     "human",
+     "00c337a648",
+     false,
+     16.086,
+     23.511
+    ]
+   ],
+   "outcomes": [
+    [
+     "ok",
+     "gamma delta alpha beta"
+    ],
+    [
+     "ok",
+     "unique words appear here only"
+    ],
+    [
+     "ok",
+     "unique words appear here only"
+    ]
+   ],
+   "identities": [
+    [
+     "ana",
+     [
+      0.9533608589520433,
+      -0.013179595895192353,
+      -0.04085044603862431
+     ]
+    ],
+    [
+     "ana",
+     [
+      0.9222781934583864,
+      0.8274945342395807,
+      0.19161995640323304
+     ]
+    ],
+    [
+     "ana",
+     [
+      -0.0073889903565007575,
+      -0.16901656955970368,
+      -0.3616949029985659
+     ]
+    ]
+   ],
+   "transcript": "{\"sequence\": 1, \"time\": 5.0, \"source\": \"a\", \"text\": \"x\", \"speaker\": null, \"turn_finished\": true}\n{\"sequence\": 2, \"time\": 6.0, \"source\": \"b\", \"text\": \"y\", \"speaker\": null, \"turn_finished\": true}\n{\"sequence\": 3, \"time\": 1700000000.5, \"source\": \"human\", \"text\": \"gamma delta alpha beta\", \"speaker\": \"ana\", \"turn_finished\": true, \"speech_ended\": 12.785, \"segment_closed\": 24.1, \"transcription_started\": 1700000000.0}\n{\"sequence\": 4, \"time\": 1700000001.25, \"source\": \"meeting\", \"text\": \"unique words appear here only\", \"speaker\": \"ana\", \"turn_finished\": false, \"speech_ended\": 18.185, \"segment_closed\": 24.191, \"transcription_started\": 1700000000.75}\n",
+   "embeddings": "{\"sequence\": 3, \"embedding\": [0.9533608589520433, -0.013179595895192353, -0.04085044603862431]}\n{\"sequence\": 4, \"embedding\": [0.9222781934583864, 0.8274945342395807, 0.19161995640323304]}\n",
+   "sleeps": [],
+   "calls": [
+    [
+     7,
+     "pt"
+    ],
+    [
+     6,
+     "pt"
+    ],
+    [
+     5,
+     "pt"
+    ]
+   ],
+   "events": [
+    "finish",
+    "finish",
+    "finish",
+    "clear"
+   ],
+   "stderr": []
+  }
+ ]
+}

@@ -1,0 +1,1030 @@
+{
+ "cases": [
+  {
+   "directory_mode": 448,
+   "lines": [],
+   "max_bytes": 0,
+   "backups": 2,
+   "files": {
+    "wake.log": {
+     "text": "",
+     "mode": 384
+    }
+   }
+  },
+  {
+   "directory_mode": 448,
+   "lines": [],
+   "max_bytes": 60,
+   "backups": 2,
+   "files": {
+    "wake.log": {
+     "text": "",
+     "mode": 384
+    }
+   }
+  },
+  {
+   "directory_mode": 448,
+   "lines": [],
+   "max_bytes": 100,
+   "backups": 2,
+   "files": {
+    "wake.log": {
+     "text": "",
+     "mode": 384
+    }
+   }
+  },
+  {
+   "directory_mode": 448,
+   "lines": [],
+   "max_bytes": 150,
+   "backups": 1,
+   "files": {
+    "wake.log": {
+     "text": "",
+     "mode": 384
+    }
+   }
+  },
+  {
+   "directory_mode": 448,
+   "lines": [],
+   "max_bytes": 80,
+   "backups": 3,
+   "files": {
+    "wake.log": {
+     "text": "",
+     "mode": 384
+    }
+   }
+  },
+  {
+   "directory_mode": 448,
+   "lines": [],
+   "max_bytes": 45,
+   "backups": 2,
+   "files": {
+    "wake.log": {
+     "text": "",
+     "mode": 384
+    }
+   }
+  },
+  {
+   "directory_mode": 448,
+   "lines": [],
+   "max_bytes": 1000,
+   "backups": 2,
+   "files": {
+    "wake.log": {
+     "text": "",
+     "mode": 384
+    }
+   }
+  },
+  {
+   "directory_mode": 448,
+   "lines": [
+    "one"
+   ],
+   "max_bytes": 0,
+   "backups": 2,
+   "files": {
+    "wake.log": {
+     "text": "one\n",
+     "mode": 384
+    }
+   }
+  },
+  {
+   "directory_mode": 448,
+   "lines": [
+    "one"
+   ],
+   "max_bytes": 60,
+   "backups": 2,
+   "files": {
+    "wake.log": {
+     "text": "one\n",
+     "mode": 384
+    }
+   }
+  },
+  {
+   "directory_mode": 448,
+   "lines": [
+    "one"
+   ],
+   "max_bytes": 100,
+   "backups": 2,
+   "files": {
+    "wake.log": {
+     "text": "one\n",
+     "mode": 384
+    }
+   }
+  },
+  {
+   "directory_mode": 448,
+   "lines": [
+    "one"
+   ],
+   "max_bytes": 150,
+   "backups": 1,
+   "files": {
+    "wake.log": {
+     "text": "one\n",
+     "mode": 384
+    }
+   }
+  },
+  {
+   "directory_mode": 448,
+   "lines": [
+    "one"
+   ],
+   "max_bytes": 80,
+   "backups": 3,
+   "files": {
+    "wake.log": {
+     "text": "one\n",
+     "mode": 384
+    }
+   }
+  },
+  {
+   "directory_mode": 448,
+   "lines": [
+    "one"
+   ],
+   "max_bytes": 45,
+   "backups": 2,
+   "files": {
+    "wake.log": {
+     "text": "one\n",
+     "mode": 384
+    }
+   }
+  },
+  {
+   "directory_mode": 448,
+   "lines": [
+    "one"
+   ],
+   "max_bytes": 1000,
+   "backups": 2,
+   "files": {
+    "wake.log": {
+     "text": "one\n",
+     "mode": 384
+    }
+   }
+  },
+  {
+   "directory_mode": 448,
+   "lines": [
+    "line number 0 with some padding",
+    "line number 1 with some padding",
+    "line number 2 with some padding",
+    "line number 3 with some padding",
+    "line number 4 with some padding",
+    "line number 5 with some padding",
+    "line number 6 with some padding",
+    "line number 7 with some padding",
+    "line number 8 with some padding",
+    "line number 9 with some padding",
+    "line number 10 with some padding",
+    "line number 11 with some padding"
+   ],
+   "max_bytes": 0,
+   "backups": 2,
+   "files": {
+    "wake.log": {
+     "text": "line number 0 with some padding\nline number 1 with some padding\nline number 2 with some padding\nline number 3 with some padding\nline number 4 with some padding\nline number 5 with some padding\nline number 6 with some padding\nline number 7 with some padding\nline number 8 with some padding\nline number 9 with some padding\nline number 10 with some padding\nline number 11 with some padding\n",
+     "mode": 384
+    }
+   }
+  },
+  {
+   "directory_mode": 448,
+   "lines": [
+    "line number 0 with some padding",
+    "line number 1 with some padding",
+    "line number 2 with some padding",
+    "line number 3 with some padding",
+    "line number 4 with some padding",
+    "line number 5 with some padding",
+    "line number 6 with some padding",
+    "line number 7 with some padding",
+    "line number 8 with some padding",
+    "line number 9 with some padding",
+    "line number 10 with some padding",
+    "line number 11 with some padding"
+   ],
+   "max_bytes": 60,
+   "backups": 2,
+   "files": {
+    "wake.log": {
+     "text": "line number 11 with some padding\n",
+     "mode": 384
+    },
+    "wake.log.1": {
+     "text": "line number 10 with some padding\n",
+     "mode": 384
+    },
+    "wake.log.2": {
+     "text": "line number 9 with some padding\n",
+     "mode": 384
+    }
+   }
+  },
+  {
+   "directory_mode": 448,
+   "lines": [
+    "line number 0 with some padding",
+    "line number 1 with some padding",
+    "line number 2 with some padding",
+    "line number 3 with some padding",
+    "line number 4 with some padding",
+    "line number 5 with some padding",
+    "line number 6 with some padding",
+    "line number 7 with some padding",
+    "line number 8 with some padding",
+    "line number 9 with some padding",
+    "line number 10 with some padding",
+    "line number 11 with some padding"
+   ],
+   "max_bytes": 100,
+   "backups": 2,
+   "files": {
+    "wake.log": {
+     "text": "line number 9 with some padding\nline number 10 with some padding\nline number 11 with some padding\n",
+     "mode": 384
+    },
+    "wake.log.1": {
+     "text": "line number 6 with some padding\nline number 7 with some padding\nline number 8 with some padding\n",
+     "mode": 384
+    },
+    "wake.log.2": {
+     "text": "line number 3 with some padding\nline number 4 with some padding\nline number 5 with some padding\n",
+     "mode": 384
+    }
+   }
+  },
+  {
+   "directory_mode": 448,
+   "lines": [
+    "line number 0 with some padding",
+    "line number 1 with some padding",
+    "line number 2 with some padding",
+    "line number 3 with some padding",
+    "line number 4 with some padding",
+    "line number 5 with some padding",
+    "line number 6 with some padding",
+    "line number 7 with some padding",
+    "line number 8 with some padding",
+    "line number 9 with some padding",
+    "line number 10 with some padding",
+    "line number 11 with some padding"
+   ],
+   "max_bytes": 150,
+   "backups": 1,
+   "files": {
+    "wake.log": {
+     "text": "line number 8 with some padding\nline number 9 with some padding\nline number 10 with some padding\nline number 11 with some padding\n",
+     "mode": 384
+    },
+    "wake.log.1": {
+     "text": "line number 4 with some padding\nline number 5 with some padding\nline number 6 with some padding\nline number 7 with some padding\n",
+     "mode": 384
+    }
+   }
+  },
+  {
+   "directory_mode": 448,
+   "lines": [
+    "line number 0 with some padding",
+    "line number 1 with some padding",
+    "line number 2 with some padding",
+    "line number 3 with some padding",
+    "line number 4 with some padding",
+    "line number 5 with some padding",
+    "line number 6 with some padding",
+    "line number 7 with some padding",
+    "line number 8 with some padding",
+    "line number 9 with some padding",
+    "line number 10 with some padding",
+    "line number 11 with some padding"
+   ],
+   "max_bytes": 80,
+   "backups": 3,
+   "files": {
+    "wake.log": {
+     "text": "line number 10 with some padding\nline number 11 with some padding\n",
+     "mode": 384
+    },
+    "wake.log.1": {
+     "text": "line number 8 with some padding\nline number 9 with some padding\n",
+     "mode": 384
+    },
+    "wake.log.2": {
+     "text": "line number 6 with some padding\nline number 7 with some padding\n",
+     "mode": 384
+    },
+    "wake.log.3": {
+     "text": "line number 4 with some padding\nline number 5 with some padding\n",
+     "mode": 384
+    }
+   }
+  },
+  {
+   "directory_mode": 448,
+   "lines": [
+    "line number 0 with some padding",
+    "line number 1 with some padding",
+    "line number 2 with some padding",
+    "line number 3 with some padding",
+    "line number 4 with some padding",
+    "line number 5 with some padding",
+    "line number 6 with some padding",
+    "line number 7 with some padding",
+    "line number 8 with some padding",
+    "line number 9 with some padding",
+    "line number 10 with some padding",
+    "line number 11 with some padding"
+   ],
+   "max_bytes": 45,
+   "backups": 2,
+   "files": {
+    "wake.log": {
+     "text": "line number 11 with some padding\n",
+     "mode": 384
+    },
+    "wake.log.1": {
+     "text": "line number 10 with some padding\n",
+     "mode": 384
+    },
+    "wake.log.2": {
+     "text": "line number 9 with some padding\n",
+     "mode": 384
+    }
+   }
+  },
+  {
+   "directory_mode": 448,
+   "lines": [
+    "line number 0 with some padding",
+    "line number 1 with some padding",
+    "line number 2 with some padding",
+    "line number 3 with some padding",
+    "line number 4 with some padding",
+    "line number 5 with some padding",
+    "line number 6 with some padding",
+    "line number 7 with some padding",
+    "line number 8 with some padding",
+    "line number 9 with some padding",
+    "line number 10 with some padding",
+    "line number 11 with some padding"
+   ],
+   "max_bytes": 1000,
+   "backups": 2,
+   "files": {
+    "wake.log": {
+     "text": "line number 0 with some padding\nline number 1 with some padding\nline number 2 with some padding\nline number 3 with some padding\nline number 4 with some padding\nline number 5 with some padding\nline number 6 with some padding\nline number 7 with some padding\nline number 8 with some padding\nline number 9 with some padding\nline number 10 with some padding\nline number 11 with some padding\n",
+     "mode": 384
+    }
+   }
+  },
+  {
+   "directory_mode": 448,
+   "lines": [
+    "ção ünï 0 日本語 ✓",
+    "ção ünï 1 日本語 ✓",
+    "ção ünï 2 日本語 ✓",
+    "ção ünï 3 日本語 ✓",
+    "ção ünï 4 日本語 ✓",
+    "ção ünï 5 日本語 ✓",
+    "ção ünï 6 日本語 ✓",
+    "ção ünï 7 日本語 ✓",
+    "ção ünï 8 日本語 ✓"
+   ],
+   "max_bytes": 0,
+   "backups": 2,
+   "files": {
+    "wake.log": {
+     "text": "ção ünï 0 日本語 ✓\nção ünï 1 日本語 ✓\nção ünï 2 日本語 ✓\nção ünï 3 日本語 ✓\nção ünï 4 日本語 ✓\nção ünï 5 日本語 ✓\nção ünï 6 日本語 ✓\nção ünï 7 日本語 ✓\nção ünï 8 日本語 ✓\n",
+     "mode": 384
+    }
+   }
+  },
+  {
+   "directory_mode": 448,
+   "lines": [
+    "ção ünï 0 日本語 ✓",
+    "ção ünï 1 日本語 ✓",
+    "ção ünï 2 日本語 ✓",
+    "ção ünï 3 日本語 ✓",
+    "ção ünï 4 日本語 ✓",
+    "ção ünï 5 日本語 ✓",
+    "ção ünï 6 日本語 ✓",
+    "ção ünï 7 日本語 ✓",
+    "ção ünï 8 日本語 ✓"
+   ],
+   "max_bytes": 60,
+   "backups": 2,
+   "files": {
+    "wake.log": {
+     "text": "ção ünï 8 日本語 ✓\n",
+     "mode": 384
+    },
+    "wake.log.1": {
+     "text": "ção ünï 6 日本語 ✓\nção ünï 7 日本語 ✓\n",
+     "mode": 384
+    },
+    "wake.log.2": {
+     "text": "ção ünï 4 日本語 ✓\nção ünï 5 日本語 ✓\n",
+     "mode": 384
+    }
+   }
+  },
+  {
+   "directory_mode": 448,
+   "lines": [
+    "ção ünï 0 日本語 ✓",
+    "ção ünï 1 日本語 ✓",
+    "ção ünï 2 日本語 ✓",
+    "ção ünï 3 日本語 ✓",
+    "ção ünï 4 日本語 ✓",
+    "ção ünï 5 日本語 ✓",
+    "ção ünï 6 日本語 ✓",
+    "ção ünï 7 日本語 ✓",
+    "ção ünï 8 日本語 ✓"
+   ],
+   "max_bytes": 100,
+   "backups": 2,
+   "files": {
+    "wake.log": {
+     "text": "ção ünï 6 日本語 ✓\nção ünï 7 日本語 ✓\nção ünï 8 日本語 ✓\n",
+     "mode": 384
+    },
+    "wake.log.1": {
+     "text": "ção ünï 3 日本語 ✓\nção ünï 4 日本語 ✓\nção ünï 5 日本語 ✓\n",
+     "mode": 384
+    },
+    "wake.log.2": {
+     "text": "ção ünï 0 日本語 ✓\nção ünï 1 日本語 ✓\nção ünï 2 日本語 ✓\n",
+     "mode": 384
+    }
+   }
+  },
+  {
+   "directory_mode": 448,
+   "lines": [
+    "ção ünï 0 日本語 ✓",
+    "ção ünï 1 日本語 ✓",
+    "ção ünï 2 日本語 ✓",
+    "ção ünï 3 日本語 ✓",
+    "ção ünï 4 日本語 ✓",
+    "ção ünï 5 日本語 ✓",
+    "ção ünï 6 日本語 ✓",
+    "ção ünï 7 日本語 ✓",
+    "ção ünï 8 日本語 ✓"
+   ],
+   "max_bytes": 150,
+   "backups": 1,
+   "files": {
+    "wake.log": {
+     "text": "ção ünï 5 日本語 ✓\nção ünï 6 日本語 ✓\nção ünï 7 日本語 ✓\nção ünï 8 日本語 ✓\n",
+     "mode": 384
+    },
+    "wake.log.1": {
+     "text": "ção ünï 0 日本語 ✓\nção ünï 1 日本語 ✓\nção ünï 2 日本語 ✓\nção ünï 3 日本語 ✓\nção ünï 4 日本語 ✓\n",
+     "mode": 384
+    }
+   }
+  },
+  {
+   "directory_mode": 448,
+   "lines": [
+    "ção ünï 0 日本語 ✓",
+    "ção ünï 1 日本語 ✓",
+    "ção ünï 2 日本語 ✓",
+    "ção ünï 3 日本語 ✓",
+    "ção ünï 4 日本語 ✓",
+    "ção ünï 5 日本語 ✓",
+    "ção ünï 6 日本語 ✓",
+    "ção ünï 7 日本語 ✓",
+    "ção ünï 8 日本語 ✓"
+   ],
+   "max_bytes": 80,
+   "backups": 3,
+   "files": {
+    "wake.log": {
+     "text": "ção ünï 6 日本語 ✓\nção ünï 7 日本語 ✓\nção ünï 8 日本語 ✓\n",
+     "mode": 384
+    },
+    "wake.log.1": {
+     "text": "ção ünï 3 日本語 ✓\nção ünï 4 日本語 ✓\nção ünï 5 日本語 ✓\n",
+     "mode": 384
+    },
+    "wake.log.2": {
+     "text": "ção ünï 0 日本語 ✓\nção ünï 1 日本語 ✓\nção ünï 2 日本語 ✓\n",
+     "mode": 384
+    }
+   }
+  },
+  {
+   "directory_mode": 448,
+   "lines": [
+    "ção ünï 0 日本語 ✓",
+    "ção ünï 1 日本語 ✓",
+    "ção ünï 2 日本語 ✓",
+    "ção ünï 3 日本語 ✓",
+    "ção ünï 4 日本語 ✓",
+    "ção ünï 5 日本語 ✓",
+    "ção ünï 6 日本語 ✓",
+    "ção ünï 7 日本語 ✓",
+    "ção ünï 8 日本語 ✓"
+   ],
+   "max_bytes": 45,
+   "backups": 2,
+   "files": {
+    "wake.log": {
+     "text": "ção ünï 8 日本語 ✓\n",
+     "mode": 384
+    },
+    "wake.log.1": {
+     "text": "ção ünï 6 日本語 ✓\nção ünï 7 日本語 ✓\n",
+     "mode": 384
+    },
+    "wake.log.2": {
+     "text": "ção ünï 4 日本語 ✓\nção ünï 5 日本語 ✓\n",
+     "mode": 384
+    }
+   }
+  },
+  {
+   "directory_mode": 448,
+   "lines": [
+    "ção ünï 0 日本語 ✓",
+    "ção ünï 1 日本語 ✓",
+    "ção ünï 2 日本語 ✓",
+    "ção ünï 3 日本語 ✓",
+    "ção ünï 4 日本語 ✓",
+    "ção ünï 5 日本語 ✓",
+    "ção ünï 6 日本語 ✓",
+    "ção ünï 7 日本語 ✓",
+    "ção ünï 8 日本語 ✓"
+   ],
+   "max_bytes": 1000,
+   "backups": 2,
+   "files": {
+    "wake.log": {
+     "text": "ção ünï 0 日本語 ✓\nção ünï 1 日本語 ✓\nção ünï 2 日本語 ✓\nção ünï 3 日本語 ✓\nção ünï 4 日本語 ✓\nção ünï 5 日本語 ✓\nção ünï 6 日本語 ✓\nção ünï 7 日本語 ✓\nção ünï 8 日本語 ✓\n",
+     "mode": 384
+    }
+   }
+  },
+  {
+   "directory_mode": 448,
+   "lines": [
+    "line number 0 with some padding",
+    "line number 1 with some padding",
+    "line number 2 with some padding",
+    "line number 3 with some padding",
+    "line number 4 with some padding",
+    "line number 5 with some padding",
+    "line number 6 with some padding",
+    "line number 7 with some padding",
+    "line number 8 with some padding",
+    "line number 9 with some padding",
+    "line number 10 with some padding",
+    "line number 11 with some padding",
+    "ção ünï 0 日本語 ✓",
+    "ção ünï 1 日本語 ✓",
+    "ção ünï 2 日本語 ✓",
+    "ção ünï 3 日本語 ✓",
+    "ção ünï 4 日本語 ✓",
+    "ção ünï 5 日本語 ✓",
+    "ção ünï 6 日本語 ✓",
+    "ção ünï 7 日本語 ✓",
+    "ção ünï 8 日本語 ✓"
+   ],
+   "max_bytes": 0,
+   "backups": 2,
+   "files": {
+    "wake.log": {
+     "text": "line number 0 with some padding\nline number 1 with some padding\nline number 2 with some padding\nline number 3 with some padding\nline number 4 with some padding\nline number 5 with some padding\nline number 6 with some padding\nline number 7 with some padding\nline number 8 with some padding\nline number 9 with some padding\nline number 10 with some padding\nline number 11 with some padding\nção ünï 0 日本語 ✓\nção ünï 1 日本語 ✓\nção ünï 2 日本語 ✓\nção ünï 3 日本語 ✓\nção ünï 4 日本語 ✓\nção ünï 5 日本語 ✓\nção ünï 6 日本語 ✓\nção ünï 7 日本語 ✓\nção ünï 8 日本語 ✓\n",
+     "mode": 384
+    }
+   }
+  },
+  {
+   "directory_mode": 448,
+   "lines": [
+    "line number 0 with some padding",
+    "line number 1 with some padding",
+    "line number 2 with some padding",
+    "line number 3 with some padding",
+    "line number 4 with some padding",
+    "line number 5 with some padding",
+    "line number 6 with some padding",
+    "line number 7 with some padding",
+    "line number 8 with some padding",
+    "line number 9 with some padding",
+    "line number 10 with some padding",
+    "line number 11 with some padding",
+    "ção ünï 0 日本語 ✓",
+    "ção ünï 1 日本語 ✓",
+    "ção ünï 2 日本語 ✓",
+    "ção ünï 3 日本語 ✓",
+    "ção ünï 4 日本語 ✓",
+    "ção ünï 5 日本語 ✓",
+    "ção ünï 6 日本語 ✓",
+    "ção ünï 7 日本語 ✓",
+    "ção ünï 8 日本語 ✓"
+   ],
+   "max_bytes": 60,
+   "backups": 2,
+   "files": {
+    "wake.log": {
+     "text": "ção ünï 7 日本語 ✓\nção ünï 8 日本語 ✓\n",
+     "mode": 384
+    },
+    "wake.log.1": {
+     "text": "ção ünï 5 日本語 ✓\nção ünï 6 日本語 ✓\n",
+     "mode": 384
+    },
+    "wake.log.2": {
+     "text": "ção ünï 3 日本語 ✓\nção ünï 4 日本語 ✓\n",
+     "mode": 384
+    }
+   }
+  },
+  {
+   "directory_mode": 448,
+   "lines": [
+    "line number 0 with some padding",
+    "line number 1 with some padding",
+    "line number 2 with some padding",
+    "line number 3 with some padding",
+    "line number 4 with some padding",
+    "line number 5 with some padding",
+    "line number 6 with some padding",
+    "line number 7 with some padding",
+    "line number 8 with some padding",
+    "line number 9 with some padding",
+    "line number 10 with some padding",
+    "line number 11 with some padding",
+    "ção ünï 0 日本語 ✓",
+    "ção ünï 1 日本語 ✓",
+    "ção ünï 2 日本語 ✓",
+    "ção ünï 3 日本語 ✓",
+    "ção ünï 4 日本語 ✓",
+    "ção ünï 5 日本語 ✓",
+    "ção ünï 6 日本語 ✓",
+    "ção ünï 7 日本語 ✓",
+    "ção ünï 8 日本語 ✓"
+   ],
+   "max_bytes": 100,
+   "backups": 2,
+   "files": {
+    "wake.log": {
+     "text": "ção ünï 6 日本語 ✓\nção ünï 7 日本語 ✓\nção ünï 8 日本語 ✓\n",
+     "mode": 384
+    },
+    "wake.log.1": {
+     "text": "ção ünï 3 日本語 ✓\nção ünï 4 日本語 ✓\nção ünï 5 日本語 ✓\n",
+     "mode": 384
+    },
+    "wake.log.2": {
+     "text": "ção ünï 0 日本語 ✓\nção ünï 1 日本語 ✓\nção ünï 2 日本語 ✓\n",
+     "mode": 384
+    }
+   }
+  },
+  {
+   "directory_mode": 448,
+   "lines": [
+    "line number 0 with some padding",
+    "line number 1 with some padding",
+    "line number 2 with some padding",
+    "line number 3 with some padding",
+    "line number 4 with some padding",
+    "line number 5 with some padding",
+    "line number 6 with some padding",
+    "line number 7 with some padding",
+    "line number 8 with some padding",
+    "line number 9 with some padding",
+    "line number 10 with some padding",
+    "line number 11 with some padding",
+    "ção ünï 0 日本語 ✓",
+    "ção ünï 1 日本語 ✓",
+    "ção ünï 2 日本語 ✓",
+    "ção ünï 3 日本語 ✓",
+    "ção ünï 4 日本語 ✓",
+    "ção ünï 5 日本語 ✓",
+    "ção ünï 6 日本語 ✓",
+    "ção ünï 7 日本語 ✓",
+    "ção ünï 8 日本語 ✓"
+   ],
+   "max_bytes": 150,
+   "backups": 1,
+   "files": {
+    "wake.log": {
+     "text": "ção ünï 6 日本語 ✓\nção ünï 7 日本語 ✓\nção ünï 8 日本語 ✓\n",
+     "mode": 384
+    },
+    "wake.log.1": {
+     "text": "ção ünï 1 日本語 ✓\nção ünï 2 日本語 ✓\nção ünï 3 日本語 ✓\nção ünï 4 日本語 ✓\nção ünï 5 日本語 ✓\n",
+     "mode": 384
+    }
+   }
+  },
+  {
+   "directory_mode": 448,
+   "lines": [
+    "line number 0 with some padding",
+    "line number 1 with some padding",
+    "line number 2 with some padding",
+    "line number 3 with some padding",
+    "line number 4 with some padding",
+    "line number 5 with some padding",
+    "line number 6 with some padding",
+    "line number 7 with some padding",
+    "line number 8 with some padding",
+    "line number 9 with some padding",
+    "line number 10 with some padding",
+    "line number 11 with some padding",
+    "ção ünï 0 日本語 ✓",
+    "ção ünï 1 日本語 ✓",
+    "ção ünï 2 日本語 ✓",
+    "ção ünï 3 日本語 ✓",
+    "ção ünï 4 日本語 ✓",
+    "ção ünï 5 日本語 ✓",
+    "ção ünï 6 日本語 ✓",
+    "ção ünï 7 日本語 ✓",
+    "ção ünï 8 日本語 ✓"
+   ],
+   "max_bytes": 80,
+   "backups": 3,
+   "files": {
+    "wake.log": {
+     "text": "ção ünï 6 日本語 ✓\nção ünï 7 日本語 ✓\nção ünï 8 日本語 ✓\n",
+     "mode": 384
+    },
+    "wake.log.1": {
+     "text": "ção ünï 3 日本語 ✓\nção ünï 4 日本語 ✓\nção ünï 5 日本語 ✓\n",
+     "mode": 384
+    },
+    "wake.log.2": {
+     "text": "ção ünï 0 日本語 ✓\nção ünï 1 日本語 ✓\nção ünï 2 日本語 ✓\n",
+     "mode": 384
+    },
+    "wake.log.3": {
+     "text": "line number 10 with some padding\nline number 11 with some padding\n",
+     "mode": 384
+    }
+   }
+  },
+  {
+   "directory_mode": 448,
+   "lines": [
+    "line number 0 with some padding",
+    "line number 1 with some padding",
+    "line number 2 with some padding",
+    "line number 3 with some padding",
+    "line number 4 with some padding",
+    "line number 5 with some padding",
+    "line number 6 with some padding",
+    "line number 7 with some padding",
+    "line number 8 with some padding",
+    "line number 9 with some padding",
+    "line number 10 with some padding",
+    "line number 11 with some padding",
+    "ção ünï 0 日本語 ✓",
+    "ção ünï 1 日本語 ✓",
+    "ção ünï 2 日本語 ✓",
+    "ção ünï 3 日本語 ✓",
+    "ção ünï 4 日本語 ✓",
+    "ção ünï 5 日本語 ✓",
+    "ção ünï 6 日本語 ✓",
+    "ção ünï 7 日本語 ✓",
+    "ção ünï 8 日本語 ✓"
+   ],
+   "max_bytes": 45,
+   "backups": 2,
+   "files": {
+    "wake.log": {
+     "text": "ção ünï 8 日本語 ✓\n",
+     "mode": 384
+    },
+    "wake.log.1": {
+     "text": "ção ünï 6 日本語 ✓\nção ünï 7 日本語 ✓\n",
+     "mode": 384
+    },
+    "wake.log.2": {
+     "text": "ção ünï 4 日本語 ✓\nção ünï 5 日本語 ✓\n",
+     "mode": 384
+    }
+   }
+  },
+  {
+   "directory_mode": 448,
+   "lines": [
+    "line number 0 with some padding",
+    "line number 1 with some padding",
+    "line number 2 with some padding",
+    "line number 3 with some padding",
+    "line number 4 with some padding",
+    "line number 5 with some padding",
+    "line number 6 with some padding",
+    "line number 7 with some padding",
+    "line number 8 with some padding",
+    "line number 9 with some padding",
+    "line number 10 with some padding",
+    "line number 11 with some padding",
+    "ção ünï 0 日本語 ✓",
+    "ção ünï 1 日本語 ✓",
+    "ção ünï 2 日本語 ✓",
+    "ção ünï 3 日本語 ✓",
+    "ção ünï 4 日本語 ✓",
+    "ção ünï 5 日本語 ✓",
+    "ção ünï 6 日本語 ✓",
+    "ção ünï 7 日本語 ✓",
+    "ção ünï 8 日本語 ✓"
+   ],
+   "max_bytes": 1000,
+   "backups": 2,
+   "files": {
+    "wake.log": {
+     "text": "line number 0 with some padding\nline number 1 with some padding\nline number 2 with some padding\nline number 3 with some padding\nline number 4 with some padding\nline number 5 with some padding\nline number 6 with some padding\nline number 7 with some padding\nline number 8 with some padding\nline number 9 with some padding\nline number 10 with some padding\nline number 11 with some padding\nção ünï 0 日本語 ✓\nção ünï 1 日本語 ✓\nção ünï 2 日本語 ✓\nção ünï 3 日本語 ✓\nção ünï 4 日本語 ✓\nção ünï 5 日本語 ✓\nção ünï 6 日本語 ✓\nção ünï 7 日本語 ✓\nção ünï 8 日本語 ✓\n",
+     "mode": 384
+    }
+   }
+  },
+  {
+   "directory_mode": 448,
+   "lines": [
+    "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+    "yyyyy",
+    "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz"
+   ],
+   "max_bytes": 0,
+   "backups": 2,
+   "files": {
+    "wake.log": {
+     "text": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\nyyyyy\nzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz\n",
+     "mode": 384
+    }
+   }
+  },
+  {
+   "directory_mode": 448,
+   "lines": [
+    "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+    "yyyyy",
+    "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz"
+   ],
+   "max_bytes": 60,
+   "backups": 2,
+   "files": {
+    "wake.log": {
+     "text": "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz\n",
+     "mode": 384
+    },
+    "wake.log.1": {
+     "text": "yyyyy\n",
+     "mode": 384
+    },
+    "wake.log.2": {
+     "text": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\n",
+     "mode": 384
+    }
+   }
+  },
+  {
+   "directory_mode": 448,
+   "lines": [
+    "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+    "yyyyy",
+    "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz"
+   ],
+   "max_bytes": 100,
+   "backups": 2,
+   "files": {
+    "wake.log": {
+     "text": "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz\n",
+     "mode": 384
+    },
+    "wake.log.1": {
+     "text": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\nyyyyy\n",
+     "mode": 384
+    }
+   }
+  },
+  {
+   "directory_mode": 448,
+   "lines": [
+    "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+    "yyyyy",
+    "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz"
+   ],
+   "max_bytes": 150,
+   "backups": 1,
+   "files": {
+    "wake.log": {
+     "text": "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz\n",
+     "mode": 384
+    },
+    "wake.log.1": {
+     "text": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\nyyyyy\n",
+     "mode": 384
+    }
+   }
+  },
+  {
+   "directory_mode": 448,
+   "lines": [
+    "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+    "yyyyy",
+    "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz"
+   ],
+   "max_bytes": 80,
+   "backups": 3,
+   "files": {
+    "wake.log": {
+     "text": "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz\n",
+     "mode": 384
+    },
+    "wake.log.1": {
+     "text": "yyyyy\n",
+     "mode": 384
+    },
+    "wake.log.2": {
+     "text": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\n",
+     "mode": 384
+    }
+   }
+  },
+  {
+   "directory_mode": 448,
+   "lines": [
+    "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+    "yyyyy",
+    "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz"
+   ],
+   "max_bytes": 45,
+   "backups": 2,
+   "files": {
+    "wake.log": {
+     "text": "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz\n",
+     "mode": 384
+    },
+    "wake.log.1": {
+     "text": "yyyyy\n",
+     "mode": 384
+    },
+    "wake.log.2": {
+     "text": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\n",
+     "mode": 384
+    }
+   }
+  },
+  {
+   "directory_mode": 448,
+   "lines": [
+    "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+    "yyyyy",
+    "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz"
+   ],
+   "max_bytes": 1000,
+   "backups": 2,
+   "files": {
+    "wake.log": {
+     "text": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\nyyyyy\nzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz\n",
+     "mode": 384
+    }
+   }
+  }
+ ],
+ "paths": [
+  {
+   "state_home": null,
+   "home": "/home/zed",
+   "path": "/home/zed/.local/state/avatar/wake.log"
+  },
+  {
+   "state_home": "",
+   "home": "/home/zed",
+   "path": "/home/zed/.local/state/avatar/wake.log"
+  },
+  {
+   "state_home": "/var/state",
+   "home": "/home/zed",
+   "path": "/var/state/avatar/wake.log"
+  }
+ ]
+}

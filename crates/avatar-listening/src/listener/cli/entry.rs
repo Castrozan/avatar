@@ -12,6 +12,7 @@ use super::ports::{ListenPorts, Output, PulseSources};
 use crate::listener::bounded_command::run_bounded;
 use crate::listener::runtime::{Platform, RuntimeEnvironment, runtime_directory};
 use crate::listener::session::SessionDirectory;
+use crate::listener::speaker_identity::{VoiceProfiles, voices_directory};
 use crate::listener::units::{LaunchdUnits, SessionUnits, SystemdUnits};
 use crate::user_units::SystemClock;
 use crate::user_units::launchd::process::ProcessLaunchctl;
@@ -64,6 +65,12 @@ fn session_directory(platform: Platform, user_identifier: u32) -> SessionDirecto
     }))
 }
 
+fn voice_profiles() -> VoiceProfiles {
+    let home = std::env::var("HOME").map(PathBuf::from).unwrap_or_default();
+    let state_home = std::env::var("XDG_STATE_HOME").ok();
+    VoiceProfiles::new(voices_directory(state_home.as_deref(), &home))
+}
+
 fn execute(
     arguments: &ListenArguments,
     directory: &SessionDirectory,
@@ -74,6 +81,7 @@ fn execute(
         pulse: &mut Pactl,
         output: &mut Terminal,
         clock: &mut SystemClock::new(),
+        voices: &voice_profiles(),
     };
     let outcome = run(&arguments.command, directory, &mut ports);
     outcome.map_or_else(|failure| report_failure(&failure), |()| 0)

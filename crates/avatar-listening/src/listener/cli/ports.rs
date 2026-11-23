@@ -1,6 +1,7 @@
 use std::collections::BTreeSet;
 use std::io;
 
+use crate::listener::speaker_identity::VoiceProfiles;
 use crate::listener::units::SessionUnits;
 use crate::user_units::Clock;
 
@@ -19,4 +20,5 @@ pub struct ListenPorts<'ports> {
     pub pulse: &'ports mut dyn PulseSources,
     pub output: &'ports mut dyn Output,
     pub clock: &'ports mut dyn Clock,
+    pub voices: &'ports VoiceProfiles,
 }

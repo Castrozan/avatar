@@ -1,4 +1,5 @@
 pub mod error;
+pub mod report;
 pub mod store;
 
 use serde_json::Value;

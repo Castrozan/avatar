@@ -1,0 +1,824 @@
+{
+ "cases": [
+  {
+   "kind": "wake",
+   "room": null,
+   "inputs": {
+    "text": "oi, tudo bem? ção",
+    "bytes": 0
+   },
+   "line": "{\"timestamp\": \"2026-03-04T05:06:07.123456+00:00\", \"phase\": \"wake\", \"room\": null, \"text\": \"oi, tudo bem? ção\", \"audio_seconds\": 0.0}"
+  },
+  {
+   "kind": "wake",
+   "room": null,
+   "inputs": {
+    "text": "oi, tudo bem? ção",
+    "bytes": 1
+   },
+   "line": "{\"timestamp\": \"2026-03-04T05:06:07.123456+00:00\", \"phase\": \"wake\", \"room\": null, \"text\": \"oi, tudo bem? ção\", \"audio_seconds\": 3.125e-05}"
+  },
+  {
+   "kind": "wake",
+   "room": null,
+   "inputs": {
+    "text": "oi, tudo bem? ção",
+    "bytes": 32000
+   },
+   "line": "{\"timestamp\": \"2026-03-04T05:06:07.123456+00:00\", \"phase\": \"wake\", \"room\": null, \"text\": \"oi, tudo bem? ção\", \"audio_seconds\": 1.0}"
+  },
+  {
+   "kind": "wake",
+   "room": null,
+   "inputs": {
+    "text": "oi, tudo bem? ção",
+    "bytes": 48000
+   },
+   "line": "{\"timestamp\": \"2026-03-04T05:06:07.123456+00:00\", \"phase\": \"wake\", \"room\": null, \"text\": \"oi, tudo bem? ção\", \"audio_seconds\": 1.5}"
+  },
+  {
+   "kind": "wake",
+   "room": null,
+   "inputs": {
+    "text": "oi, tudo bem? ção",
+    "bytes": 3200001
+   },
+   "line": "{\"timestamp\": \"2026-03-04T05:06:07.123456+00:00\", \"phase\": \"wake\", \"room\": null, \"text\": \"oi, tudo bem? ção\", \"audio_seconds\": 100.00003125}"
+  },
+  {
+   "kind": "wake",
+   "room": null,
+   "inputs": {
+    "text": "oi, tudo bem? ção",
+    "bytes": 12345
+   },
+   "line": "{\"timestamp\": \"2026-03-04T05:06:07.123456+00:00\", \"phase\": \"wake\", \"room\": null, \"text\": \"oi, tudo bem? ção\", \"audio_seconds\": 0.38578125}"
+  },
+  {
+   "kind": "conversation",
+   "room": null,
+   "inputs": {
+    "entry": {
+     "sequence": 4,
+     "time": 1700000000.5,
+     "source": "meeting",
+     "text": "hello",
+     "speaker": "ana",
+     "turn_finished": false,
+     "speech_ended": 1.25,
+     "segment_closed": 1.5,
+     "transcription_started": 1.75
+    }
+   },
+   "line": "{\"timestamp\": \"2026-03-04T05:06:07.123456+00:00\", \"phase\": \"conversation\", \"room\": null, \"text\": \"hello\", \"sequence\": 4, \"source\": \"meeting\", \"speaker\": \"ana\", \"turn_finished\": false, \"speech_ended\": 1.25, \"segment_closed\": 1.5, \"transcription_started\": 1.75, \"transcript_written\": 1700000000.5}"
+  },
+  {
+   "kind": "conversation",
+   "room": null,
+   "inputs": {
+    "entry": {
+     "sequence": 1,
+     "text": "só texto"
+    }
+   },
+   "line": "{\"timestamp\": \"2026-03-04T05:06:07.123456+00:00\", \"phase\": \"conversation\", \"room\": null, \"text\": \"só texto\", \"sequence\": 1, \"source\": null, \"speaker\": null, \"turn_finished\": null, \"speech_ended\": null, \"segment_closed\": null, \"transcription_started\": null, \"transcript_written\": null}"
+  },
+  {
+   "kind": "conversation",
+   "room": null,
+   "inputs": {
+    "entry": {
+     "sequence": 9,
+     "time": 1e-07,
+     "source": null,
+     "text": "x\n\"y\"",
+     "speaker": null,
+     "turn_finished": true,
+     "extra": 1
+    }
+   },
+   "line": "{\"timestamp\": \"2026-03-04T05:06:07.123456+00:00\", \"phase\": \"conversation\", \"room\": null, \"text\": \"x\\n\\\"y\\\"\", \"sequence\": 9, \"source\": null, \"speaker\": null, \"turn_finished\": true, \"speech_ended\": null, \"segment_closed\": null, \"transcription_started\": null, \"transcript_written\": 1e-07}"
+  },
+  {
+   "kind": "addressing",
+   "room": null,
+   "inputs": {
+    "phase": "route",
+    "decision": [
+     [
+      "pane",
+      "w1:p2"
+     ],
+     [
+      "score",
+      0.5
+     ],
+     [
+      "name",
+      null
+     ]
+    ]
+   },
+   "line": "{\"timestamp\": \"2026-03-04T05:06:07.123456+00:00\", \"phase\": \"route\", \"room\": null, \"decision\": \"addressing\", \"pane\": \"w1:p2\", \"score\": 0.5, \"name\": null}"
+  },
+  {
+   "kind": "addressing",
+   "room": null,
+   "inputs": {
+    "phase": "route",
+    "decision": []
+   },
+   "line": "{\"timestamp\": \"2026-03-04T05:06:07.123456+00:00\", \"phase\": \"route\", \"room\": null, \"decision\": \"addressing\"}"
+  },
+  {
+   "kind": "addressing",
+   "room": null,
+   "inputs": {
+    "phase": "route",
+    "decision": [
+     [
+      "a",
+      [
+       1,
+       2.5,
+       "z"
+      ]
+     ]
+    ]
+   },
+   "line": "{\"timestamp\": \"2026-03-04T05:06:07.123456+00:00\", \"phase\": \"route\", \"room\": null, \"decision\": \"addressing\", \"a\": [1, 2.5, \"z\"]}"
+  },
+  {
+   "kind": "delivery",
+   "room": null,
+   "inputs": {
+    "delivery": [
+     [
+      "sequence",
+      3
+     ],
+     [
+      "servant",
+      "V"
+     ],
+     [
+      "pane",
+      "w1:p2"
+     ],
+     [
+      "host",
+      null
+     ],
+     [
+      "delivered",
+      "hi"
+     ],
+     [
+      "seconds",
+      0.123
+     ]
+    ]
+   },
+   "line": "{\"timestamp\": \"2026-03-04T05:06:07.123456+00:00\", \"phase\": \"delivery\", \"room\": null, \"sequence\": 3, \"servant\": \"V\", \"pane\": \"w1:p2\", \"host\": null, \"delivered\": \"hi\", \"seconds\": 0.123}"
+  },
+  {
+   "kind": "delivery",
+   "room": null,
+   "inputs": {
+    "delivery": []
+   },
+   "line": "{\"timestamp\": \"2026-03-04T05:06:07.123456+00:00\", \"phase\": \"delivery\", \"room\": null}"
+  },
+  {
+   "kind": "delivery",
+   "room": null,
+   "inputs": {
+    "delivery": [
+     [
+      "timestamp",
+      "mine"
+     ],
+     [
+      "room",
+      "x"
+     ]
+    ]
+   },
+   "line": "{\"timestamp\": \"mine\", \"phase\": \"delivery\", \"room\": \"x\"}"
+  },
+  {
+   "kind": "closing",
+   "room": null,
+   "inputs": {
+    "reason": "quiet"
+   },
+   "line": "{\"timestamp\": \"2026-03-04T05:06:07.123456+00:00\", \"phase\": \"closing\", \"room\": null, \"reason\": \"quiet\"}"
+  },
+  {
+   "kind": "closing",
+   "room": null,
+   "inputs": {
+    "reason": "ação é ok"
+   },
+   "line": "{\"timestamp\": \"2026-03-04T05:06:07.123456+00:00\", \"phase\": \"closing\", \"room\": null, \"reason\": \"ação é ok\"}"
+  },
+  {
+   "kind": "talk",
+   "room": null,
+   "inputs": {
+    "action": "start",
+    "pane": "w1:p2"
+   },
+   "line": "{\"timestamp\": \"2026-03-04T05:06:07.123456+00:00\", \"phase\": \"talk\", \"room\": null, \"action\": \"start\", \"pane\": \"w1:p2\"}"
+  },
+  {
+   "kind": "speech",
+   "room": null,
+   "inputs": {
+    "pane": "w1:p2",
+    "speech": [
+     [
+      "text",
+      "a b"
+     ],
+     [
+      "seconds",
+      2.0
+     ]
+    ]
+   },
+   "line": "{\"timestamp\": \"2026-03-04T05:06:07.123456+00:00\", \"phase\": \"speech\", \"room\": null, \"pane\": \"w1:p2\", \"text\": \"a b\", \"seconds\": 2.0}"
+  },
+  {
+   "kind": "speech",
+   "room": null,
+   "inputs": {
+    "pane": "w1:p2",
+    "speech": []
+   },
+   "line": "{\"timestamp\": \"2026-03-04T05:06:07.123456+00:00\", \"phase\": \"speech\", \"room\": null, \"pane\": \"w1:p2\"}"
+  },
+  {
+   "kind": "speech",
+   "room": null,
+   "inputs": {
+    "pane": "w1:p2",
+    "speech": [
+     [
+      "zone",
+      "override"
+     ]
+    ]
+   },
+   "line": "{\"timestamp\": \"2026-03-04T05:06:07.123456+00:00\", \"phase\": \"speech\", \"room\": null, \"pane\": \"w1:p2\", \"zone\": \"override\"}"
+  },
+  {
+   "kind": "wake",
+   "room": "chise",
+   "inputs": {
+    "text": "oi, tudo bem? ção",
+    "bytes": 0
+   },
+   "line": "{\"timestamp\": \"2026-03-04T05:06:07.123456+00:00\", \"phase\": \"wake\", \"room\": \"chise\", \"text\": \"oi, tudo bem? ção\", \"audio_seconds\": 0.0}"
+  },
+  {
+   "kind": "wake",
+   "room": "chise",
+   "inputs": {
+    "text": "oi, tudo bem? ção",
+    "bytes": 1
+   },
+   "line": "{\"timestamp\": \"2026-03-04T05:06:07.123456+00:00\", \"phase\": \"wake\", \"room\": \"chise\", \"text\": \"oi, tudo bem? ção\", \"audio_seconds\": 3.125e-05}"
+  },
+  {
+   "kind": "wake",
+   "room": "chise",
+   "inputs": {
+    "text": "oi, tudo bem? ção",
+    "bytes": 32000
+   },
+   "line": "{\"timestamp\": \"2026-03-04T05:06:07.123456+00:00\", \"phase\": \"wake\", \"room\": \"chise\", \"text\": \"oi, tudo bem? ção\", \"audio_seconds\": 1.0}"
+  },
+  {
+   "kind": "wake",
+   "room": "chise",
+   "inputs": {
+    "text": "oi, tudo bem? ção",
+    "bytes": 48000
+   },
+   "line": "{\"timestamp\": \"2026-03-04T05:06:07.123456+00:00\", \"phase\": \"wake\", \"room\": \"chise\", \"text\": \"oi, tudo bem? ção\", \"audio_seconds\": 1.5}"
+  },
+  {
+   "kind": "wake",
+   "room": "chise",
+   "inputs": {
+    "text": "oi, tudo bem? ção",
+    "bytes": 3200001
+   },
+   "line": "{\"timestamp\": \"2026-03-04T05:06:07.123456+00:00\", \"phase\": \"wake\", \"room\": \"chise\", \"text\": \"oi, tudo bem? ção\", \"audio_seconds\": 100.00003125}"
+  },
+  {
+   "kind": "wake",
+   "room": "chise",
+   "inputs": {
+    "text": "oi, tudo bem? ção",
+    "bytes": 12345
+   },
+   "line": "{\"timestamp\": \"2026-03-04T05:06:07.123456+00:00\", \"phase\": \"wake\", \"room\": \"chise\", \"text\": \"oi, tudo bem? ção\", \"audio_seconds\": 0.38578125}"
+  },
+  {
+   "kind": "conversation",
+   "room": "chise",
+   "inputs": {
+    "entry": {
+     "sequence": 4,
+     "time": 1700000000.5,
+     "source": "meeting",
+     "text": "hello",
+     "speaker": "ana",
+     "turn_finished": false,
+     "speech_ended": 1.25,
+     "segment_closed": 1.5,
+     "transcription_started": 1.75
+    }
+   },
+   "line": "{\"timestamp\": \"2026-03-04T05:06:07.123456+00:00\", \"phase\": \"conversation\", \"room\": \"chise\", \"text\": \"hello\", \"sequence\": 4, \"source\": \"meeting\", \"speaker\": \"ana\", \"turn_finished\": false, \"speech_ended\": 1.25, \"segment_closed\": 1.5, \"transcription_started\": 1.75, \"transcript_written\": 1700000000.5}"
+  },
+  {
+   "kind": "conversation",
+   "room": "chise",
+   "inputs": {
+    "entry": {
+     "sequence": 1,
+     "text": "só texto"
+    }
+   },
+   "line": "{\"timestamp\": \"2026-03-04T05:06:07.123456+00:00\", \"phase\": \"conversation\", \"room\": \"chise\", \"text\": \"só texto\", \"sequence\": 1, \"source\": null, \"speaker\": null, \"turn_finished\": null, \"speech_ended\": null, \"segment_closed\": null, \"transcription_started\": null, \"transcript_written\": null}"
+  },
+  {
+   "kind": "conversation",
+   "room": "chise",
+   "inputs": {
+    "entry": {
+     "sequence": 9,
+     "time": 1e-07,
+     "source": null,
+     "text": "x\n\"y\"",
+     "speaker": null,
+     "turn_finished": true,
+     "extra": 1
+    }
+   },
+   "line": "{\"timestamp\": \"2026-03-04T05:06:07.123456+00:00\", \"phase\": \"conversation\", \"room\": \"chise\", \"text\": \"x\\n\\\"y\\\"\", \"sequence\": 9, \"source\": null, \"speaker\": null, \"turn_finished\": true, \"speech_ended\": null, \"segment_closed\": null, \"transcription_started\": null, \"transcript_written\": 1e-07}"
+  },
+  {
+   "kind": "addressing",
+   "room": "chise",
+   "inputs": {
+    "phase": "route",
+    "decision": [
+     [
+      "pane",
+      "w1:p2"
+     ],
+     [
+      "score",
+      0.5
+     ],
+     [
+      "name",
+      null
+     ]
+    ]
+   },
+   "line": "{\"timestamp\": \"2026-03-04T05:06:07.123456+00:00\", \"phase\": \"route\", \"room\": \"chise\", \"decision\": \"addressing\", \"pane\": \"w1:p2\", \"score\": 0.5, \"name\": null}"
+  },
+  {
+   "kind": "addressing",
+   "room": "chise",
+   "inputs": {
+    "phase": "route",
+    "decision": []
+   },
+   "line": "{\"timestamp\": \"2026-03-04T05:06:07.123456+00:00\", \"phase\": \"route\", \"room\": \"chise\", \"decision\": \"addressing\"}"
+  },
+  {
+   "kind": "addressing",
+   "room": "chise",
+   "inputs": {
+    "phase": "route",
+    "decision": [
+     [
+      "a",
+      [
+       1,
+       2.5,
+       "z"
+      ]
+     ]
+    ]
+   },
+   "line": "{\"timestamp\": \"2026-03-04T05:06:07.123456+00:00\", \"phase\": \"route\", \"room\": \"chise\", \"decision\": \"addressing\", \"a\": [1, 2.5, \"z\"]}"
+  },
+  {
+   "kind": "delivery",
+   "room": "chise",
+   "inputs": {
+    "delivery": [
+     [
+      "sequence",
+      3
+     ],
+     [
+      "servant",
+      "V"
+     ],
+     [
+      "pane",
+      "w1:p2"
+     ],
+     [
+      "host",
+      null
+     ],
+     [
+      "delivered",
+      "hi"
+     ],
+     [
+      "seconds",
+      0.123
+     ]
+    ]
+   },
+   "line": "{\"timestamp\": \"2026-03-04T05:06:07.123456+00:00\", \"phase\": \"delivery\", \"room\": \"chise\", \"sequence\": 3, \"servant\": \"V\", \"pane\": \"w1:p2\", \"host\": null, \"delivered\": \"hi\", \"seconds\": 0.123}"
+  },
+  {
+   "kind": "delivery",
+   "room": "chise",
+   "inputs": {
+    "delivery": []
+   },
+   "line": "{\"timestamp\": \"2026-03-04T05:06:07.123456+00:00\", \"phase\": \"delivery\", \"room\": \"chise\"}"
+  },
+  {
+   "kind": "delivery",
+   "room": "chise",
+   "inputs": {
+    "delivery": [
+     [
+      "timestamp",
+      "mine"
+     ],
+     [
+      "room",
+      "x"
+     ]
+    ]
+   },
+   "line": "{\"timestamp\": \"mine\", \"phase\": \"delivery\", \"room\": \"x\"}"
+  },
+  {
+   "kind": "closing",
+   "room": "chise",
+   "inputs": {
+    "reason": "quiet"
+   },
+   "line": "{\"timestamp\": \"2026-03-04T05:06:07.123456+00:00\", \"phase\": \"closing\", \"room\": \"chise\", \"reason\": \"quiet\"}"
+  },
+  {
+   "kind": "closing",
+   "room": "chise",
+   "inputs": {
+    "reason": "ação é ok"
+   },
+   "line": "{\"timestamp\": \"2026-03-04T05:06:07.123456+00:00\", \"phase\": \"closing\", \"room\": \"chise\", \"reason\": \"ação é ok\"}"
+  },
+  {
+   "kind": "talk",
+   "room": "chise",
+   "inputs": {
+    "action": "start",
+    "pane": "w1:p2"
+   },
+   "line": "{\"timestamp\": \"2026-03-04T05:06:07.123456+00:00\", \"phase\": \"talk\", \"room\": \"chise\", \"action\": \"start\", \"pane\": \"w1:p2\"}"
+  },
+  {
+   "kind": "speech",
+   "room": "chise",
+   "inputs": {
+    "pane": "w1:p2",
+    "speech": [
+     [
+      "text",
+      "a b"
+     ],
+     [
+      "seconds",
+      2.0
+     ]
+    ]
+   },
+   "line": "{\"timestamp\": \"2026-03-04T05:06:07.123456+00:00\", \"phase\": \"speech\", \"room\": \"chise\", \"pane\": \"w1:p2\", \"text\": \"a b\", \"seconds\": 2.0}"
+  },
+  {
+   "kind": "speech",
+   "room": "chise",
+   "inputs": {
+    "pane": "w1:p2",
+    "speech": []
+   },
+   "line": "{\"timestamp\": \"2026-03-04T05:06:07.123456+00:00\", \"phase\": \"speech\", \"room\": \"chise\", \"pane\": \"w1:p2\"}"
+  },
+  {
+   "kind": "speech",
+   "room": "chise",
+   "inputs": {
+    "pane": "w1:p2",
+    "speech": [
+     [
+      "zone",
+      "override"
+     ]
+    ]
+   },
+   "line": "{\"timestamp\": \"2026-03-04T05:06:07.123456+00:00\", \"phase\": \"speech\", \"room\": \"chise\", \"pane\": \"w1:p2\", \"zone\": \"override\"}"
+  },
+  {
+   "kind": "wake",
+   "room": "sala ünï",
+   "inputs": {
+    "text": "oi, tudo bem? ção",
+    "bytes": 0
+   },
+   "line": "{\"timestamp\": \"2026-03-04T05:06:07.123456+00:00\", \"phase\": \"wake\", \"room\": \"sala ünï\", \"text\": \"oi, tudo bem? ção\", \"audio_seconds\": 0.0}"
+  },
+  {
+   "kind": "wake",
+   "room": "sala ünï",
+   "inputs": {
+    "text": "oi, tudo bem? ção",
+    "bytes": 1
+   },
+   "line": "{\"timestamp\": \"2026-03-04T05:06:07.123456+00:00\", \"phase\": \"wake\", \"room\": \"sala ünï\", \"text\": \"oi, tudo bem? ção\", \"audio_seconds\": 3.125e-05}"
+  },
+  {
+   "kind": "wake",
+   "room": "sala ünï",
+   "inputs": {
+    "text": "oi, tudo bem? ção",
+    "bytes": 32000
+   },
+   "line": "{\"timestamp\": \"2026-03-04T05:06:07.123456+00:00\", \"phase\": \"wake\", \"room\": \"sala ünï\", \"text\": \"oi, tudo bem? ção\", \"audio_seconds\": 1.0}"
+  },
+  {
+   "kind": "wake",
+   "room": "sala ünï",
+   "inputs": {
+    "text": "oi, tudo bem? ção",
+    "bytes": 48000
+   },
+   "line": "{\"timestamp\": \"2026-03-04T05:06:07.123456+00:00\", \"phase\": \"wake\", \"room\": \"sala ünï\", \"text\": \"oi, tudo bem? ção\", \"audio_seconds\": 1.5}"
+  },
+  {
+   "kind": "wake",
+   "room": "sala ünï",
+   "inputs": {
+    "text": "oi, tudo bem? ção",
+    "bytes": 3200001
+   },
+   "line": "{\"timestamp\": \"2026-03-04T05:06:07.123456+00:00\", \"phase\": \"wake\", \"room\": \"sala ünï\", \"text\": \"oi, tudo bem? ção\", \"audio_seconds\": 100.00003125}"
+  },
+  {
+   "kind": "wake",
+   "room": "sala ünï",
+   "inputs": {
+    "text": "oi, tudo bem? ção",
+    "bytes": 12345
+   },
+   "line": "{\"timestamp\": \"2026-03-04T05:06:07.123456+00:00\", \"phase\": \"wake\", \"room\": \"sala ünï\", \"text\": \"oi, tudo bem? ção\", \"audio_seconds\": 0.38578125}"
+  },
+  {
+   "kind": "conversation",
+   "room": "sala ünï",
+   "inputs": {
+    "entry": {
+     "sequence": 4,
+     "time": 1700000000.5,
+     "source": "meeting",
+     "text": "hello",
+     "speaker": "ana",
+     "turn_finished": false,
+     "speech_ended": 1.25,
+     "segment_closed": 1.5,
+     "transcription_started": 1.75
+    }
+   },
+   "line": "{\"timestamp\": \"2026-03-04T05:06:07.123456+00:00\", \"phase\": \"conversation\", \"room\": \"sala ünï\", \"text\": \"hello\", \"sequence\": 4, \"source\": \"meeting\", \"speaker\": \"ana\", \"turn_finished\": false, \"speech_ended\": 1.25, \"segment_closed\": 1.5, \"transcription_started\": 1.75, \"transcript_written\": 1700000000.5}"
+  },
+  {
+   "kind": "conversation",
+   "room": "sala ünï",
+   "inputs": {
+    "entry": {
+     "sequence": 1,
+     "text": "só texto"
+    }
+   },
+   "line": "{\"timestamp\": \"2026-03-04T05:06:07.123456+00:00\", \"phase\": \"conversation\", \"room\": \"sala ünï\", \"text\": \"só texto\", \"sequence\": 1, \"source\": null, \"speaker\": null, \"turn_finished\": null, \"speech_ended\": null, \"segment_closed\": null, \"transcription_started\": null, \"transcript_written\": null}"
+  },
+  {
+   "kind": "conversation",
+   "room": "sala ünï",
+   "inputs": {
+    "entry": {
+     "sequence": 9,
+     "time": 1e-07,
+     "source": null,
+     "text": "x\n\"y\"",
+     "speaker": null,
+     "turn_finished": true,
+     "extra": 1
+    }
+   },
+   "line": "{\"timestamp\": \"2026-03-04T05:06:07.123456+00:00\", \"phase\": \"conversation\", \"room\": \"sala ünï\", \"text\": \"x\\n\\\"y\\\"\", \"sequence\": 9, \"source\": null, \"speaker\": null, \"turn_finished\": true, \"speech_ended\": null, \"segment_closed\": null, \"transcription_started\": null, \"transcript_written\": 1e-07}"
+  },
+  {
+   "kind": "addressing",
+   "room": "sala ünï",
+   "inputs": {
+    "phase": "route",
+    "decision": [
+     [
+      "pane",
+      "w1:p2"
+     ],
+     [
+      "score",
+      0.5
+     ],
+     [
+      "name",
+      null
+     ]
+    ]
+   },
+   "line": "{\"timestamp\": \"2026-03-04T05:06:07.123456+00:00\", \"phase\": \"route\", \"room\": \"sala ünï\", \"decision\": \"addressing\", \"pane\": \"w1:p2\", \"score\": 0.5, \"name\": null}"
+  },
+  {
+   "kind": "addressing",
+   "room": "sala ünï",
+   "inputs": {
+    "phase": "route",
+    "decision": []
+   },
+   "line": "{\"timestamp\": \"2026-03-04T05:06:07.123456+00:00\", \"phase\": \"route\", \"room\": \"sala ünï\", \"decision\": \"addressing\"}"
+  },
+  {
+   "kind": "addressing",
+   "room": "sala ünï",
+   "inputs": {
+    "phase": "route",
+    "decision": [
+     [
+      "a",
+      [
+       1,
+       2.5,
+       "z"
+      ]
+     ]
+    ]
+   },
+   "line": "{\"timestamp\": \"2026-03-04T05:06:07.123456+00:00\", \"phase\": \"route\", \"room\": \"sala ünï\", \"decision\": \"addressing\", \"a\": [1, 2.5, \"z\"]}"
+  },
+  {
+   "kind": "delivery",
+   "room": "sala ünï",
+   "inputs": {
+    "delivery": [
+     [
+      "sequence",
+      3
+     ],
+     [
+      "servant",
+      "V"
+     ],
+     [
+      "pane",
+      "w1:p2"
+     ],
+     [
+      "host",
+      null
+     ],
+     [
+      "delivered",
+      "hi"
+     ],
+     [
+      "seconds",
+      0.123
+     ]
+    ]
+   },
+   "line": "{\"timestamp\": \"2026-03-04T05:06:07.123456+00:00\", \"phase\": \"delivery\", \"room\": \"sala ünï\", \"sequence\": 3, \"servant\": \"V\", \"pane\": \"w1:p2\", \"host\": null, \"delivered\": \"hi\", \"seconds\": 0.123}"
+  },
+  {
+   "kind": "delivery",
+   "room": "sala ünï",
+   "inputs": {
+    "delivery": []
+   },
+   "line": "{\"timestamp\": \"2026-03-04T05:06:07.123456+00:00\", \"phase\": \"delivery\", \"room\": \"sala ünï\"}"
+  },
+  {
+   "kind": "delivery",
+   "room": "sala ünï",
+   "inputs": {
+    "delivery": [
+     [
+      "timestamp",
+      "mine"
+     ],
+     [
+      "room",
+      "x"
+     ]
+    ]
+   },
+   "line": "{\"timestamp\": \"mine\", \"phase\": \"delivery\", \"room\": \"x\"}"
+  },
+  {
+   "kind": "closing",
+   "room": "sala ünï",
+   "inputs": {
+    "reason": "quiet"
+   },
+   "line": "{\"timestamp\": \"2026-03-04T05:06:07.123456+00:00\", \"phase\": \"closing\", \"room\": \"sala ünï\", \"reason\": \"quiet\"}"
+  },
+  {
+   "kind": "closing",
+   "room": "sala ünï",
+   "inputs": {
+    "reason": "ação é ok"
+   },
+   "line": "{\"timestamp\": \"2026-03-04T05:06:07.123456+00:00\", \"phase\": \"closing\", \"room\": \"sala ünï\", \"reason\": \"ação é ok\"}"
+  },
+  {
+   "kind": "talk",
+   "room": "sala ünï",
+   "inputs": {
+    "action": "start",
+    "pane": "w1:p2"
+   },
+   "line": "{\"timestamp\": \"2026-03-04T05:06:07.123456+00:00\", \"phase\": \"talk\", \"room\": \"sala ünï\", \"action\": \"start\", \"pane\": \"w1:p2\"}"
+  },
+  {
+   "kind": "speech",
+   "room": "sala ünï",
+   "inputs": {
+    "pane": "w1:p2",
+    "speech": [
+     [
+      "text",
+      "a b"
+     ],
+     [
+      "seconds",
+      2.0
+     ]
+    ]
+   },
+   "line": "{\"timestamp\": \"2026-03-04T05:06:07.123456+00:00\", \"phase\": \"speech\", \"room\": \"sala ünï\", \"pane\": \"w1:p2\", \"text\": \"a b\", \"seconds\": 2.0}"
+  },
+  {
+   "kind": "speech",
+   "room": "sala ünï",
+   "inputs": {
+    "pane": "w1:p2",
+    "speech": []
+   },
+   "line": "{\"timestamp\": \"2026-03-04T05:06:07.123456+00:00\", \"phase\": \"speech\", \"room\": \"sala ünï\", \"pane\": \"w1:p2\"}"
+  },
+  {
+   "kind": "speech",
+   "room": "sala ünï",
+   "inputs": {
+    "pane": "w1:p2",
+    "speech": [
+     [
+      "zone",
+      "override"
+     ]
+    ]
+   },
+   "line": "{\"timestamp\": \"2026-03-04T05:06:07.123456+00:00\", \"phase\": \"speech\", \"room\": \"sala ünï\", \"pane\": \"w1:p2\", \"zone\": \"override\"}"
+  }
+ ],
+ "missing": [
+  "KeyError",
+  "KeyError"
+ ]
+}
