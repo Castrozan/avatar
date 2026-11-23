@@ -44,14 +44,6 @@ let
     inherit pkgs;
   };
   websocketPython = pkgs.python312.withPackages (packages: [ packages.websockets ]);
-  listenerPython = pkgs.python3.withPackages (
-    packages: with packages; [
-      numpy
-      onnxruntime
-      sherpa-onnx
-      websockets
-    ]
-  );
   audio = pkgs.writeShellScriptBin "avatar-audio" ''
     export PATH=${lib.makeBinPath [ pkgs.pulseaudio ]}:$PATH
     exec ${avatarExecutable} audio "$@"
@@ -113,10 +105,7 @@ let
     export AVATAR_SPEAKER_MODEL=${speakerModel}
     export AVATAR_TURN_MODEL=${turnModel}
     export AVATAR_VOICE_ACTIVITY_MODEL=${voiceActivityModel}
-    export AVATAR_ORDINARY_WORDS=${ordinaryWords}
-    export AVATAR_SERVANT_ROSTER=${avatar.servantRoster}
-    export PYTHONPATH=${../runtime/scripts/listening}:${../runtime/scripts/echo}
-    exec ${listenerPython}/bin/python3 ${../runtime/scripts/listening/listener.py}
+    exec ${avatarExecutable} listener
   '';
   live = pkgs.writeShellScript "avatar-live" ''
     export PATH=${
@@ -124,11 +113,9 @@ let
         a2a
         pkgs.openssh
         pkgs.pulseaudio
-        pkgs.systemd
       ]
     }:$PATH
-    export PYTHONPATH=${../runtime/scripts/live}:${../runtime/scripts/listening}:${../runtime/scripts/echo}:${../runtime/scripts/conversation}:${../runtime/scripts/wake}
-    exec ${websocketPython}/bin/python3 ${../runtime/scripts/live/live_bridge.py}
+    exec ${avatarExecutable} live
   '';
   remoteSeat = pkgs.writeShellScript "avatar-remote-seat" ''
     export PATH=${

@@ -3,6 +3,8 @@ use std::process::ExitCode;
 
 use clap::{Parser, Subcommand};
 
+use crate::daemons::listener;
+use crate::daemons::live::{self, LiveOptions};
 use crate::doctor::switch_latency::{self, SwitchLatencyOptions};
 use crate::doctor::{self, DoctorOptions};
 use crate::holder::{self, HolderOptions};
@@ -26,6 +28,25 @@ enum Command {
     Tool(ToolCommand),
     #[command(flatten)]
     Conversation(ConversationCommand),
+    #[command(flatten)]
+    Daemon(DaemonCommand),
+}
+
+#[derive(Subcommand)]
+enum DaemonCommand {
+    #[command(about = "Run the listener daemon that transcribes the configured audio sources")]
+    Listener,
+    #[command(about = "Run the live duplex voice bridge to the room holder")]
+    Live(LiveOptions),
+}
+
+impl DaemonCommand {
+    fn run(self) -> io::Result<ExitCode> {
+        match self {
+            Self::Listener => listener::run().map(|()| ExitCode::SUCCESS),
+            Self::Live(options) => live::run(&options),
+        }
+    }
 }
 
 #[derive(Subcommand)]
@@ -73,6 +94,7 @@ impl Command {
         match self {
             Self::Tool(command) => command.run(),
             Self::Conversation(command) => command.run(),
+            Self::Daemon(command) => command.run(),
         }
     }
 }
