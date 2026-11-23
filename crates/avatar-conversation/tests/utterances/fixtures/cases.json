@@ -1,0 +1,743 @@
+[
+ {
+  "function": "last_heard",
+  "input": {
+   "heard": 0,
+   "addressee_heard_through": null
+  },
+  "expected": 0
+ },
+ {
+  "function": "last_heard",
+  "input": {
+   "heard": 0,
+   "addressee_heard_through": 0
+  },
+  "expected": 0
+ },
+ {
+  "function": "last_heard",
+  "input": {
+   "heard": 0,
+   "addressee_heard_through": 3
+  },
+  "expected": 3
+ },
+ {
+  "function": "last_heard",
+  "input": {
+   "heard": 0,
+   "addressee_heard_through": 9
+  },
+  "expected": 9
+ },
+ {
+  "function": "last_heard",
+  "input": {
+   "heard": 5,
+   "addressee_heard_through": null
+  },
+  "expected": 5
+ },
+ {
+  "function": "last_heard",
+  "input": {
+   "heard": 5,
+   "addressee_heard_through": 0
+  },
+  "expected": 5
+ },
+ {
+  "function": "last_heard",
+  "input": {
+   "heard": 5,
+   "addressee_heard_through": 3
+  },
+  "expected": 5
+ },
+ {
+  "function": "last_heard",
+  "input": {
+   "heard": 5,
+   "addressee_heard_through": 9
+  },
+  "expected": 9
+ },
+ {
+  "function": "settle_seconds_after",
+  "input": {
+   "turn_finished": true
+  },
+  "expected": 0.5
+ },
+ {
+  "function": "settle_seconds_after",
+  "input": {
+   "turn_finished": false
+  },
+  "expected": 2.5
+ },
+ {
+  "function": "settle_seconds_after",
+  "input": {
+   "turn_finished": null
+  },
+  "expected": 0.5
+ },
+ {
+  "function": "open_across_restarts",
+  "input": {
+   "grace_seconds": 20,
+   "events": [
+    [
+     true,
+     0
+    ],
+    [
+     false,
+     1
+    ],
+    [
+     false,
+     10
+    ],
+    [
+     false,
+     20.5
+    ],
+    [
+     true,
+     21
+    ],
+    [
+     false,
+     22
+    ],
+    [
+     false,
+     41.5
+    ]
+   ]
+  },
+  "expected": [
+   true,
+   true,
+   true,
+   true,
+   true,
+   true,
+   true
+  ]
+ },
+ {
+  "function": "open_across_restarts",
+  "input": {
+   "grace_seconds": 20,
+   "events": [
+    [
+     false,
+     0
+    ],
+    [
+     false,
+     19.9
+    ],
+    [
+     false,
+     20.0
+    ],
+    [
+     false,
+     100
+    ]
+   ]
+  },
+  "expected": [
+   true,
+   true,
+   false,
+   false
+  ]
+ },
+ {
+  "function": "open_across_restarts",
+  "input": {
+   "grace_seconds": 20,
+   "events": [
+    [
+     false,
+     5
+    ],
+    [
+     true,
+     6
+    ],
+    [
+     false,
+     7
+    ],
+    [
+     false,
+     26.5
+    ],
+    [
+     false,
+     26.9
+    ]
+   ]
+  },
+  "expected": [
+   true,
+   true,
+   true,
+   true,
+   true
+  ]
+ },
+ {
+  "function": "open_across_restarts",
+  "input": {
+   "grace_seconds": 1,
+   "events": [
+    [
+     false,
+     0
+    ],
+    [
+     false,
+     0.5
+    ],
+    [
+     false,
+     1.0
+    ],
+    [
+     true,
+     1.2
+    ],
+    [
+     false,
+     1.3
+    ],
+    [
+     false,
+     2.4
+    ]
+   ]
+  },
+  "expected": [
+   true,
+   true,
+   false,
+   true,
+   true,
+   false
+  ]
+ },
+ {
+  "function": "open_across_restarts",
+  "input": {
+   "grace_seconds": 20,
+   "events": [
+    [
+     true,
+     0
+    ],
+    [
+     true,
+     50
+    ],
+    [
+     true,
+     51
+    ]
+   ]
+  },
+  "expected": [
+   true,
+   true,
+   true
+  ]
+ },
+ {
+  "function": "open_across_restarts",
+  "input": {
+   "grace_seconds": 3,
+   "events": [
+    [
+     false,
+     100
+    ],
+    [
+     false,
+     102.9
+    ],
+    [
+     false,
+     103.0
+    ],
+    [
+     false,
+     200
+    ]
+   ]
+  },
+  "expected": [
+   true,
+   true,
+   false,
+   false
+  ]
+ },
+ {
+  "function": "throttled_check",
+  "input": {
+   "interval_seconds": 1.0,
+   "started_at": 0.0,
+   "times": [
+    0.0,
+    0.5,
+    1.0,
+    1.5,
+    2.0,
+    2.2
+   ],
+   "answers": [
+    true,
+    false,
+    true
+   ]
+  },
+  "expected": {
+   "passes": [
+    true,
+    true,
+    false,
+    false,
+    true,
+    true
+   ],
+   "checks": 3
+  }
+ },
+ {
+  "function": "throttled_check",
+  "input": {
+   "interval_seconds": 1.0,
+   "started_at": 0.0,
+   "times": [
+    0.0,
+    0.1,
+    0.2
+   ],
+   "answers": [
+    true,
+    false,
+    false
+   ]
+  },
+  "expected": {
+   "passes": [
+    true,
+    true,
+    true
+   ],
+   "checks": 1
+  }
+ },
+ {
+  "function": "throttled_check",
+  "input": {
+   "interval_seconds": 2.5,
+   "started_at": 10.0,
+   "times": [
+    10.0,
+    11.0,
+    12.5,
+    12.6,
+    15.0
+   ],
+   "answers": [
+    false,
+    true,
+    false
+   ]
+  },
+  "expected": {
+   "passes": [
+    false,
+    false,
+    true,
+    true,
+    false
+   ],
+   "checks": 3
+  }
+ },
+ {
+  "function": "throttled_check",
+  "input": {
+   "interval_seconds": 1.0,
+   "started_at": 0.0,
+   "times": [
+    3.0,
+    3.0,
+    4.0
+   ],
+   "answers": [
+    false,
+    true,
+    false
+   ]
+  },
+  "expected": {
+   "passes": [
+    false,
+    false,
+    true
+   ],
+   "checks": 2
+  }
+ },
+ {
+  "function": "speech_settling",
+  "input": {
+   "initial_entries": [
+    {
+     "sequence": 1,
+     "text": "a",
+     "turn_finished": true
+    }
+   ],
+   "started_at": 0.0,
+   "steps": [
+    [
+     "refresh",
+     0.1,
+     [
+      {
+       "sequence": 1,
+       "text": "a",
+       "turn_finished": true
+      },
+      {
+       "sequence": 2,
+       "text": "b",
+       "turn_finished": false
+      }
+     ]
+    ],
+    [
+     "settled",
+     0.4,
+     false
+    ],
+    [
+     "settled",
+     0.6,
+     false
+    ],
+    [
+     "settled",
+     5.0,
+     true
+    ]
+   ]
+  },
+  "expected": [
+   {
+    "entries": 2
+   },
+   {
+    "settled": false
+   },
+   {
+    "settled": false
+   },
+   {
+    "settled": false
+   }
+  ]
+ },
+ {
+  "function": "speech_settling",
+  "input": {
+   "initial_entries": [
+    {
+     "sequence": 1,
+     "text": "a",
+     "turn_finished": false
+    }
+   ],
+   "started_at": 0.0,
+   "steps": [
+    [
+     "settled",
+     2.4,
+     false
+    ],
+    [
+     "settled",
+     2.5,
+     false
+    ],
+    [
+     "settled",
+     2.5,
+     true
+    ],
+    [
+     "refresh",
+     3.0,
+     [
+      {
+       "sequence": 1,
+       "text": "a",
+       "turn_finished": false
+      }
+     ]
+    ],
+    [
+     "settled",
+     5.5,
+     false
+    ]
+   ]
+  },
+  "expected": [
+   {
+    "settled": false
+   },
+   {
+    "settled": true
+   },
+   {
+    "settled": false
+   },
+   {
+    "entries": 1
+   },
+   {
+    "settled": true
+   }
+  ]
+ },
+ {
+  "function": "speech_settling",
+  "input": {
+   "initial_entries": [
+    {
+     "sequence": 1,
+     "text": "a",
+     "turn_finished": true
+    }
+   ],
+   "started_at": 5.0,
+   "steps": [
+    [
+     "refresh",
+     5.2,
+     [
+      {
+       "sequence": 1,
+       "text": "a",
+       "turn_finished": true
+      }
+     ]
+    ],
+    [
+     "settled",
+     5.5,
+     false
+    ],
+    [
+     "settled",
+     5.6,
+     false
+    ]
+   ]
+  },
+  "expected": [
+   {
+    "entries": 1
+   },
+   {
+    "settled": true
+   },
+   {
+    "settled": true
+   }
+  ]
+ },
+ {
+  "function": "speech_settling",
+  "input": {
+   "initial_entries": [
+    {
+     "sequence": 1,
+     "text": "a",
+     "turn_finished": true
+    }
+   ],
+   "started_at": 0.0,
+   "steps": [
+    [
+     "refresh",
+     1.0,
+     [
+      {
+       "sequence": 1,
+       "text": "a",
+       "turn_finished": true
+      },
+      {
+       "sequence": 2,
+       "text": "b",
+       "turn_finished": false
+      },
+      {
+       "sequence": 3,
+       "text": "c",
+       "turn_finished": true
+      }
+     ]
+    ],
+    [
+     "settled",
+     1.5,
+     false
+    ],
+    [
+     "settled",
+     1.6,
+     false
+    ]
+   ]
+  },
+  "expected": [
+   {
+    "entries": 3
+   },
+   {
+    "settled": true
+   },
+   {
+    "settled": true
+   }
+  ]
+ },
+ {
+  "function": "speech_settling",
+  "input": {
+   "initial_entries": [
+    {
+     "sequence": 4,
+     "text": "q",
+     "turn_finished": true
+    }
+   ],
+   "started_at": 0.0,
+   "steps": [
+    [
+     "settled",
+     0.5,
+     true
+    ],
+    [
+     "settled",
+     0.5,
+     false
+    ]
+   ]
+  },
+  "expected": [
+   {
+    "settled": false
+   },
+   {
+    "settled": true
+   }
+  ]
+ },
+ {
+  "function": "join_entries",
+  "input": {
+   "texts": [
+    "oi"
+   ]
+  },
+  "expected": "oi"
+ },
+ {
+  "function": "join_entries",
+  "input": {
+   "texts": [
+    "hey",
+    "status"
+   ]
+  },
+  "expected": "hey status"
+ },
+ {
+  "function": "join_entries",
+  "input": {
+   "texts": [
+    "a",
+    "b",
+    "c"
+   ]
+  },
+  "expected": "a b c"
+ },
+ {
+  "function": "join_entries",
+  "input": {
+   "texts": [
+    ""
+   ]
+  },
+  "expected": ""
+ },
+ {
+  "function": "join_entries",
+  "input": {
+   "texts": [
+    "x y",
+    "z"
+   ]
+  },
+  "expected": "x y z"
+ },
+ {
+  "function": "still_listening",
+  "input": {
+   "open": true,
+   "addressed": true
+  },
+  "expected": true
+ },
+ {
+  "function": "still_listening",
+  "input": {
+   "open": true,
+   "addressed": false
+  },
+  "expected": false
+ },
+ {
+  "function": "still_listening",
+  "input": {
+   "open": false,
+   "addressed": true
+  },
+  "expected": "closed"
+ },
+ {
+  "function": "still_listening",
+  "input": {
+   "open": false,
+   "addressed": false
+  },
+  "expected": "closed"
+ }
+]

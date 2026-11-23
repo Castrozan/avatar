@@ -1,0 +1,192 @@
+[
+ {
+  "function": "this_host",
+  "input": {
+   "environment": {
+    "AVATAR_AGENT_HOST": "box-a"
+   },
+   "hostname": "other.local"
+  },
+  "expected": "box-a"
+ },
+ {
+  "function": "this_host",
+  "input": {
+   "environment": {
+    "AVATAR_AGENT_HOST": ""
+   },
+   "hostname": "chise.lan"
+  },
+  "expected": "chise"
+ },
+ {
+  "function": "this_host",
+  "input": {
+   "environment": {},
+   "hostname": "chise.lan"
+  },
+  "expected": "chise"
+ },
+ {
+  "function": "this_host",
+  "input": {
+   "environment": {},
+   "hostname": "solo"
+  },
+  "expected": "solo"
+ },
+ {
+  "function": "this_host",
+  "input": {
+   "environment": {
+    "AVATAR_AGENT_HOST": "x.y"
+   },
+   "hostname": "h"
+  },
+  "expected": "x.y"
+ },
+ {
+  "function": "command_in_the_room",
+  "input": {
+   "arguments": [
+    "status"
+   ],
+   "pane": "wW:pQZ"
+  },
+  "expected": [
+   "env",
+   "HERDR_PANE_ID=wW:pQZ",
+   "avatar-talk",
+   "status"
+  ]
+ },
+ {
+  "function": "command_in_the_room",
+  "input": {
+   "arguments": [
+    "hear",
+    "--wait",
+    "5"
+   ],
+   "pane": null
+  },
+  "expected": [
+   "avatar-talk",
+   "hear",
+   "--wait",
+   "5"
+  ]
+ },
+ {
+  "function": "command_in_the_room",
+  "input": {
+   "arguments": [
+    "say",
+    "hi"
+   ],
+   "pane": null
+  },
+  "expected": [
+   "avatar-talk",
+   "say",
+   "hi"
+  ]
+ },
+ {
+  "function": "forwarded_to_the_room",
+  "input": {
+   "room": null,
+   "this_host": "box-a",
+   "pane": "wW:pQZ",
+   "arguments": [
+    "status"
+   ]
+  },
+  "expected": {
+   "forwarded": false,
+   "room": null,
+   "command": null,
+   "returncode": null
+  }
+ },
+ {
+  "function": "forwarded_to_the_room",
+  "input": {
+   "room": "",
+   "this_host": "box-a",
+   "pane": "wW:pQZ",
+   "arguments": [
+    "status"
+   ]
+  },
+  "expected": {
+   "forwarded": false,
+   "room": null,
+   "command": null,
+   "returncode": null
+  }
+ },
+ {
+  "function": "forwarded_to_the_room",
+  "input": {
+   "room": "box-a",
+   "this_host": "box-a",
+   "pane": "wW:pQZ",
+   "arguments": [
+    "status"
+   ]
+  },
+  "expected": {
+   "forwarded": false,
+   "room": null,
+   "command": null,
+   "returncode": null
+  }
+ },
+ {
+  "function": "forwarded_to_the_room",
+  "input": {
+   "room": "chise-room",
+   "this_host": "box-a",
+   "pane": "wW:pQZ",
+   "arguments": [
+    "hear",
+    "--wait",
+    "5"
+   ]
+  },
+  "expected": {
+   "forwarded": true,
+   "room": "chise-room",
+   "command": [
+    "env",
+    "HERDR_PANE_ID=wW:pQZ",
+    "avatar-talk",
+    "hear",
+    "--wait",
+    "5"
+   ],
+   "returncode": 0
+  }
+ },
+ {
+  "function": "forwarded_to_the_room",
+  "input": {
+   "room": "chise-room",
+   "this_host": "box-a",
+   "pane": null,
+   "arguments": [
+    "close"
+   ]
+  },
+  "expected": {
+   "forwarded": true,
+   "room": "chise-room",
+   "command": [
+    "avatar-talk",
+    "close"
+   ],
+   "returncode": 0
+  }
+ }
+]

@@ -1,0 +1,94 @@
+[
+ {
+  "function": "status",
+  "input": {
+   "open": true,
+   "live": true,
+   "seat": "desk",
+   "last_heard": 4
+  },
+  "expected": {
+   "open": true,
+   "live": true,
+   "seat": "desk",
+   "last_heard": 4
+  }
+ },
+ {
+  "function": "status",
+  "input": {
+   "open": false,
+   "live": false,
+   "seat": null,
+   "last_heard": 0
+  },
+  "expected": {
+   "open": false,
+   "live": false,
+   "seat": null,
+   "last_heard": 0
+  }
+ },
+ {
+  "function": "status",
+  "input": {
+   "open": true,
+   "live": false,
+   "seat": "wall",
+   "last_heard": 12
+  },
+  "expected": {
+   "open": true,
+   "live": false,
+   "seat": "wall",
+   "last_heard": 12
+  }
+ },
+ {
+  "function": "closed",
+  "input": {},
+  "expected": {
+   "open": false
+  }
+ },
+ {
+  "function": "room_held_by",
+  "input": {
+   "servant": "Ibaraki-dōji"
+  },
+  "expected": {
+   "open": true,
+   "room_held_by": "Ibaraki-dōji"
+  }
+ },
+ {
+  "function": "floor_returned",
+  "input": {
+   "servant": "Ibaraki-dōji"
+  },
+  "expected": {
+   "open": true,
+   "floor_returned_to": "Ibaraki-dōji"
+  }
+ },
+ {
+  "function": "room_held_by",
+  "input": {
+   "servant": "Hermes"
+  },
+  "expected": {
+   "open": true,
+   "room_held_by": "Hermes"
+  }
+ },
+ {
+  "function": "floor_returned",
+  "input": {
+   "servant": "Hermes"
+  },
+  "expected": {
+   "open": true,
+   "floor_returned_to": "Hermes"
+  }
+ }
+]
