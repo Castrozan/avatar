@@ -1,24 +1,20 @@
-import io
-import json
-import re
 import urllib.error
-from unittest.mock import MagicMock, Mock
+from unittest.mock import Mock
 
 import pytest
 from hypothesis import HealthCheck, given, settings
 from hypothesis import strategies as st
 
+from scribe_answers import SEGMENT, detected, requested_languages, stub_scribe_answers
 from transcription import cloud_transcriber
 from transcription import spoken_languages
 from transcription import transcriber
 
-SEGMENT = b"\x00\x00" * 1600
 SPOKEN_CODES = ("pt", "por", "en", "eng", "ja", "jpn", "es", "spa")
 DETECTED_CODES = st.one_of(st.none(), st.text(), st.sampled_from(SPOKEN_CODES))
 NO_FIXTURE_CHECK = settings(
     suppress_health_check=[HealthCheck.function_scoped_fixture], max_examples=100
 )
-LANGUAGE_FIELD = re.compile(rb'name="language_code"\r\n\r\n(.*?)\r\n')
 
 
 @pytest.fixture(autouse=True)
@@ -27,38 +23,6 @@ def fresh_recent_language(monkeypatch):
     monkeypatch.setattr(
         cloud_transcriber, "recent_language", spoken_languages.RecentLanguage()
     )
-
-
-def scribe_response(payload):
-    response = MagicMock()
-    response.__enter__.return_value = io.BytesIO(json.dumps(payload).encode())
-    return response
-
-
-def stub_scribe_answers(monkeypatch, *answers):
-    outcomes = [
-        answer if isinstance(answer, Exception) else scribe_response(answer)
-        for answer in answers
-    ]
-    urlopen = Mock(side_effect=outcomes)
-    monkeypatch.setattr(cloud_transcriber.urllib.request, "urlopen", urlopen)
-    monkeypatch.setenv("ELEVENLABS_API_KEY", "test-key")
-    return urlopen
-
-
-def detected(text, language_code, language_probability=0.99):
-    return {
-        "text": text,
-        "language_code": language_code,
-        "language_probability": language_probability,
-    }
-
-
-def requested_languages(urlopen):
-    fields = [
-        LANGUAGE_FIELD.search(call.args[0].data) for call in urlopen.call_args_list
-    ]
-    return [field and field.group(1).decode() for field in fields]
 
 
 @pytest.mark.parametrize("code", SPOKEN_CODES)
