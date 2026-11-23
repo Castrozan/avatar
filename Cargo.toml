@@ -9,8 +9,9 @@ license = "MIT"
 publish = false
 
 [workspace.dependencies]
+clap = { version = "4", features = ["derive"] }
 regex = "1"
-serde = { version = "1", features = ["derive"] }
+serde ={ version = "1", features = ["derive"] }
 serde_json = { version = "1", features = ["float_roundtrip"] }
 unicode-normalization = "0.1"
 unicode-segmentation = "1"
