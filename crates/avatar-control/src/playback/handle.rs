@@ -5,6 +5,8 @@ use tokio::process::{Child, ChildStderr};
 use tokio::sync::oneshot;
 use tokio::task::JoinHandle;
 
+use super::stop_handle::StopHandle;
+
 #[derive(Debug, Default, Clone, PartialEq, Eq)]
 pub struct PlaybackReport {
     pub exit_status: Option<ExitStatus>,
@@ -12,7 +14,7 @@ pub struct PlaybackReport {
 }
 
 pub struct Playback {
-    stop_signal: Option<oneshot::Sender<()>>,
+    stop: StopHandle,
     completion: JoinHandle<PlaybackReport>,
 }
 
@@ -21,20 +23,25 @@ impl Playback {
         let (stop_signal, stop_requested) = oneshot::channel();
         let completion = tokio::spawn(run_to_completion(child, stop_requested));
         Self {
-            stop_signal: Some(stop_signal),
+            stop: StopHandle::armed(stop_signal),
             completion,
         }
     }
 
     pub(super) fn unstarted() -> Self {
         Self {
-            stop_signal: None,
+            stop: StopHandle::default(),
             completion: tokio::spawn(std::future::ready(PlaybackReport::default())),
         }
     }
 
+    #[must_use]
+    pub fn stop_handle(&self) -> StopHandle {
+        self.stop.clone()
+    }
+
     pub fn stop(&mut self) {
-        let _ = self.stop_signal.take().map(|signal| signal.send(()));
+        self.stop.stop();
     }
 
     pub async fn finished(self) -> PlaybackReport {

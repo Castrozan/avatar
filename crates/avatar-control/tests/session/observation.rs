@@ -46,6 +46,6 @@ pub(crate) fn handoff_json(handoff: Option<&Handoff>) -> Value {
         None => Value::Null,
         Some(Handoff::StopSpeaking) => json!({"kind": "stopSpeaking"}),
         Some(Handoff::SelectVoice(name)) => json!({"kind": "selectVoice", "name": name}),
-        Some(Handoff::Speak(_)) => json!({"kind": "speak"}),
+        Some(Handoff::Speak { .. }) => json!({"kind": "speak"}),
     }
 }
