@@ -20,6 +20,6 @@ pkgs.writeShellScriptBin "avatar-claim-floor" ''
     )
   }:$PATH
   export AVATAR_SERVANT_CHARACTERS=${servantCharacters}
-  export PYTHONPATH=${../scripts/listening}:${../scripts/echo}:${../scripts/wake}:${a2aLibrary}
+  export PYTHONPATH=${../scripts/listening}:${../scripts/echo}:${../scripts/wake}:${../scripts/addressing}:${a2aLibrary}
   exec ${pkgs.python312}/bin/python3 ${../scripts/wake}/floor_cli.py "$@"
 ''

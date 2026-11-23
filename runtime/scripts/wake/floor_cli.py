@@ -8,6 +8,7 @@ import listener_runtime
 import remote_agent
 import servant_character
 import speaking_floor
+from rust_floor_shadow import RustFloorShadow
 from servant_panes import live_sessions
 
 NO_SERVANT_MESSAGE = (
@@ -37,7 +38,8 @@ def claim_for_this_pane():
     pane = os.environ.get(remote_agent.PANE_ENVIRONMENT_VARIABLE)
     if not pane:
         return
-    holder = speaking_floor.claim(
+    holder = RustFloorShadow().claim(
+        speaking_floor.claim,
         listener_runtime.runtime_directory(),
         pane,
         speaking_floor.FloorBoundaries(live_sessions, listener_runtime.listening),
