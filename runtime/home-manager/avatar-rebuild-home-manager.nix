@@ -15,6 +15,7 @@ in
     ];
     systemd.user.services = keepRunningThroughRebuild [
       "avatar-audio"
+      "avatar-audio-recovery"
       "avatar-browser"
       "avatar-camera"
       "avatar-control-server"

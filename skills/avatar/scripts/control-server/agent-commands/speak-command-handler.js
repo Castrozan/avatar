@@ -1,4 +1,5 @@
 const {
+  playAudioFileOnlyToSink,
   playAudioFileToSink,
 } = require("../audio-playback/pulse-audio-sink-player");
 const { playSpeechChunks } = require("../audio-playback/speech-chunk-sequence");
@@ -11,15 +12,26 @@ const {
 const MIC_SINK_NAME = "AvatarMic";
 const LIP_SYNC_SINK_NAME = "AvatarLipSync";
 
-function resolveRequestedSinks(output, speakerSinkName) {
+function resolveAvatarSinks(output) {
   const sinks = [LIP_SYNC_SINK_NAME];
   if (output === "mic" || output === "both") {
     sinks.push(MIC_SINK_NAME);
   }
-  if (output === "speakers" || output === "both") {
-    sinks.push(speakerSinkName);
-  }
   return sinks;
+}
+
+function reachesSpeakers(output) {
+  return output === "speakers" || output === "both";
+}
+
+function playbacksFor(audioPath, output, speakerSinkName) {
+  const playbacks = resolveAvatarSinks(output).map((sinkName) =>
+    playAudioFileOnlyToSink(audioPath, sinkName),
+  );
+  if (reachesSpeakers(output)) {
+    playbacks.push(playAudioFileToSink(audioPath, speakerSinkName));
+  }
+  return playbacks;
 }
 
 function announceSpeechToRenderer(clientRegistry, command, speech) {
@@ -45,9 +57,7 @@ function controlPlaybacks(playbacks) {
 
 function playToRequestedSinks(audioPath, output, context) {
   return controlPlaybacks(
-    resolveRequestedSinks(output, context.speakerSinkName).map((sinkName) =>
-      playAudioFileToSink(audioPath, sinkName),
-    ),
+    playbacksFor(audioPath, output, context.speakerSinkName),
   );
 }
 

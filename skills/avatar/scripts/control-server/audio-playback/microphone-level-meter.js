@@ -10,8 +10,10 @@ function measureLevel(samples) {
   return count ? Math.sqrt(power / count) : 0;
 }
 
-function startMicrophoneLevelMeter(clientRegistry, sourceName) {
-  const recorder = spawn(
+const LISTEN_AGAIN_MILLISECONDS = 1000;
+
+function spawnRecorder(sourceName) {
+  return spawn(
     "parec",
     [
       "--device",
@@ -25,30 +27,50 @@ function startMicrophoneLevelMeter(clientRegistry, sourceName) {
     ],
     { stdio: ["ignore", "pipe", "pipe"] },
   );
+}
+
+function hearLevels(recorder, reportLevel) {
   let pending = Buffer.alloc(0);
-  let level = 0;
   recorder.stdout.on("data", (chunk) => {
     const samples = Buffer.concat([pending, chunk]);
     const alignedSize = samples.length - (samples.length % 4);
-    level = measureLevel(samples.subarray(0, alignedSize));
+    reportLevel(measureLevel(samples.subarray(0, alignedSize)));
     pending = Buffer.from(samples.subarray(alignedSize));
   });
+  recorder.stderr.on("data", (chunk) => console.error(chunk.toString().trim()));
+  recorder.on("error", (error) => console.error(error.message));
+}
+
+function startMicrophoneLevelMeter(
+  clientRegistry,
+  sourceName,
+  listenAgainMilliseconds = LISTEN_AGAIN_MILLISECONDS,
+) {
+  let level = 0;
+  let stopped = false;
+  let recorder;
+  let listeningAgain;
+  const listen = () => {
+    recorder = spawnRecorder(sourceName);
+    hearLevels(recorder, (heard) => {
+      level = heard;
+    });
+    recorder.on("close", () => {
+      level = 0;
+      if (!stopped)
+        listeningAgain = setTimeout(listen, listenAgainMilliseconds);
+    });
+  };
+  listen();
   const interval = setInterval(() => {
     clientRegistry.sendVoiceLevel(level);
     level = 0;
   }, 33);
-  const silence = () => {
+  return () => {
+    stopped = true;
+    clearTimeout(listeningAgain);
     clearInterval(interval);
     clientRegistry.sendVoiceLevel(0);
-  };
-  recorder.on("error", (error) => {
-    console.error(error.message);
-    silence();
-  });
-  recorder.on("close", silence);
-  recorder.stderr.on("data", (chunk) => console.error(chunk.toString().trim()));
-  return () => {
-    silence();
     recorder.kill("SIGTERM");
   };
 }

@@ -17,6 +17,7 @@ import utterances
 from conversation_state import ConversationPhase
 
 FOLLOW_SLICE_SECONDS = 30
+RESTART_GRACE_SECONDS = 20
 SPEECH_TIMEOUT_SECONDS = 310
 VOICE_TAG = "[voice]"
 ACKNOWLEDGEMENT = "speakAck"
@@ -131,14 +132,18 @@ def reply(arguments, directory):
     print_and_exit(spoken_in_turn(speech_command(arguments, directory), directory))
 
 
+def open_across_restarts(directory):
+    return utterances.OpenAcrossRestarts(
+        lambda: conversation_state.observe(directory) is ConversationPhase.OPEN,
+        RESTART_GRACE_SECONDS,
+    ).passes
+
+
 def print_next_utterance(
-    directory, wait_seconds, still_addressed=utterances.always_addressed
+    directory, wait_seconds, still_open, still_addressed=utterances.always_addressed
 ):
     utterance = utterances.next_utterance(
-        directory,
-        wait_seconds,
-        lambda: conversation_state.observe(directory) is ConversationPhase.OPEN,
-        still_addressed,
+        directory, wait_seconds, still_open, still_addressed
     )
     if utterance:
         print(f"{VOICE_TAG} {utterance}", flush=True)
@@ -146,14 +151,14 @@ def print_next_utterance(
 
 def hear(arguments, directory):
     with utterances.exclusive_consumer(directory):
-        print_next_utterance(directory, arguments.wait)
+        print_next_utterance(directory, arguments.wait, open_across_restarts(directory))
 
 
 def listen_after(completed, directory, wait_seconds):
     completed.check_returncode()
     if acknowledgement(completed.stdout).get("status") == turn_taking.WITHHELD:
         print(completed.stdout, end="", flush=True)
-    print_next_utterance(directory, wait_seconds)
+    print_next_utterance(directory, wait_seconds, open_across_restarts(directory))
 
 
 def ask(arguments, directory):
@@ -169,9 +174,12 @@ def follow(arguments, directory):
     def still_addressed():
         return conversation_addressee.addresses(directory, pane)
 
+    still_open = open_across_restarts(directory)
     with utterances.exclusive_consumer(directory):
         while still_addressed():
-            print_next_utterance(directory, FOLLOW_SLICE_SECONDS, still_addressed)
+            print_next_utterance(
+                directory, FOLLOW_SLICE_SECONDS, still_open, still_addressed
+            )
     successor = conversation_addressee.current(directory)
     name = successor.servant if successor else "another session"
     print(f"{VOICE_TAG} The room turned to {name}; this follow has ended.", flush=True)

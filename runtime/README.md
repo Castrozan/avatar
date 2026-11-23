@@ -271,6 +271,13 @@ microphone and unmutes both inputs, so a meeting that selects `AvatarMicrophone`
 further step. Nothing reaches a meeting until it selects that source. `avatar-audio status` shows ownership, mute and
 level state.
 
+When PipeWire restarts, `avatar-audio-recovery.service` starts with `pipewire-pulse.service` and runs
+`avatar-audio recover`, which rebuilds a mix the restart removed and builds nothing when no mix was started, then
+restarts the room microphone. The rebuilt inputs return muted with no microphone attached, so run `avatar-audio open`
+again during a meeting. An open `avatar-talk follow`, `hear` or `ask` treats the conversation as closed only after it
+stays closed for 20 seconds. Speech meant for `AvatarLipSync` or `AvatarMic` fails when that sink is missing instead of
+playing on the default output. The Mac owns no PipeWire mix and gets only the 20 second rule.
+
 To use another microphone, run `avatar-audio attach SOURCE` before `avatar-audio open`. The human and agent mute and
 volume controls are independent: `avatar-audio mute human 1` silences the user alone, and `avatar-audio volume agent 70`
 changes the avatar's level on PulseAudio's nonlinear scale. Send other playback to `AvatarMic` with

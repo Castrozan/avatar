@@ -59,8 +59,8 @@ in
         Requires = [
           "avatar-audio.service"
           "avatar-control-server.service"
-          "avatar-room-microphone.service"
         ];
+        Wants = [ "avatar-room-microphone.service" ];
       };
       services = {
         avatar-audio = {
@@ -74,6 +74,23 @@ in
             ExecStart = "${programs.audio}/bin/avatar-audio start";
             ExecStop = "${programs.audio}/bin/avatar-audio stop";
           };
+        };
+        avatar-audio-recovery = {
+          Unit = {
+            Description = "Avatar audio mix and room microphone brought back after PipeWire restarts";
+            After = [ "pipewire-pulse.service" ];
+            PartOf = [ "pipewire-pulse.service" ];
+          };
+          Service = {
+            Type = "oneshot";
+            ExecStart = [
+              "${programs.audio}/bin/avatar-audio recover"
+              "${pkgs.systemd}/bin/systemctl --user --no-block try-restart avatar-room-microphone.service"
+            ];
+            Restart = "on-failure";
+            RestartSec = 2;
+          };
+          Install.WantedBy = [ "pipewire-pulse.service" ];
         };
         avatar-control-server = {
           Unit = serviceUnit // {

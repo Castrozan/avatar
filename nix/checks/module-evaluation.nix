@@ -93,6 +93,7 @@ let
           lib.filterAttrs (name: _: lib.hasPrefix "avatar" name) home.config.systemd.user.services
         ) == [
           "avatar-audio"
+          "avatar-audio-recovery"
           "avatar-browser"
           "avatar-camera"
           "avatar-control-server"
@@ -118,6 +119,13 @@ let
       "a meeting still brings the renderer, its browser and the camera" = lib.all (
         unit: lib.elem unit targets.avatar.Unit.Requires
       ) (pictureUnits ++ [ "avatar-camera.service" ]);
+      "the audio server starting brings the mix and the room microphone back" =
+        services.avatar-audio-recovery.Install.WantedBy == [ "pipewire-pulse.service" ]
+        && services.avatar-audio-recovery.Unit.PartOf == [ "pipewire-pulse.service" ];
+      "the room microphone restarts without restarting the conversation" =
+        !(lib.elem "avatar-room-microphone.service" targets.avatar-conversation.Unit.Requires)
+        && targets.avatar-conversation.Unit.Wants == [ "avatar-room-microphone.service" ]
+        && services.avatar-room-microphone.Unit.PartOf == [ "avatar-conversation.target" ];
       "no launch agents on the host" = home.config.launchd.agents == { };
       "virtual camera module" = lib.elem "v4l2loopback" system.config.boot.kernelModules;
     };
