@@ -9,7 +9,7 @@ use std::process::{Output, Stdio};
 use heard::Heard;
 use server::MockLive;
 
-use crate::{Machine, TestResult, text};
+use crate::{Machine, RUNTIME_DIRECTORY, TestResult, text};
 
 const PAREC: &str = "head -c 4800 /dev/zero; exec sleep 600";
 const PACAT: &str = "echo \"$@\" >> \"${0%/*}/../pacat.log\"; cat >> \"${0%/*}/../playback.raw\"";
@@ -86,10 +86,8 @@ fn a_session_authenticates_with_the_key_file_and_streams_the_microphone() -> Tes
 #[test]
 fn a_session_logs_the_turns_and_relays_the_agent_answer() -> TestResult {
     let session = run_session()?;
-    let (screen, logged) = (
-        session.screen(),
-        session.file("run/avatar/transcript.jsonl"),
-    );
+    let screen = session.screen();
+    let logged = session.file(&format!("{RUNTIME_DIRECTORY}/transcript.jsonl"));
     assert!(screen.contains("human: check the build"));
     assert!(screen.contains("task for servant at pane-1: check the build"));
     assert!(logged.contains("check the build"));

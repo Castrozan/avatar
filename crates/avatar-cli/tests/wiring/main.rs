@@ -13,7 +13,7 @@ use std::fs;
 use std::os::unix::fs::PermissionsExt;
 use std::process::{Command, Output, Stdio};
 
-const RUNTIME_DIRECTORY: &str = if cfg!(target_os = "macos") {
+pub(crate) const RUNTIME_DIRECTORY: &str = if cfg!(target_os = "macos") {
     "Library/Caches/avatar"
 } else {
     "run/avatar"
