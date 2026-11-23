@@ -31,6 +31,8 @@ let
     export AVATAR_HOST=${host}
     export AVATAR_AGENT_HOST=${hostname}
     export AVATAR_SEAT_PAGE=${scripts}/conversation/remote_seat/page
+    export AVATAR_WAKE_PAGE=${scripts}/wake/page
+    export AVATAR_CAMERA_START_SCRIPT=${scripts}/conversation/remote_seat/start_virtual_camera.lua
     export AVATAR_BROWSER_APPLICATION="${browserApplication}"
     export AVATAR_SERVANT_CHARACTERS=${programs.servantCharacters}
     export AVATAR_TURN_MODEL=${
@@ -45,7 +47,7 @@ let
   '';
   seatPlay = pkgs.writeShellScriptBin "avatar-seat-play" ''
     ${environment}
-    exec ${conversationPython}/bin/python3 ${scripts}/conversation/mac_conversation/mac_seat_play.py "$@"
+    exec ${programs.avatarExecutable} mac play "$@"
   '';
 in
 {
@@ -60,7 +62,7 @@ in
     }:$PATH
     export AVATAR_CLOUD_VOICE=${(builtins.head characters).cloudVoice}
     export AVATAR_CHARACTER_VOICES=${import ../../runtime/cast/character-voices.nix { inherit pkgs; }}
-    exec ${pkgs.nodejs_22}/bin/node ${programs.control}/server.js
+    exec ${programs.avatarExecutable} control
   '';
   renderer = pkgs.writeShellScriptBin "avatar-renderer-server" ''
     exec ${programs.serve}
@@ -77,12 +79,11 @@ in
     exec ${conversationPython}/bin/python3 ${scripts}/conversation/mac_conversation/mac_talk.py "$@"
   '';
   meetingCommand =
-    name: entry:
+    name: subcommand:
     pkgs.writeShellScriptBin name ''
       export PATH=${lib.makeBinPath [ programs.unclaimedCommand ]}:$PATH
       ${environment}
-      export PYTHONPATH=$PYTHONPATH:${scripts}
-      exec ${conversationPython}/bin/python3 ${scripts}/conversation/mac_conversation/${entry} "$@"
+      exec ${programs.avatarExecutable} mac ${subcommand} "$@"
     '';
   listener = pkgs.writeShellScriptBin "avatar-conversation-listener" ''
     ${environment}

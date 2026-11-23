@@ -44,9 +44,3 @@ jobs:
       - uses: DeterminateSystems/determinate-nix-action@v3
       - name: Run the Rust gates
         run: nix develop -c scripts/check
-      - name: Compare the Rust routing with the Python routing
-        run: >-
-          nix develop -c sh -c 'cargo build -p avatar-routing &&
-          cd runtime &&
-          AVATAR_ROUTING_BINARY="$PWD/../target/debug/avatar-routing"
-          python -m pytest __tests__/unit/routing_differential -p no:cacheprovider'

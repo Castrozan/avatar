@@ -71,27 +71,6 @@ let
   };
   linux = rec {
     home = homeFor { hostName = "avatar-host"; };
-    homeComparingRouting = homeFor {
-      hostName = "avatar-host";
-      rustSlices = [ "routing" ];
-    };
-    homeOnRust = homeFor {
-      hostName = "avatar-host";
-      rustSlices = [
-        "routing"
-        "floor"
-        "talk"
-        "command"
-        "audio"
-        "stop"
-        "transcribe"
-        "doctor"
-        "wake"
-        "holder"
-        "listen"
-        "start"
-      ];
-    };
     inherit (home.config.systemd.user) services targets;
     pictureUnits = [
       "avatar-renderer.service"
@@ -156,15 +135,10 @@ let
         && targets.avatar-conversation.Unit.Wants == [ "avatar-room-microphone.service" ]
         && services.avatar-room-microphone.Unit.PartOf == [ "avatar-conversation.target" ];
       "no launch agents on the host" = home.config.launchd.agents == { };
-      "no Rust slice runs by default" = home.config.services.avatar.rustSlices == [ ];
-      "routing comparison is selectable" =
-        homeComparingRouting.config.services.avatar.rustSlices == [ "routing" ];
       "virtual camera module" = lib.elem "v4l2loopback" system.config.boot.kernelModules;
     };
     evaluated = [
       home.activationPackage.drvPath
-      homeComparingRouting.activationPackage.drvPath
-      homeOnRust.activationPackage.drvPath
       system.config.system.build.toplevel.drvPath
     ];
   };
@@ -203,9 +177,9 @@ let
   expectations = platform.expectations // {
     "the role refuses the wrong platform" = rejects "runs on" onTheWrongPlatform;
     "a roster Servant without a character is rejected" = rejects "servantRoster" withAServantMissing;
-    "the exported browser class is the one the browser runtime launches with" =
-      lib.hasInfix ''BROWSER_WINDOW_CLASS = "${self.lib.browserWindowClass}"'' (
-        builtins.readFile ../../skills/avatar/scripts/browser/runtime.py
+    "the exported browser class is the one the owned browser launches with" =
+      lib.hasInfix ''const WINDOW_CLASS: &str = "${self.lib.browserWindowClass}";'' (
+        builtins.readFile ../../crates/avatar-control/src/entrypoints/owned_browser/spawn.rs
       );
   };
   unmet = lib.attrNames (lib.filterAttrs (_: met: !met) expectations);

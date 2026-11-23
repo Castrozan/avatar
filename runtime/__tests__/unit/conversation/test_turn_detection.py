@@ -51,7 +51,7 @@ def test_the_turn_judged_never_exceeds_the_model_window():
 def test_the_commands_load_without_the_listener_runtime():
     script = (
         "import sys; sys.modules['numpy'] = None; sys.modules['onnxruntime'] = None; "
-        "import talk_cli, listen_cli"
+        "import listen_cli"
     )
     paths = [str(path) for path in SCRIPTS.iterdir() if path.is_dir()] + [str(SCRIPTS)]
     result = subprocess.run(

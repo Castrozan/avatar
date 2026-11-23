@@ -66,26 +66,21 @@ def test_the_floor_command_is_defined_once_and_the_mac_talk_command_uses_it():
     assert "        programs.floor\n" in MAC_CONVERSATION
 
 
-def test_the_mac_meeting_commands_run_the_local_modules_with_the_caller_arguments():
+def test_the_mac_meeting_commands_run_the_avatar_binary_with_the_caller_arguments():
     command = MAC_CONVERSATION.split("meetingCommand =")[1].split("listener =")[0]
-    assert "${conversationPython}/bin/python3" in command
-    assert "/conversation/mac_conversation/${entry}" in command
+    assert 'exec ${programs.avatarExecutable} mac ${subcommand} "$@"' in command
     assert "${environment}" in command
     assert "programs.unclaimedCommand" in command
     assert command.rstrip().endswith("'';")
     assert '"$@"' in command
 
 
-def test_the_start_command_reaches_the_seat_modules_and_passes_its_arguments():
-    start = wrapper(PROGRAMS, "start")
-    assert "/runtime/scripts/conversation}" in start
-    assert "/runtime/scripts/listening}" in start
-    assert '${../runtime/scripts/meetings/start.py} "$@"' in start
+def test_the_start_command_runs_the_avatar_binary_and_passes_its_arguments():
+    assert 'exec ${avatarExecutable} start "$@"' in wrapper(PROGRAMS, "start")
 
 
-def test_the_listen_command_reaches_the_seat_module():
-    listen = wrapper(PROGRAMS, "listen")
-    assert "/runtime/scripts/conversation}" in listen
+def test_the_listen_command_runs_the_avatar_binary_and_passes_its_arguments():
+    assert 'exec ${avatarExecutable} listen "$@"' in wrapper(PROGRAMS, "listen")
 
 
 def test_the_seat_outlives_a_conversation_so_a_meeting_keeps_it():
@@ -93,7 +88,9 @@ def test_the_seat_outlives_a_conversation_so_a_meeting_keeps_it():
 
 
 def test_stopping_the_avatar_releases_the_seat():
-    stop = (AVATAR / "scripts/avatar-stop").read_text()
+    stop = (
+        AVATAR.parent / "crates/avatar-adapters/src/commands/audio/stop.rs"
+    ).read_text()
     assert "avatar-remote-seat.service" in stop
 
 
@@ -127,7 +124,7 @@ def test_every_machine_gets_the_doctor():
     assert 'arguments = "--seat-of ${cfg.topology.host}";' in MAC_COMMANDS
     assert "./host-companions.nix" in (MODULES / "home-manager/default.nix").read_text()
     assert doctor in REMOTE_SEAT_UNIT
-    assert 'arguments = "";' in REMOTE_SEAT_UNIT
+    assert "inherit (programs) avatarExecutable;" in REMOTE_SEAT_UNIT
 
 
 def test_the_linux_talk_command_knows_the_name_of_its_machine():

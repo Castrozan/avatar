@@ -97,7 +97,7 @@ in
             Description = "Avatar control server";
           };
           Service = {
-            ExecStart = "${pkgs.nodejs_22}/bin/node ${programs.control}/server.js";
+            ExecStart = "${programs.avatarExecutable} control";
             Environment = [
               "PATH=${tools}:${config.home.profileDirectory}/bin"
               "AVATAR_CLOUD_VOICE=${(builtins.head characters).cloudVoice}"

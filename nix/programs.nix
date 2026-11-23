@@ -6,7 +6,7 @@
   userProfilePath ? "",
 }:
 let
-  rust = import ./rust-slices.nix { inherit pkgs lib avatar; };
+  avatarExecutable = "${avatar.rustPackage}/bin/avatar";
   herdr = avatar.herdrPackage;
   a2a = avatar.a2aPackage;
   a2aLibrary = lib.concatMapStringsSep ":" (directory: "${directory}") avatar.peerIdentityPythonPath;
@@ -15,8 +15,7 @@ let
     inherit pkgs;
   };
   sendCommand = pkgs.writeShellScript "avatar-send-command" ''
-    export NODE_PATH=${control}/node_modules
-    ${rust.execute "command" ''exec ${pkgs.nodejs_22}/bin/node ${../runtime/scripts/command.js} "$@"''}
+    exec ${avatarExecutable} command "$@"
   '';
   unclaimedCommand = pkgs.writeShellScriptBin "avatar-command" ''
     exec ${sendCommand} "$@"
@@ -30,13 +29,11 @@ let
       servantCharacters
       a2aLibrary
       ;
-    environment = rust.shadowEnvironment "AVATAR_RUST_FLOOR" "floor";
   };
   transcribe = pkgs.writeShellScriptBin "avatar-transcribe" ''
-    export PYTHONPATH=${../runtime/scripts/listening}
-    ${rust.execute "transcribe" "exec ${pkgs.python312}/bin/python3 -m transcription.transcriber"}
+    exec ${avatarExecutable} transcribe
   '';
-  control = import ./packages/control-server.nix { inherit pkgs; };
+  virtualCameraPackage = import ./packages/virtual-camera.nix { inherit pkgs; };
   renderer = import ./packages/renderer.nix { inherit pkgs; };
   speakerModel = pkgs.fetchurl {
     url = "https://github.com/k2-fsa/sherpa-onnx/releases/download/speaker-recongition-models/3dspeaker_speech_campplus_sv_zh_en_16k-common_advanced.onnx";
@@ -57,27 +54,25 @@ let
   );
   audio = pkgs.writeShellScriptBin "avatar-audio" ''
     export PATH=${lib.makeBinPath [ pkgs.pulseaudio ]}:$PATH
-    export PYTHONPATH=${../runtime/scripts/audio_graph}
-    ${rust.execute "audio" ''exec ${pkgs.python312}/bin/python3 ${../runtime/scripts/audio_graph/audio_cli.py} "$@"''}
+    exec ${avatarExecutable} audio "$@"
   '';
   serve = pkgs.writeShellScript "avatar-renderer" ''
     export AVATAR_RENDERER_ROOT=${renderer}
-    exec ${pkgs.python312}/bin/python3 ${../runtime/scripts/serve.py}
+    exec ${avatarExecutable} serve
   '';
-  browserRuntime = ../skills/avatar/scripts/browser/runtime.py;
   camera = pkgs.writeShellScript "avatar-camera" ''
-    export CDP_PORT="$(${pkgs.python312}/bin/python3 ${browserRuntime} endpoint)"
+    export CDP_PORT="$(${avatarExecutable} browser endpoint)"
     export PATH=${
       lib.makeBinPath [
         pkgs.ffmpeg
         pkgs.chromium
       ]
     }:$PATH
-    exec ${pkgs.nodejs_22}/bin/node ${control}/virtual-camera.js --fps 60 --width 1280 --height 720
+    exec ${pkgs.nodejs_22}/bin/node ${virtualCameraPackage}/virtual-camera.js --fps 60 --width 1280 --height 720
   '';
   controls = pkgs.writeShellScriptBin "avatar-controls" ''
     export PATH=${lib.makeBinPath [ pkgs.chromium ]}:$PATH
-    exec ${pkgs.python312}/bin/python3 ${browserRuntime} controls
+    exec ${avatarExecutable} browser controls
   '';
   command = pkgs.writeShellScriptBin "avatar-command" ''
     if [ "''${1:-}" = speak ]; then
@@ -93,8 +88,7 @@ let
         pkgs.v4l-utils
       ]
     }:$PATH
-    export PYTHONPATH=${../runtime/scripts}:${../runtime/scripts/audio_graph}:${../runtime/scripts/listening}:${../runtime/scripts/echo}:${../runtime/scripts/conversation}
-    ${rust.execute "start" ''exec ${pkgs.python312}/bin/python3 ${../runtime/scripts/meetings/start.py} "$@"''}
+    exec ${avatarExecutable} start "$@"
   '';
   stop = pkgs.writeShellScriptBin "avatar-stop" ''
     export PATH=${
@@ -103,7 +97,7 @@ let
         pkgs.systemd
       ]
     }:$PATH
-    ${rust.execute "stop" (builtins.readFile ../runtime/scripts/avatar-stop)}
+    exec ${avatarExecutable} stop
   '';
   listen = pkgs.writeShellScriptBin "avatar-listen" ''
     export PATH=${
@@ -112,8 +106,7 @@ let
         pkgs.systemd
       ]
     }:$PATH
-    export PYTHONPATH=${../runtime/scripts/listening}:${../runtime/scripts/echo}:${../runtime/scripts/conversation}
-    ${rust.execute "listen" ''exec ${pkgs.python312}/bin/python3 ${../runtime/scripts/listening/listen_cli.py} "$@"''}
+    exec ${avatarExecutable} listen "$@"
   '';
   listener = pkgs.writeShellScript "avatar-listener" ''
     export PATH=${lib.makeBinPath [ pkgs.pulseaudio ]}:$PATH${userProfilePath}
@@ -163,8 +156,7 @@ let
     }:$PATH${userProfilePath}
     ${lib.optionalString (hostname != null) "export AVATAR_AGENT_HOST=${hostname}"}
     export AVATAR_SERVANT_CHARACTERS=${servantCharacters}
-    export PYTHONPATH=${../runtime/scripts}:${../runtime/scripts/audio_graph}:${../runtime/scripts/listening}:${../runtime/scripts/echo}:${../runtime/scripts/conversation}:${../runtime/scripts/wake}
-    ${rust.execute "talk" ''exec ${pkgs.python312}/bin/python3 ${../runtime/scripts/conversation/talk_cli.py} "$@"''}
+    exec ${avatarExecutable} talk "$@"
   '';
   windowReveal = pkgs.writeShellScript "avatar-window-reveal" ''
     export PATH=${
@@ -183,10 +175,9 @@ in
     a2a
     a2aLibrary
     audio
-    browserRuntime
+    avatarExecutable
     camera
     command
-    control
     controls
     floor
     herdr
@@ -195,7 +186,6 @@ in
     live
     ordinaryWords
     remoteSeat
-    rust
     serve
     servantCharacters
     start

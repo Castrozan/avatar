@@ -1,6 +1,6 @@
 { pkgs }:
 pkgs.buildNpmPackage {
-  pname = "avatar-control-server";
+  pname = "avatar-virtual-camera";
   version = "1.0.0";
   src = ../../skills/avatar/scripts/control-server;
   nodejs = pkgs.nodejs_22;

@@ -4,7 +4,6 @@ import transcript_log
 import utterances
 from conversation_seat import Seat
 from listener_session import ListenerPurpose
-from rust_floor_shadow import RustFloorShadow
 
 ARM_CHECK_SECONDS = 5
 TRANSCRIPT_POLL_SECONDS = 0.2
@@ -103,10 +102,9 @@ def close_when_the_call_ended(boundaries, dry_run=False):
 
 
 def close_for_the_quiet_turn(boundaries, dry_run):
-    shadow = RustFloorShadow()
-    if shadow.close_when_the_call_ended(close_when_the_call_ended, boundaries, dry_run):
+    if close_when_the_call_ended(boundaries, dry_run):
         return
-    shadow.close_when_quiet(close_when_quiet, boundaries, dry_run)
+    close_when_quiet(boundaries, dry_run)
 
 
 def follow_conversation(wake):

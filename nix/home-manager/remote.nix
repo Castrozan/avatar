@@ -48,10 +48,12 @@ let
       talk
       programs.transcribe
     ];
+    inherit (programs) avatarExecutable;
     arguments = "--seat-of ${cfg.topology.host}";
   };
   switchLatency = import ../../runtime/home-manager/avatar-switch-latency-package.nix {
     inherit pkgs;
+    inherit (programs) avatarExecutable;
   };
   conversationLog = "${config.home.homeDirectory}/Library/Logs/avatar-conversation.log";
   onDemandAgent =
@@ -104,10 +106,10 @@ in
             switchLatency
             programs.transcribe
             conversation.command
-            (conversation.meetingCommand "avatar-start" "mac_meeting_cli.py start")
-            (conversation.meetingCommand "avatar-stop" "mac_meeting_cli.py stop")
-            (conversation.meetingCommand "avatar-controls" "mac_meeting_cli.py controls")
-            (conversation.meetingCommand "avatar-listen" "mac_listen.py")
+            (conversation.meetingCommand "avatar-start" "meeting start")
+            (conversation.meetingCommand "avatar-stop" "meeting stop")
+            (conversation.meetingCommand "avatar-controls" "meeting controls")
+            (conversation.meetingCommand "avatar-listen" "listen")
           ];
           launchd.agents.avatar-switch-latency = {
             enable = true;
