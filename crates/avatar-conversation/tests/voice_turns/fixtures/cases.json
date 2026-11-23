@@ -1,0 +1,224 @@
+[
+ {
+  "function": "acknowledgement",
+  "input": {
+   "output": ""
+  },
+  "expected": {}
+ },
+ {
+  "function": "acknowledgement",
+  "input": {
+   "output": "not json\n"
+  },
+  "expected": {}
+ },
+ {
+  "function": "acknowledgement",
+  "input": {
+   "output": "{\"type\": \"speakAck\", \"status\": \"done\"}\n"
+  },
+  "expected": {
+   "type": "speakAck",
+   "status": "done"
+  }
+ },
+ {
+  "function": "acknowledgement",
+  "input": {
+   "output": "{\"type\": \"other\"}\n{\"type\": \"speakAck\", \"status\": \"interrupted\", \"source\": \"x\"}\n"
+  },
+  "expected": {
+   "type": "speakAck",
+   "status": "interrupted",
+   "source": "x"
+  }
+ },
+ {
+  "function": "acknowledgement",
+  "input": {
+   "output": "[1, 2]\n{\"type\": \"speakAck\", \"status\": \"cancelled\"}\n"
+  },
+  "expected": {
+   "type": "speakAck",
+   "status": "cancelled"
+  }
+ },
+ {
+  "function": "acknowledgement",
+  "input": {
+   "output": "{\"type\": \"speakAck\", \"status\": \"done\"}\n{\"type\": \"speakAck\", \"status\": \"cancelled\"}\n"
+  },
+  "expected": {
+   "type": "speakAck",
+   "status": "done"
+  }
+ },
+ {
+  "function": "acknowledgement",
+  "input": {
+   "output": "noise\n{\"type\":\"speakAck\",\"status\":\"withheld\",\"reason\":\"queued\"}"
+  },
+  "expected": {
+   "type": "speakAck",
+   "status": "withheld",
+   "reason": "queued"
+  }
+ },
+ {
+  "function": "speech_moments",
+  "input": {
+   "timing": {
+    "received": 10,
+    "synthesisStarted": 1200,
+    "synthesized": 2500,
+    "playing": 2600
+   }
+  },
+  "expected": [
+   [
+    "speech_received",
+    0.01
+   ],
+   [
+    "synthesis_started",
+    1.2
+   ],
+   [
+    "synthesized",
+    2.5
+   ],
+   [
+    "playing",
+    2.6
+   ]
+  ]
+ },
+ {
+  "function": "speech_moments",
+  "input": {
+   "timing": {
+    "playing": 7
+   }
+  },
+  "expected": [
+   [
+    "playing",
+    0.007
+   ]
+  ]
+ },
+ {
+  "function": "speech_moments",
+  "input": {
+   "timing": {
+    "received": 0.5,
+    "other": 4
+   }
+  },
+  "expected": [
+   [
+    "speech_received",
+    0.0005
+   ]
+  ]
+ },
+ {
+  "function": "speech_moments",
+  "input": {
+   "timing": {}
+  },
+  "expected": []
+ },
+ {
+  "function": "speech_moments",
+  "input": {
+   "timing": {
+    "synthesized": 1,
+    "playing": 3333
+   }
+  },
+  "expected": [
+   [
+    "synthesized",
+    0.001
+   ],
+   [
+    "playing",
+    3.333
+   ]
+  ]
+ },
+ {
+  "function": "speech_moments",
+  "input": {
+   "timing": null
+  },
+  "expected": []
+ },
+ {
+  "function": "speech_command",
+  "input": {
+   "text": "oi",
+   "emotion": "neutral",
+   "voice": null,
+   "output": "speaker-desk"
+  },
+  "expected": [
+   "avatar-command",
+   "speak",
+   "oi",
+   "neutral",
+   "speaker-desk"
+  ]
+ },
+ {
+  "function": "speech_command",
+  "input": {
+   "text": "hey",
+   "emotion": "happy",
+   "voice": "pt-br",
+   "output": "speaker-desk"
+  },
+  "expected": [
+   "avatar-command",
+   "speak",
+   "hey",
+   "happy",
+   "speaker-desk",
+   "pt-br"
+  ]
+ },
+ {
+  "function": "speech_command",
+  "input": {
+   "text": "",
+   "emotion": "sad",
+   "voice": null,
+   "output": "speaker-desk"
+  },
+  "expected": [
+   "avatar-command",
+   "speak",
+   "",
+   "sad",
+   "speaker-desk"
+  ]
+ },
+ {
+  "function": "speech_command",
+  "input": {
+   "text": "olá, mundo",
+   "emotion": "neutral",
+   "voice": "",
+   "output": "speaker-desk"
+  },
+  "expected": [
+   "avatar-command",
+   "speak",
+   "olá, mundo",
+   "neutral",
+   "speaker-desk"
+  ]
+ }
+]

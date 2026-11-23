@@ -1,0 +1,205 @@
+[
+ {
+  "function": "withheld_reason",
+  "input": {
+   "queued": false,
+   "quiet": false,
+   "unheard": false
+  },
+  "expected": "speaking"
+ },
+ {
+  "function": "withheld_reason",
+  "input": {
+   "queued": false,
+   "quiet": false,
+   "unheard": true
+  },
+  "expected": "speaking"
+ },
+ {
+  "function": "withheld_reason",
+  "input": {
+   "queued": false,
+   "quiet": true,
+   "unheard": false
+  },
+  "expected": null
+ },
+ {
+  "function": "withheld_reason",
+  "input": {
+   "queued": false,
+   "quiet": true,
+   "unheard": true
+  },
+  "expected": "unheard"
+ },
+ {
+  "function": "withheld_reason",
+  "input": {
+   "queued": true,
+   "quiet": false,
+   "unheard": false
+  },
+  "expected": "queued"
+ },
+ {
+  "function": "withheld_reason",
+  "input": {
+   "queued": true,
+   "quiet": false,
+   "unheard": true
+  },
+  "expected": "queued"
+ },
+ {
+  "function": "withheld_reason",
+  "input": {
+   "queued": true,
+   "quiet": true,
+   "unheard": false
+  },
+  "expected": "queued"
+ },
+ {
+  "function": "withheld_reason",
+  "input": {
+   "queued": true,
+   "quiet": true,
+   "unheard": true
+  },
+  "expected": "queued"
+ },
+ {
+  "function": "queued_behind_a_stopped_reply",
+  "input": {
+   "age_seconds": null
+  },
+  "expected": false
+ },
+ {
+  "function": "queued_behind_a_stopped_reply",
+  "input": {
+   "age_seconds": 0.2
+  },
+  "expected": true
+ },
+ {
+  "function": "queued_behind_a_stopped_reply",
+  "input": {
+   "age_seconds": 0.5
+  },
+  "expected": true
+ },
+ {
+  "function": "queued_behind_a_stopped_reply",
+  "input": {
+   "age_seconds": 0.9
+  },
+  "expected": true
+ },
+ {
+  "function": "queued_behind_a_stopped_reply",
+  "input": {
+   "age_seconds": 1.5
+  },
+  "expected": false
+ },
+ {
+  "function": "queued_behind_a_stopped_reply",
+  "input": {
+   "age_seconds": 30.0
+  },
+  "expected": false
+ },
+ {
+  "function": "remembers_stop",
+  "input": {
+   "status": "interrupted"
+  },
+  "expected": true
+ },
+ {
+  "function": "remembers_stop",
+  "input": {
+   "status": "cancelled"
+  },
+  "expected": true
+ },
+ {
+  "function": "remembers_stop",
+  "input": {
+   "status": "done"
+  },
+  "expected": false
+ },
+ {
+  "function": "remembers_stop",
+  "input": {
+   "status": ""
+  },
+  "expected": false
+ },
+ {
+  "function": "remembers_stop",
+  "input": {
+   "status": "Interrupted"
+  },
+  "expected": false
+ },
+ {
+  "function": "remembers_stop",
+  "input": {
+   "status": null
+  },
+  "expected": false
+ },
+ {
+  "function": "remembers_stop",
+  "input": {
+   "status": "withheld"
+  },
+  "expected": false
+ },
+ {
+  "function": "remembers_stop",
+  "input": {
+   "status": "speakAck"
+  },
+  "expected": false
+ },
+ {
+  "function": "withhold_acknowledgement",
+  "input": {
+   "reason": "queued"
+  },
+  "expected": {
+   "type": "speakAck",
+   "status": "withheld",
+   "reason": "queued"
+  }
+ },
+ {
+  "function": "withhold_acknowledgement",
+  "input": {
+   "reason": "speaking"
+  },
+  "expected": {
+   "type": "speakAck",
+   "status": "withheld",
+   "reason": "speaking"
+  }
+ },
+ {
+  "function": "withhold_acknowledgement",
+  "input": {
+   "reason": "unheard"
+  },
+  "expected": {
+   "type": "speakAck",
+   "status": "withheld",
+   "reason": "unheard"
+  }
+ }
+]

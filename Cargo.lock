@@ -108,6 +108,14 @@ dependencies = [
 ]
 
 [[package]]
+name = "avatar-conversation"
+version = "0.1.0"
+dependencies = [
+ "proptest",
+ "serde_json",
+]
+
+[[package]]
 name = "avatar-floor"
 version = "0.1.0"
 dependencies = [
