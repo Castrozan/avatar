@@ -7,7 +7,7 @@ license.workspace = true
 publish.workspace = true
 
 [dependencies]
-avatar-routing = { version = "0.1.0", path = "../avatar-routing" }
+avatar-routing = { version = "0.1.0", path = "../libraries/avatar-routing" }
 reqwest = { version = "0.12", default-features = false, features = ["rustls-tls-native-roots"] }
 serde.workspace = true
 serde_json.workspace = true
