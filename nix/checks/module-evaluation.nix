@@ -71,6 +71,11 @@ let
   };
   linux = rec {
     home = homeFor { hostName = "avatar-host"; };
+    inherit (home.config.systemd.user) services targets;
+    pictureUnits = [
+      "avatar-renderer.service"
+      "avatar-browser.service"
+    ];
     system = pkgs.nixos {
       imports = [ self.nixosModules.default ];
       services.avatar.virtualCamera.enable = true;
@@ -102,6 +107,17 @@ let
         ];
       "host keeps its units through a rebuild" =
         home.config.systemd.user.services.avatar-live.Unit.X-SwitchMethod == "keep-old";
+      "a hidden conversation starts no renderer or browser" =
+        !(targets.avatar-conversation.Unit ? BindsTo)
+        && !(lib.any (unit: lib.elem unit targets.avatar-conversation.Unit.Requires) pictureUnits);
+      "the shown window brings its browser and ends with the conversation" =
+        targets.avatar-window.Unit.BindsTo == [ "avatar-browser.service" ]
+        && targets.avatar-window.Unit.PartOf == [ "avatar-conversation.target" ];
+      "the renderer and its browser stop once nothing needs them" =
+        services.avatar-renderer.Unit.StopWhenUnneeded && services.avatar-browser.Unit.StopWhenUnneeded;
+      "a meeting still brings the renderer, its browser and the camera" = lib.all (
+        unit: lib.elem unit targets.avatar.Unit.Requires
+      ) (pictureUnits ++ [ "avatar-camera.service" ]);
       "no launch agents on the host" = home.config.launchd.agents == { };
       "virtual camera module" = lib.elem "v4l2loopback" system.config.boot.kernelModules;
     };

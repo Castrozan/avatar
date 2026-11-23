@@ -12,7 +12,7 @@ import desktop_window
 import listen_cli
 import listener_session
 import remote_agent
-from meetings import start
+from meetings import readiness, start
 import user_units
 import utterances
 from conversation_seat import Seat
@@ -67,7 +67,7 @@ def open_conversation(arguments, directory):
     try:
         start.bring_up(
             conversation_state.CONVERSATION_TARGET,
-            (start.renderer_ready, lambda: seat_microphone_ready(seat)),
+            (readiness.control_server_ready, lambda: seat_microphone_ready(seat)),
         )
         conversation_seat.prepare(seat)
         show_chosen_character(arguments)
@@ -174,10 +174,17 @@ def hide_everywhere():
 
 
 def show_window(arguments, directory):
+    start.bring_up(start.WINDOW_TARGET, (readiness.renderer_ready,))
     if conversation_seat.current(directory) is Seat.ROOM:
         desktop_window.show()
     set_canvas_presence(WindowPresence.SHOWN)
 
 
 def hide_window(arguments, directory):
-    hide_everywhere()
+    subprocess.run(
+        ["systemctl", "--user", "stop", start.WINDOW_TARGET],
+        check=True,
+        timeout=listener_session.SYSTEMCTL_TIMEOUT_SECONDS,
+    )
+    if user_units.unit_active(start.MEETING_TARGET):
+        hide_everywhere()

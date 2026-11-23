@@ -11,6 +11,7 @@ in
     systemd.user.targets = keepRunningThroughRebuild [
       "avatar"
       "avatar-conversation"
+      "avatar-window"
     ];
     systemd.user.services = keepRunningThroughRebuild [
       "avatar-audio"

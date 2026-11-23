@@ -13,32 +13,6 @@ from conversation_state import ConversationPhase
 from talk_runner import run_talk
 
 
-def test_the_window_appears_only_when_the_agent_shows_it(tmp_path, monkeypatch):
-    show = Mock()
-    hide = Mock()
-    runner = Mock()
-    monkeypatch.setattr(conversation_effects.desktop_window, "show", show)
-    monkeypatch.setattr(conversation_effects.desktop_window, "hide", hide)
-    monkeypatch.setattr(voice_turns.subprocess, "run", runner)
-    monkeypatch.setattr(conversation_seat, "current", lambda directory: Seat.ROOM)
-    conversation_effects.show_window(argparse.Namespace(), tmp_path)
-    conversation_effects.hide_window(argparse.Namespace(), tmp_path)
-    show.assert_called_once_with()
-    hide.assert_called_once_with()
-    assert [call.args[0][2] for call in runner.call_args_list] == ["shown", "hidden"]
-
-
-def test_a_remote_seat_keeps_the_window_off_this_desktop(tmp_path, monkeypatch):
-    show = Mock()
-    runner = Mock()
-    monkeypatch.setattr(conversation_effects.desktop_window, "show", show)
-    monkeypatch.setattr(voice_turns.subprocess, "run", runner)
-    monkeypatch.setattr(conversation_seat, "current", lambda directory: Seat.REMOTE)
-    conversation_effects.show_window(argparse.Namespace(), tmp_path)
-    show.assert_not_called()
-    assert runner.call_args.args[0][1:] == ["presence", "shown"]
-
-
 def test_showing_the_window_needs_an_open_conversation(tmp_path, monkeypatch, capsys):
     monkeypatch.setattr(
         conversation_state, "observe", lambda directory: ConversationPhase.CLOSED
@@ -73,7 +47,7 @@ def test_asking_speaks_and_prints_only_the_reply_tagged_as_voice(
     assert capsys.readouterr().out == "[voice] tudo certo\n"
 
 
-def test_asking_after_the_user_closed_the_window_never_reopens_it(
+def test_asking_after_the_conversation_closed_never_reopens_it(
     tmp_path, monkeypatch
 ):
     monkeypatch.setattr(

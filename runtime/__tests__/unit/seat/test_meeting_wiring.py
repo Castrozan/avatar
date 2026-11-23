@@ -7,7 +7,10 @@ REMOTE_SEAT_UNIT = (MODULES / "home-manager/host-companions.nix").read_text()
 MAC_COMMANDS = (MODULES / "home-manager/remote.nix").read_text()
 MAC_CONVERSATION = (MODULES / "home-manager/mac-conversation.nix").read_text()
 PROGRAMS = (MODULES / "programs.nix").read_text()
-UNITS = (MODULES / "home-manager/host.nix").read_text()
+UNITS = "".join(
+    (MODULES / f"home-manager/{module}.nix").read_text()
+    for module in ("host", "host-picture")
+)
 REBUILD = (AVATAR / "home-manager/avatar-rebuild-home-manager.nix").read_text()
 
 

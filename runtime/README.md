@@ -42,24 +42,29 @@ holds a voice conversation on that Mac alone, described under [conversation on a
 
 | Command | Result |
 | --- | --- |
-| `avatar-talk open [--language CODE] [--character NAME] [--seat room\|remote]` | Opens the microphone with the window hidden; repeating it keeps the conversation |
+| `avatar-talk open [--language CODE] [--character NAME] [--seat room\|remote]` | Opens the microphone with no renderer or window running; repeating it keeps the conversation |
 | `avatar-talk open --live [--character NAME]` | Opens the conversation on the live duplex voice instead of the local listener and ElevenLabs |
 | `avatar-talk ask TEXT [EMOTION]` | Speaks and prints the reply; one verb per turn |
 | `avatar-talk hear [--wait SECONDS]` | Blocks for the next complete utterance and prints it; prints nothing on silence |
 | `avatar-talk follow` | Prints each utterance as a line, for harnesses with a background watcher; only one of `follow`, `hear` and `ask` listens at a time |
 | `avatar-talk say TEXT [EMOTION] [--voice VOICE]` | Speaks aloud and reports `finished` or `interrupted`, or `withheld` with a `reason` when the reply would talk over the room, answer a turn not yet heard out, or follow an interrupted or withheld reply |
 | `avatar-talk status` | Reports whether a conversation is open |
-| `avatar-talk show` / `hide` | Brings the avatar window to the current workspace, or hides it again |
+| `avatar-talk show` / `hide` | Starts the renderer and brings its window to the current workspace once it renders, failing after 45 seconds; `hide` closes it, or only tucks it away while a meeting holds it |
 | `avatar-talk close` | Hides or stops the avatar and closes the microphone; a running meeting keeps its services and a meeting transcription keeps running |
 
-`avatar-conversation.target` owns the pieces: `avatar-browser` holds the one renderer window, whether or not the
-virtual camera is attached, and `avatar-room-microphone` is a private PipeWire process running
+`avatar-conversation.target` owns the control server and `avatar-room-microphone`. `show` starts `avatar-window.target`,
+part of the conversation and bound to `avatar-browser`, the one renderer window whether or not the virtual camera is
+attached. The renderer and the browser stop once neither the window nor a meeting needs them.
+`avatar-room-microphone` is a private PipeWire process running
 [echo cancellation](https://docs.pipewire.org/page_module_echo_cancel.html) in monitor mode. Its reference is everything
 the default output plays, so neither the avatar's voice nor a video playing on the speakers reaches the transcript.
-Only the wake listener below opens the physical microphone before a conversation; `close` or closing the window ends
-the conversation's stream.
-The window stays on the hidden `special:avatar` workspace until the agent shows it, because the user wants the avatar
-on screen only when an agent chooses to show it.
+Only the wake listener below opens the physical microphone before a conversation; `close` ends the conversation's
+stream, while closing a shown window ends only the picture.
+A conversation runs no renderer or window until the agent shows it, because the user wants the avatar on screen only
+when an agent chooses to show it, and no idle window in the window list. Speech, interruption and transcription never
+need the renderer, and the agent's character catches up when it connects. Gestures, poses, looks, `capabilities` and
+`mode` answer `No renderer is connected` while hidden. `hide` stops the window, so the next `show` loads the page again
+in a few seconds.
 Speaking for 0.6 seconds over the avatar stops it, so interrupting needs no agent turn.
 In an open conversation a reply first waits for the room to fall quiet, so a sound that leaves no words only delays it,
 and one sent right behind an interrupted or withheld reply is withheld, as
@@ -81,17 +86,19 @@ over ssh carries no `HYPRLAND_INSTANCE_SIGNATURE`. This module is NixOS only bec
 
 ## Conversation on a Mac
 
-Every `avatar-talk` verb on a Mac runs on that Mac and needs no other machine. `open` starts three launch agents and
-`close` stops them: `com.dotfiles.avatar-control`, the same control server the avatar host runs;
-`com.dotfiles.avatar-renderer`, which serves the avatar page on `127.0.0.1:3000`; and `com.dotfiles.avatar-conversation`,
-the same listener the host runs. The listener captures through a headless Chrome page served on `127.0.0.1:8772`, which
-also plays the voice, so Chrome cancels the avatar's own speech from the microphone.
+Every `avatar-talk` verb on a Mac runs on that Mac and needs no other machine. `open` starts two launch agents:
+`com.dotfiles.avatar-control`, the same control server the avatar host runs, and `com.dotfiles.avatar-conversation`, the
+same listener the host runs. `show` adds `com.dotfiles.avatar-renderer`, which serves the avatar page on
+`127.0.0.1:3000`, and `close` stops all three. The listener captures through a headless Chrome page served on
+`127.0.0.1:8772`, which also plays the voice, so Chrome cancels the avatar's own speech from the microphone.
 
 `say` goes through the control server like on the host, so voices, emotions, the speaking queue and interruption behave
 the same. Only the player differs: on a Mac the control server plays through the conversation page, or through the
 speakers when no conversation is open, and moves the mouth from the loudness of the recording it is playing. With no
-conversation open, `say` raises the control server for that one sentence. `show` opens the avatar window on the Mac and
-`hide` closes it. Sustained speech from the room hushes the avatar mid-sentence, and `close` deletes the transcript.
+conversation open, `say` raises the control server for that one sentence. `show` starts the renderer, opens the avatar
+window on the Mac once it answers and presents it once it renders, each wait failing after 15 seconds. `hide` closes the
+window and leaves the renderer serving until `close`. Sustained speech from the room hushes the avatar mid-sentence, and
+`close` deletes the transcript.
 
 A meeting runs on the Mac too, described under [meetings on a Mac](#meetings-on-a-mac); the conversation and the meeting
 refuse each other. `open --live` runs the live voice on the Mac itself: the `avatar-live` launch agent hears the seat page's

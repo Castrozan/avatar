@@ -2,11 +2,10 @@ import argparse
 import json
 import subprocess
 import time
-import urllib.error
-import urllib.request
 
 import conversation_seat
 from meetings import virtual_meeting
+from meetings.readiness import audio_ready, camera_ready, renderer_ready
 from conversation_seat import Seat
 
 MEETING_TARGET = "avatar.target"
@@ -14,7 +13,9 @@ CALL_CHANNELS = ("agent", "human")
 AUDIO_COMMAND_TIMEOUT_SECONDS = 30
 SYSTEMCTL_QUERY_TIMEOUT_SECONDS = 10
 AUDIO_REPAIR_TIMEOUT_SECONDS = 60
+READINESS_TIMEOUT_SECONDS = 45
 CONVERSATION_TARGET = "avatar-conversation.target"
+WINDOW_TARGET = "avatar-window.target"
 TARGET_UNITS = {
     MEETING_TARGET: (
         "avatar-audio",
@@ -26,9 +27,12 @@ TARGET_UNITS = {
     CONVERSATION_TARGET: (
         "avatar-audio",
         "avatar-control-server",
+        "avatar-room-microphone",
+    ),
+    WINDOW_TARGET: (
+        "avatar-control-server",
         "avatar-renderer",
         "avatar-browser",
-        "avatar-room-microphone",
     ),
 }
 
@@ -43,27 +47,7 @@ def service_failed(units):
     return "failed" in failed.stdout.splitlines()
 
 
-def renderer_ready():
-    try:
-        with urllib.request.urlopen(
-            "http://127.0.0.1:8766/health", timeout=1
-        ) as response:
-            return json.load(response).get("rendererConnected")
-    except (urllib.error.URLError, TimeoutError):
-        return False
-
-
-def camera_ready():
-    capture = subprocess.run(
-        ["v4l2-ctl", "-d", "/dev/video10", "--info"],
-        capture_output=True,
-        text=True,
-        timeout=SYSTEMCTL_QUERY_TIMEOUT_SECONDS,
-    )
-    return capture.returncode == 0 and "Video Capture" in capture.stdout
-
-
-def wait_until_ready(units, readiness_checks, timeout=45):
+def wait_until_ready(units, readiness_checks, timeout=READINESS_TIMEOUT_SECONDS):
     deadline = time.monotonic() + timeout
     while time.monotonic() < deadline:
         if service_failed(units):
@@ -73,19 +57,9 @@ def wait_until_ready(units, readiness_checks, timeout=45):
         if all(check() for check in readiness_checks):
             return
         time.sleep(0.25)
-    raise TimeoutError("The avatar renderer did not become ready")
-
-
-def audio_ready():
-    result = subprocess.run(
-        ["avatar-audio", "status"],
-        capture_output=True,
-        text=True,
-        timeout=SYSTEMCTL_QUERY_TIMEOUT_SECONDS,
+    raise TimeoutError(
+        f"{', '.join(units)} did not become ready within {timeout} seconds"
     )
-    if result.returncode:
-        return False
-    return json.loads(result.stdout).get("running", False)
 
 
 def bring_up(target, readiness_checks):
