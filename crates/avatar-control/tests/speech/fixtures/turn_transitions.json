@@ -1,0 +1,299 @@
+[
+  {
+    "phase": "queued",
+    "status": null,
+    "event": "begin",
+    "result": {
+      "phase": "synthesizing",
+      "status": null
+    }
+  },
+  {
+    "phase": "queued",
+    "status": null,
+    "event": "synthesized",
+    "illegal": true
+  },
+  {
+    "phase": "queued",
+    "status": null,
+    "event": "finish",
+    "illegal": true
+  },
+  {
+    "phase": "queued",
+    "status": null,
+    "event": "interrupt",
+    "result": {
+      "phase": "ended",
+      "status": "cancelled"
+    }
+  },
+  {
+    "phase": "queued",
+    "status": null,
+    "event": "fail",
+    "result": {
+      "phase": "ended",
+      "status": "failed"
+    }
+  },
+  {
+    "phase": "synthesizing",
+    "status": null,
+    "event": "begin",
+    "illegal": true
+  },
+  {
+    "phase": "synthesizing",
+    "status": null,
+    "event": "synthesized",
+    "result": {
+      "phase": "playing",
+      "status": null
+    }
+  },
+  {
+    "phase": "synthesizing",
+    "status": null,
+    "event": "finish",
+    "illegal": true
+  },
+  {
+    "phase": "synthesizing",
+    "status": null,
+    "event": "interrupt",
+    "result": {
+      "phase": "ended",
+      "status": "interrupted"
+    }
+  },
+  {
+    "phase": "synthesizing",
+    "status": null,
+    "event": "fail",
+    "result": {
+      "phase": "ended",
+      "status": "failed"
+    }
+  },
+  {
+    "phase": "playing",
+    "status": null,
+    "event": "begin",
+    "illegal": true
+  },
+  {
+    "phase": "playing",
+    "status": null,
+    "event": "synthesized",
+    "illegal": true
+  },
+  {
+    "phase": "playing",
+    "status": null,
+    "event": "finish",
+    "result": {
+      "phase": "ended",
+      "status": "finished"
+    }
+  },
+  {
+    "phase": "playing",
+    "status": null,
+    "event": "interrupt",
+    "result": {
+      "phase": "ended",
+      "status": "interrupted"
+    }
+  },
+  {
+    "phase": "playing",
+    "status": null,
+    "event": "fail",
+    "result": {
+      "phase": "ended",
+      "status": "failed"
+    }
+  },
+  {
+    "phase": "ended",
+    "status": "finished",
+    "event": "begin",
+    "result": {
+      "phase": "ended",
+      "status": "finished"
+    }
+  },
+  {
+    "phase": "ended",
+    "status": "finished",
+    "event": "synthesized",
+    "result": {
+      "phase": "ended",
+      "status": "finished"
+    }
+  },
+  {
+    "phase": "ended",
+    "status": "finished",
+    "event": "finish",
+    "result": {
+      "phase": "ended",
+      "status": "finished"
+    }
+  },
+  {
+    "phase": "ended",
+    "status": "finished",
+    "event": "interrupt",
+    "result": {
+      "phase": "ended",
+      "status": "finished"
+    }
+  },
+  {
+    "phase": "ended",
+    "status": "finished",
+    "event": "fail",
+    "result": {
+      "phase": "ended",
+      "status": "finished"
+    }
+  },
+  {
+    "phase": "ended",
+    "status": "interrupted",
+    "event": "begin",
+    "result": {
+      "phase": "ended",
+      "status": "interrupted"
+    }
+  },
+  {
+    "phase": "ended",
+    "status": "interrupted",
+    "event": "synthesized",
+    "result": {
+      "phase": "ended",
+      "status": "interrupted"
+    }
+  },
+  {
+    "phase": "ended",
+    "status": "interrupted",
+    "event": "finish",
+    "result": {
+      "phase": "ended",
+      "status": "interrupted"
+    }
+  },
+  {
+    "phase": "ended",
+    "status": "interrupted",
+    "event": "interrupt",
+    "result": {
+      "phase": "ended",
+      "status": "interrupted"
+    }
+  },
+  {
+    "phase": "ended",
+    "status": "interrupted",
+    "event": "fail",
+    "result": {
+      "phase": "ended",
+      "status": "interrupted"
+    }
+  },
+  {
+    "phase": "ended",
+    "status": "cancelled",
+    "event": "begin",
+    "result": {
+      "phase": "ended",
+      "status": "cancelled"
+    }
+  },
+  {
+    "phase": "ended",
+    "status": "cancelled",
+    "event": "synthesized",
+    "result": {
+      "phase": "ended",
+      "status": "cancelled"
+    }
+  },
+  {
+    "phase": "ended",
+    "status": "cancelled",
+    "event": "finish",
+    "result": {
+      "phase": "ended",
+      "status": "cancelled"
+    }
+  },
+  {
+    "phase": "ended",
+    "status": "cancelled",
+    "event": "interrupt",
+    "result": {
+      "phase": "ended",
+      "status": "cancelled"
+    }
+  },
+  {
+    "phase": "ended",
+    "status": "cancelled",
+    "event": "fail",
+    "result": {
+      "phase": "ended",
+      "status": "cancelled"
+    }
+  },
+  {
+    "phase": "ended",
+    "status": "failed",
+    "event": "begin",
+    "result": {
+      "phase": "ended",
+      "status": "failed"
+    }
+  },
+  {
+    "phase": "ended",
+    "status": "failed",
+    "event": "synthesized",
+    "result": {
+      "phase": "ended",
+      "status": "failed"
+    }
+  },
+  {
+    "phase": "ended",
+    "status": "failed",
+    "event": "finish",
+    "result": {
+      "phase": "ended",
+      "status": "failed"
+    }
+  },
+  {
+    "phase": "ended",
+    "status": "failed",
+    "event": "interrupt",
+    "result": {
+      "phase": "ended",
+      "status": "failed"
+    }
+  },
+  {
+    "phase": "ended",
+    "status": "failed",
+    "event": "fail",
+    "result": {
+      "phase": "ended",
+      "status": "failed"
+    }
+  }
+]

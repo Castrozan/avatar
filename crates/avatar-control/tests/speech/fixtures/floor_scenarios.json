@@ -1,0 +1,600 @@
+[
+  {
+    "name": "single agent turn plays to completion",
+    "steps": [
+      {
+        "event": {
+          "op": "enqueue",
+          "turn": 1,
+          "agent": true
+        },
+        "effects": [
+          "open:1"
+        ],
+        "phase": "synthesizing"
+      },
+      {
+        "event": {
+          "op": "agentOpened",
+          "turn": 1
+        },
+        "effects": [
+          "start:1"
+        ],
+        "phase": "synthesizing"
+      },
+      {
+        "event": {
+          "op": "started",
+          "turn": 1
+        },
+        "effects": [],
+        "phase": "playing"
+      },
+      {
+        "event": {
+          "op": "finished",
+          "turn": 1
+        },
+        "effects": [
+          "release:1",
+          "settle:1:finished"
+        ],
+        "phase": "idle"
+      }
+    ]
+  },
+  {
+    "name": "two turns hand off",
+    "steps": [
+      {
+        "event": {
+          "op": "enqueue",
+          "turn": 1,
+          "agent": false
+        },
+        "effects": [
+          "start:1"
+        ],
+        "phase": "synthesizing"
+      },
+      {
+        "event": {
+          "op": "enqueue",
+          "turn": 2,
+          "agent": false
+        },
+        "effects": [],
+        "phase": "synthesizing"
+      },
+      {
+        "event": {
+          "op": "started",
+          "turn": 1
+        },
+        "effects": [],
+        "phase": "playing"
+      },
+      {
+        "event": {
+          "op": "finished",
+          "turn": 1
+        },
+        "effects": [
+          "settle:1:finished",
+          "start:2"
+        ],
+        "phase": "synthesizing"
+      },
+      {
+        "event": {
+          "op": "started",
+          "turn": 2
+        },
+        "effects": [],
+        "phase": "playing"
+      },
+      {
+        "event": {
+          "op": "finished",
+          "turn": 2
+        },
+        "effects": [
+          "settle:2:finished"
+        ],
+        "phase": "idle"
+      }
+    ]
+  },
+  {
+    "name": "interrupt mid chunk cancels queued turn",
+    "steps": [
+      {
+        "event": {
+          "op": "enqueue",
+          "turn": 1,
+          "agent": false
+        },
+        "effects": [
+          "start:1"
+        ],
+        "phase": "synthesizing"
+      },
+      {
+        "event": {
+          "op": "enqueue",
+          "turn": 2,
+          "agent": false
+        },
+        "effects": [],
+        "phase": "synthesizing"
+      },
+      {
+        "event": {
+          "op": "started",
+          "turn": 1
+        },
+        "effects": [],
+        "phase": "playing"
+      },
+      {
+        "event": {
+          "op": "interrupt"
+        },
+        "effects": [
+          "stop:1"
+        ],
+        "phase": "idle"
+      },
+      {
+        "event": {
+          "op": "finished",
+          "turn": 1
+        },
+        "effects": [
+          "settle:1:interrupted",
+          "settle:2:cancelled"
+        ],
+        "phase": "idle"
+      }
+    ]
+  },
+  {
+    "name": "interrupt during agent open",
+    "steps": [
+      {
+        "event": {
+          "op": "enqueue",
+          "turn": 1,
+          "agent": true
+        },
+        "effects": [
+          "open:1"
+        ],
+        "phase": "synthesizing"
+      },
+      {
+        "event": {
+          "op": "interrupt"
+        },
+        "effects": [],
+        "phase": "idle"
+      },
+      {
+        "event": {
+          "op": "agentOpened",
+          "turn": 1
+        },
+        "effects": [
+          "start:1"
+        ],
+        "phase": "idle"
+      },
+      {
+        "event": {
+          "op": "started",
+          "turn": 1
+        },
+        "effects": [
+          "stop:1"
+        ],
+        "phase": "idle"
+      },
+      {
+        "event": {
+          "op": "finished",
+          "turn": 1
+        },
+        "effects": [
+          "release:1",
+          "settle:1:interrupted"
+        ],
+        "phase": "idle"
+      }
+    ]
+  },
+  {
+    "name": "interrupt while synthesizing without agent",
+    "steps": [
+      {
+        "event": {
+          "op": "enqueue",
+          "turn": 1,
+          "agent": false
+        },
+        "effects": [
+          "start:1"
+        ],
+        "phase": "synthesizing"
+      },
+      {
+        "event": {
+          "op": "interrupt"
+        },
+        "effects": [],
+        "phase": "idle"
+      },
+      {
+        "event": {
+          "op": "started",
+          "turn": 1
+        },
+        "effects": [
+          "stop:1"
+        ],
+        "phase": "idle"
+      },
+      {
+        "event": {
+          "op": "finished",
+          "turn": 1
+        },
+        "effects": [
+          "settle:1:interrupted"
+        ],
+        "phase": "idle"
+      },
+      {
+        "event": {
+          "op": "enqueue",
+          "turn": 2,
+          "agent": false
+        },
+        "effects": [
+          "start:2"
+        ],
+        "phase": "synthesizing"
+      },
+      {
+        "event": {
+          "op": "started",
+          "turn": 2
+        },
+        "effects": [],
+        "phase": "playing"
+      },
+      {
+        "event": {
+          "op": "finished",
+          "turn": 2
+        },
+        "effects": [
+          "settle:2:finished"
+        ],
+        "phase": "idle"
+      }
+    ]
+  },
+  {
+    "name": "failure while playing",
+    "steps": [
+      {
+        "event": {
+          "op": "enqueue",
+          "turn": 1,
+          "agent": false
+        },
+        "effects": [
+          "start:1"
+        ],
+        "phase": "synthesizing"
+      },
+      {
+        "event": {
+          "op": "started",
+          "turn": 1
+        },
+        "effects": [],
+        "phase": "playing"
+      },
+      {
+        "event": {
+          "op": "failed",
+          "turn": 1
+        },
+        "effects": [
+          "settle:1:failed"
+        ],
+        "phase": "idle"
+      }
+    ]
+  },
+  {
+    "name": "failure before playback releases agent",
+    "steps": [
+      {
+        "event": {
+          "op": "enqueue",
+          "turn": 1,
+          "agent": true
+        },
+        "effects": [
+          "open:1"
+        ],
+        "phase": "synthesizing"
+      },
+      {
+        "event": {
+          "op": "agentOpened",
+          "turn": 1
+        },
+        "effects": [
+          "start:1"
+        ],
+        "phase": "synthesizing"
+      },
+      {
+        "event": {
+          "op": "failed",
+          "turn": 1
+        },
+        "effects": [
+          "release:1",
+          "settle:1:failed"
+        ],
+        "phase": "idle"
+      },
+      {
+        "event": {
+          "op": "enqueue",
+          "turn": 2,
+          "agent": false
+        },
+        "effects": [
+          "start:2"
+        ],
+        "phase": "synthesizing"
+      },
+      {
+        "event": {
+          "op": "started",
+          "turn": 2
+        },
+        "effects": [],
+        "phase": "playing"
+      },
+      {
+        "event": {
+          "op": "finished",
+          "turn": 2
+        },
+        "effects": [
+          "settle:2:finished"
+        ],
+        "phase": "idle"
+      }
+    ]
+  },
+  {
+    "name": "interrupt skips queued turns",
+    "steps": [
+      {
+        "event": {
+          "op": "enqueue",
+          "turn": 1,
+          "agent": true
+        },
+        "effects": [
+          "open:1"
+        ],
+        "phase": "synthesizing"
+      },
+      {
+        "event": {
+          "op": "enqueue",
+          "turn": 2,
+          "agent": false
+        },
+        "effects": [],
+        "phase": "synthesizing"
+      },
+      {
+        "event": {
+          "op": "enqueue",
+          "turn": 3,
+          "agent": true
+        },
+        "effects": [],
+        "phase": "synthesizing"
+      },
+      {
+        "event": {
+          "op": "agentOpened",
+          "turn": 1
+        },
+        "effects": [
+          "start:1"
+        ],
+        "phase": "synthesizing"
+      },
+      {
+        "event": {
+          "op": "started",
+          "turn": 1
+        },
+        "effects": [],
+        "phase": "playing"
+      },
+      {
+        "event": {
+          "op": "interrupt"
+        },
+        "effects": [
+          "stop:1"
+        ],
+        "phase": "idle"
+      },
+      {
+        "event": {
+          "op": "finished",
+          "turn": 1
+        },
+        "effects": [
+          "release:1",
+          "settle:1:interrupted",
+          "settle:2:cancelled",
+          "settle:3:cancelled"
+        ],
+        "phase": "idle"
+      }
+    ]
+  },
+  {
+    "name": "new turn after interrupted turn ends",
+    "steps": [
+      {
+        "event": {
+          "op": "enqueue",
+          "turn": 1,
+          "agent": false
+        },
+        "effects": [
+          "start:1"
+        ],
+        "phase": "synthesizing"
+      },
+      {
+        "event": {
+          "op": "started",
+          "turn": 1
+        },
+        "effects": [],
+        "phase": "playing"
+      },
+      {
+        "event": {
+          "op": "interrupt"
+        },
+        "effects": [
+          "stop:1"
+        ],
+        "phase": "idle"
+      },
+      {
+        "event": {
+          "op": "finished",
+          "turn": 1
+        },
+        "effects": [
+          "settle:1:interrupted"
+        ],
+        "phase": "idle"
+      },
+      {
+        "event": {
+          "op": "enqueue",
+          "turn": 2,
+          "agent": true
+        },
+        "effects": [
+          "open:2"
+        ],
+        "phase": "synthesizing"
+      },
+      {
+        "event": {
+          "op": "agentOpened",
+          "turn": 2
+        },
+        "effects": [
+          "start:2"
+        ],
+        "phase": "synthesizing"
+      },
+      {
+        "event": {
+          "op": "started",
+          "turn": 2
+        },
+        "effects": [],
+        "phase": "playing"
+      },
+      {
+        "event": {
+          "op": "finished",
+          "turn": 2
+        },
+        "effects": [
+          "release:2",
+          "settle:2:finished"
+        ],
+        "phase": "idle"
+      }
+    ]
+  },
+  {
+    "name": "failure in synthesis without agent",
+    "steps": [
+      {
+        "event": {
+          "op": "enqueue",
+          "turn": 1,
+          "agent": false
+        },
+        "effects": [
+          "start:1"
+        ],
+        "phase": "synthesizing"
+      },
+      {
+        "event": {
+          "op": "failed",
+          "turn": 1
+        },
+        "effects": [
+          "settle:1:failed"
+        ],
+        "phase": "idle"
+      },
+      {
+        "event": {
+          "op": "enqueue",
+          "turn": 2,
+          "agent": false
+        },
+        "effects": [
+          "start:2"
+        ],
+        "phase": "synthesizing"
+      },
+      {
+        "event": {
+          "op": "started",
+          "turn": 2
+        },
+        "effects": [],
+        "phase": "playing"
+      },
+      {
+        "event": {
+          "op": "finished",
+          "turn": 2
+        },
+        "effects": [
+          "settle:2:finished"
+        ],
+        "phase": "idle"
+      }
+    ]
+  }
+]

@@ -1,0 +1,660 @@
+[
+  {
+    "name": "three chunks play in order",
+    "steps": [
+      {
+        "event": {
+          "op": "begin",
+          "count": 3
+        },
+        "effects": [
+          "synth:0"
+        ]
+      },
+      {
+        "event": {
+          "op": "ready",
+          "index": 0,
+          "holds": true
+        },
+        "effects": [
+          "play:0",
+          "synth:1"
+        ]
+      },
+      {
+        "event": {
+          "op": "played",
+          "index": 0
+        },
+        "effects": []
+      },
+      {
+        "event": {
+          "op": "ready",
+          "index": 1
+        },
+        "effects": [
+          "play:1",
+          "synth:2"
+        ]
+      },
+      {
+        "event": {
+          "op": "played",
+          "index": 1
+        },
+        "effects": []
+      },
+      {
+        "event": {
+          "op": "ready",
+          "index": 2
+        },
+        "effects": [
+          "play:2"
+        ]
+      },
+      {
+        "event": {
+          "op": "played",
+          "index": 2
+        },
+        "effects": [
+          "done"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "prefetch waits for playback to end",
+    "steps": [
+      {
+        "event": {
+          "op": "begin",
+          "count": 3
+        },
+        "effects": [
+          "synth:0"
+        ]
+      },
+      {
+        "event": {
+          "op": "ready",
+          "index": 0,
+          "holds": true
+        },
+        "effects": [
+          "play:0",
+          "synth:1"
+        ]
+      },
+      {
+        "event": {
+          "op": "played",
+          "index": 0
+        },
+        "effects": []
+      },
+      {
+        "event": {
+          "op": "ready",
+          "index": 1
+        },
+        "effects": [
+          "play:1",
+          "synth:2"
+        ]
+      },
+      {
+        "event": {
+          "op": "played",
+          "index": 1
+        },
+        "effects": []
+      },
+      {
+        "event": {
+          "op": "ready",
+          "index": 2
+        },
+        "effects": [
+          "play:2"
+        ]
+      },
+      {
+        "event": {
+          "op": "played",
+          "index": 2
+        },
+        "effects": [
+          "done"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "prefetch ready before playback ends",
+    "steps": [
+      {
+        "event": {
+          "op": "begin",
+          "count": 3
+        },
+        "effects": [
+          "synth:0"
+        ]
+      },
+      {
+        "event": {
+          "op": "ready",
+          "index": 0,
+          "holds": true
+        },
+        "effects": [
+          "play:0",
+          "synth:1"
+        ]
+      },
+      {
+        "event": {
+          "op": "ready",
+          "index": 1
+        },
+        "effects": []
+      },
+      {
+        "event": {
+          "op": "played",
+          "index": 0
+        },
+        "effects": [
+          "play:1",
+          "synth:2"
+        ]
+      },
+      {
+        "event": {
+          "op": "ready",
+          "index": 2
+        },
+        "effects": []
+      },
+      {
+        "event": {
+          "op": "played",
+          "index": 1
+        },
+        "effects": [
+          "play:2"
+        ]
+      },
+      {
+        "event": {
+          "op": "played",
+          "index": 2
+        },
+        "effects": [
+          "done"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "floor lost before first chunk",
+    "steps": [
+      {
+        "event": {
+          "op": "begin",
+          "count": 3
+        },
+        "effects": [
+          "synth:0"
+        ]
+      },
+      {
+        "event": {
+          "op": "ready",
+          "index": 0,
+          "holds": false
+        },
+        "effects": [
+          "done"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "single chunk completes",
+    "steps": [
+      {
+        "event": {
+          "op": "begin",
+          "count": 1
+        },
+        "effects": [
+          "synth:0"
+        ]
+      },
+      {
+        "event": {
+          "op": "ready",
+          "index": 0,
+          "holds": true
+        },
+        "effects": [
+          "play:0"
+        ]
+      },
+      {
+        "event": {
+          "op": "played",
+          "index": 0
+        },
+        "effects": [
+          "done"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "stop mid chunk",
+    "steps": [
+      {
+        "event": {
+          "op": "begin",
+          "count": 3
+        },
+        "effects": [
+          "synth:0"
+        ]
+      },
+      {
+        "event": {
+          "op": "ready",
+          "index": 0,
+          "holds": true
+        },
+        "effects": [
+          "play:0",
+          "synth:1"
+        ]
+      },
+      {
+        "event": {
+          "op": "ready",
+          "index": 1
+        },
+        "effects": []
+      },
+      {
+        "event": {
+          "op": "stop"
+        },
+        "effects": [
+          "stop"
+        ]
+      },
+      {
+        "event": {
+          "op": "played",
+          "index": 0
+        },
+        "effects": [
+          "done"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "stop while waiting for next chunk",
+    "steps": [
+      {
+        "event": {
+          "op": "begin",
+          "count": 3
+        },
+        "effects": [
+          "synth:0"
+        ]
+      },
+      {
+        "event": {
+          "op": "ready",
+          "index": 0,
+          "holds": true
+        },
+        "effects": [
+          "play:0",
+          "synth:1"
+        ]
+      },
+      {
+        "event": {
+          "op": "played",
+          "index": 0
+        },
+        "effects": []
+      },
+      {
+        "event": {
+          "op": "stop"
+        },
+        "effects": [
+          "stop",
+          "done"
+        ]
+      },
+      {
+        "event": {
+          "op": "ready",
+          "index": 1
+        },
+        "effects": []
+      }
+    ]
+  },
+  {
+    "name": "stop while last chunk plays",
+    "steps": [
+      {
+        "event": {
+          "op": "begin",
+          "count": 2
+        },
+        "effects": [
+          "synth:0"
+        ]
+      },
+      {
+        "event": {
+          "op": "ready",
+          "index": 0,
+          "holds": true
+        },
+        "effects": [
+          "play:0",
+          "synth:1"
+        ]
+      },
+      {
+        "event": {
+          "op": "ready",
+          "index": 1
+        },
+        "effects": []
+      },
+      {
+        "event": {
+          "op": "played",
+          "index": 0
+        },
+        "effects": [
+          "play:1"
+        ]
+      },
+      {
+        "event": {
+          "op": "stop"
+        },
+        "effects": [
+          "stop"
+        ]
+      },
+      {
+        "event": {
+          "op": "played",
+          "index": 1
+        },
+        "effects": [
+          "done"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "stop after completion",
+    "steps": [
+      {
+        "event": {
+          "op": "begin",
+          "count": 2
+        },
+        "effects": [
+          "synth:0"
+        ]
+      },
+      {
+        "event": {
+          "op": "ready",
+          "index": 0,
+          "holds": true
+        },
+        "effects": [
+          "play:0",
+          "synth:1"
+        ]
+      },
+      {
+        "event": {
+          "op": "played",
+          "index": 0
+        },
+        "effects": []
+      },
+      {
+        "event": {
+          "op": "ready",
+          "index": 1
+        },
+        "effects": [
+          "play:1"
+        ]
+      },
+      {
+        "event": {
+          "op": "played",
+          "index": 1
+        },
+        "effects": [
+          "done"
+        ]
+      },
+      {
+        "event": {
+          "op": "stop"
+        },
+        "effects": [
+          "stop"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "empty chunk list plays index zero",
+    "steps": [
+      {
+        "event": {
+          "op": "begin",
+          "count": 0
+        },
+        "effects": [
+          "synth:0"
+        ]
+      },
+      {
+        "event": {
+          "op": "ready",
+          "index": 0,
+          "holds": true
+        },
+        "effects": [
+          "play:0"
+        ]
+      },
+      {
+        "event": {
+          "op": "played",
+          "index": 0
+        },
+        "effects": [
+          "done"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "first chunk synthesis fails",
+    "steps": [
+      {
+        "event": {
+          "op": "begin",
+          "count": 3
+        },
+        "effects": [
+          "synth:0"
+        ]
+      },
+      {
+        "event": {
+          "op": "failed",
+          "index": 0
+        },
+        "effects": [
+          "failed"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "prefetch fails while chunk plays",
+    "steps": [
+      {
+        "event": {
+          "op": "begin",
+          "count": 3
+        },
+        "effects": [
+          "synth:0"
+        ]
+      },
+      {
+        "event": {
+          "op": "ready",
+          "index": 0,
+          "holds": true
+        },
+        "effects": [
+          "play:0",
+          "synth:1"
+        ]
+      },
+      {
+        "event": {
+          "op": "failed",
+          "index": 1
+        },
+        "effects": []
+      },
+      {
+        "event": {
+          "op": "played",
+          "index": 0
+        },
+        "effects": [
+          "failed"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "prefetch fails while waiting for it",
+    "steps": [
+      {
+        "event": {
+          "op": "begin",
+          "count": 3
+        },
+        "effects": [
+          "synth:0"
+        ]
+      },
+      {
+        "event": {
+          "op": "ready",
+          "index": 0,
+          "holds": true
+        },
+        "effects": [
+          "play:0",
+          "synth:1"
+        ]
+      },
+      {
+        "event": {
+          "op": "played",
+          "index": 0
+        },
+        "effects": []
+      },
+      {
+        "event": {
+          "op": "failed",
+          "index": 1
+        },
+        "effects": [
+          "failed"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "stop swallows a failed prefetch",
+    "steps": [
+      {
+        "event": {
+          "op": "begin",
+          "count": 3
+        },
+        "effects": [
+          "synth:0"
+        ]
+      },
+      {
+        "event": {
+          "op": "ready",
+          "index": 0,
+          "holds": true
+        },
+        "effects": [
+          "play:0",
+          "synth:1"
+        ]
+      },
+      {
+        "event": {
+          "op": "stop"
+        },
+        "effects": [
+          "stop"
+        ]
+      },
+      {
+        "event": {
+          "op": "failed",
+          "index": 1
+        },
+        "effects": []
+      },
+      {
+        "event": {
+          "op": "played",
+          "index": 0
+        },
+        "effects": [
+          "done"
+        ]
+      }
+    ]
+  }
+]
