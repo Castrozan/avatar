@@ -6,6 +6,7 @@ import conversation_seat
 import conversation_state
 import pytest
 import conversation_effects
+import conversation_window
 import utterances
 import voice_turns
 from conversation_seat import Seat
@@ -18,7 +19,7 @@ def test_showing_the_window_needs_an_open_conversation(tmp_path, monkeypatch, ca
         conversation_state, "observe", lambda directory: ConversationPhase.CLOSED
     )
     show = Mock()
-    monkeypatch.setattr(conversation_effects.desktop_window, "show", show)
+    monkeypatch.setattr(conversation_window.desktop_window, "show", show)
     with pytest.raises(SystemExit):
         run_talk(monkeypatch, tmp_path, "show")
     show.assert_not_called()

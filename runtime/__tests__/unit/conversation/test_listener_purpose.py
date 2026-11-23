@@ -12,6 +12,7 @@ import listener_session
 import listener
 import pytest
 import conversation_effects
+import conversation_window
 import user_units
 import utterances
 from conversation_seat import Seat
@@ -95,19 +96,19 @@ def test_hiding_a_meeting_picture_hides_the_canvas_first(tmp_path, monkeypatch):
     )
     monkeypatch.setattr(conversation_effects.user_units, "unit_active", lambda u: True)
     monkeypatch.setattr(
-        conversation_effects.desktop_window, "hide", lambda: order.append("window")
+        conversation_window.desktop_window, "hide", lambda: order.append("window")
     )
-    conversation_effects.hide_window(argparse.Namespace(), tmp_path)
+    conversation_window.hide_window(argparse.Namespace(), tmp_path)
     assert order == ["systemctl", "avatar-command", "window"]
 
 
 def test_a_failed_canvas_hide_leaves_the_window_where_it_is(tmp_path, monkeypatch):
     hide = Mock()
-    monkeypatch.setattr(conversation_effects.desktop_window, "hide", hide)
+    monkeypatch.setattr(conversation_window.desktop_window, "hide", hide)
     monkeypatch.setattr(conversation_effects.user_units, "unit_active", lambda u: True)
     monkeypatch.setattr(conversation_effects.subprocess, "run", refuse_the_canvas)
     with pytest.raises(subprocess.CalledProcessError):
-        conversation_effects.hide_window(argparse.Namespace(), tmp_path)
+        conversation_window.hide_window(argparse.Namespace(), tmp_path)
     hide.assert_not_called()
 
 

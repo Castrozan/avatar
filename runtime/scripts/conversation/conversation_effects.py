@@ -1,4 +1,3 @@
-import enum
 import os
 import subprocess
 import sys
@@ -9,7 +8,6 @@ import default_holder
 import discord_call
 import conversation_seat
 import conversation_state
-import desktop_window
 import listen_cli
 import listener_session
 import remote_agent
@@ -17,6 +15,7 @@ from meetings import readiness, start
 import user_units
 import utterances
 from conversation_seat import Seat
+from conversation_window import hide_everywhere
 from conversation_state import ConversationPhase
 from listener_session import ListenerPurpose
 
@@ -30,11 +29,6 @@ CONVERSATION_OWNS_THE_ROOM = (
 )
 COMMAND_TIMEOUT_SECONDS = 120
 HELD_PHASES = (ConversationPhase.OPEN, ConversationPhase.LIVE)
-
-
-class WindowPresence(enum.StrEnum):
-    HIDDEN = "hidden"
-    SHOWN = "shown"
 
 
 def seat_microphone_ready(seat):
@@ -165,40 +159,3 @@ def close_conversation(arguments, directory):
 
 def leave_meeting(arguments, directory):
     conversation_report.print_closed()
-
-
-def set_canvas_presence(presence):
-    subprocess.run(
-        ["avatar-command", "presence", presence],
-        capture_output=True,
-        check=True,
-        timeout=COMMAND_TIMEOUT_SECONDS,
-    )
-
-
-def hide_everywhere():
-    set_canvas_presence(WindowPresence.HIDDEN)
-    desktop_window.hide()
-
-
-def reveal_window(directory):
-    start.wait_until_ready(
-        start.TARGET_UNITS[start.WINDOW_TARGET], (readiness.renderer_ready,)
-    )
-    if conversation_seat.current(directory) is Seat.ROOM:
-        desktop_window.show()
-    set_canvas_presence(WindowPresence.SHOWN)
-
-
-def show_window(arguments, directory):
-    start.bring_up(start.WINDOW_TARGET, (readiness.renderer_ready,))
-
-
-def hide_window(arguments, directory):
-    subprocess.run(
-        ["systemctl", "--user", "stop", start.WINDOW_TARGET],
-        check=True,
-        timeout=listener_session.SYSTEMCTL_TIMEOUT_SECONDS,
-    )
-    if user_units.unit_active(start.MEETING_TARGET):
-        hide_everywhere()

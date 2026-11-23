@@ -2,6 +2,7 @@ import subprocess
 import sys
 
 import conversation_effects
+import conversation_window
 import conversation_seat
 import conversation_state
 import listener_runtime
@@ -25,8 +26,8 @@ ACTIONS = {
     ConversationAction.FOLLOW: voice_turns.follow,
     ConversationAction.SAY: voice_turns.say,
     ConversationAction.REPLY: voice_turns.reply,
-    ConversationAction.SHOW: conversation_effects.show_window,
-    ConversationAction.HIDE: conversation_effects.hide_window,
+    ConversationAction.SHOW: conversation_window.show_window,
+    ConversationAction.HIDE: conversation_window.hide_window,
     ConversationAction.REPORT: conversation_effects.status,
     ConversationAction.REFUSE_CLOSED: conversation_effects.refuse_closed,
     ConversationAction.REFUSE_MEETING: conversation_effects.refuse_meeting,

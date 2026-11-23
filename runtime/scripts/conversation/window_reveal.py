@@ -1,5 +1,5 @@
-import conversation_effects
+import conversation_window
 import listener_runtime
 
 if __name__ == "__main__":
-    conversation_effects.reveal_window(listener_runtime.runtime_directory())
+    conversation_window.reveal_window(listener_runtime.runtime_directory())

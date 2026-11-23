@@ -4,6 +4,7 @@ from types import SimpleNamespace
 from unittest.mock import Mock
 
 import conversation_effects
+import conversation_window
 import conversation_seat
 import conversation_state
 import listen_cli
@@ -50,7 +51,7 @@ class UserSession:
 @pytest.fixture
 def desktop(monkeypatch):
     shown = Mock()
-    monkeypatch.setattr(conversation_effects.desktop_window, "show", shown)
+    monkeypatch.setattr(conversation_window.desktop_window, "show", shown)
     monkeypatch.setattr(conversation_seat, "current", lambda directory: Seat.ROOM)
     return shown
 
@@ -76,7 +77,7 @@ def test_showing_starts_the_window_and_leaves_the_reveal_to_it(
     tmp_path, monkeypatch, desktop
 ):
     session = UserSession(monkeypatch, [True])
-    conversation_effects.show_window(argparse.Namespace(), tmp_path)
+    conversation_window.show_window(argparse.Namespace(), tmp_path)
     assert session.started() == [start.WINDOW_TARGET]
     assert PRESENTED not in session.commands
     desktop.assert_not_called()
@@ -87,7 +88,7 @@ def test_revealing_waits_for_the_renderer_before_presenting(
 ):
     session = UserSession(monkeypatch, [False, False, True])
     desktop.side_effect = lambda: session.commands.append(["desktop", "show"])
-    conversation_effects.reveal_window(tmp_path)
+    conversation_window.reveal_window(tmp_path)
     assert session.started() == []
     assert session.sleeps == 2
     assert session.commands[-2:] == [["desktop", "show"], PRESENTED]
@@ -98,7 +99,7 @@ def test_a_reveal_whose_renderer_never_connects_fails_within_the_bound(
 ):
     session = UserSession(monkeypatch, NEVER_CONNECTED)
     with pytest.raises(TimeoutError):
-        conversation_effects.reveal_window(tmp_path)
+        conversation_window.reveal_window(tmp_path)
     assert session.now <= start.READINESS_TIMEOUT_SECONDS + 0.25
     assert PRESENTED not in session.commands
     desktop.assert_not_called()
@@ -127,7 +128,7 @@ def test_a_remote_seat_still_gets_the_renderer_its_viewer_shows(
 ):
     session = UserSession(monkeypatch, [True])
     monkeypatch.setattr(conversation_seat, "current", lambda directory: Seat.REMOTE)
-    conversation_effects.reveal_window(tmp_path)
+    conversation_window.reveal_window(tmp_path)
     desktop.assert_not_called()
     assert session.commands[-1] == PRESENTED
 
@@ -139,11 +140,11 @@ def test_hiding_stops_the_window_and_tucks_away_only_a_meeting_picture(
     runner = Mock()
     monkeypatch.setattr(conversation_effects.subprocess, "run", runner)
     hide = Mock()
-    monkeypatch.setattr(conversation_effects.desktop_window, "hide", hide)
+    monkeypatch.setattr(conversation_window.desktop_window, "hide", hide)
     monkeypatch.setattr(
         conversation_effects.user_units, "unit_active", lambda unit: meeting_running
     )
-    conversation_effects.hide_window(argparse.Namespace(), tmp_path)
+    conversation_window.hide_window(argparse.Namespace(), tmp_path)
     commands = [call.args[0] for call in runner.call_args_list]
     assert commands[0] == ["systemctl", "--user", "stop", start.WINDOW_TARGET]
     assert (["avatar-command", "presence", "hidden"] in commands) is meeting_running
