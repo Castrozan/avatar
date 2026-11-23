@@ -13,6 +13,8 @@ import transcript_log
 
 FRAME_SAMPLES = 480
 
+REPORT_TO_LOG = transcript_log.report_to_log
+
 
 def frame(amplitude):
     return struct.pack(f"<{FRAME_SAMPLES}h", *([amplitude] * FRAME_SAMPLES))
@@ -62,7 +64,7 @@ def test_wake_reports_rotate_as_complete_private_lines(tmp_path, monkeypatch):
     transcript_log._wake_logger.cache_clear()
     logger = transcript_log._wake_logger()
     try:
-        report = transcript_log.report_to_log
+        report = REPORT_TO_LOG
         texts = [f"{index}: olá Ibaraki-dōji\nmais uma frase" for index in range(20)]
         for text in texts:
             transcript_log.report_wake(report, text, b"")
