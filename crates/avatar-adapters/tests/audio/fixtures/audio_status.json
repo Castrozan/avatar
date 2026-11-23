@@ -1,0 +1,239 @@
+[
+ {
+  "name": "absent",
+  "state": null,
+  "modules": "1\tunrelated\tkeep\n",
+  "sinks": "[{\"name\": \"AvatarMic\", \"mute\": false, \"volume\": {\"front-left\": {\"value\": 65536}}, \"index\": 3}, {\"name\": \"AvatarHuman\", \"mute\": true, \"volume\": {\"front-left\": {\"value\": 32768}}, \"index\": 4}, {\"name\": \"other\", \"mute\": false}]",
+  "expected": {
+   "running": false,
+   "phase": "absent",
+   "microphone": null,
+   "meeting_source": "AvatarMicrophone",
+   "channels": {
+    "agent": {
+     "name": "AvatarMic",
+     "mute": false,
+     "volume": {
+      "front-left": {
+       "value": 65536
+      }
+     }
+    },
+    "human": {
+     "name": "AvatarHuman",
+     "mute": true,
+     "volume": {
+      "front-left": {
+       "value": 32768
+      }
+     }
+    }
+   }
+  }
+ },
+ {
+  "name": "running_detached",
+  "state": {
+   "modules": [
+    {
+     "index": 10,
+     "name": "module-null-sink",
+     "argument": "sink_name=AvatarMix"
+    },
+    {
+     "index": 11,
+     "name": "module-null-sink",
+     "argument": "sink_name=AvatarMic"
+    }
+   ],
+   "ready": true
+  },
+  "modules": "10\tmodule-null-sink\tsink_name=AvatarMix\n11\tmodule-null-sink\tsink_name=AvatarMic\n",
+  "sinks": "[{\"name\": \"AvatarMic\", \"mute\": false, \"volume\": {\"front-left\": {\"value\": 65536}}, \"index\": 3}, {\"name\": \"AvatarHuman\", \"mute\": true, \"volume\": {\"front-left\": {\"value\": 32768}}, \"index\": 4}, {\"name\": \"other\", \"mute\": false}]",
+  "expected": {
+   "running": true,
+   "phase": "running-detached",
+   "microphone": null,
+   "meeting_source": "AvatarMicrophone",
+   "channels": {
+    "agent": {
+     "name": "AvatarMic",
+     "mute": false,
+     "volume": {
+      "front-left": {
+       "value": 65536
+      }
+     }
+    },
+    "human": {
+     "name": "AvatarHuman",
+     "mute": true,
+     "volume": {
+      "front-left": {
+       "value": 32768
+      }
+     }
+    }
+   }
+  }
+ },
+ {
+  "name": "running_attached",
+  "state": {
+   "modules": [
+    {
+     "index": 10,
+     "name": "module-null-sink",
+     "argument": "sink_name=AvatarMix"
+    },
+    {
+     "index": 11,
+     "name": "module-null-sink",
+     "argument": "sink_name=AvatarMic"
+    }
+   ],
+   "ready": true,
+   "microphone": {
+    "source": "alsa_input.usb",
+    "index": 12,
+    "name": "module-loopback",
+    "argument": "source=alsa_input.usb sink=AvatarHuman"
+   }
+  },
+  "modules": "10\tmodule-null-sink\tsink_name=AvatarMix\n11\tmodule-null-sink\tsink_name=AvatarMic\n12\tmodule-loopback\tsource=alsa_input.usb sink=AvatarHuman\n",
+  "sinks": "[{\"name\": \"AvatarMic\", \"mute\": false, \"volume\": {\"front-left\": {\"value\": 65536}}, \"index\": 3}, {\"name\": \"AvatarHuman\", \"mute\": true, \"volume\": {\"front-left\": {\"value\": 32768}}, \"index\": 4}, {\"name\": \"other\", \"mute\": false}]",
+  "expected": {
+   "running": true,
+   "phase": "running-attached",
+   "microphone": "alsa_input.usb",
+   "meeting_source": "AvatarMicrophone",
+   "channels": {
+    "agent": {
+     "name": "AvatarMic",
+     "mute": false,
+     "volume": {
+      "front-left": {
+       "value": 65536
+      }
+     }
+    },
+    "human": {
+     "name": "AvatarHuman",
+     "mute": true,
+     "volume": {
+      "front-left": {
+       "value": 32768
+      }
+     }
+    }
+   }
+  }
+ },
+ {
+  "name": "vanished_microphone",
+  "state": {
+   "modules": [
+    {
+     "index": 10,
+     "name": "module-null-sink",
+     "argument": "sink_name=AvatarMix"
+    },
+    {
+     "index": 11,
+     "name": "module-null-sink",
+     "argument": "sink_name=AvatarMic"
+    }
+   ],
+   "ready": true,
+   "microphone": {
+    "source": "alsa_input.usb",
+    "index": 12,
+    "name": "module-loopback",
+    "argument": "source=alsa_input.usb sink=AvatarHuman"
+   }
+  },
+  "modules": "10\tmodule-null-sink\tsink_name=AvatarMix\n11\tmodule-null-sink\tsink_name=AvatarMic\n",
+  "sinks": "[{\"name\": \"AvatarMic\", \"mute\": false, \"volume\": {\"front-left\": {\"value\": 65536}}, \"index\": 3}]",
+  "expected": {
+   "running": true,
+   "phase": "running-detached",
+   "microphone": null,
+   "meeting_source": "AvatarMicrophone",
+   "channels": {
+    "agent": {
+     "name": "AvatarMic",
+     "mute": false,
+     "volume": {
+      "front-left": {
+       "value": 65536
+      }
+     }
+    }
+   }
+  }
+ },
+ {
+  "name": "orphaned",
+  "state": {
+   "modules": [
+    {
+     "index": 10,
+     "name": "module-null-sink",
+     "argument": "sink_name=AvatarMix"
+    },
+    {
+     "index": 11,
+     "name": "module-null-sink",
+     "argument": "sink_name=AvatarMic"
+    }
+   ],
+   "ready": true
+  },
+  "modules": "10\tmodule-null-sink\tsink_name=AvatarMix\n",
+  "sinks": "[]",
+  "expected": {
+   "running": false,
+   "phase": "orphaned",
+   "microphone": null,
+   "meeting_source": "AvatarMicrophone",
+   "channels": {}
+  }
+ },
+ {
+  "name": "not_ready",
+  "state": {
+   "modules": [
+    {
+     "index": 10,
+     "name": "module-null-sink",
+     "argument": "sink_name=AvatarMix"
+    },
+    {
+     "index": 11,
+     "name": "module-null-sink",
+     "argument": "sink_name=AvatarMic"
+    }
+   ],
+   "ready": false
+  },
+  "modules": "10\tmodule-null-sink\tsink_name=AvatarMix\n11\tmodule-null-sink\tsink_name=AvatarMic\n",
+  "sinks": "[{\"name\": \"AvatarHuman\", \"mute\": true, \"volume\": {\"front-left\": {\"value\": 32768}}, \"index\": 4}]",
+  "expected": {
+   "running": false,
+   "phase": "orphaned",
+   "microphone": null,
+   "meeting_source": "AvatarMicrophone",
+   "channels": {
+    "human": {
+     "name": "AvatarHuman",
+     "mute": true,
+     "volume": {
+      "front-left": {
+       "value": 32768
+      }
+     }
+    }
+   }
+  }
+ }
+]

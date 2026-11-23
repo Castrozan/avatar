@@ -77,9 +77,13 @@ checksum = "f2032f911046de80f0a198e0901378627c33f59ea0ac00e363d481118bd70a53"
 name = "avatar-adapters"
 version = "0.1.0"
 dependencies = [
+ "avatar-audio-graph",
  "avatar-conversation",
  "avatar-doctor",
+ "avatar-floor",
  "avatar-holder",
+ "avatar-listening",
+ "avatar-live",
  "avatar-wake",
  "jiff",
  "nix",
@@ -105,10 +109,14 @@ dependencies = [
 name = "avatar-cli"
 version = "0.1.0"
 dependencies = [
+ "avatar-adapters",
+ "avatar-audio-graph",
  "avatar-control",
  "avatar-floor",
  "avatar-routing",
+ "avatar-transcription",
  "clap",
+ "nix",
  "serde_json",
  "tempfile",
  "tokio",

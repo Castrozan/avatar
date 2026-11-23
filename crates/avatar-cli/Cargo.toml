@@ -11,10 +11,14 @@ name = "avatar"
 path = "src/main.rs"
 
 [dependencies]
+avatar-adapters = { version = "0.1.0", path = "../avatar-adapters" }
+avatar-audio-graph = { version = "0.1.0", path = "../avatar-audio-graph" }
 avatar-control = { version = "0.1.0", path = "../avatar-control" }
 avatar-floor = { version = "0.1.0", path = "../libraries/avatar-floor" }
 avatar-routing = { version = "0.1.0", path = "../libraries/avatar-routing" }
+avatar-transcription = { version = "0.1.0", path = "../avatar-transcription" }
 clap.workspace = true
+nix = { workspace = true, features = ["user"] }
 tokio = { version = "1", default-features = false, features = ["rt-multi-thread", "signal"] }
 
 [dev-dependencies]
