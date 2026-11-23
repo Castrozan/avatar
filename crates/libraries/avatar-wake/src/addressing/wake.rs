@@ -54,13 +54,16 @@ pub(super) fn greeted_in_conversation(
 }
 
 pub(super) fn live_sessions_named(addressing: &VoiceAddressing, text: &str) -> Vec<Session> {
-    let known = addressing.sessions.known_sessions();
-    let known_heard = !heard_anywhere(addressing, text, &known).is_empty();
-    if opens_with_greeting(text) || known_heard {
+    if opens_with_greeting(text) || known_heard(addressing, text) {
         let refreshed = addressing.sessions.refreshed_sessions();
         return heard_anywhere(addressing, text, &refreshed);
     }
     Vec::new()
+}
+
+fn known_heard(addressing: &VoiceAddressing, text: &str) -> bool {
+    let known = addressing.sessions.known_sessions();
+    !heard_anywhere(addressing, text, &known).is_empty()
 }
 
 fn heard_anywhere(addressing: &VoiceAddressing, text: &str, sessions: &[Session]) -> Vec<Session> {

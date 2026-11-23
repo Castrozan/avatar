@@ -213,6 +213,8 @@ name = "avatar-wake"
 version = "0.1.0"
 dependencies = [
  "avatar-floor",
+ "avatar-holder",
+ "avatar-listening",
  "avatar-routing",
  "proptest",
  "serde",
