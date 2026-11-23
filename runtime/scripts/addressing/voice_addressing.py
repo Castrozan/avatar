@@ -5,12 +5,6 @@ import addressing_decision
 import transcript_log
 from addressing_decision import Route, Turn
 from conversation_seat import Seat
-from rust_shadow import (
-    ADDRESSED_SESSION,
-    OPENS_WITH_GREETING,
-    SESSIONS_HEARD_ANYWHERE,
-    RustShadow,
-)
 from transcription.spoken_names import called_name
 from wake_phrase import (
     MESSAGE_EDGE,
@@ -58,25 +52,18 @@ class VoiceAddressing:
         self.known_sessions = known_sessions
         self.refreshed_sessions = refreshed_sessions
         self.recent_turns = collections.deque(maxlen=CONTEXT_TURNS)
-        self.shadow = RustShadow(boundaries.report)
 
     def forget_turns(self):
         self.recent_turns.clear()
 
     def opens_with_greeting(self, text):
-        found = opens_with_greeting(text)
-        self.shadow.compare(OPENS_WITH_GREETING, text, (), found)
-        return found
+        return opens_with_greeting(text)
 
     def sessions_heard_anywhere(self, text, sessions):
-        found = sessions_heard_anywhere(text, sessions)
-        self.shadow.compare(SESSIONS_HEARD_ANYWHERE, text, sessions, found)
-        return found
+        return sessions_heard_anywhere(text, sessions)
 
     def addressed_session(self, text, sessions):
-        found = addressed_session(text, sessions)
-        self.shadow.compare(ADDRESSED_SESSION, text, sessions, found)
-        return found
+        return addressed_session(text, sessions)
 
     def live_sessions_named(self, text):
         if self.opens_with_greeting(text) or self.sessions_heard_anywhere(

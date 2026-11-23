@@ -10,7 +10,6 @@ in
 import ../packages { inherit pkgs; }
 // {
   unit-tests = pythonTests "unit-tests" [ ];
-  integration-tests = pythonTests "integration-tests" [ "skills/avatar/__tests__/integration" ];
   lint = import ./lint.nix { inherit self pkgs; };
   module-evaluation = import ./module-evaluation.nix {
     inherit

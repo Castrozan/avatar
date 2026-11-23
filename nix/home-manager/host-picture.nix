@@ -65,8 +65,8 @@ in
             StopWhenUnneeded = true;
           };
           Service = {
-            ExecStart = "${pkgs.python312}/bin/python3 ${programs.browserRuntime} supervise http://localhost:3000/?output=1";
-            ExecStopPost = "${pkgs.python312}/bin/python3 ${programs.browserRuntime} stop";
+            ExecStart = "${programs.avatarExecutable} browser supervise http://localhost:3000/?output=1";
+            ExecStopPost = "${programs.avatarExecutable} browser stop";
             Environment = [ "PATH=${lib.makeBinPath [ pkgs.chromium ]}" ];
             KillMode = "mixed";
           };
