@@ -14,8 +14,10 @@ unicode-normalization.workspace = true
 unicode-segmentation.workspace = true
 axum.workspace = true
 tokio.workspace = true
+nix.workspace = true
 
 [dev-dependencies]
+tempfile.workspace = true
 futures-util.workspace = true
 proptest.workspace = true
 tokio-tungstenite.workspace = true
