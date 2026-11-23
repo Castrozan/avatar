@@ -27,13 +27,13 @@ let
       herdr
       unclaimedCommand
       servantCharacters
-      a2aLibrary
+      a2a
+      avatarExecutable
       ;
   };
   transcribe = pkgs.writeShellScriptBin "avatar-transcribe" ''
     exec ${avatarExecutable} transcribe
   '';
-  virtualCameraPackage = import ./packages/virtual-camera.nix { inherit pkgs; };
   renderer = import ./packages/renderer.nix { inherit pkgs; };
   speakerModel = pkgs.fetchurl {
     url = "https://github.com/k2-fsa/sherpa-onnx/releases/download/speaker-recongition-models/3dspeaker_speech_campplus_sv_zh_en_16k-common_advanced.onnx";
@@ -68,7 +68,7 @@ let
         pkgs.chromium
       ]
     }:$PATH
-    exec ${pkgs.nodejs_22}/bin/node ${virtualCameraPackage}/virtual-camera.js --fps 60 --width 1280 --height 720
+    exec ${avatarExecutable} camera --fps 60 --width 1280 --height 720
   '';
   controls = pkgs.writeShellScriptBin "avatar-controls" ''
     export PATH=${lib.makeBinPath [ pkgs.chromium ]}:$PATH
@@ -138,8 +138,7 @@ let
       ]
     }:$PATH
     export AVATAR_SEAT_PAGE=${../runtime/scripts/conversation/remote_seat/page}
-    export PYTHONPATH=${../runtime/scripts/audio_graph}:${../runtime/scripts/listening}
-    exec ${websocketPython}/bin/python3 ${../runtime/scripts/conversation/remote_seat}/seat_bridge.py
+    exec ${avatarExecutable} remote-seat
   '';
   talk = pkgs.writeShellScriptBin "avatar-talk" ''
     export PATH=${
@@ -166,8 +165,7 @@ let
         pkgs.systemd
       ]
     }:$PATH
-    export PYTHONPATH=${../runtime/scripts}:${../runtime/scripts/audio_graph}:${../runtime/scripts/listening}:${../runtime/scripts/echo}:${../runtime/scripts/conversation}:${../runtime/scripts/wake}
-    exec ${pkgs.python312}/bin/python3 ${../runtime/scripts/conversation/window_reveal.py}
+    exec ${avatarExecutable} window-reveal
   '';
 in
 {

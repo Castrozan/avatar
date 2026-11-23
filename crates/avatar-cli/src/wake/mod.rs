@@ -4,7 +4,7 @@ use std::process::ExitCode;
 use clap::Args;
 
 mod listening;
-mod machine;
+pub(crate) mod machine;
 mod query;
 
 use machine::Machine;

@@ -1,6 +1,11 @@
+mod camera;
+mod claim_floor;
 mod floor;
+mod machine;
+mod remote_seat;
 mod routing;
 mod version;
+mod window_reveal;
 
 use std::error::Error;
 use std::io::Write;
