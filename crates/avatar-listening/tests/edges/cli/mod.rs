@@ -1,6 +1,7 @@
 mod options;
 mod properties;
 mod rig;
+mod voices;
 mod world;
 
 use crate::edges::helpers::{Failure, strings};

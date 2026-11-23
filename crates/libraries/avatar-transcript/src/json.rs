@@ -1,7 +1,9 @@
 mod encoding;
+mod from_value;
 mod python_float;
 
 pub use encoding::encode;
+pub use from_value::from_value;
 pub use python_float::python_float;
 
 #[derive(Clone, Debug, PartialEq)]
@@ -23,6 +25,14 @@ pub struct JsonObject {
 impl JsonObject {
     pub fn set(&mut self, key: impl Into<String>, value: Json) {
         replace_or_push(&mut self.fields, key.into(), value);
+    }
+
+    #[must_use]
+    pub fn get(&self, key: &str) -> Option<&Json> {
+        self.fields
+            .iter()
+            .find(|(name, _)| name == key)
+            .map(|(_, value)| value)
     }
 
     pub fn fields(&self) -> impl Iterator<Item = &(String, Json)> {

@@ -15,6 +15,9 @@ pub enum ListenCommand {
     Addressee,
     Read(ReadArguments),
     Follow(FollowArguments),
+    Enroll(EnrollArguments),
+    Voices,
+    Forget(ForgetArguments),
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, ValueEnum)]
@@ -47,4 +50,18 @@ pub struct FollowArguments {
     pub since: i64,
     #[arg(long = "match")]
     pub pattern: Option<String>,
+}
+
+#[derive(Debug, Args)]
+pub struct EnrollArguments {
+    pub name: String,
+    #[arg(long, allow_hyphen_values = true)]
+    pub first: i64,
+    #[arg(long, allow_hyphen_values = true)]
+    pub last: i64,
+}
+
+#[derive(Debug, Args)]
+pub struct ForgetArguments {
+    pub name: String,
 }

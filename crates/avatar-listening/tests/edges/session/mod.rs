@@ -1,5 +1,6 @@
 mod begin;
 mod configuration;
+mod daemon;
 pub(crate) mod fake_units;
 mod properties;
 mod records;

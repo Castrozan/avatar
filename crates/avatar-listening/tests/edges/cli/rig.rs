@@ -9,6 +9,7 @@ use avatar_listening::listener::cli::{
     ListenArguments, ListenFailure, ListenPorts, Output, PulseSources, run,
 };
 use avatar_listening::listener::session::SessionDirectory;
+use avatar_listening::listener::speaker_identity::VoiceProfiles;
 use avatar_listening::user_units::Clock;
 use serde_json::Value;
 
@@ -71,6 +72,7 @@ impl<'world> Rig<'world> {
             pulse: &mut self.pulse,
             output: &mut self.lines,
             clock: &mut self.clock,
+            voices: &VoiceProfiles::new(directory.path().join("unused-voices")),
         };
         run(&arguments.command, &directory, &mut ports).err()
     }

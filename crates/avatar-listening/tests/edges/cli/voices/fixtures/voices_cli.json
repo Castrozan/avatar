@@ -1,0 +1,465 @@
+{
+ "scenarios": [
+  {
+   "entries": [
+    [
+     1,
+     [
+      "bfb861b50897adb0",
+      "3fbe9a7c76d6d7e0",
+      "3feb2644263fef40",
+      "bfb1965063152df0"
+     ]
+    ],
+    [
+     2,
+     [
+      "3f900f15dae44540",
+      "3fc65eda2613ad68",
+      "bfe42e8661919cb8",
+      "3f98638e79cb9e80"
+     ]
+    ],
+    [
+     3,
+     [
+      "3fd09fff39d2c67c",
+      "3fe2c022117d48a0",
+      "bfe9f9e19c6d6092",
+      "bfd92a25bdbb3508"
+     ]
+    ],
+    [
+     4,
+     [
+      "bfea327433b0c176",
+      "3fe3d1374f1f7fce",
+      "3fd8c2979a26b7f4",
+      "bfed51d5233c8bca"
+     ]
+    ],
+    [
+     5,
+     [
+      "3feedc41cb2b55ea",
+      "3fedbe976b9fbbc4",
+      "3fd3b3bbcbd29974",
+      "3fcd958474cd61a0"
+     ]
+    ],
+    [
+     6,
+     [
+      "bfe5eb9de303d53c",
+      "bfef0a3a5958acd2",
+      "3fad0ffa8815c9c0",
+      "bfec30508fb6fbae"
+     ]
+    ]
+   ],
+   "steps": [
+    {
+     "argv": [
+      "voices"
+     ],
+     "code": 0,
+     "stdout": [
+      "{\"voices\": []}"
+     ],
+     "stderr": ""
+    },
+    {
+     "argv": [
+      "enroll",
+      "ana",
+      "--first",
+      "1",
+      "--last",
+      "3"
+     ],
+     "code": 0,
+     "stdout": [
+      "{\"enrolled\": \"ana\", \"samples\": 3}"
+     ],
+     "stderr": ""
+    },
+    {
+     "argv": [
+      "voices"
+     ],
+     "code": 0,
+     "stdout": [
+      "{\"voices\": [\"ana\"]}"
+     ],
+     "stderr": ""
+    },
+    {
+     "argv": [
+      "enroll",
+      "ana",
+      "--first",
+      "4",
+      "--last",
+      "6"
+     ],
+     "code": 0,
+     "stdout": [
+      "{\"enrolled\": \"ana\", \"samples\": 6}"
+     ],
+     "stderr": ""
+    },
+    {
+     "argv": [
+      "enroll",
+      "bia",
+      "--first",
+      "2",
+      "--last",
+      "5"
+     ],
+     "code": 0,
+     "stdout": [
+      "{\"enrolled\": \"bia\", \"samples\": 4}"
+     ],
+     "stderr": ""
+    },
+    {
+     "argv": [
+      "voices"
+     ],
+     "code": 0,
+     "stdout": [
+      "{\"voices\": [\"ana\", \"bia\"]}"
+     ],
+     "stderr": ""
+    },
+    {
+     "argv": [
+      "forget",
+      "ana"
+     ],
+     "code": 0,
+     "stdout": [
+      "{\"forgotten\": \"ana\"}"
+     ],
+     "stderr": ""
+    },
+    {
+     "argv": [
+      "voices"
+     ],
+     "code": 0,
+     "stdout": [
+      "{\"voices\": [\"bia\"]}"
+     ],
+     "stderr": ""
+    },
+    {
+     "argv": [
+      "forget",
+      "ana"
+     ],
+     "code": 1,
+     "stdout": [],
+     "stderr": "No voice named ana"
+    }
+   ],
+   "voices": {
+    "bia.json": {
+     "text": "{\"embedding\": [0.09448069115966572, 0.47414986057787245, -0.3012036685572984, -0.19854729411728567], \"samples\": 4}",
+     "mode": 384
+    }
+   },
+   "voices_mode": 448
+  },
+  {
+   "entries": [
+    [
+     1,
+     [
+      "bfb861b50897adb0",
+      "3fbe9a7c76d6d7e0",
+      "3feb2644263fef40",
+      "bfb1965063152df0"
+     ]
+    ],
+    [
+     2,
+     [
+      "3f900f15dae44540",
+      "3fc65eda2613ad68",
+      "bfe42e8661919cb8",
+      "3f98638e79cb9e80"
+     ]
+    ],
+    [
+     3,
+     [
+      "3fd09fff39d2c67c",
+      "3fe2c022117d48a0",
+      "bfe9f9e19c6d6092",
+      "bfd92a25bdbb3508"
+     ]
+    ],
+    [
+     4,
+     [
+      "bfea327433b0c176",
+      "3fe3d1374f1f7fce",
+      "3fd8c2979a26b7f4",
+      "bfed51d5233c8bca"
+     ]
+    ],
+    [
+     5,
+     [
+      "3feedc41cb2b55ea",
+      "3fedbe976b9fbbc4",
+      "3fd3b3bbcbd29974",
+      "3fcd958474cd61a0"
+     ]
+    ],
+    [
+     6,
+     [
+      "bfe5eb9de303d53c",
+      "bfef0a3a5958acd2",
+      "3fad0ffa8815c9c0",
+      "bfec30508fb6fbae"
+     ]
+    ]
+   ],
+   "steps": [
+    {
+     "argv": [
+      "enroll",
+      "ana",
+      "--first",
+      "1",
+      "--last",
+      "2"
+     ],
+     "code": 1,
+     "stdout": [],
+     "stderr": "Enrolling needs at least 3 segments, found 2 between 1 and 2"
+    },
+    {
+     "argv": [
+      "enroll",
+      "../ana",
+      "--first",
+      "1",
+      "--last",
+      "6"
+     ],
+     "code": 1,
+     "stdout": [],
+     "stderr": "Voice names may only use letters, digits, _ and -"
+    },
+    {
+     "argv": [
+      "forget",
+      "a b"
+     ],
+     "code": 1,
+     "stdout": [],
+     "stderr": "Voice names may only use letters, digits, _ and -"
+    },
+    {
+     "argv": [
+      "forget",
+      "ana"
+     ],
+     "code": 1,
+     "stdout": [],
+     "stderr": "No voice named ana"
+    },
+    {
+     "argv": [
+      "voices"
+     ],
+     "code": 0,
+     "stdout": [
+      "{\"voices\": []}"
+     ],
+     "stderr": ""
+    }
+   ],
+   "voices": {},
+   "voices_mode": null
+  },
+  {
+   "entries": [],
+   "steps": [
+    {
+     "argv": [
+      "enroll",
+      "ana",
+      "--first",
+      "1",
+      "--last",
+      "6"
+     ],
+     "code": 1,
+     "stdout": [],
+     "stderr": "Enrolling needs at least 3 segments, found 0 between 1 and 6"
+    },
+    {
+     "argv": [
+      "voices"
+     ],
+     "code": 0,
+     "stdout": [
+      "{\"voices\": []}"
+     ],
+     "stderr": ""
+    }
+   ],
+   "voices": {},
+   "voices_mode": null
+  },
+  {
+   "entries": [
+    [
+     1,
+     [
+      "bfb861b50897adb0",
+      "3fbe9a7c76d6d7e0",
+      "3feb2644263fef40",
+      "bfb1965063152df0"
+     ]
+    ],
+    [
+     2,
+     [
+      "3f900f15dae44540",
+      "3fc65eda2613ad68",
+      "bfe42e8661919cb8",
+      "3f98638e79cb9e80"
+     ]
+    ],
+    [
+     3,
+     [
+      "3fd09fff39d2c67c",
+      "3fe2c022117d48a0",
+      "bfe9f9e19c6d6092",
+      "bfd92a25bdbb3508"
+     ]
+    ],
+    [
+     4,
+     [
+      "bfea327433b0c176",
+      "3fe3d1374f1f7fce",
+      "3fd8c2979a26b7f4",
+      "bfed51d5233c8bca"
+     ]
+    ],
+    [
+     5,
+     [
+      "3feedc41cb2b55ea",
+      "3fedbe976b9fbbc4",
+      "3fd3b3bbcbd29974",
+      "3fcd958474cd61a0"
+     ]
+    ],
+    [
+     6,
+     [
+      "bfe5eb9de303d53c",
+      "bfef0a3a5958acd2",
+      "3fad0ffa8815c9c0",
+      "bfec30508fb6fbae"
+     ]
+    ]
+   ],
+   "steps": [
+    {
+     "argv": [
+      "enroll",
+      "ana"
+     ],
+     "code": 2,
+     "stdout": [],
+     "stderr": ""
+    },
+    {
+     "argv": [
+      "enroll",
+      "--first",
+      "1",
+      "--last",
+      "3"
+     ],
+     "code": 2,
+     "stdout": [],
+     "stderr": ""
+    },
+    {
+     "argv": [
+      "enroll",
+      "ana",
+      "--first",
+      "x",
+      "--last",
+      "3"
+     ],
+     "code": 2,
+     "stdout": [],
+     "stderr": ""
+    },
+    {
+     "argv": [
+      "forget"
+     ],
+     "code": 2,
+     "stdout": [],
+     "stderr": ""
+    },
+    {
+     "argv": [
+      "voices",
+      "extra"
+     ],
+     "code": 2,
+     "stdout": [],
+     "stderr": ""
+    },
+    {
+     "argv": [
+      "enroll",
+      "ana",
+      "--first",
+      "-5",
+      "--last",
+      "9"
+     ],
+     "code": 0,
+     "stdout": [
+      "{\"enrolled\": \"ana\", \"samples\": 6}"
+     ],
+     "stderr": ""
+    },
+    {
+     "argv": [
+      "voices"
+     ],
+     "code": 0,
+     "stdout": [
+      "{\"voices\": [\"ana\"]}"
+     ],
+     "stderr": ""
+    }
+   ],
+   "voices": {
+    "ana.json": {
+     "text": "{\"embedding\": [-0.03252732684043989, 0.22987810883031823, -0.030900914154188372, -0.2448288918820425], \"samples\": 6}",
+     "mode": 384
+    }
+   },
+   "voices_mode": 448
+  }
+ ]
+}

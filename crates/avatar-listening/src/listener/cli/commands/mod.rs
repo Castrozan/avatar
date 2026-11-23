@@ -1,5 +1,6 @@
 mod meeting;
 mod transcript;
+mod voices;
 
 use serde_json::json;
 
@@ -11,9 +12,7 @@ use super::transcript_wait::last_sequence;
 use crate::conversation_addressee::file_store::FileAddresseeStore;
 use crate::conversation_addressee::store::AddresseeStore;
 use crate::listener::runtime::listening;
-use crate::listener::session::{SessionDirectory, stop_listening};
-
-const TRANSCRIPT_FILE: &str = "transcript.jsonl";
+use crate::listener::session::{SessionDirectory, TRANSCRIPT_FILE, stop_listening};
 
 pub fn run(
     command: &ListenCommand,
@@ -27,6 +26,7 @@ pub fn run(
         ListenCommand::Addressee => addressee(directory, ports),
         ListenCommand::Read(arguments) => transcript::read(arguments, directory, ports),
         ListenCommand::Follow(arguments) => transcript::follow(arguments, directory, ports),
+        other => voices::run(other, directory, ports),
     }
 }
 

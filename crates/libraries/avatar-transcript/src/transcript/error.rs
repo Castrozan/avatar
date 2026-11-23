@@ -7,6 +7,7 @@ pub enum TranscriptError {
     Io(io::Error),
     Malformed(serde_json::Error),
     MissingSequence,
+    MissingText,
 }
 
 impl Display for TranscriptError {
@@ -22,6 +23,7 @@ fn failure_message(error: &TranscriptError) -> String {
         TranscriptError::Io(inner) => inner.to_string(),
         TranscriptError::Malformed(inner) => inner.to_string(),
         TranscriptError::MissingSequence => "transcript entry has no integer sequence".to_owned(),
+        TranscriptError::MissingText => "transcript entry has no text".to_owned(),
     }
 }
 

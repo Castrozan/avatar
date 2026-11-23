@@ -7,7 +7,8 @@ use crate::listener::runtime::{LISTENER_SERVICE, LIVE_SERVICE};
 
 pub use begin::{SessionRequest, begin_listening, live_purpose, stop_listening};
 pub use directory::{
-    CONFIGURATION_FILE, SESSION_RECORDS, SPOKEN_FILE, SessionDirectory, quiet_seconds_since,
+    CONFIGURATION_FILE, EMBEDDINGS_FILE, HEARD_FILE, SESSION_RECORDS, SPEECH_IN_PROGRESS_MARKER,
+    SPOKEN_FILE, SessionDirectory, TRANSCRIPT_FILE, quiet_seconds_since,
 };
 pub use error::SessionError;
 

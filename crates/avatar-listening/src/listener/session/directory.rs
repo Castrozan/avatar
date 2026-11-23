@@ -11,8 +11,11 @@ use crate::conversation_addressee::store::AddresseeStore;
 
 pub const CONFIGURATION_FILE: &str = "listener.json";
 pub const SPOKEN_FILE: &str = "spoken";
-pub const SESSION_RECORDS: [&str; 4] =
-    ["transcript.jsonl", "embeddings.jsonl", "heard", SPOKEN_FILE];
+pub const TRANSCRIPT_FILE: &str = "transcript.jsonl";
+pub const EMBEDDINGS_FILE: &str = "embeddings.jsonl";
+pub const HEARD_FILE: &str = "heard";
+pub const SPEECH_IN_PROGRESS_MARKER: &str = "speech-in-progress";
+pub const SESSION_RECORDS: [&str; 4] = [TRANSCRIPT_FILE, EMBEDDINGS_FILE, HEARD_FILE, SPOKEN_FILE];
 
 pub struct SessionDirectory {
     path: PathBuf,
