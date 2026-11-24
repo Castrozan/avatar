@@ -4,12 +4,12 @@ mod steps;
 mod usage;
 
 pub use ending::end;
-pub use ports::{MeetingCamera, MeetingRoom, SeatHealth};
+pub use ports::{CallDefaults, MeetingCamera, MeetingRoom, SeatHealth};
 pub use steps::{controls, listen_to_the_call, start, stop};
 pub use usage::{ListenCommand, carry_out_verb, listen_command};
 
 pub const CONTROLS_PAGE: &str = "controls.html";
-pub const CALL_DEVICES_READY: &str = "Avatar ready. In the call, select the camera OBS Virtual Camera, the microphone BlackHole 2ch and the speaker BlackHole 16ch";
+pub const CALL_DEVICES_READY: &str = "Avatar ready. This Mac's default microphone is now BlackHole 2ch and its default speaker BlackHole 16ch until avatar-stop; in the call, keep the microphone and speaker on the system default and select the camera OBS Virtual Camera";
 pub const CONVERSATION_OPEN: &str =
     "A conversation is open on this Mac; run avatar-talk close before using the meeting commands";
 pub const MEETING_OPEN: &str =

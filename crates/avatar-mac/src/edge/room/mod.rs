@@ -1,5 +1,5 @@
-mod camera;
 mod console;
+mod devices;
 mod forwarding;
 mod meeting;
 mod probe;
@@ -16,8 +16,8 @@ use avatar_listening::user_units::launchd::process::ProcessLaunchctl;
 use avatar_seat::local::SeatConfig;
 use avatar_seat::meetings::camera::CameraConfig;
 
-pub use camera::ObsMeetingCamera;
 pub use console::StandardConsole;
+pub use devices::{ObsMeetingCamera, SystemCallDefaults};
 pub use seat::MacSeatControl;
 pub use talk::{MacHostTalk, MacLiveOpening};
 
@@ -43,6 +43,7 @@ pub struct MacRoom<Talk = ()> {
     pub session: MacSession,
     pub seat: MacSeatControl,
     pub camera: ObsMeetingCamera,
+    pub call_defaults: SystemCallDefaults,
     pub config: SeatConfig,
     pub talk: Talk,
 }
@@ -54,6 +55,7 @@ pub struct MacRoomSettings {
     pub camera: CameraConfig,
     pub avatar_command: PathBuf,
     pub launchctl: PathBuf,
+    pub audio_switcher: PathBuf,
 }
 
 fn launchctl_of(settings: &MacRoomSettings) -> ProcessLaunchctl {
@@ -94,9 +96,8 @@ impl MacRoom {
             stage: stage_of(&settings),
             session: session_of(&settings),
             seat: seat_of(&settings.config.home)?,
-            camera: ObsMeetingCamera {
-                config: settings.camera,
-            },
+            call_defaults: devices::call_defaults_of(&settings),
+            camera: devices::camera_of(settings.camera),
             config: settings.config,
             talk: (),
         })

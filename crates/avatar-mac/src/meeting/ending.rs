@@ -14,7 +14,8 @@ fn run_step(
 }
 
 pub fn end(room: &mut impl MeetingRoom) -> Result<(), Failure> {
-    let first = run_step(None, room.stop_listening())?;
+    let first = run_step(None, room.restore_defaults())?;
+    let first = run_step(first, room.stop_listening())?;
     let first = run_step(first, room.erase_session_records())?;
     let first = run_step(first, room.stop_camera())?;
     let first = run_step(first, room.close_browser())?;

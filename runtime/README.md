@@ -115,12 +115,15 @@ seated at the Mac keeps `--live` on the host.
 ## Meetings on a Mac
 
 A video call that runs on a Mac is accompanied by the same commands as on chise, and nothing runs on another machine. In
-the call app the user selects once the camera `OBS Virtual Camera`, the microphone `BlackHole 2ch` and the speaker
-`BlackHole 16ch`. The seat page, opened in headless Chrome on `127.0.0.1:8772` as `/?meeting`, carries the call audio
-from `BlackHole 16ch` to the listener as the `meeting` source and plays it to the user, and feeds the user's microphone
-and the avatar's voice into `BlackHole 2ch`. The camera is a windowless Mac OBS instance named `Avatar` whose browser
-source shows `?stage&bare` from the local renderer. That page joins the control server as the stage, the one page that
-owns the camera, so the camera and composite modes open the Mac's webcam.
+the call app the user selects once the camera `OBS Virtual Camera` and leaves the microphone and speaker on the system
+default. `avatar-start` records the Mac's default input and output, then sets them to `BlackHole 2ch` and `BlackHole
+16ch` through `SwitchAudioSource`; `avatar-stop` restores the recorded ones, and a second start keeps the first record.
+The seat page pins the user's real microphone and speaker before that switch, and the wake page never follows the
+default onto a call device. The seat page, opened in headless Chrome on `127.0.0.1:8772` as `/?meeting`, carries the
+call audio from `BlackHole 16ch` to the listener as the `meeting` source and plays it to the user, and feeds the user's
+microphone and the avatar's voice into `BlackHole 2ch`. The camera is a windowless Mac OBS instance named `Avatar` whose
+browser source shows `?stage&bare` from the local renderer. That page joins the control server as the stage, the one
+page that owns the camera, so the camera and composite modes open the Mac's webcam.
 
 | Command on a Mac | Does |
 | --- | --- |

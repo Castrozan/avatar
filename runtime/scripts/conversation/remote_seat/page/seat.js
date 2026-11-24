@@ -30,12 +30,15 @@ function leaveSeat(microphone, graphs, meeting, voiceDelay) {
 }
 
 async function takeSeat() {
-  const microphone = await openMicrophone(navigator.mediaDevices);
+  const inMeeting = new URLSearchParams(location.search).has("meeting");
+  const microphone = await openMicrophone(navigator.mediaDevices, {
+    pinned: inMeeting,
+  });
   const capture = await openAudioGraph(MICROPHONE_RATE);
   const playback = await openAudioGraph(VOICE_RATE);
   const frames = new AudioWorkletNode(capture, "microphone-frames");
   const voice = new AudioWorkletNode(playback, "voice-playback");
-  const meeting = new URLSearchParams(location.search).has("meeting")
+  const meeting = inMeeting
     ? await joinMeeting({ microphone, playback, voice, openAudioGraph })
     : noMeeting;
   const voiceDelay = reportVoiceDelay(voice, {

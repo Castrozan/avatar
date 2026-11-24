@@ -1,4 +1,4 @@
-import { openMicrophone } from "/seat-microphone.js";
+import { chosenMicrophone, openMicrophoneOn } from "/seat-microphone.js";
 
 const MICROPHONE_RATE = 16000;
 const WORKLETS = "/seat-audio-worklets.js";
@@ -15,13 +15,45 @@ async function openAudioGraph() {
   return context;
 }
 
+function pinnedChoice(previous) {
+  return chosenMicrophone(navigator.mediaDevices, { pinned: true, previous });
+}
+
+async function openPinned(deviceId) {
+  const stream = await openMicrophoneOn(navigator.mediaDevices, deviceId);
+  return { deviceId, stream };
+}
+
+function followTheChosenMicrophone(capture, frames, first) {
+  let current = first;
+  let source = capture.createMediaStreamSource(current.stream);
+  source.connect(frames);
+  let switching = Promise.resolve();
+  const switchWhenTheChoiceMoves = async () => {
+    const deviceId = await pinnedChoice(current.deviceId);
+    if (deviceId === current.deviceId) return;
+    const next = await openPinned(deviceId);
+    source.disconnect();
+    stopTracks(current.stream);
+    current = next;
+    source = capture.createMediaStreamSource(current.stream);
+    source.connect(frames);
+  };
+  navigator.mediaDevices.addEventListener("devicechange", () => {
+    switching = switching.then(switchWhenTheChoiceMoves).catch((error) => {
+      state.textContent = `${error.name}: ${error.message}`;
+    });
+  });
+  return () => current.stream;
+}
+
 async function captureForTheWake() {
-  const microphone = await openMicrophone(navigator.mediaDevices);
+  const first = await openPinned(await pinnedChoice(null));
   const capture = await openAudioGraph();
   const frames = new AudioWorkletNode(capture, "microphone-frames");
   const socket = new WebSocket(`ws://${location.host}/audio`);
   socket.binaryType = "arraybuffer";
-  capture.createMediaStreamSource(microphone).connect(frames);
+  const microphone = followTheChosenMicrophone(capture, frames, first);
   frames.port.onmessage = (event) => {
     if (socket.readyState === WebSocket.OPEN) socket.send(event.data);
   };
@@ -29,7 +61,7 @@ async function captureForTheWake() {
     state.textContent = "The wake listener hears through this page";
   };
   socket.onclose = () => {
-    stopTracks(microphone);
+    stopTracks(microphone());
     capture.close();
     window.close();
   };

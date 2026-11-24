@@ -1,31 +1,59 @@
 const VIRTUAL_DEFAULTS = new Set(["default", "communications"]);
-
-function isInput(device) {
-  return device.kind === "audioinput";
-}
+const CALL_DEVICE_NAME = "BlackHole";
 
 function labelled(device, word) {
   return device.label.toLowerCase().includes(word);
 }
 
-function isBuiltIn(device) {
-  return !VIRTUAL_DEFAULTS.has(device.deviceId) && labelled(device, "built-in");
+function isConcrete(device) {
+  return !VIRTUAL_DEFAULTS.has(device.deviceId);
 }
 
-function currentInput(inputs) {
-  return inputs.find((device) => device.deviceId === "default") ?? inputs[0];
+function isBuiltIn(device) {
+  return isConcrete(device) && labelled(device, "built-in");
 }
 
 function isBluetooth(device) {
   return device !== undefined && labelled(device, "bluetooth");
 }
 
-function builtInId(inputs) {
-  return inputs.find(isBuiltIn)?.deviceId ?? null;
+export function isCallDevice(device) {
+  return device !== undefined && device.label.includes(CALL_DEVICE_NAME);
 }
 
-export function chooseMicrophone(devices) {
-  const inputs = devices.filter(isInput);
-  if (!isBluetooth(currentInput(inputs))) return null;
-  return builtInId(inputs);
+export function devicesOfKind(devices, kind) {
+  return devices.filter((device) => device.kind === kind);
+}
+
+export function currentDevice(devices) {
+  return devices.find((device) => device.deviceId === "default") ?? devices[0];
+}
+
+export function builtInId(devices) {
+  return devices.find(isBuiltIn)?.deviceId ?? null;
+}
+
+function standsFor(entry, candidate) {
+  if (!isConcrete(candidate)) return false;
+  if (candidate.groupId === entry.groupId) return true;
+  return candidate.label !== "" && entry.label.endsWith(candidate.label);
+}
+
+export function realDeviceId(devices, device) {
+  if (device === undefined) return null;
+  if (isConcrete(device)) return device.deviceId;
+  return (
+    devices.find((candidate) => standsFor(device, candidate))?.deviceId ?? null
+  );
+}
+
+export function chooseMicrophone(
+  devices,
+  { pinned = false, previous = null } = {},
+) {
+  const inputs = devicesOfKind(devices, "audioinput");
+  const current = currentDevice(inputs);
+  if (isBluetooth(current)) return builtInId(inputs);
+  if (isCallDevice(current)) return previous ?? builtInId(inputs);
+  return pinned ? realDeviceId(inputs, current) : null;
 }

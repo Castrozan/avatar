@@ -44,6 +44,7 @@ fn settings_of(directory: &Path) -> MacRoomSettings {
         camera: camera_config(&home),
         avatar_command: "avatar-command".into(),
         launchctl: directory.join("launchctl"),
+        audio_switcher: directory.join("SwitchAudioSource"),
     }
 }
 

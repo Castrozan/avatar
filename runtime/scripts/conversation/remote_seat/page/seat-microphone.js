@@ -12,7 +12,17 @@ function requestMicrophone(mediaDevices, deviceId) {
   });
 }
 
-export async function openMicrophone(mediaDevices) {
-  const chosen = chooseMicrophone(await mediaDevices.enumerateDevices());
-  return requestMicrophone(mediaDevices, chosen);
+export async function chosenMicrophone(mediaDevices, choice) {
+  return chooseMicrophone(await mediaDevices.enumerateDevices(), choice);
+}
+
+export function openMicrophoneOn(mediaDevices, deviceId) {
+  return requestMicrophone(mediaDevices, deviceId);
+}
+
+export async function openMicrophone(mediaDevices, choice) {
+  return requestMicrophone(
+    mediaDevices,
+    await chosenMicrophone(mediaDevices, choice),
+  );
 }

@@ -11,6 +11,7 @@ use super::environment::seat_config;
 use crate::support::runtime::session_directory;
 
 pub(super) const LAUNCHCTL: &str = "/bin/launchctl";
+const AUDIO_SWITCHER: &str = "SwitchAudioSource";
 const OBS_APPLICATION: &str = "/Applications/OBS.app";
 const CAMERA_START_SCRIPT: &str = ".local/share/avatar/start-virtual-camera.lua";
 
@@ -30,6 +31,7 @@ fn settings_of(config: SeatConfig) -> MacRoomSettings {
         user_identifier: getuid().as_raw(),
         avatar_command: PathBuf::from("avatar-command"),
         launchctl: PathBuf::from(LAUNCHCTL),
+        audio_switcher: PathBuf::from(AUDIO_SWITCHER),
     }
 }
 

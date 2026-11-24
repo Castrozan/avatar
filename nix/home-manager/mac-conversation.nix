@@ -61,7 +61,12 @@ in
   meetingCommand =
     name: subcommand:
     pkgs.writeShellScriptBin name ''
-      export PATH=${lib.makeBinPath [ programs.unclaimedCommand ]}:$PATH
+      export PATH=${
+        lib.makeBinPath [
+          programs.unclaimedCommand
+          pkgs.switchaudio-osx
+        ]
+      }:$PATH
       ${environment}
       exec ${programs.avatarExecutable} mac ${subcommand} "$@"
     '';

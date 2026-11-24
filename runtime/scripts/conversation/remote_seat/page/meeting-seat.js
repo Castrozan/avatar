@@ -1,3 +1,11 @@
+import {
+  builtInId,
+  currentDevice,
+  devicesOfKind,
+  isCallDevice,
+  realDeviceId,
+} from "/microphone-choice.js";
+
 const CALL_MICROPHONE_OUTPUT = "BlackHole 2ch";
 const CALL_SPEAKER_INPUT = "BlackHole 16ch";
 const CALL_RATE = 16000;
@@ -32,6 +40,13 @@ export function requireCallDevices(devices) {
   return { callMicrophone, callSpeaker };
 }
 
+export function chooseSpeaker(devices) {
+  const outputs = devicesOfKind(devices, "audiooutput");
+  const current = currentDevice(outputs);
+  if (isCallDevice(current)) return builtInId(outputs);
+  return realDeviceId(outputs, current);
+}
+
 function openCallSpeaker(device) {
   return navigator.mediaDevices.getUserMedia({
     audio: {
@@ -43,8 +58,9 @@ function openCallSpeaker(device) {
   });
 }
 
-async function playCallToUser(callAudio) {
+async function playCallToUser(callAudio, speaker) {
   const earpiece = new Audio();
+  if (speaker) await earpiece.setSinkId(speaker);
   earpiece.srcObject = callAudio;
   await earpiece.play();
   return earpiece;
@@ -96,11 +112,12 @@ export async function joinMeeting({
   voice,
   openAudioGraph,
 }) {
-  const { callMicrophone, callSpeaker } = requireCallDevices(
-    await navigator.mediaDevices.enumerateDevices(),
-  );
+  const devices = await navigator.mediaDevices.enumerateDevices();
+  const { callMicrophone, callSpeaker } = requireCallDevices(devices);
+  const speaker = chooseSpeaker(devices);
+  if (speaker) await playback.setSinkId(speaker);
   const callAudio = await openCallSpeaker(callSpeaker);
-  const earpiece = await playCallToUser(callAudio);
+  const earpiece = await playCallToUser(callAudio, speaker);
   const capture = await openAudioGraph(CALL_RATE);
   const socket = await openMeetingSocket();
   sendCallFrames(capture, callAudio, socket);

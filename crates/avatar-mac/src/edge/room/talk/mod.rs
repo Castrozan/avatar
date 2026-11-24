@@ -15,6 +15,7 @@ impl<Talk> MacRoom<Talk> {
             session: self.session,
             seat: self.seat,
             camera: self.camera,
+            call_defaults: self.call_defaults,
             config: self.config,
             talk,
         }

@@ -13,6 +13,21 @@ fn invocation(program: &Path, arguments: &[String]) -> Vec<String> {
         .collect()
 }
 
+pub fn run_capturing(
+    program: &Path,
+    arguments: &[String],
+    timeout: Duration,
+) -> Result<String, Failure> {
+    let words: Vec<&str> = arguments.iter().map(String::as_str).collect();
+    let output = run_bounded(program, &words, timeout).map_err(|error| {
+        command_failure(&invocation(program, arguments), &error, timeout.as_secs())
+    })?;
+    match output.code {
+        0 => Ok(output.stdout),
+        code => Err(exit_failure(&invocation(program, arguments), code)),
+    }
+}
+
 pub fn run_ignoring_exit(
     program: &Path,
     arguments: &[String],

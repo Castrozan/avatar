@@ -6,7 +6,7 @@ use avatar_seat::local::SeatConfig;
 use avatar_seat::meetings::camera::CameraConfig;
 use std::path::Path;
 
-pub(super) fn launchctl(directory: &Path) -> std::io::Result<std::path::PathBuf> {
+pub(crate) fn launchctl(directory: &Path) -> std::io::Result<std::path::PathBuf> {
     let running = directory.join("running");
     let body = format!(
         "printf '%s\\n' \"$*\" >> {log}\ncase \"$1\" in\nprint) [ -f {running} ] && printf '\\tstate = running\\n' ;;\nkickstart) touch {running} ;;\nkill) rm -f {running} ;;\nesac",
@@ -16,7 +16,16 @@ pub(super) fn launchctl(directory: &Path) -> std::io::Result<std::path::PathBuf>
     executable(directory, "launchctl", &body)
 }
 
-pub(super) fn config_of(directory: &Path) -> SeatConfig {
+pub(crate) fn audio_switcher(directory: &Path) -> std::io::Result<std::path::PathBuf> {
+    let body = format!(
+        "printf '%s\\n' \"$*\" >> {log}\ncase \"$1\" in\n-c) printf '{{\"name\": \"Headset\", \"type\": \"%s\", \"id\": \"7\", \"uid\": \"%s\"}}\\n' \"$3\" \"$(cat {directory}/default-$3 2>/dev/null || printf headset-$3)\" ;;\n-t) printf '%s' \"$4\" > {directory}/default-$2 ;;\nesac",
+        log = directory.join("switches").display(),
+        directory = directory.display(),
+    );
+    executable(directory, "SwitchAudioSource", &body)
+}
+
+pub(crate) fn config_of(directory: &Path) -> SeatConfig {
     SeatConfig {
         avatar_host: "chise".to_owned(),
         browser_application: "/Applications/Chromium.app".to_owned(),
@@ -25,7 +34,7 @@ pub(super) fn config_of(directory: &Path) -> SeatConfig {
     }
 }
 
-pub(super) fn camera_of(config: &SeatConfig) -> CameraConfig {
+pub(crate) fn camera_of(config: &SeatConfig) -> CameraConfig {
     CameraConfig {
         home: config.home.clone(),
         application: "/Applications/OBS.app".to_owned(),
@@ -33,24 +42,24 @@ pub(super) fn camera_of(config: &SeatConfig) -> CameraConfig {
     }
 }
 
-pub(super) fn settings_of(directory: &Path) -> std::io::Result<MacRoomSettings> {
+pub(crate) fn settings_of(directory: &Path) -> std::io::Result<MacRoomSettings> {
     let config = config_of(directory);
-    let camera = camera_of(&config);
     Ok(MacRoomSettings {
+        camera: camera_of(&config),
         config,
         session_directory: directory.join("session"),
         user_identifier: 501,
-        camera,
         avatar_command: "avatar-command".into(),
         launchctl: launchctl(directory)?,
+        audio_switcher: audio_switcher(directory)?,
     })
 }
 
-pub(super) fn room(directory: &Path) -> TestResult2<MacRoom> {
+pub(crate) fn room(directory: &Path) -> TestResult2<MacRoom> {
     Ok(MacRoom::on_this_mac(settings_of(directory)?)?)
 }
 
-pub(super) type TestResult2<Value> = Result<Value, Box<dyn std::error::Error>>;
+pub(crate) type TestResult2<Value> = Result<Value, Box<dyn std::error::Error>>;
 
 pub(super) fn meeting_plan() -> ListeningPlan {
     ListeningPlan {

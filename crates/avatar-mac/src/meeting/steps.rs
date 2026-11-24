@@ -59,7 +59,8 @@ fn bring_up(room: &mut impl MeetingRoom) -> Result<(), Failure> {
     show_window(room)?;
     begin_listening(room, None)?;
     wait_for_the_seat(room)?;
-    room.start_camera()
+    room.start_camera()?;
+    room.route_defaults_to_the_call()
 }
 
 fn wait_for_the_seat(room: &mut impl MeetingRoom) -> Result<(), Failure> {

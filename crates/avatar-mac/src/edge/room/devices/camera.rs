@@ -1,7 +1,7 @@
 use avatar_seat::edges::{SystemClock, SystemProcesses};
 use avatar_seat::meetings::camera::{CameraConfig, FileSystemStore, ObsCamera};
 
-use super::MacRoom;
+use super::super::MacRoom;
 use crate::failure::Failure;
 use crate::meeting::MeetingCamera;
 

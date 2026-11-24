@@ -142,13 +142,13 @@ store or send the transcript elsewhere without being asked.
 
 On a Mac, run the same steps with the same commands: `avatar-start`, `avatar-listen start`, `avatar-command` and
 `avatar-stop` run on that Mac alone and reach no other machine; the Mac has no `avatar-audio`. `avatar-start` stands the
-avatar there, opens the meeting page and the transcription, starts the virtual camera and prints the devices to select.
-A failed `avatar-start` undoes the steps it took and exits 1 with its reason, so report that message instead of
-retrying blindly.
+avatar there, opens the meeting page and the transcription and starts the virtual camera. A failed `avatar-start` undoes
+the steps it took and exits 1 with its reason, so report that message instead of retrying blindly.
 
-The call must already have the camera `OBS Virtual Camera`, the microphone `BlackHole 2ch` and the speaker `BlackHole
-16ch` selected; the user chooses them once, so ask when the call shows no avatar or hears nothing.
-`avatar-command speak TEXT EMOTION` plays into the call.
+`avatar-start` makes `BlackHole 2ch` and `BlackHole 16ch` the Mac's default microphone and speaker until `avatar-stop`
+restores the previous ones, while the user's own microphone and speaker keep carrying both voices and the call. The call
+keeps its microphone and speaker on the system default and the camera on `OBS Virtual Camera`; the user picks those
+once, so ask when the call shows no avatar or hears nothing. `avatar-command speak TEXT EMOTION` plays into the call.
 
 The camera and composite modes open that Mac's webcam. A conversation and a meeting refuse each other on a Mac: run
 `avatar-talk close` before `avatar-start`, and `avatar-stop` before `avatar-talk`. `avatar-controls` opens while the

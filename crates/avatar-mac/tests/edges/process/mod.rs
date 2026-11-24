@@ -3,7 +3,7 @@ mod commands;
 mod room;
 mod room_audio;
 mod room_audio_fakes;
-mod room_fixtures;
+pub(crate) mod room_fixtures;
 mod stage;
 mod units;
 mod wake;
