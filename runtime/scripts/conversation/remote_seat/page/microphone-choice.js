@@ -54,6 +54,7 @@ export function chooseMicrophone(
   const inputs = devicesOfKind(devices, "audioinput");
   const current = currentDevice(inputs);
   if (isBluetooth(current)) return builtInId(inputs);
-  if (isCallDevice(current)) return previous ?? builtInId(inputs);
+  const present = inputs.some((device) => device.deviceId === previous);
+  if (isCallDevice(current)) return present ? previous : builtInId(inputs);
   return pinned ? realDeviceId(inputs, current) : null;
 }

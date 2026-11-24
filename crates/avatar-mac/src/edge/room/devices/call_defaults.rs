@@ -74,12 +74,18 @@ fn read_record(record: &Path) -> Result<Option<Value>, Failure> {
     Ok(text.map(|text| serde_json::from_str(&text).unwrap_or(Value::Null)))
 }
 
+fn restore_direction(switcher: &Path, direction: Direction, device: &str) -> Result<(), Failure> {
+    select(switcher, direction, device)
+        .or_else(|_| select(switcher, direction, direction.built_in_device()))
+}
+
 fn select_remembered(switcher: &Path, before: &Value) -> Result<(), Failure> {
-    DIRECTIONS.into_iter().try_for_each(|direction| {
-        before[direction.name()]
-            .as_str()
-            .map_or(Ok(()), |device| select(switcher, direction, device))
-    })
+    let restore = |direction: Direction| {
+        let device = before[direction.name()].as_str()?;
+        Some(restore_direction(switcher, direction, device))
+    };
+    let outcomes: Vec<Result<(), Failure>> = DIRECTIONS.into_iter().filter_map(restore).collect();
+    outcomes.into_iter().collect()
 }
 
 fn select_the_call(switcher: &Path) -> Result<(), Failure> {

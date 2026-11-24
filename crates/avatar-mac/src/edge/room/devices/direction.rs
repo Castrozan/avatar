@@ -20,4 +20,11 @@ impl Direction {
             Self::Output => "BlackHole16ch_UID",
         }
     }
+
+    pub(super) const fn built_in_device(self) -> &'static str {
+        match self {
+            Self::Input => "BuiltInMicrophoneDevice",
+            Self::Output => "BuiltInSpeakerDevice",
+        }
+    }
 }

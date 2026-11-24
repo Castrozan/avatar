@@ -18,7 +18,7 @@ pub(crate) fn launchctl(directory: &Path) -> std::io::Result<std::path::PathBuf>
 
 pub(crate) fn audio_switcher(directory: &Path) -> std::io::Result<std::path::PathBuf> {
     let body = format!(
-        "printf '%s\\n' \"$*\" >> {log}\ncase \"$1\" in\n-c) printf '{{\"name\": \"Headset\", \"type\": \"%s\", \"id\": \"7\", \"uid\": \"%s\"}}\\n' \"$3\" \"$(cat {directory}/default-$3 2>/dev/null || printf headset-$3)\" ;;\n-t) printf '%s' \"$4\" > {directory}/default-$2 ;;\nesac",
+        "printf '%s\\n' \"$*\" >> {log}\ncase \"$1\" in\n-c) printf '{{\"name\": \"Headset\", \"type\": \"%s\", \"id\": \"7\", \"uid\": \"%s\"}}\\n' \"$3\" \"$(cat {directory}/default-$3 2>/dev/null || printf headset-$3)\" ;;\n-t) case \"$4\" in gone*) exit 1 ;; esac; printf '%s' \"$4\" > {directory}/default-$2 ;;\nesac",
         log = directory.join("switches").display(),
         directory = directory.display(),
     );

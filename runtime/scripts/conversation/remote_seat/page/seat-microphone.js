@@ -21,8 +21,8 @@ export function openMicrophoneOn(mediaDevices, deviceId) {
 }
 
 export async function openMicrophone(mediaDevices, choice) {
-  return requestMicrophone(
-    mediaDevices,
-    await chosenMicrophone(mediaDevices, choice),
-  );
+  const deviceId = await chosenMicrophone(mediaDevices, choice);
+  if (choice?.pinned && !deviceId)
+    throw new Error("The meeting found no microphone of the user's own to pin");
+  return requestMicrophone(mediaDevices, deviceId);
 }

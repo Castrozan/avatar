@@ -60,7 +60,7 @@ function openCallSpeaker(device) {
 
 async function playCallToUser(callAudio, speaker) {
   const earpiece = new Audio();
-  if (speaker) await earpiece.setSinkId(speaker);
+  await earpiece.setSinkId(speaker);
   earpiece.srcObject = callAudio;
   await earpiece.play();
   return earpiece;
@@ -115,7 +115,11 @@ export async function joinMeeting({
   const devices = await navigator.mediaDevices.enumerateDevices();
   const { callMicrophone, callSpeaker } = requireCallDevices(devices);
   const speaker = chooseSpeaker(devices);
-  if (speaker) await playback.setSinkId(speaker);
+  if (!speaker)
+    throw new Error(
+      "The meeting found no speaker of the user's own to play the call on",
+    );
+  await playback.setSinkId(speaker);
   const callAudio = await openCallSpeaker(callSpeaker);
   const earpiece = await playCallToUser(callAudio, speaker);
   const capture = await openAudioGraph(CALL_RATE);

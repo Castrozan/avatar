@@ -55,6 +55,7 @@ fn seat_attached_or_failed(room: &mut impl MeetingRoom) -> Result<bool, Failure>
 }
 
 fn bring_up(room: &mut impl MeetingRoom) -> Result<(), Failure> {
+    room.restore_defaults()?;
     set_up(room)?;
     show_window(room)?;
     begin_listening(room, None)?;

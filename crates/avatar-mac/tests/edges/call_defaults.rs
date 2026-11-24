@@ -76,3 +76,30 @@ fn restoring_without_a_meeting_touches_no_device() -> TestResult {
     assert_eq!(logged(&directory.path().join("switches")), "");
     Ok(())
 }
+
+fn remember(directory: &Path, record: &str) -> std::io::Result<()> {
+    fs::create_dir_all(directory.join("session"))?;
+    fs::write(record_of(directory), record)
+}
+
+const GONE_EARBUDS: &str = r#"{"input": "gone-earbuds", "output": "headset-output"}"#;
+
+fn built_in_microphone_and_headset() -> (String, String) {
+    (
+        "BuiltInMicrophoneDevice".to_owned(),
+        "headset-output".to_owned(),
+    )
+}
+
+#[test]
+fn a_remembered_device_that_is_gone_falls_back_to_the_built_in_one() -> TestResult {
+    let directory = tempfile::tempdir()?;
+    remember(directory.path(), GONE_EARBUDS)?;
+    room(directory.path())?.restore_defaults()?;
+    assert_eq!(
+        defaults_of(directory.path()),
+        built_in_microphone_and_headset()
+    );
+    assert!(!record_of(directory.path()).exists());
+    Ok(())
+}
