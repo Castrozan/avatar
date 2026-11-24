@@ -1,16 +1,18 @@
 mod voice;
 
+use std::sync::{Mutex, PoisonError};
+
 pub use voice::CharacterVoice;
 
 use crate::synthesis::contract::{
-    SpeechGenerator, SpeechRequest, SynthesisError, SynthesisResult, non_empty,
+    CharacterSelection, SpeechGenerator, SpeechRequest, SynthesisError, SynthesisResult, non_empty,
 };
 
-#[derive(Debug, Clone)]
+#[derive(Debug)]
 pub struct CharacterVoiced<Generator> {
     generator: Generator,
     characters: Vec<CharacterVoice>,
-    selected: CharacterVoice,
+    selected: Mutex<CharacterVoice>,
 }
 
 impl<Generator> CharacterVoiced<Generator> {
@@ -25,21 +27,37 @@ impl<Generator> CharacterVoiced<Generator> {
         Ok(Self {
             generator,
             characters,
-            selected,
+            selected: Mutex::new(selected),
         })
     }
 
-    pub fn select_character(&mut self, name: &str) -> bool {
+    fn select(&self, character: CharacterVoice) {
+        *self.selected.lock().unwrap_or_else(PoisonError::into_inner) = character;
+    }
+
+    fn selected_character(&self) -> CharacterVoice {
+        let selected = self.selected.lock();
+        selected.unwrap_or_else(PoisonError::into_inner).clone()
+    }
+}
+
+impl<Generator: Send + Sync> CharacterSelection for CharacterVoiced<Generator> {
+    fn character_names(&self) -> Vec<String> {
+        let names = self.characters.iter().map(|character| &character.name);
+        names.cloned().collect()
+    }
+
+    fn select_character(&self, name: &str) -> bool {
         let found = find_character(&self.characters, name);
-        self.selected = found.clone().unwrap_or_else(|| self.selected.clone());
-        found.is_some()
+        found.map(|character| self.select(character)).is_some()
     }
 }
 
 impl<Generator: SpeechGenerator> SpeechGenerator for CharacterVoiced<Generator> {
     async fn synthesize(&self, mut request: SpeechRequest) -> SynthesisResult {
-        request.voice = non_empty(request.voice).or(self.selected.cloud_voice.clone());
-        request.local_voice = self.selected.local_voice.clone();
+        let selected = self.selected_character();
+        request.voice = non_empty(request.voice).or(selected.cloud_voice);
+        request.local_voice = selected.local_voice;
         self.generator.synthesize(request).await
     }
 }

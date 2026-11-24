@@ -34,7 +34,7 @@ impl<Port: SpeechPort> Actor<Port> {
         stopped: watch::Receiver<bool>,
     ) -> Self {
         Self {
-            hub: Hub::new(now_ms(), Vec::new()),
+            hub: Hub::new(now_ms(), speech_port.known_voices()),
             speech_port,
             senders: HashMap::new(),
             commands,

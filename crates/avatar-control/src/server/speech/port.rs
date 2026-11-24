@@ -10,6 +10,8 @@ pub enum SpeechEvent {
 }
 
 pub trait SpeechPort: Send + 'static {
+    fn known_voices(&self) -> Vec<String>;
+
     fn handle(&mut self, handoff: Handoff);
 
     fn take_events(&mut self) -> Option<UnboundedReceiver<SpeechEvent>>;
@@ -19,6 +21,10 @@ pub trait SpeechPort: Send + 'static {
 pub struct DiscardingSpeechPort;
 
 impl SpeechPort for DiscardingSpeechPort {
+    fn known_voices(&self) -> Vec<String> {
+        Vec::new()
+    }
+
     fn handle(&mut self, _handoff: Handoff) {}
 
     fn take_events(&mut self) -> Option<UnboundedReceiver<SpeechEvent>> {

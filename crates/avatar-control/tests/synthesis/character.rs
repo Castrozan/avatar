@@ -1,5 +1,7 @@
 use avatar_control::synthesis::character::{CharacterVoice, CharacterVoiced};
-use avatar_control::synthesis::contract::{SpeechGenerator, SpeechRequest, SynthesisError};
+use avatar_control::synthesis::contract::{
+    CharacterSelection, SpeechGenerator, SpeechRequest, SynthesisError,
+};
 
 use crate::harness::{Log, Recorder, TestResult, new_log, request};
 
@@ -51,7 +53,7 @@ async fn first_character_is_selected_initially() -> TestResult {
 
 #[tokio::test]
 async fn selecting_a_character_switches_the_cloud_voice() -> TestResult {
-    let (mut voiced, log) = stack()?;
+    let (voiced, log) = stack()?;
     assert!(voiced.select_character("second"));
     let sent = sent_by(&voiced, &log, request("oi")).await?;
     assert!(sent.contains("voice: Some(\"secondCloud\")"));
@@ -60,7 +62,7 @@ async fn selecting_a_character_switches_the_cloud_voice() -> TestResult {
 
 #[tokio::test]
 async fn an_unknown_character_keeps_the_selected_voice() -> TestResult {
-    let (mut voiced, log) = stack()?;
+    let (voiced, log) = stack()?;
     assert!(voiced.select_character("second"));
     assert!(!voiced.select_character("nobody"));
     let sent = sent_by(&voiced, &log, request("oi")).await?;

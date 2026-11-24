@@ -2,7 +2,8 @@ use std::future::Future;
 use std::sync::Arc;
 
 use avatar_control::synthesis::contract::{
-    GeneratedSpeech, SpeechGenerator, SpeechRequest, SynthesisError, SynthesisResult,
+    CharacterSelection, GeneratedSpeech, SpeechGenerator, SpeechRequest, SynthesisError,
+    SynthesisResult,
 };
 use serde_json::{Value, json};
 
@@ -57,5 +58,15 @@ async fn finish_after(waiting: Waiting, result: SynthesisResult) -> SynthesisRes
 impl SpeechGenerator for FakeGenerator {
     fn synthesize(&self, request: SpeechRequest) -> impl Future<Output = SynthesisResult> + Send {
         finish_after(generation_wait(self, &request), outcome(self, &request))
+    }
+}
+
+impl CharacterSelection for FakeGenerator {
+    fn character_names(&self) -> Vec<String> {
+        Vec::new()
+    }
+
+    fn select_character(&self, _name: &str) -> bool {
+        false
     }
 }

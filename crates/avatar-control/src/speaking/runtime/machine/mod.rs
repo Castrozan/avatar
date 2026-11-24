@@ -14,7 +14,7 @@ use super::services::SpeechServices;
 use crate::server::SpeechEvent;
 use crate::session::Handoff;
 use crate::speech::floor::{FloorEffect, SpeechFloor, TurnId};
-use crate::synthesis::contract::SpeechGenerator;
+use crate::synthesis::contract::{CharacterSelection, SpeechGenerator};
 
 use turn::Turn;
 
@@ -54,6 +54,12 @@ impl<Generator: SpeechGenerator + 'static> Runtime<Generator> {
         }
     }
 
+    fn emit(&self, event: SpeechEvent) {
+        drop(self.outputs.send(event));
+    }
+}
+
+impl<Generator: SpeechGenerator + CharacterSelection + 'static> Runtime<Generator> {
     fn handle(&mut self, input: Input) {
         match input {
             Input::Handoff(handoff) => self.hand_off(handoff),
@@ -73,12 +79,8 @@ impl<Generator: SpeechGenerator + 'static> Runtime<Generator> {
                 command,
             } => self.speak(client, received_ms, &command),
             Handoff::StopSpeaking => self.interrupt(),
-            Handoff::SelectVoice(_) => (),
+            Handoff::SelectVoice(name) => drop(self.generator.select_character(&name)),
         }
-    }
-
-    fn emit(&self, event: SpeechEvent) {
-        drop(self.outputs.send(event));
     }
 }
 
@@ -92,7 +94,7 @@ async fn next_input(
     }
 }
 
-pub(super) async fn run<Generator: SpeechGenerator + 'static>(
+pub(super) async fn run<Generator: SpeechGenerator + CharacterSelection + 'static>(
     mut runtime: Runtime<Generator>,
     mut inputs: UnboundedReceiver<Input>,
 ) {
