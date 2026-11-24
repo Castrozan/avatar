@@ -42,7 +42,7 @@ Gorgon | hair-sample-female
 Hassan-i-Sabbah | avatar-sample-c-brian
 Heracles | avatar-sample-c
 Hijikata Toshizō | avatar-sample-c
-Ibaraki-dōji | darkness-shibu
+Ibaraki-dōji | darkness-shibu-candy
 Ibuki-dōji | hair-sample-female
 Ishtar | avatar-sample-b
 Iskandar | avatar-sample-c-george
@@ -52,7 +52,7 @@ Jeanne d'Arc (Alter) | hair-sample-female
 Karna | avatar-sample-c-brian
 Katsushika Hokusai | avatar-sample-b
 King Hassan | avatar-sample-c-brian
-Kingprotea | sendagaya-shino
+Kingprotea | sendagaya-shino-lulu
 Kiyohime | darkness-shibu
 Lancelot | hair-sample-male-eric
 Lancelot (Berserker) | avatar-sample-c
@@ -70,7 +70,7 @@ Miyamoto Musashi | sendagaya-shibu
 Mordred | avatar-sample-b
 Mozart | sakurada-fumiriya-callum
 Nero Claudius | avatar-sample-b
-Nezha | avatar-sample-b
+Nezha | avatar-sample-b-emmaline
 Nightingale | victoria-rubin
 Nikola Tesla | hair-sample-male-daniel
 Nursery Rhyme | vivi

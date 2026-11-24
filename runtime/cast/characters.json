@@ -9,6 +9,15 @@
     "name": "darkness-shibu"
   },
   {
+    "cloudVoice": "Nggzl2QAXh3OijoXD116",
+    "description": "Young woman, crimson bob, dark ornate dress; loud sassy childlike voice",
+    "gender": "female",
+    "liveVoice": "delta",
+    "localVoice": "pf_dora",
+    "model": "darkness-shibu",
+    "name": "darkness-shibu-candy"
+  },
+  {
     "cloudVoice": "pFZP5JQG7iQjIQuC4Bku",
     "description": "Young woman, long black hair, school uniform; velvety theatrical voice",
     "gender": "female",
@@ -16,6 +25,15 @@
     "localVoice": "pf_dora",
     "model": "sendagaya-shino",
     "name": "sendagaya-shino"
+  },
+  {
+    "cloudVoice": "ocZQ262SsZb9RIxcQBOj",
+    "description": "Young woman, long black hair, school uniform; small sweet childlike voice",
+    "gender": "female",
+    "liveVoice": "willow",
+    "localVoice": "pf_dora",
+    "model": "sendagaya-shino",
+    "name": "sendagaya-shino-lulu"
   },
   {
     "cloudVoice": "EXAVITQu4vr4xnSDxMaL",
@@ -45,8 +63,8 @@
     "name": "vita"
   },
   {
-    "cloudVoice": "FGY2WhTYpPnrIDTdsKH5",
-    "description": "Girl, brown bob, folk dress; quirky enthusiastic voice",
+    "cloudVoice": "Nggzl2QAXh3OijoXD116",
+    "description": "Girl, brown bob, folk dress; sweet high-pitched childlike voice",
     "gender": "female",
     "liveVoice": "delta",
     "localVoice": "pf_dora",
@@ -79,6 +97,15 @@
     "localVoice": "pf_dora",
     "model": "avatar-sample-b",
     "name": "avatar-sample-b"
+  },
+  {
+    "cloudVoice": "nDJIICjR9zfJExIFeSCN",
+    "description": "Young woman, long purple hair, horns and star clips; crisp precocious childlike voice",
+    "gender": "female",
+    "liveVoice": "gleam",
+    "localVoice": "pf_dora",
+    "model": "avatar-sample-b",
+    "name": "avatar-sample-b-emmaline"
   },
   {
     "cloudVoice": "TX3LPaxmHKxFdv7VOQHJ",
