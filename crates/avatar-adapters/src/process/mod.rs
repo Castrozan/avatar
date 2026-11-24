@@ -1,5 +1,6 @@
 mod captured;
 mod loopback;
+mod relayed;
 mod terminate;
 mod timed;
 
@@ -9,6 +10,7 @@ use avatar_wake::reach::CommandRunner;
 
 pub use captured::{Captured, run_captured};
 pub use loopback::loopback_get;
+pub use relayed::run_relayed;
 pub use terminate::terminate;
 pub use timed::{Completed, run_with_timeout};
 

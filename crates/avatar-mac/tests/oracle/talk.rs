@@ -16,6 +16,15 @@ impl HostTalk for Host {
             .and_then(|code| i32::try_from(code).ok())
     }
 
+    fn forwarded_to_the_conversation_opened_elsewhere(
+        &mut self,
+        _arguments: &[String],
+    ) -> Option<i32> {
+        None
+    }
+
+    fn remember_the_conversation_at_the_host(&mut self) {}
+
     fn with_the_agent_that_receives_live_tasks(&mut self, arguments: &[String]) -> Vec<String> {
         self.0.push(json!(["with_agent", arguments]));
         [arguments, &["+agent".to_owned()]].concat()

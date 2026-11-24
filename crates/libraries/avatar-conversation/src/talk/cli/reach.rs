@@ -1,7 +1,8 @@
-use crate::room_reach::forwarding_plan;
-use crate::room_reach::this_host;
+use crate::room_reach::{
+    CALLER_HOLDS_INPUT_VARIABLE, ForwardedCommand, forwarding_plan, this_host,
+};
 use crate::talk::failure::TalkFailure;
-use crate::talk::ports::exec::run_unchecked;
+use crate::talk::ports::exec::relay_unchecked;
 use crate::talk::ports::{Console, Environment, Subprocess};
 use crate::talk::state::this_pane;
 
@@ -19,7 +20,7 @@ fn shell_quote(argument: &str) -> String {
     format!("'{}'", argument.replace('\'', "'\"'\"'"))
 }
 
-fn on_host(room: &str, command: &[String]) -> Vec<String> {
+pub(super) fn on_host(room: &str, command: &[String]) -> Vec<String> {
     let joined: Vec<String> = command
         .iter()
         .map(|argument| shell_quote(argument))
@@ -29,23 +30,35 @@ fn on_host(room: &str, command: &[String]) -> Vec<String> {
     argv
 }
 
+fn ending_with_its_caller(command: &[String]) -> Vec<String> {
+    let held = format!("{CALLER_HOLDS_INPUT_VARIABLE}=1");
+    [vec!["env".to_owned(), held], command.to_vec()].concat()
+}
+
+pub(super) fn plan_towards(
+    environment: &impl Environment,
+    room: Option<&str>,
+    arguments: &[String],
+) -> Option<ForwardedCommand> {
+    let configured = environment.variable(HOST_VARIABLE);
+    let host = this_host(configured.as_deref(), &environment.hostname());
+    let pane = this_pane(environment);
+    forwarding_plan(room, &host, arguments, pane.as_deref())
+}
+
 pub fn forwarded_from_this_machine(
     boundary: &mut (impl Subprocess + Environment + Console),
     arguments: &[String],
 ) -> Option<i32> {
     let room = boundary.variable(ROOM_VARIABLE);
-    let configured = boundary.variable(HOST_VARIABLE);
-    let host = this_host(configured.as_deref(), &boundary.hostname());
-    let pane = this_pane(boundary);
-    let plan = forwarding_plan(room.as_deref(), &host, arguments, pane.as_deref())?;
-    Some(forward(boundary, &on_host(&plan.room, &plan.command)))
+    let plan = plan_towards(boundary, room.as_deref(), arguments)?;
+    Some(relayed(boundary, &plan))
 }
 
-fn forward(boundary: &mut (impl Subprocess + Console), argv: &[String]) -> i32 {
-    match run_unchecked(boundary, argv, Some(LONGEST_SEAT_SECONDS)) {
-        Ok(output) => output.status,
-        Err(failure) => report_failure(boundary, &failure),
-    }
+pub(super) fn relayed(boundary: &mut (impl Subprocess + Console), plan: &ForwardedCommand) -> i32 {
+    let argv = on_host(&plan.room, &ending_with_its_caller(&plan.command));
+    relay_unchecked(boundary, &argv, Some(LONGEST_SEAT_SECONDS))
+        .unwrap_or_else(|failure| report_failure(boundary, &failure))
 }
 
 fn report_failure(console: &mut impl Console, failure: &TalkFailure) -> i32 {

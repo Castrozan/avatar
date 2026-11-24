@@ -4,11 +4,13 @@ use avatar_conversation::talk::run as run_talk;
 use clap::Args;
 
 mod boundaries;
+mod caller;
 mod host;
 mod services;
 mod system;
 
 pub(crate) use boundaries::TalkBoundaries;
+pub(crate) use caller::end_a_listening_command_with_its_caller;
 
 use crate::support::runtime::session_directory;
 
@@ -24,6 +26,7 @@ pub(crate) struct TalkOptions {
 }
 
 pub(crate) fn run(options: &TalkOptions) -> ExitCode {
+    end_a_listening_command_with_its_caller(&options.arguments);
     let mut boundaries = TalkBoundaries::on_this_machine(session_directory());
     let status = run_talk(&mut boundaries, &options.arguments);
     ExitCode::from(u8::try_from(status).unwrap_or(1))

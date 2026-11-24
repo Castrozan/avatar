@@ -28,4 +28,5 @@ pub enum ProcessFailure {
 
 pub trait Subprocess {
     fn run(&mut self, invocation: &Invocation) -> Result<ProcessOutput, ProcessFailure>;
+    fn relay(&mut self, invocation: &Invocation) -> Result<i32, ProcessFailure>;
 }

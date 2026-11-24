@@ -53,10 +53,26 @@ fn output_of(result: &Value) -> ProcessOutput {
     }
 }
 
+impl World {
+    fn shown(&mut self, result: &Value) -> i32 {
+        self.out
+            .push_str(result["stdout"].as_str().unwrap_or_default());
+        self.err
+            .push_str(result["stderr"].as_str().unwrap_or_default());
+        output_of(result).status
+    }
+}
+
 impl Subprocess for World {
     fn run(&mut self, invocation: &Invocation) -> Result<ProcessOutput, ProcessFailure> {
         self.stamp(json!({"call": "process", "argv": invocation.argv, "timeout": invocation.timeout_seconds}));
         let result = self.process_result(&invocation.argv.join(" "));
         failure_of(&result).map_or_else(|| Ok(output_of(&result)), Err)
+    }
+
+    fn relay(&mut self, invocation: &Invocation) -> Result<i32, ProcessFailure> {
+        self.stamp(json!({"call": "relay", "argv": invocation.argv, "timeout": invocation.timeout_seconds}));
+        let result = self.process_result(&invocation.argv.join(" "));
+        failure_of(&result).map_or_else(|| Ok(self.shown(&result)), Err)
     }
 }

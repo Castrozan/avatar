@@ -1,5 +1,10 @@
-use avatar_conversation::talk::cli::forwarded_from_this_machine;
-use avatar_conversation::talk::ports::{Console, Environment as ProcessEnvironment, Subprocess};
+use avatar_conversation::talk::cli::{
+    forwarded_from_this_machine, forwarded_to_the_conversation_opened_elsewhere,
+};
+use avatar_conversation::talk::ports::{
+    Console, Environment as ProcessEnvironment, Files, Subprocess, Units,
+};
+use avatar_conversation::talk::state::elsewhere::remember_the_conversation_at;
 use avatar_seat::edges::{HttpProbe, SystemClock, SystemProcesses};
 use avatar_seat::local::{LocalSeat, SEAT_PORT, SeatConfig};
 use avatar_seat::talk::{Environment, RemoteTalk};
@@ -13,9 +18,23 @@ pub struct MacHostTalk<Boundary> {
     pub config: SeatConfig,
 }
 
-impl<Boundary: Subprocess + ProcessEnvironment + Console> HostTalk for MacHostTalk<Boundary> {
+impl<Boundary> HostTalk for MacHostTalk<Boundary>
+where
+    Boundary: Subprocess + ProcessEnvironment + Console + Files + Units,
+{
     fn forwarded_from_this_machine(&mut self, arguments: &[String]) -> Option<i32> {
         forwarded_from_this_machine(&mut self.boundary, arguments)
+    }
+
+    fn forwarded_to_the_conversation_opened_elsewhere(
+        &mut self,
+        arguments: &[String],
+    ) -> Option<i32> {
+        forwarded_to_the_conversation_opened_elsewhere(&mut self.boundary, arguments)
+    }
+
+    fn remember_the_conversation_at_the_host(&mut self) {
+        remember_the_conversation_at(&mut self.boundary, &self.config.avatar_host);
     }
 
     fn with_the_agent_that_receives_live_tasks(&mut self, arguments: &[String]) -> Vec<String> {

@@ -4,7 +4,7 @@ use std::time::Duration;
 use avatar_conversation::talk::ports::{Invocation, ProcessFailure, ProcessOutput, Subprocess};
 
 use crate::commands::Programs;
-use crate::process::run_captured;
+use crate::process::{run_captured, run_relayed};
 
 const UNBOUNDED: Duration = Duration::from_hours(8760);
 const REASON_SUFFIX: &str = " (os error";
@@ -30,6 +30,12 @@ impl Subprocess for TalkProcess {
             status: captured.exit_code,
             stdout: String::from_utf8_lossy(&captured.stdout).into_owned(),
         })
+    }
+
+    fn relay(&mut self, invocation: &Invocation) -> Result<i32, ProcessFailure> {
+        let command = self.programs.resolve(invocation.argv.clone());
+        run_relayed(&command, timeout_of(invocation))
+            .map_err(|error| failure_of(&invocation.argv, &error))
     }
 }
 

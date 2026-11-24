@@ -12,6 +12,17 @@ pub fn run_unchecked<Part: AsRef<str>>(
         .map_err(|failure| TalkFailure::from_process(failure, &invocation))
 }
 
+pub fn relay_unchecked<Part: AsRef<str>>(
+    process: &mut impl Subprocess,
+    argv: &[Part],
+    timeout_seconds: Option<f64>,
+) -> Result<i32, TalkFailure> {
+    let invocation = Invocation::new(argv, timeout_seconds);
+    process
+        .relay(&invocation)
+        .map_err(|failure| TalkFailure::from_process(failure, &invocation))
+}
+
 pub fn run_checked<Part: AsRef<str>>(
     process: &mut impl Subprocess,
     argv: &[Part],
