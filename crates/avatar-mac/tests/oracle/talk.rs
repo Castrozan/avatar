@@ -6,7 +6,7 @@ use crate::stage::{compact, outcome};
 use crate::support::{assert_same, each, parse, strings};
 use crate::world::{Log, World};
 
-struct Host(Log, Value);
+pub(crate) struct Host(Log, Value);
 
 impl HostTalk for Host {
     fn forwarded_from_this_machine(&mut self, arguments: &[String]) -> Option<i32> {
@@ -28,7 +28,7 @@ impl HostTalk for Host {
     }
 }
 
-struct Live(Log, Vec<String>);
+pub(crate) struct Live(Log, Vec<String>);
 
 impl LiveOpening for Live {
     fn open_live_conversation(
@@ -45,12 +45,12 @@ impl LiveOpening for Live {
     }
 }
 
-fn edges(world: &World) -> (Host, Live) {
+pub(crate) fn edges(world: &World) -> (Host, Live) {
     let live = Live(world.log.clone(), strings(&world.config["live_script"]));
     (Host(world.log.clone(), world.config.clone()), live)
 }
 
-fn code_outcome(result: &Result<i32, Failure>) -> Value {
+pub(crate) fn code_outcome(result: &Result<i32, Failure>) -> Value {
     match result {
         Ok(code) => json!(["code", code]),
         Err(failure) => outcome(&Err(failure.clone())),

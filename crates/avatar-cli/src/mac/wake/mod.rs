@@ -5,6 +5,7 @@ use std::process::ExitCode;
 use avatar_adapters::microphone::ParecMicrophone;
 use avatar_mac::edge::stage::SystemWaiting;
 use avatar_mac::edge::wake::MacWakeEdges;
+use avatar_mac::talk::opening_where_the_wake_was_heard;
 use avatar_seat::local::SEAT_PORT;
 use avatar_wake::mac::MacConversation;
 
@@ -21,6 +22,11 @@ use nix::unistd::getuid;
 
 const AVATAR_HOST: &str = "AVATAR_HOST";
 
+fn open_command() -> Vec<String> {
+    let talk = std::iter::once("avatar-talk".to_owned());
+    talk.chain(opening_where_the_wake_was_heard()).collect()
+}
+
 fn edges() -> io::Result<MacWakeEdges> {
     Ok(MacWakeEdges {
         avatar_host: required(AVATAR_HOST)?,
@@ -29,7 +35,7 @@ fn edges() -> io::Result<MacWakeEdges> {
         ssh: PathBuf::from("ssh"),
         launchctl: PathBuf::from(LAUNCHCTL),
         user_identifier: getuid().as_raw(),
-        open_command: vec!["avatar-talk".to_owned(), "open".to_owned()],
+        open_command: open_command(),
         clock: SystemWaiting::new(),
     })
 }
