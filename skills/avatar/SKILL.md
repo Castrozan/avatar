@@ -113,6 +113,9 @@ duplex voice for as long as it stays open. Then end your turn. Each spoken task 
 as an `[avatar-live]` a2a turn whose last line is read aloud, so close that turn with one short spoken sentence. `ask`,
 `hear`, `follow` and `say` refuse while it runs; `avatar-talk close` ends it.
 
+Pass `--brief` with two to four plain sentences saying what your session is working on and what was just decided, so
+the live voice starts informed.
+
 ### Accompanying a meeting
 
 Any agent on this machine can attend through commands alone: 1) `avatar-start`, whose window stays hidden; 2)
