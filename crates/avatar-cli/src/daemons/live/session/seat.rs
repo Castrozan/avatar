@@ -11,7 +11,7 @@ fn invalid(shown: &str) -> io::Error {
     io::Error::other(format!("{shown} is not a valid Seat"))
 }
 
-fn configuration_of(directory: &Path) -> io::Result<Value> {
+pub(super) fn configuration_of(directory: &Path) -> io::Result<Value> {
     match fs::read_to_string(directory.join(CONFIGURATION_FILE)) {
         Ok(text) => serde_json::from_str(&text).map_err(io::Error::other),
         Err(failure) if failure.kind() == io::ErrorKind::NotFound => Ok(Value::Null),

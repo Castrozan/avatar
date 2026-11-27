@@ -9,10 +9,10 @@ fn audio_settings(speaking_voice: &str) -> Value {
 }
 
 #[must_use]
-pub fn session_start(speaking_voice: &str, taking_over: bool) -> Value {
+pub fn session_start(speaking_voice: &str, taking_over: bool, brief: Option<&str>) -> Value {
     let session = json!({
         "model": MODEL,
-        "instructions": instructions(taking_over),
+        "instructions": instructions(taking_over, brief),
         "audio": audio_settings(speaking_voice),
         "delegation": {"type": "client"},
     });

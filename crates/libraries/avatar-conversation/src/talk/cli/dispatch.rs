@@ -3,6 +3,7 @@ use avatar_listening::conversation_state::{ConversationAction, command_of, decid
 use super::actions::perform_action;
 use super::arguments::{TalkArguments, parse_talk_arguments};
 use super::reach::forwarded_from_this_machine;
+use crate::talk::effects::refuse_a_brief_without_live;
 use crate::talk::failure::TalkFailure;
 use crate::talk::ports::{Boundaries, Console};
 use crate::talk::state::phase::phase;
@@ -41,6 +42,7 @@ fn report_failure(console: &mut impl Console, failure: &TalkFailure) -> i32 {
 }
 
 fn perform(boundary: &mut impl Boundaries, arguments: &TalkArguments) -> Result<i32, TalkFailure> {
+    refuse_a_brief_without_live(&arguments.open())?;
     let action = decision_for(boundary, arguments)?;
     perform_action(boundary, action, arguments)
 }

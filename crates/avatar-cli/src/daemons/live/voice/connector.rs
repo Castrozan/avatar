@@ -9,6 +9,7 @@ use super::handle::{Change, Reconnection, Replacement, VoiceCommand};
 pub(crate) struct Connector {
     endpoint: String,
     key_file: PathBuf,
+    brief: Option<String>,
 }
 
 type Opened = (GptLiveClient, Option<String>);
@@ -29,10 +30,11 @@ fn replacement_of(opened: Result<Opened, ClientError>, change: Change) -> VoiceC
 }
 
 impl Connector {
-    pub(crate) fn new(endpoint: &str, key_file: &Path) -> Self {
+    pub(crate) fn new(endpoint: &str, key_file: &Path, brief: Option<String>) -> Self {
         Self {
             endpoint: endpoint.to_owned(),
             key_file: key_file.to_path_buf(),
+            brief,
         }
     }
 
@@ -62,6 +64,7 @@ impl Connector {
             api_key: key,
             speaking_voice: voice,
             taking_over,
+            brief: self.brief.as_deref(),
         }
     }
 
