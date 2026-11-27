@@ -6,11 +6,29 @@ use avatar_floor::floor::{FloorBoundaries, Session, claim};
 use avatar_wake::floor_cli::pane_claim_outcome;
 
 use super::conclude;
+use crate::mac::LaunchdCapture;
 use crate::wake::machine::{LocalCapture, SystemdCapture, local_sessions};
 
 const PANE_VARIABLE: &str = "HERDR_PANE_ID";
 
-struct LocalFloor;
+struct LocalFloor {
+    capture: Box<dyn LocalCapture>,
+}
+
+fn capture_on_this_machine() -> Box<dyn LocalCapture> {
+    if cfg!(target_os = "macos") {
+        return Box::new(LaunchdCapture::on_this_mac());
+    }
+    Box::new(SystemdCapture)
+}
+
+impl LocalFloor {
+    fn on_this_machine() -> Self {
+        Self {
+            capture: capture_on_this_machine(),
+        }
+    }
+}
 
 impl FloorBoundaries for LocalFloor {
     fn sessions(&self) -> Vec<Session> {
@@ -18,7 +36,7 @@ impl FloorBoundaries for LocalFloor {
     }
 
     fn listening(&self) -> bool {
-        SystemdCapture.listening()
+        self.capture.listening()
     }
 }
 
@@ -39,7 +57,7 @@ fn servant_of_pane(pane: &str) -> Option<String> {
 }
 
 fn claim_for(directory: &Path, pane: &str) -> io::Result<ExitCode> {
-    let holder = claim(directory, pane, &LocalFloor)?;
+    let holder = claim(directory, pane, &LocalFloor::on_this_machine())?;
     conclude(pane_claim_outcome(holder.as_ref(), pane, || {
         servant_of_pane(pane)
     }))

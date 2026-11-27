@@ -15,6 +15,8 @@ mod serving;
 mod talk;
 mod wake;
 
+pub(crate) use wake::LaunchdCapture;
+
 #[derive(Args)]
 pub(crate) struct MacOptions {
     #[command(subcommand)]

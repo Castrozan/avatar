@@ -10,13 +10,13 @@ use nix::unistd::getuid;
 use crate::mac::room::LAUNCHCTL;
 use crate::wake::LocalCapture;
 
-pub(super) struct LaunchdCapture {
+pub(crate) struct LaunchdCapture {
     launchctl: PathBuf,
     user_identifier: u32,
 }
 
 impl LaunchdCapture {
-    pub(super) fn on_this_mac() -> Self {
+    pub(crate) fn on_this_mac() -> Self {
         Self {
             launchctl: PathBuf::from(LAUNCHCTL),
             user_identifier: getuid().as_raw(),

@@ -11,7 +11,7 @@ use avatar_wake::mac::MacConversation;
 
 mod capture;
 
-use capture::LaunchdCapture;
+pub(crate) use capture::LaunchdCapture;
 
 use super::environment::required;
 use super::room::LAUNCHCTL;
