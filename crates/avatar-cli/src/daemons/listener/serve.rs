@@ -13,16 +13,21 @@ use avatar_listening::listener::session::{
 use avatar_listening::listener::speaker_identity::SpeakerIdentification;
 use avatar_transcript::pending::PendingSpeech;
 use avatar_transcript::pending::speech_marker_file::FileSpeechMarker;
+use avatar_transcription::ReqwestSender;
 use tokio::runtime::{Builder, Handle};
 
 use super::identity::identifier_for;
 use super::kit::ProductionKit;
 use super::notes::StandardErrorNotes;
-use super::transcriber::HexTranscriber;
+use super::transcriber::CloudFirstTranscriber;
 use crate::support::runtime::session_directory;
 
 type Pending = PendingSpeech<FileSpeechMarker>;
-type Recorder = TranscriptRecorder<HexTranscriber, Box<dyn SpeakerIdentification>, SystemTiming>;
+type Recorder = TranscriptRecorder<
+    CloudFirstTranscriber<ReqwestSender>,
+    Box<dyn SpeakerIdentification>,
+    SystemTiming,
+>;
 type Daemon = DaemonRequest<ProductionKit, Pending, StandardErrorNotes>;
 
 fn recorder_of(
@@ -34,7 +39,7 @@ fn recorder_of(
         transcript_path: directory.join(TRANSCRIPT_FILE),
         embeddings_path: directory.join(EMBEDDINGS_FILE),
         language: configuration.language.clone(),
-        transcriber: HexTranscriber::new(runtime.clone())?,
+        transcriber: CloudFirstTranscriber::from_environment(runtime.clone())?,
         identifier: identifier_for(configuration.identify_speakers),
         timing: SystemTiming,
     }))
