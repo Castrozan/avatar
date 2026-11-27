@@ -105,7 +105,7 @@ fn run_stopped(replies: Replies) -> Result<Run, std::io::Error> {
 fn notice(number: u32, reason: &str) -> Vec<String> {
     let tag = format!("LIVE-ANSWER-{number}");
     let text = format!(
-        "Your answer to {tag} never reached Lucas ({reason}); answer it again now with a closing line {tag}: <one sentence>."
+        "Your answer to {tag} never reached Lucas ({reason}). If the live voice is still open he heard that it failed and can ask again; otherwise tell him the answer yourself through the avatar."
     );
     ["notify", "--sender", "avatar live voice", "wW:pQZ", &text]
         .map(str::to_owned)
