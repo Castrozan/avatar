@@ -100,6 +100,8 @@ let
     export AVATAR_SPEAKER_MODEL=${speakerModel}
     export AVATAR_TURN_MODEL=${turnModel}
     export AVATAR_VOICE_ACTIVITY_MODEL=${voiceActivityModel}
+    export AVATAR_ORDINARY_WORDS=${ordinaryWords}
+    export AVATAR_SERVANT_ROSTER=${avatar.servantRoster}
     exec ${avatarExecutable} listener
   '';
   live = pkgs.writeShellScript "avatar-live" ''
