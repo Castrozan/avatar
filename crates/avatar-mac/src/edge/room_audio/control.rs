@@ -28,7 +28,7 @@ fn failure(message: &impl ToString) -> io::Error {
 }
 
 fn opened(runtime: &Runtime, url: &str) -> io::Result<Socket> {
-    let opening = timeout(CONNECT_TIMEOUT, connect_async(url));
+    let opening = async { timeout(CONNECT_TIMEOUT, connect_async(url)).await };
     let (mut socket, _) = runtime
         .block_on(opening)
         .map_err(|error| failure(&error))?
@@ -57,3 +57,6 @@ impl VoiceLevelSink for ControlLevels {
         let _ = self.runtime.block_on(self.socket.close(None));
     }
 }
+
+#[cfg(test)]
+mod tests;
