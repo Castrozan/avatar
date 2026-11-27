@@ -1,10 +1,10 @@
 use std::future::Future;
 
-use avatar_transcript::json::python_float;
-
+use super::ending::Ending;
+use super::errand::Errand;
 use crate::agent::report::AgentReport;
+use crate::agent::reporter::elapsed_seconds;
 use crate::boundaries::{Clock, Console, ReportSink, VoiceDelivery};
-use crate::events::TaskRequest;
 
 pub struct Podium<Voice: VoiceDelivery, Screen: Console> {
     pub voice: Voice,
@@ -14,23 +14,29 @@ pub struct Podium<Voice: VoiceDelivery, Screen: Console> {
 pub(super) struct Relay<'a, Pace: Clock, Voice: VoiceDelivery, Screen: Console> {
     pace: &'a mut Pace,
     podium: &'a mut Podium<Voice, Screen>,
-    task_id: String,
-    servant: String,
+    errand: &'a Errand,
+    started: f64,
+    failure: Option<String>,
 }
 
 impl<'a, Pace: Clock, Voice: VoiceDelivery, Screen: Console> Relay<'a, Pace, Voice, Screen> {
     pub(super) fn new(
         pace: &'a mut Pace,
         podium: &'a mut Podium<Voice, Screen>,
-        task: &TaskRequest,
-        servant: &str,
+        errand: &'a Errand,
     ) -> Self {
         Self {
+            started: pace.now(),
             pace,
             podium,
-            task_id: task.task_id.clone(),
-            servant: servant.to_owned(),
+            errand,
+            failure: None,
         }
+    }
+
+    pub(super) fn ending(&self, stopped: bool) -> Ending {
+        let seconds = elapsed_seconds(self.started, self.pace.now());
+        Ending::of(stopped, seconds, self.failure.clone())
     }
 }
 
@@ -48,13 +54,11 @@ impl<Pace: Clock, Voice: VoiceDelivery, Screen: Console> ReportSink
     for Relay<'_, Pace, Voice, Screen>
 {
     async fn report(&mut self, report: AgentReport) {
-        self.podium
-            .voice
-            .deliver(&self.task_id, &report.text, report.is_final)
+        let voice = &mut self.podium.voice;
+        voice
+            .deliver(&self.errand.task_id, &report.text, report.kind.is_final())
             .await;
-        let seconds = python_float(report.seconds);
-        self.podium
-            .screen
-            .print(&format!("{}, {seconds} s: {}", self.servant, report.text));
+        self.podium.screen.print(&self.errand.report_line(&report));
+        self.failure = report.kind.into_failure().or(self.failure.take());
     }
 }

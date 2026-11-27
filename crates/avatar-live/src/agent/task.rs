@@ -4,6 +4,12 @@ use super::text::{spoken_answer, tagged_answer};
 
 const TERMINAL_STATES: [&str; 3] = ["completed", "canceled", "failed"];
 
+#[derive(Clone, Debug, PartialEq, Eq)]
+pub enum Verdict {
+    Answer(String),
+    Failure(String),
+}
+
 #[derive(Clone, Debug, Default, PartialEq, Eq)]
 pub struct AgentTask {
     pub state: Option<String>,
@@ -34,22 +40,24 @@ fn failure_reason(task: &AgentTask) -> String {
     }
 }
 
-fn finished_answer(task: &AgentTask) -> String {
+fn finished_verdict(task: &AgentTask) -> Verdict {
     let (answer, _) = spoken_answer(&task.output);
     match answer {
-        Some(spoken) if task.state.as_deref() == Some("completed") && !spoken.is_empty() => spoken,
-        _ => format!("The agent could not finish that: {}", failure_reason(task)),
+        Some(spoken) if task.state.as_deref() == Some("completed") && !spoken.is_empty() => {
+            Verdict::Answer(spoken)
+        }
+        _ => Verdict::Failure(failure_reason(task)),
     }
 }
 
 #[must_use]
-pub fn answer_in(task: &AgentTask, tag: &str) -> Option<String> {
+pub fn verdict_in(task: &AgentTask, tag: &str) -> Option<Verdict> {
     if let Some(tagged) = tagged_answer(&task.output, tag) {
-        return Some(tagged);
+        return Some(Verdict::Answer(tagged));
     }
     let terminal = task
         .state
         .as_deref()
         .is_some_and(|state| TERMINAL_STATES.contains(&state));
-    terminal.then(|| finished_answer(task))
+    terminal.then(|| finished_verdict(task))
 }

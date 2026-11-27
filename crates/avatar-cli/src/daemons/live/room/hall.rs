@@ -93,5 +93,6 @@ fn start_hand_off(hand_offs: &mut HandOffs, task: Option<TaskRequest>) {
 
 pub(crate) async fn run_hall(mut hall: Hall) -> Room {
     while hall.advance().await {}
+    hall.hand_offs.stop().await;
     hall.conversation
 }

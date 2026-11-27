@@ -60,4 +60,10 @@ pub trait AgentAsker {
         request: &AgentRequest,
         courier: &mut impl Courier,
     ) -> impl Future<Output = ()>;
+
+    fn notify(
+        &mut self,
+        request: &AgentRequest,
+        reason: &str,
+    ) -> impl Future<Output = Result<(), String>>;
 }

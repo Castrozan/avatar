@@ -1,10 +1,12 @@
 use avatar_floor::addressee::Addressee;
 use futures_util::future::OptionFuture;
 
-use super::super::brief::{NO_ANSWER_IN_TIME, STILL_WORKING, send_arguments, status_arguments};
-use super::super::report::AgentQuestion;
+use super::super::brief::{
+    NO_ANSWER_IN_TIME, NO_ANSWER_REASON, could_not_finish, send_arguments, status_arguments,
+};
+use super::super::report::{AgentQuestion, ReportKind};
 use super::super::reporter::Reporter;
-use super::super::task::{answer_in, parse_task};
+use super::super::task::{Verdict, parse_task, verdict_in};
 use super::super::text::python_lines;
 use super::super::watch::Observation;
 use super::polling::{Polling, poll_until_answered};
@@ -20,7 +22,7 @@ fn exit_code_text(code: Option<i32>) -> String {
     code.map_or("None".to_owned(), |number| number.to_string())
 }
 
-fn submission_of(sent: &CommandOutput) -> Result<String, String> {
+pub(super) fn submission_of(sent: &CommandOutput) -> Result<String, String> {
     let lines = python_lines(sent.output.trim());
     match (lines.last(), sent.code) {
         (Some(last), Some(0)) => Ok(last.trim().to_owned()),
@@ -42,8 +44,8 @@ impl<Transport: AgentTransport, Crew: Courier> Dispatch<'_, Transport, Crew> {
     }
 
     async fn report_unreachable(&mut self, failure: &str) {
-        let text = format!("The agent could not finish that: {failure}");
-        self.reporter.report(&text, true).await;
+        let kind = ReportKind::Failure(failure.to_owned());
+        self.reporter.report(&could_not_finish(failure), kind).await;
     }
 
     async fn follow(&mut self, task_id: String, tag: String) {
@@ -53,27 +55,31 @@ impl<Transport: AgentTransport, Crew: Courier> Dispatch<'_, Transport, Crew> {
     }
 
     async fn report_timeout(&mut self, answered: bool) {
-        let timeout = (!answered).then(|| self.reporter.report(NO_ANSWER_IN_TIME, true));
+        let kind = ReportKind::Failure(NO_ANSWER_REASON.to_owned());
+        let timeout = (!answered).then(|| self.reporter.report(NO_ANSWER_IN_TIME, kind));
         OptionFuture::from(timeout).await;
     }
 
-    pub(super) async fn status_answer(&mut self, task_id: &str, tag: &str) -> Option<String> {
+    pub(super) async fn status_verdict(&mut self, task_id: &str, tag: &str) -> Option<Verdict> {
         let status = self
             .transport
             .run(self.holder, &status_arguments(self.holder, task_id))
             .await;
         let output = Some(status.output).filter(|_| status.code == Some(0));
         let output = output.unwrap_or_default();
-        answer_in(&parse_task(&output), tag)
+        verdict_in(&parse_task(&output), tag)
     }
 
     pub(super) async fn announce(&mut self, observation: Observation) -> bool {
-        let (text, is_final) = match observation {
-            Observation::Answered(text) => (text, true),
-            Observation::StillWorking => (STILL_WORKING.to_owned(), false),
-            Observation::Waiting => return false,
-        };
-        self.reporter.report(&text, is_final).await;
+        match observation.report() {
+            None => false,
+            Some((text, kind)) => self.say(&text, kind).await,
+        }
+    }
+
+    async fn say(&mut self, text: &str, kind: ReportKind) -> bool {
+        let is_final = kind.is_final();
+        self.reporter.report(text, kind).await;
         is_final
     }
 }

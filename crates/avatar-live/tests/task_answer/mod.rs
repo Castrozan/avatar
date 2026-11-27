@@ -1,17 +1,22 @@
-use avatar_live::agent::task::{AgentTask, answer_in, parse_task};
+use avatar_live::agent::brief::could_not_finish;
+use avatar_live::agent::task::{AgentTask, Verdict, parse_task, verdict_in};
 use serde_json::{Value, json};
 
 use crate::support::{Outcome, run_cases, same};
 
 const FIXTURE: &str = include_str!("fixtures/task_answer.json");
 
+fn spoken(verdict: Verdict) -> String {
+    match verdict {
+        Verdict::Answer(text) => text,
+        Verdict::Failure(reason) => could_not_finish(&reason),
+    }
+}
+
 fn check(case: &Value) {
     let task = parse_task(&case["task"].to_string());
-    same(
-        &json!(answer_in(&task, "LIVE-ANSWER-3")),
-        &case["answer"],
-        case,
-    );
+    let answer = verdict_in(&task, "LIVE-ANSWER-3").map(spoken);
+    same(&json!(answer), &case["answer"], case);
 }
 
 #[test]

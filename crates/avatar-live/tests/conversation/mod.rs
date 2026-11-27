@@ -1,5 +1,6 @@
 mod fakes;
 mod hand_off;
+mod outcomes;
 mod scripted;
 
 use avatar_live::conversation::Conversation;

@@ -1,8 +1,30 @@
+#[derive(Clone, Debug, PartialEq, Eq)]
+pub enum ReportKind {
+    Progress,
+    Answer,
+    Failure(String),
+}
+
 #[derive(Clone, Debug, PartialEq)]
 pub struct AgentReport {
     pub text: String,
     pub seconds: f64,
-    pub is_final: bool,
+    pub kind: ReportKind,
+}
+
+impl ReportKind {
+    #[must_use]
+    pub fn is_final(&self) -> bool {
+        *self != Self::Progress
+    }
+
+    #[must_use]
+    pub fn into_failure(self) -> Option<String> {
+        match self {
+            Self::Failure(reason) => Some(reason),
+            Self::Progress | Self::Answer => None,
+        }
+    }
 }
 
 #[derive(Clone, Debug, PartialEq, Eq)]

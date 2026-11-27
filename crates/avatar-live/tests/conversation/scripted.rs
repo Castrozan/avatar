@@ -29,6 +29,12 @@ impl AgentAsker for ScriptedAsker {
         ]));
         report_all(courier, self.0.clone()).await;
     }
+
+    async fn notify(&mut self, request: &AgentRequest, reason: &str) -> Result<(), String> {
+        self.1
+            .push(json!(["notify", request.question.number, reason]));
+        Ok(())
+    }
 }
 
 impl VoiceDelivery for Voice {
