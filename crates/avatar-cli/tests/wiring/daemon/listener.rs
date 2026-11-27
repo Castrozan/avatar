@@ -17,6 +17,7 @@ pub(super) const CAPTURE_IDENTITY: &str = "capture.pid";
 const CAPTURE: &str = "echo $$ > \"${0%/*}/../capture.pid\"; cat \"${0%/*}/../sample.pcm\"; \
     while [ -e \"$0\" ]; do head -c 1024 /dev/zero || exit; sleep 0.01; done";
 const CONFIGURATION: &str = r#"{"sources":{"human":"fakemic"},"language":"en"}"#;
+const PROXY_REFUSING_EVERY_CLOUD_CONNECTION: &str = "http://127.0.0.1:1";
 
 fn loud_sample(index: usize) -> [u8; 2] {
     let level: i16 = if index.is_multiple_of(2) { 8000 } else { -8000 };
@@ -44,6 +45,7 @@ pub(super) fn start_daemon(machine: &Machine) -> Result<Child, Box<dyn std::erro
     let mut command = machine.command_with_system_tools(&["listener"]);
     command.env("AVATAR_TURN_MODEL", TURN_MODEL);
     command.env("AVATAR_VOICE_ACTIVITY_MODEL", VOICE_MODEL);
+    command.env("HTTPS_PROXY", PROXY_REFUSING_EVERY_CLOUD_CONNECTION);
     Ok(command.stderr(Stdio::null()).spawn()?)
 }
 
