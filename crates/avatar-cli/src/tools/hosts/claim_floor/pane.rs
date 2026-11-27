@@ -15,8 +15,14 @@ struct LocalFloor {
     capture: Box<dyn LocalCapture>,
 }
 
+fn systemctl_on_path() -> bool {
+    std::env::var_os("PATH").is_some_and(|path| {
+        std::env::split_paths(&path).any(|directory| directory.join("systemctl").is_file())
+    })
+}
+
 fn capture_on_this_machine() -> Box<dyn LocalCapture> {
-    if cfg!(target_os = "macos") {
+    if cfg!(target_os = "macos") && !systemctl_on_path() {
         return Box::new(LaunchdCapture::on_this_mac());
     }
     Box::new(SystemdCapture)
