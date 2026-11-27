@@ -1,3 +1,4 @@
+mod brief;
 mod finish;
 mod launch;
 mod seat;

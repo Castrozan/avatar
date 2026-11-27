@@ -9,6 +9,8 @@ pub const TAKING_OVER: &str = "
 You are taking over a conversation already in progress, in a new voice, without its earlier
 turns. Do not greet again; if you need what was said before, ask Lucas briefly.";
 
+const BRIEF_HEADER: &str = "\n\nWhat the agent holding the floor is working on:\n";
+
 const POLICIES: &str = "
 
 Backchannel policy: Use light backchannels. Never talk over Lucas while he explains something.
@@ -32,8 +34,15 @@ Do not generate <|SpawnThinking|> when:
 Generate <|SpawnThinking|> before giving an answer that depends on backend work.
 Do not guess the result while waiting. Keep chatting naturally while the agent works.";
 
+fn brief_section(brief: Option<&str>) -> String {
+    brief
+        .filter(|text| !text.trim().is_empty())
+        .map_or_else(String::new, |text| format!("{BRIEF_HEADER}{text}"))
+}
+
 #[must_use]
-pub fn instructions(taking_over: bool) -> String {
+pub fn instructions(taking_over: bool, brief: Option<&str>) -> String {
     let takeover = if taking_over { TAKING_OVER } else { "" };
-    format!("{PERSONA}{POLICIES}{AGENT_CAPABILITIES}{DELEGATION_RULES}{takeover}")
+    let section = brief_section(brief);
+    format!("{PERSONA}{POLICIES}{AGENT_CAPABILITIES}{DELEGATION_RULES}{takeover}{section}")
 }

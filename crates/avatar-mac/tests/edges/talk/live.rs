@@ -8,7 +8,7 @@ use super::fake::Fake;
 use super::strings;
 
 #[derive(Default)]
-struct Hooks(Vec<String>);
+pub(super) struct Hooks(Vec<String>);
 
 impl LiveStageHooks for Hooks {
     fn bring_up(&mut self, seat: &str) -> Result<(), Failure> {
@@ -37,7 +37,7 @@ fn request() -> TalkRequest {
     request
 }
 
-fn live_with(pane: Option<&str>, granting: bool) -> MacLiveOpening<Fake> {
+pub(super) fn live_with(pane: Option<&str>, granting: bool) -> MacLiveOpening<Fake> {
     let mut fake = Fake {
         granting,
         ..Fake::default()

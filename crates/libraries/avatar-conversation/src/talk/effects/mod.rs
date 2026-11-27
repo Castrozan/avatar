@@ -11,8 +11,8 @@ pub use character::show_chosen_character;
 pub use close::{close_conversation, close_or_return_the_floor, leave_meeting};
 pub use open::{bring_up_room, keep_conversation_open, open_conversation};
 pub use refusals::{
-    CLOSED_MESSAGE, refuse_closed, refuse_conversation, refuse_live, refuse_meeting,
-    refuse_seat_change,
+    CLOSED_MESSAGE, refuse_a_brief_without_live, refuse_closed, refuse_conversation, refuse_live,
+    refuse_meeting, refuse_seat_change,
 };
 pub use status::status;
 

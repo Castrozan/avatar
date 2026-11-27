@@ -17,6 +17,7 @@ pub struct SessionRequest<'a> {
     pub api_key: &'a str,
     pub speaking_voice: &'a str,
     pub taking_over: bool,
+    pub brief: Option<&'a str>,
 }
 
 fn upgrade_request(request: &SessionRequest<'_>) -> Result<Request, ClientError> {
@@ -78,9 +79,8 @@ async fn await_started(stream: &mut SplitStream<Socket>) -> Outcome<Option<Strin
 
 async fn handshake(request: &SessionRequest<'_>) -> Outcome<(GptLiveClient, Option<String>)> {
     let mut client = GptLiveClient::new(open_socket(upgrade_request(request)?).await?);
-    client
-        .send(&session_start(request.speaking_voice, request.taking_over))
-        .await?;
+    let start = session_start(request.speaking_voice, request.taking_over, request.brief);
+    client.send(&start).await?;
     let session = await_started(&mut client.stream).await?;
     Ok((client, session))
 }

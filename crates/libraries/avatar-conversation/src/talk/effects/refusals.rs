@@ -5,6 +5,8 @@ use crate::talk::state::seat::{configured, seat_name};
 
 pub const CLOSED_MESSAGE: &str = "No conversation is open; run avatar-talk open";
 const LIVE_OWNS_THE_TURNS: &str = "The live voice speaks and listens in this conversation and sends you each task over a2a: end your turn to receive them, or run avatar-talk close";
+const BRIEF_NEEDS_THE_LIVE_VOICE: &str =
+    "avatar-talk open --brief needs --live: only the live voice takes a brief";
 const CONVERSATION_OWNS_THE_ROOM: &str = "A conversation is open on the local listener; run avatar-talk close, then avatar-talk open --live to move the room to the live voice";
 
 pub fn refuse_seat_change(files: &mut impl Files, open: &OpenArguments) -> Result<(), TalkFailure> {
@@ -13,6 +15,13 @@ pub fn refuse_seat_change(files: &mut impl Files, open: &OpenArguments) -> Resul
     Err(TalkFailure::new(format!(
         "A {open_seat} conversation is open; run avatar-talk close before opening the {requested} seat"
     )))
+}
+
+pub fn refuse_a_brief_without_live(open: &OpenArguments) -> Result<(), TalkFailure> {
+    if open.brief.is_none() || open.live {
+        return Ok(());
+    }
+    Err(TalkFailure::new(BRIEF_NEEDS_THE_LIVE_VOICE))
 }
 
 pub fn refuse_live() -> Result<(), TalkFailure> {

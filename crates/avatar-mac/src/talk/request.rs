@@ -11,20 +11,27 @@ pub struct TalkRequest {
     pub voice: Option<String>,
     pub wait: f64,
     pub agent: Option<AgentSpec>,
+    pub brief: Option<String>,
 }
 
 impl TalkRequest {
+    const UNSET: Self = Self {
+        command: ConversationCommand::Status,
+        language: None,
+        character: None,
+        text: String::new(),
+        emotion: String::new(),
+        voice: None,
+        wait: 0.0,
+        agent: None,
+        brief: None,
+    };
+
     #[must_use]
-    pub const fn new(command: ConversationCommand) -> Self {
+    pub fn new(command: ConversationCommand) -> Self {
         Self {
             command,
-            language: None,
-            character: None,
-            text: String::new(),
-            emotion: String::new(),
-            voice: None,
-            wait: 0.0,
-            agent: None,
+            ..Self::UNSET
         }
     }
 }

@@ -19,6 +19,8 @@ pub struct OpenArguments {
     pub seat: Option<Seat>,
     #[arg(long, value_name = "HOST:PANE", value_parser = parse_agent, overrides_with = "agent")]
     pub agent: Option<AgentSpec>,
+    #[arg(long, value_name = "TEXT", overrides_with = "brief")]
+    pub brief: Option<String>,
 }
 
 fn parse_seat_argument(text: &str) -> Result<Seat, String> {

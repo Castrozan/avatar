@@ -1,3 +1,4 @@
+mod brief;
 mod failures;
 mod heard;
 mod script;

@@ -11,7 +11,7 @@ use crate::fakes::TestResult;
 const TRANSCRIPT: &str = "{\"sequence\": 1, \"text\": \"hello there\", \"turn_finished\": true}\n";
 const HOLDER: &str = r#"{"pane": "p1", "servant": "Mara", "heard_through": 0}"#;
 
-fn parsed(words: &[&str]) -> Result<TalkRequest, Box<dyn Error>> {
+pub(super) fn parsed(words: &[&str]) -> Result<TalkRequest, Box<dyn Error>> {
     let directory = tempfile::tempdir()?;
     let mut room = room_with(directory.path(), Fake::default())?;
     Ok(room.parse_request(&strings(words))?)

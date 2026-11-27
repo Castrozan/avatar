@@ -1,3 +1,4 @@
+mod brief;
 mod commands;
 mod fake;
 mod host;

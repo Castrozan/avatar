@@ -1,6 +1,6 @@
 use avatar_floor::quiet::Seat;
 use avatar_listening::conversation_state::ListenerPurpose;
-use serde_json::{Map, json};
+use serde_json::{Map, Value, json};
 
 mod floor;
 mod stage;
@@ -20,6 +20,15 @@ const LIVE_HAS_NO_DISCORD_SEAT: &str =
     "The live voice has no Discord seat; open a conversation instead";
 const LIVE_NEEDS_A_SERVANT: &str = "The live voice could not give the floor to this pane: only a session with a Servant name can hold it and receive the room's tasks";
 
+fn live_settings(open: &OpenArguments, seat: Seat) -> Map<String, Value> {
+    let mut settings = Map::new();
+    settings.insert("seat".to_owned(), json!(seat_name(seat)));
+    if let Some(brief) = &open.brief {
+        settings.insert("brief".to_owned(), json!(brief));
+    }
+    settings
+}
+
 fn listen_for_the_live_voice<Boundary: Boundaries>(
     boundary: &mut Boundary,
     open: &OpenArguments,
@@ -29,12 +38,10 @@ fn listen_for_the_live_voice<Boundary: Boundaries>(
     stage.bring_up(boundary, seat)?;
     prepare(boundary, seat)?;
     show_chosen_character(boundary, open)?;
-    let mut settings = Map::new();
-    settings.insert("seat".to_owned(), json!(seat_name(seat)));
     boundary.begin_listening(&ListeningRequest {
         purpose: ListenerPurpose::Live,
         human_source: microphone_source(seat).to_owned(),
-        settings,
+        settings: live_settings(open, seat),
     })
 }
 

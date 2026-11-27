@@ -1,3 +1,4 @@
+mod brief;
 mod messages;
 mod server;
 
@@ -19,6 +20,7 @@ fn request_for<'a>(endpoint: &'a str, voice: &'a str, taking_over: bool) -> Sess
         api_key: " secret\n",
         speaking_voice: voice,
         taking_over,
+        brief: None,
     }
 }
 
@@ -67,9 +69,9 @@ fn every_recorded_python_handshake_is_reproduced_against_the_mock_server() -> Ou
 #[test]
 fn the_session_instructions_match_the_python_source() -> Outcome {
     let expected = &cases(TEXTS, 1)?[0];
-    assert_eq!(instructions(false), text(&expected["instructions"]));
+    assert_eq!(instructions(false, None), text(&expected["instructions"]));
     assert_eq!(
-        session_start("v", false)["session"]["instructions"],
+        session_start("v", false, None)["session"]["instructions"],
         expected["instructions"]
     );
     Ok(())
@@ -83,7 +85,7 @@ fn taking_over_appends_the_hand_over_notice() -> Outcome {
         text(&expected["instructions"]),
         text(&expected["taking_over"])
     );
-    assert_eq!(instructions(true), joined);
+    assert_eq!(instructions(true, None), joined);
     Ok(())
 }
 

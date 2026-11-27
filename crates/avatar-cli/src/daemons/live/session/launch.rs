@@ -10,6 +10,7 @@ use tokio::sync::mpsc;
 use tokio::task::JoinHandle;
 
 use super::Environment;
+use super::brief::configured_brief;
 use super::seat::configured_seat;
 use super::tasks::Launch;
 use crate::daemons::live::devices::{RoomSpeaker, stream_microphone};
@@ -52,11 +53,12 @@ fn announce(session: Option<String>) {
 
 impl Foundation {
     fn new(environment: &Environment) -> io::Result<Self> {
+        let brief = configured_brief(&environment.directory)?;
         Ok(Self {
             seat: configured_seat(&environment.directory)?,
             holders: RoomHolder::new(environment.directory.clone()),
             choice: VoiceChoice::from_environment(),
-            connector: Connector::new(&environment.endpoint, &environment.key_file),
+            connector: Connector::new(&environment.endpoint, &environment.key_file, brief),
             first_voice: String::new(),
         })
     }

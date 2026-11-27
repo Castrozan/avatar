@@ -41,6 +41,7 @@ fn open_arguments(request: &TalkRequest) -> OpenArguments {
     OpenArguments {
         character: request.character.clone(),
         agent: request.agent.clone(),
+        brief: request.brief.clone(),
         live: true,
         ..OpenArguments::default()
     }
