@@ -15,7 +15,7 @@ const A2A_LOG: &str = "echo \"$@\" >> \"${0%/*}/../a2a.log\"";
 const REFUSING: &str =
     "case \"$1\" in send) echo 'a2a: peer refused the task'; exit 1;; notify) echo '{}';; esac";
 const NEVER_ANSWERING: &str = "case \"$1\" in send) echo task-1;; status) echo '{\"state\":\"working\",\"output\":\"\"}';; notify) echo '{}';; esac";
-const REFUSED_NOTICE: &str = "notify --sender avatar live voice pane-1 Your answer to LIVE-ANSWER-1 never reached Lucas (a2a: peer refused the task); answer it again now with a closing line LIVE-ANSWER-1: <one sentence>.";
+const REFUSED_NOTICE: &str = "notify --sender avatar live voice pane-1 Your answer to LIVE-ANSWER-1 never reached Lucas (a2a: peer refused the task). If the live voice is still open he heard that it failed and can ask again; otherwise tell him the answer yourself through the avatar.";
 
 fn has_polled_the_task(machine: &Machine) -> bool {
     let log = fs::read_to_string(machine.path("a2a.log")).unwrap_or_default();

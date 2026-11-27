@@ -10,7 +10,7 @@ pub const NO_ANSWER_IN_TIME: &str =
 pub const NO_ANSWER_REASON: &str = "no answer within 5 minutes";
 pub const STOPPED_REASON: &str = "the live voice stopped";
 
-const NOTICE: &str = "Your answer to {tag} never reached Lucas ({reason}); answer it again now with a closing line {tag}: <one sentence>.";
+const NOTICE: &str = "Your answer to {tag} never reached Lucas ({reason}). If the live voice is still open he heard that it failed and can ask again; otherwise tell him the answer yourself through the avatar.";
 
 const BRIEF: &str = "[avatar-live] Lucas asked this by voice in the open live avatar conversation, and the live voice will read your answer aloud to him: {request} -- Do the work, then begin your closing message with {tag} and a colon, followed by one short plain spoken sentence that answers him, in the language he used, with no markdown, code or file paths. Answer that way at once even while background work of yours still runs.";
 
