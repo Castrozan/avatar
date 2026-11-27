@@ -1,3 +1,5 @@
+mod ending;
+mod errand;
 mod hand_off;
 mod relay;
 mod summary;

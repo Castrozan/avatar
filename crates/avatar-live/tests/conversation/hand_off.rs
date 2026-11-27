@@ -1,5 +1,7 @@
+use std::future::pending;
+
 use avatar_floor::addressee::Addressee;
-use avatar_live::agent::report::AgentReport;
+use avatar_live::agent::report::{AgentReport, ReportKind};
 use avatar_live::conversation::{HandOffDesk, Podium};
 use avatar_live::events::TaskRequest;
 use serde_json::{Value, json};
@@ -24,8 +26,15 @@ fn report_of(spec: &Value) -> AgentReport {
     AgentReport {
         text: text(&spec[0]).to_owned(),
         seconds: number(&spec[1]),
-        is_final: spec[2] == json!(true),
+        kind: kind_of(spec),
     }
+}
+
+fn kind_of(spec: &Value) -> ReportKind {
+    if spec[2] == json!(true) {
+        return ReportKind::Answer;
+    }
+    ReportKind::Progress
 }
 
 fn task_of(spec: &Value) -> TaskRequest {
@@ -61,8 +70,8 @@ fn desk_for(case: &Value, recorder: &Recorder) -> Desk {
 
 async fn run(desk: &mut Desk, case: &Value) {
     for task in array(&case["tasks"]) {
-        desk.hand_off(&task_of(task), &mut VirtualClock::default())
-            .await;
+        let mut clock = VirtualClock::default();
+        desk.hand_off(&task_of(task), &mut clock, pending()).await;
     }
 }
 

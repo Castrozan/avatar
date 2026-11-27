@@ -48,10 +48,10 @@ impl<Transport: AgentTransport, Crew: Courier> Poller for Polling<'_, '_, Transp
 
     async fn poll_once(&mut self) -> bool {
         self.dispatch.reporter.crew.sleep(POLL_SECONDS).await;
-        let answer = self.dispatch.status_answer(&self.task_id, &self.tag).await;
+        let verdict = self.dispatch.status_verdict(&self.task_id, &self.tag).await;
         let observation = self
             .watch
-            .observe(self.dispatch.reporter.crew.now(), answer);
+            .observe(self.dispatch.reporter.crew.now(), verdict);
         self.dispatch.announce(observation).await
     }
 }

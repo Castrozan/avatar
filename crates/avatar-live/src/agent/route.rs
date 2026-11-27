@@ -1,7 +1,8 @@
 mod dispatch;
 mod polling;
 
-use self::dispatch::Dispatch;
+use self::dispatch::{Dispatch, submission_of};
+use super::brief::notice_arguments;
 use super::report::AgentRequest;
 use super::reporter::Reporter;
 use crate::boundaries::{AgentAsker, AgentTransport, Courier};
@@ -29,5 +30,11 @@ impl<Transport: AgentTransport> AgentAsker for AgentRoute<Transport> {
             holder: &request.holder,
         };
         dispatch.ask(&request.question).await;
+    }
+
+    async fn notify(&mut self, request: &AgentRequest, reason: &str) -> Result<(), String> {
+        let arguments = notice_arguments(&request.holder, &request.question, reason);
+        let sent = self.transport.run(&request.holder, &arguments).await;
+        submission_of(&sent).map(drop)
     }
 }

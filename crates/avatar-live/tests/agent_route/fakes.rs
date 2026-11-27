@@ -75,7 +75,7 @@ impl Clock for Crew {
 impl ReportSink for Crew {
     async fn report(&mut self, report: AgentReport) {
         self.reports.push(
-            json!({"text": report.text, "seconds": report.seconds, "final": report.is_final}),
+            json!({"text": report.text, "seconds": report.seconds, "final": report.kind.is_final()}),
         );
     }
 }
