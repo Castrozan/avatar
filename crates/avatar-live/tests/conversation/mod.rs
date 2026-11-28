@@ -22,24 +22,22 @@ fn subject_for(recorder: &Recorder) -> Subject {
     Conversation::new(parts.0, parts.1, parts.2)
 }
 
-fn hear(subject: &mut Subject, recorder: &Recorder, operation: &Value) -> Outcome {
-    let task = subject.handle(event_from(&operation[2])?, number(&operation[1]));
+fn hear(subject: &mut Subject, recorder: &Recorder, operation: &Value) {
+    let task = subject.handle(event_from(&operation[2]), number(&operation[1]));
     if let Some(found) = task {
         recorder.push(json!(["handoff", found.task_id, found.request]));
     }
-    Ok(())
 }
 
-fn apply(subject: &mut Subject, recorder: &Recorder, operation: &Value) -> Outcome {
+fn apply(subject: &mut Subject, recorder: &Recorder, operation: &Value) {
     match text(&operation[0]) {
-        "event" => hear(subject, recorder, operation)?,
+        "event" => hear(subject, recorder, operation),
         "settle" => subject.settle(number(&operation[1])),
         "buffer" => recorder.buffered.set(number(&operation[1])),
         "voice_changed" => subject.settle_after_a_new_voice(),
         _ => subject.finish(),
     }
     recorder.push(json!(["--"]));
-    Ok(())
 }
 
 fn summary_matches(subject: &Subject, case: &Value) -> Outcome {
@@ -64,9 +62,9 @@ fn matches_python(subject: &Subject, recorder: &Recorder, case: &Value) -> Outco
 fn check(case: &Value) -> Outcome {
     let recorder = Recorder::default();
     let mut subject = subject_for(&recorder);
-    array(&case["ops"])
-        .iter()
-        .try_for_each(|operation| apply(&mut subject, &recorder, operation))?;
+    for operation in array(&case["ops"]) {
+        apply(&mut subject, &recorder, operation);
+    }
     matches_python(&subject, &recorder, case)
 }
 

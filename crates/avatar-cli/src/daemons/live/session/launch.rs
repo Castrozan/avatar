@@ -3,8 +3,8 @@ use std::sync::Arc;
 
 use avatar_floor::quiet::Seat;
 use avatar_live::boundaries::Console;
-use avatar_live::client::GptLiveClient;
-use avatar_live::session::{MODEL, RATE};
+use avatar_live::client::LiveClient;
+use avatar_live::session::{PROVIDER, RATE};
 use avatar_live::voices::voice_of_the_room_holder;
 use tokio::sync::mpsc;
 use tokio::task::JoinHandle;
@@ -46,19 +46,24 @@ pub(super) async fn guarded<Output>(
     output
 }
 
-fn announce(session: Option<String>) {
-    let session = session.unwrap_or_else(|| "None".to_owned());
-    StandardOutput.print(&format!("{MODEL} live, session {session}"));
+fn announce(conversation: Option<String>) {
+    let conversation = conversation.unwrap_or_else(|| "None".to_owned());
+    StandardOutput.print(&format!("{PROVIDER} live, conversation {conversation}"));
+}
+
+async fn provisioned(environment: &Environment) -> io::Result<Connector> {
+    let brief = configured_brief(&environment.directory)?;
+    let (endpoint, api_key) = (&environment.endpoint, &environment.api_key);
+    Connector::provisioned(endpoint, api_key, brief).await
 }
 
 impl Foundation {
-    fn new(environment: &Environment) -> io::Result<Self> {
-        let brief = configured_brief(&environment.directory)?;
+    async fn new(environment: &Environment) -> io::Result<Self> {
         Ok(Self {
             seat: configured_seat(&environment.directory)?,
             holders: RoomHolder::new(environment.directory.clone()),
             choice: VoiceChoice::from_environment(),
-            connector: Connector::new(&environment.endpoint, &environment.key_file, brief),
+            connector: provisioned(environment).await?,
             first_voice: String::new(),
         })
     }
@@ -71,11 +76,11 @@ impl Foundation {
         self.first_voice = voice_of_the_room_holder(lookup, clock, choose).await;
     }
 
-    async fn connect(&mut self) -> io::Result<GptLiveClient> {
+    async fn connect(&mut self) -> io::Result<LiveClient> {
         self.choose_voice().await;
         let opened = self.connector.connect(&self.first_voice, false).await;
-        let (client, session) = opened.map_err(io::Error::other)?;
-        announce(session);
+        let (client, conversation) = opened.map_err(io::Error::other)?;
+        announce(conversation);
         Ok(client)
     }
 }
@@ -84,7 +89,7 @@ pub(super) async fn launch(
     environment: &Environment,
     shutdown: &Arc<Shutdown>,
 ) -> io::Result<Running> {
-    let mut foundation = Foundation::new(environment)?;
+    let mut foundation = Foundation::new(environment).await?;
     let client = foundation.connect().await?;
     let speaker = RoomSpeaker::start(RATE, foundation.seat, Arc::clone(shutdown))?;
     let (voice, line, received) = voice_line();

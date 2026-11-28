@@ -4,12 +4,13 @@ use std::sync::Arc;
 use axum::Router;
 use axum::extract::State;
 use axum::extract::ws::{Message, WebSocket, WebSocketUpgrade};
-use axum::http::HeaderMap;
 use axum::response::Response;
 use axum::routing::get;
-use serde_json::{Value, json};
+use serde_json::Value;
 use tokio::net::TcpListener;
 use tokio::sync::mpsc::{UnboundedReceiver, UnboundedSender, unbounded_channel};
+
+pub(super) const CLOSE: &str = "\"close\"";
 
 struct Script {
     replies: Vec<String>,
@@ -21,31 +22,20 @@ pub(super) struct MockServer {
     pub(super) received: UnboundedReceiver<Value>,
 }
 
-fn authorization_of(headers: &HeaderMap) -> String {
-    let header = headers
-        .get("authorization")
-        .and_then(|value| value.to_str().ok());
-    header.unwrap_or_default().to_owned()
+async fn upgrade(State(script): State<Arc<Script>>, socket: WebSocketUpgrade) -> Response {
+    socket.on_upgrade(move |connection| serve(connection, script))
 }
 
-async fn upgrade(
-    State(script): State<Arc<Script>>,
-    headers: HeaderMap,
-    socket: WebSocketUpgrade,
-) -> Response {
-    script
-        .received
-        .send(json!({"authorization": authorization_of(&headers)}))
-        .ok();
-    socket.on_upgrade(move |connection| serve(connection, script))
+fn frame_of(message: &str) -> Message {
+    if message == CLOSE {
+        return Message::Close(None);
+    }
+    Message::Text(message.into())
 }
 
 async fn reply<'a>(socket: &mut WebSocket, replies: impl Iterator<Item = &'a String>) {
     for message in replies {
-        socket
-            .send(Message::Text(message.as_str().into()))
-            .await
-            .ok();
+        socket.send(frame_of(message)).await.ok();
     }
 }
 

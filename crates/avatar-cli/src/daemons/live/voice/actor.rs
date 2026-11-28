@@ -1,9 +1,8 @@
 use std::pin::pin;
 use std::sync::Arc;
 
-use avatar_live::client::{ClientError, GptLiveClient};
+use avatar_live::client::{ClientError, LiveClient};
 use avatar_live::events::LiveEvent;
-use avatar_live::room_voice::RoomVoiceState;
 use futures_util::future::{Either, select};
 
 use super::connector::Connector;
@@ -18,8 +17,7 @@ pub(super) enum Step {
 }
 
 pub(crate) struct VoiceActor {
-    pub(super) client: GptLiveClient,
-    pub(super) state: RoomVoiceState,
+    pub(super) client: LiveClient,
     pub(super) line: ActorLine,
     pub(super) connector: Connector,
     pub(super) shutdown: Arc<Shutdown>,
@@ -28,15 +26,13 @@ pub(crate) struct VoiceActor {
 
 impl VoiceActor {
     pub(crate) fn new(
-        client: GptLiveClient,
-        speaking_voice: &str,
+        client: LiveClient,
         line: ActorLine,
         connector: Connector,
         shutdown: Arc<Shutdown>,
     ) -> Self {
         Self {
             client,
-            state: RoomVoiceState::new(speaking_voice),
             line,
             connector,
             shutdown,
@@ -82,9 +78,7 @@ impl VoiceActor {
         forward_all(self, events);
     }
 
-    pub(super) fn announce(&mut self, event: LiveEvent) {
-        let generation = self.state.generation();
-        self.state.accept(generation, &event);
+    pub(super) fn announce(&self, event: LiveEvent) {
         let _ = self.line.occurrences.send(Occurrence::Event(event));
     }
 }

@@ -1,18 +1,19 @@
-use std::path::{Path, PathBuf};
+use std::io;
 
-use avatar_live::client::{ClientError, GptLiveClient, SessionRequest};
+use avatar_live::client::provisioning::{AgentApi, provision, signed_url};
+use avatar_live::client::{ClientError, LiveClient, SessionRequest};
 use tokio::sync::mpsc;
 
 use super::handle::{Change, Reconnection, Replacement, VoiceCommand};
 
 #[derive(Clone)]
 pub(crate) struct Connector {
-    endpoint: String,
-    key_file: PathBuf,
+    api: AgentApi,
+    agent: String,
     brief: Option<String>,
 }
 
-type Opened = (GptLiveClient, Option<String>);
+type Opened = (LiveClient, Option<String>);
 
 fn reconnection(step: Reconnection) -> VoiceCommand {
     VoiceCommand::Reconnect(step)
@@ -22,7 +23,6 @@ fn replacement_of(opened: Result<Opened, ClientError>, change: Change) -> VoiceC
     match opened {
         Ok((client, _)) => reconnection(Reconnection::Replace(Replacement {
             client,
-            voice: change.voice,
             done: change.done,
         })),
         Err(failure) => reconnection(Reconnection::Failed(failure.to_string())),
@@ -30,17 +30,14 @@ fn replacement_of(opened: Result<Opened, ClientError>, change: Change) -> VoiceC
 }
 
 impl Connector {
-    pub(crate) fn new(endpoint: &str, key_file: &Path, brief: Option<String>) -> Self {
-        Self {
-            endpoint: endpoint.to_owned(),
-            key_file: key_file.to_path_buf(),
-            brief,
-        }
-    }
-
-    async fn key(&self) -> Result<String, ClientError> {
-        let text = tokio::fs::read_to_string(&self.key_file).await;
-        text.map_err(|failure| ClientError(failure.to_string()))
+    pub(crate) async fn provisioned(
+        endpoint: &str,
+        api_key: &str,
+        brief: Option<String>,
+    ) -> io::Result<Self> {
+        let api = AgentApi::new(endpoint, api_key);
+        let agent = provision(&api).await.map_err(io::Error::other)?;
+        Ok(Self { api, agent, brief })
     }
 
     pub(crate) async fn connect(
@@ -48,24 +45,14 @@ impl Connector {
         speaking_voice: &str,
         taking_over: bool,
     ) -> Result<Opened, ClientError> {
-        let key = self.key().await?;
-        let request = self.request(&key, speaking_voice, taking_over);
-        GptLiveClient::connect(&request).await
-    }
-
-    fn request<'a>(
-        &'a self,
-        key: &'a str,
-        voice: &'a str,
-        taking_over: bool,
-    ) -> SessionRequest<'a> {
-        SessionRequest {
-            endpoint: &self.endpoint,
-            api_key: key,
-            speaking_voice: voice,
+        let url = signed_url(&self.api, &self.agent).await?;
+        let request = SessionRequest {
+            url: &url,
+            speaking_voice,
             taking_over,
             brief: self.brief.as_deref(),
-        }
+        };
+        LiveClient::connect(&request).await
     }
 
     pub(crate) async fn replace(

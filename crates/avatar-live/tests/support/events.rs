@@ -1,8 +1,7 @@
 use avatar_live::events::{Audio, LiveEvent, TaskRequest};
-use avatar_live::ordered_json;
 use serde_json::{Map, Value, json};
 
-use super::{bytes, plain, text};
+use super::{bytes, text};
 
 type Fields = Vec<(&'static str, Value)>;
 
@@ -28,15 +27,15 @@ fn audio_fields(audio: &Audio) -> Fields {
     vec![("pcm", json!(audio.pcm)), ("voiced", json!(audio.voiced()))]
 }
 
-pub(crate) fn event_json(event: &LiveEvent) -> Result<Value, serde_json::Error> {
-    Ok(match event {
+pub(crate) fn event_json(event: &LiveEvent) -> Value {
+    match event {
         LiveEvent::Audio(audio) => tagged("audio", audio_fields(audio)),
         LiveEvent::UserSaid(words) => tagged("user_said", vec![("text", json!(words))]),
         LiveEvent::AssistantSaid(words) => tagged("assistant_said", vec![("text", json!(words))]),
         LiveEvent::TaskRequested(task) => tagged("task", task_fields(task)),
-        LiveEvent::Usage(details) => tagged("usage", vec![("details", plain(details)?)]),
+        LiveEvent::Interrupted => tagged("interrupted", vec![]),
         LiveEvent::Failed(message) => tagged("failed", vec![("message", json!(message))]),
-    })
+    }
 }
 
 fn task_of(spec: &Value) -> TaskRequest {
@@ -52,14 +51,14 @@ fn audio_of(spec: &Value) -> Audio {
     }
 }
 
-pub(crate) fn event_from(spec: &Value) -> Result<LiveEvent, Box<dyn std::error::Error>> {
+pub(crate) fn event_from(spec: &Value) -> LiveEvent {
     let words = text(&spec["text"]).to_owned();
-    Ok(match text(&spec["kind"]) {
+    match text(&spec["kind"]) {
         "audio" => LiveEvent::Audio(audio_of(spec)),
         "user_said" => LiveEvent::UserSaid(words),
         "assistant_said" => LiveEvent::AssistantSaid(words),
         "task" => LiveEvent::TaskRequested(task_of(spec)),
-        "usage" => LiveEvent::Usage(ordered_json::parse(&spec["details"].to_string())?),
+        "interrupted" => LiveEvent::Interrupted,
         _ => LiveEvent::Failed(text(&spec["message"]).to_owned()),
-    })
+    }
 }

@@ -24,13 +24,18 @@ impl HolderLookup for AppearsLater {
     }
 }
 
+fn any_voice(_: &str) -> String {
+    "EXAVITQu4vr4xnSDxMaL".to_owned()
+}
+
 async fn wait(case: &Value) -> (String, u64, f64) {
+    let after_polls = case["appears_after_polls"].as_u64();
     let mut holders = AppearsLater {
-        after_polls: case["appears_after_polls"].as_u64(),
+        after_polls,
         lookups: 0,
     };
     let mut clock = VirtualClock::default();
-    let voice = voice_of_the_room_holder(&mut holders, &mut clock, |_| "marin".to_owned()).await;
+    let voice = voice_of_the_room_holder(&mut holders, &mut clock, any_voice).await;
     (voice, holders.lookups, clock.now)
 }
 

@@ -5,7 +5,6 @@ let
     "name"
     "cloudVoice"
     "localVoice"
-    "liveVoice"
   ];
 in
 pkgs.writeText "avatar-character-voices.json" (

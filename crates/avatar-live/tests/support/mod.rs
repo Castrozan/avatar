@@ -58,7 +58,7 @@ pub(crate) fn bytes(value: &Value) -> Vec<u8> {
     numbers.filter_map(|byte| u8::try_from(byte).ok()).collect()
 }
 
-pub(crate) fn events_json(events: &[LiveEvent]) -> Result<Vec<Value>, serde_json::Error> {
+pub(crate) fn events_json(events: &[LiveEvent]) -> Vec<Value> {
     events.iter().map(event_json).collect()
 }
 

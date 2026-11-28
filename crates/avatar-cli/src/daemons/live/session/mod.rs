@@ -11,7 +11,7 @@ use super::shutdown::{Shutdown, stop_on_signals};
 
 pub(super) struct Environment {
     pub(super) directory: PathBuf,
-    pub(super) key_file: PathBuf,
+    pub(super) api_key: String,
     pub(super) endpoint: String,
 }
 

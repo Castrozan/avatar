@@ -1,1 +1,523 @@
-[{"name": "each_kind", "server": ["{\"type\": \"session.output_audio.delta\", \"delta\": \"AQI=\"}", "{\"type\": \"session.input_transcript.delta\", \"delta\": \"hi\"}", "{\"type\": \"session.output_transcript.delta\", \"delta\": \"hello\"}", "{\"type\": \"session.usage.updated\", \"usage\": {\"tokens\": 3}}", "{\"type\": \"error\", \"error\": {\"code\": \"x\"}}"], "events": [{"kind": "audio", "pcm": [1, 2], "voiced": true}, {"kind": "user_said", "text": "hi"}, {"kind": "assistant_said", "text": "hello"}, {"kind": "usage", "details": {"tokens": 3}}, {"kind": "failed", "message": "{\"code\": \"x\"}"}]}, {"name": "unknown", "server": ["{\"type\": \"session.something.else\"}"], "events": []}, {"name": "close_with_usage", "server": ["{\"type\": \"session.closed\", \"usage\": {\"tokens\": 9}}", "{\"type\": \"session.input_transcript.delta\", \"delta\": \"late\"}"], "events": [{"kind": "usage", "details": {"tokens": 9}}]}, {"name": "close_without_usage", "server": ["{\"type\": \"session.closed\"}"], "events": [{"kind": "usage", "details": {}}]}, {"name": "task_since_previous", "server": ["{\"type\": \"session.input_transcript.delta\", \"delta\": \"Check the \"}", "{\"type\": \"session.input_transcript.delta\", \"delta\": \"disk.\"}", "{\"type\": \"session.delegation.created\", \"delegation\": {\"id\": \"a\"}}", "{\"type\": \"session.input_transcript.delta\", \"delta\": \"And the build?\"}", "{\"type\": \"session.delegation.created\", \"delegation\": {\"id\": \"b\"}}"], "events": [{"kind": "user_said", "text": "Check the "}, {"kind": "user_said", "text": "disk."}, {"kind": "task", "id": "a", "request": "Check the disk."}, {"kind": "user_said", "text": "And the build?"}, {"kind": "task", "id": "b", "request": "And the build?"}]}, {"name": "task_fallback_recent", "server": ["{\"type\": \"session.input_transcript.delta\", \"delta\": \"Check the disk.\"}", "{\"type\": \"session.delegation.created\", \"delegation\": {\"id\": \"a\"}}", "{\"type\": \"session.delegation.created\", \"delegation\": {\"id\": \"b\"}}"], "events": [{"kind": "user_said", "text": "Check the disk."}, {"kind": "task", "id": "a", "request": "Check the disk."}, {"kind": "task", "id": "b", "request": "Check the disk."}]}, {"name": "task_without_speech", "server": ["{\"type\": \"session.delegation.created\", \"delegation\": {\"id\": \"a\"}}"], "events": [{"kind": "task", "id": "a", "request": ""}]}, {"name": "task_whitespace_only", "server": ["{\"type\": \"session.input_transcript.delta\", \"delta\": \"   \"}", "{\"type\": \"session.delegation.created\", \"delegation\": {\"id\": \"a\"}}"], "events": [{"kind": "user_said", "text": "   "}, {"kind": "task", "id": "a", "request": ""}]}, {"name": "task_whitespace_falls_back", "server": ["{\"type\": \"session.input_transcript.delta\", \"delta\": \"real words\"}", "{\"type\": \"session.delegation.created\", \"delegation\": {\"id\": \"a\"}}", "{\"type\": \"session.input_transcript.delta\", \"delta\": \"  \"}", "{\"type\": \"session.delegation.created\", \"delegation\": {\"id\": \"b\"}}"], "events": [{"kind": "user_said", "text": "real words"}, {"kind": "task", "id": "a", "request": "real words"}, {"kind": "user_said", "text": "  "}, {"kind": "task", "id": "b", "request": "real words"}]}, {"name": "long_speech_trimmed", "server": ["{\"type\": \"session.input_transcript.delta\", \"delta\": \"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\"}", "{\"type\": \"session.delegation.created\", \"delegation\": {\"id\": \"a\"}}", "{\"type\": \"session.delegation.created\", \"delegation\": {\"id\": \"b\"}}"], "events": [{"kind": "user_said", "text": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"}, {"kind": "task", "id": "a", "request": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"}, {"kind": "task", "id": "b", "request": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"}]}, {"name": "long_speech_two_pieces", "server": ["{\"type\": \"session.input_transcript.delta\", \"delta\": \"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"}", "{\"type\": \"session.input_transcript.delta\", \"delta\": \"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb\"}", "{\"type\": \"session.delegation.created\", \"delegation\": {\"id\": \"a\"}}"], "events": [{"kind": "user_said", "text": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"}, {"kind": "user_said", "text": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"}, {"kind": "task", "id": "a", "request": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"}]}, {"name": "error_without_detail", "server": ["{\"type\": \"error\"}"], "events": [{"kind": "failed", "message": "null"}]}, {"name": "error_unicode_nested", "server": ["{\"type\": \"error\", \"error\": {\"message\": \"falhou \\u00e7\\u00e3o\", \"list\": [1, 2.5, null, true], \"nested\": {\"b\": 1, \"a\": 2}}}"], "events": [{"kind": "failed", "message": "{\"message\": \"falhou \\u00e7\\u00e3o\", \"list\": [1, 2.5, null, true], \"nested\": {\"b\": 1, \"a\": 2}}"}]}, {"name": "error_astral", "server": ["{\"type\": \"error\", \"error\": {\"text\": \"emoji \\ud83d\\ude00 \\u00e9\"}}"], "events": [{"kind": "failed", "message": "{\"text\": \"emoji \\ud83d\\ude00 \\u00e9\"}"}]}, {"name": "usage_null", "server": ["{\"type\": \"session.usage.updated\", \"usage\": null}"], "events": [{"kind": "usage", "details": {}}]}, {"name": "usage_missing", "server": ["{\"type\": \"session.usage.updated\"}"], "events": [{"kind": "usage", "details": {}}]}, {"name": "usage_ordered_keys", "server": ["{\"type\": \"session.usage.updated\", \"usage\": {\"z\": 1, \"a\": {\"y\": 2, \"b\": 3}}}"], "events": [{"kind": "usage", "details": {"z": 1, "a": {"y": 2, "b": 3}}}]}, {"name": "audio_empty_and_loud", "server": ["{\"type\": \"session.output_audio.delta\", \"delta\": \"\"}", "{\"type\": \"session.output_audio.delta\", \"delta\": \"/3//f/9//38=\"}", "{\"type\": \"session.output_audio.delta\", \"delta\": \"AQID\"}"], "events": [{"kind": "audio", "pcm": [], "voiced": false}, {"kind": "audio", "pcm": [255, 127, 255, 127, 255, 127, 255, 127], "voiced": true}, {"kind": "audio", "pcm": [1, 2, 3], "voiced": true}]}, {"name": "full_session", "server": ["{\"type\": \"session.output_audio.delta\", \"delta\": \"AQI=\"}", "{\"type\": \"session.input_transcript.delta\", \"delta\": \"oi\"}", "{\"type\": \"session.output_transcript.delta\", \"delta\": \"ola\"}", "{\"type\": \"session.delegation.created\", \"delegation\": {\"id\": \"a\"}}", "{\"type\": \"session.usage.updated\", \"usage\": {\"tokens\": 1}}", "{\"type\": \"error\", \"error\": {\"code\": \"x\"}}", "{\"type\": \"session.unrecognised\"}", "{\"type\": \"session.closed\"}", "{\"type\": \"session.input_transcript.delta\", \"delta\": \"never reached\"}"], "events": [{"kind": "audio", "pcm": [1, 2], "voiced": true}, {"kind": "user_said", "text": "oi"}, {"kind": "assistant_said", "text": "ola"}, {"kind": "task", "id": "a", "request": "oi"}, {"kind": "usage", "details": {"tokens": 1}}, {"kind": "failed", "message": "{\"code\": \"x\"}"}, {"kind": "usage", "details": {}}]}, {"name": "speech_unicode_trim", "server": ["{\"type\": \"session.input_transcript.delta\", \"delta\": \"  oi tudo bem  \"}", "{\"type\": \"session.delegation.created\", \"delegation\": {\"id\": \"a\"}}"], "events": [{"kind": "user_said", "text": "  oi tudo bem  "}, {"kind": "task", "id": "a", "request": "oi tudo bem"}]}]
+[
+ {
+  "name": "each_kind",
+  "server": [
+   "{\"type\": \"audio\", \"audio_event\": {\"audio_base_64\": \"AQI=\", \"event_id\": 1}}",
+   "{\"type\": \"user_transcript\", \"user_transcription_event\": {\"user_transcript\": \"hi\", \"event_id\": 2}}",
+   "{\"type\": \"agent_response\", \"agent_response_event\": {\"agent_response\": \"hello\", \"event_id\": 3}}",
+   "{\"type\": \"client_error\", \"error_event\": {\"code\": \"x\"}}"
+  ],
+  "events": [
+   {
+    "kind": "audio",
+    "pcm": [
+     1,
+     2
+    ],
+    "voiced": true
+   },
+   {
+    "kind": "user_said",
+    "text": "hi"
+   },
+   {
+    "kind": "assistant_said",
+    "text": "hello"
+   },
+   {
+    "kind": "failed",
+    "message": "{\"code\": \"x\"}"
+   }
+  ],
+  "replies": []
+ },
+ {
+  "name": "unknown",
+  "server": [
+   "{\"type\": \"agent_something.else\"}"
+  ],
+  "events": [],
+  "replies": []
+ },
+ {
+  "name": "task_since_previous",
+  "server": [
+   "{\"type\": \"user_transcript\", \"user_transcription_event\": {\"user_transcript\": \"Check the \", \"event_id\": 1}}",
+   "{\"type\": \"user_transcript\", \"user_transcription_event\": {\"user_transcript\": \"disk.\", \"event_id\": 2}}",
+   "{\"type\": \"client_tool_call\", \"client_tool_call\": {\"tool_name\": \"hand_off_to_agent\", \"tool_call_id\": \"a\", \"parameters\": {}, \"event_id\": 3, \"expects_response\": true}}",
+   "{\"type\": \"user_transcript\", \"user_transcription_event\": {\"user_transcript\": \"And the build?\", \"event_id\": 4}}",
+   "{\"type\": \"client_tool_call\", \"client_tool_call\": {\"tool_name\": \"hand_off_to_agent\", \"tool_call_id\": \"b\", \"parameters\": {}, \"event_id\": 5, \"expects_response\": true}}"
+  ],
+  "events": [
+   {
+    "kind": "user_said",
+    "text": "Check the "
+   },
+   {
+    "kind": "user_said",
+    "text": "disk."
+   },
+   {
+    "kind": "task",
+    "id": "a",
+    "request": "Check the disk."
+   },
+   {
+    "kind": "user_said",
+    "text": "And the build?"
+   },
+   {
+    "kind": "task",
+    "id": "b",
+    "request": "And the build?"
+   }
+  ],
+  "replies": [
+   {
+    "type": "client_tool_result",
+    "tool_call_id": "a",
+    "result": "Handed to the agent; its answer comes later as its own message.",
+    "is_error": false
+   },
+   {
+    "type": "client_tool_result",
+    "tool_call_id": "b",
+    "result": "Handed to the agent; its answer comes later as its own message.",
+    "is_error": false
+   }
+  ]
+ },
+ {
+  "name": "task_fallback_recent",
+  "server": [
+   "{\"type\": \"user_transcript\", \"user_transcription_event\": {\"user_transcript\": \"Check the disk.\", \"event_id\": 1}}",
+   "{\"type\": \"client_tool_call\", \"client_tool_call\": {\"tool_name\": \"hand_off_to_agent\", \"tool_call_id\": \"a\", \"parameters\": {}, \"event_id\": 2, \"expects_response\": true}}",
+   "{\"type\": \"client_tool_call\", \"client_tool_call\": {\"tool_name\": \"hand_off_to_agent\", \"tool_call_id\": \"b\", \"parameters\": {}, \"event_id\": 3, \"expects_response\": true}}"
+  ],
+  "events": [
+   {
+    "kind": "user_said",
+    "text": "Check the disk."
+   },
+   {
+    "kind": "task",
+    "id": "a",
+    "request": "Check the disk."
+   },
+   {
+    "kind": "task",
+    "id": "b",
+    "request": "Check the disk."
+   }
+  ],
+  "replies": [
+   {
+    "type": "client_tool_result",
+    "tool_call_id": "a",
+    "result": "Handed to the agent; its answer comes later as its own message.",
+    "is_error": false
+   },
+   {
+    "type": "client_tool_result",
+    "tool_call_id": "b",
+    "result": "Handed to the agent; its answer comes later as its own message.",
+    "is_error": false
+   }
+  ]
+ },
+ {
+  "name": "task_without_speech",
+  "server": [
+   "{\"type\": \"client_tool_call\", \"client_tool_call\": {\"tool_name\": \"hand_off_to_agent\", \"tool_call_id\": \"a\", \"parameters\": {}, \"event_id\": 1, \"expects_response\": true}}"
+  ],
+  "events": [
+   {
+    "kind": "task",
+    "id": "a",
+    "request": ""
+   }
+  ],
+  "replies": [
+   {
+    "type": "client_tool_result",
+    "tool_call_id": "a",
+    "result": "Handed to the agent; its answer comes later as its own message.",
+    "is_error": false
+   }
+  ]
+ },
+ {
+  "name": "task_whitespace_only",
+  "server": [
+   "{\"type\": \"user_transcript\", \"user_transcription_event\": {\"user_transcript\": \"   \", \"event_id\": 1}}",
+   "{\"type\": \"client_tool_call\", \"client_tool_call\": {\"tool_name\": \"hand_off_to_agent\", \"tool_call_id\": \"a\", \"parameters\": {}, \"event_id\": 2, \"expects_response\": true}}"
+  ],
+  "events": [
+   {
+    "kind": "user_said",
+    "text": "   "
+   },
+   {
+    "kind": "task",
+    "id": "a",
+    "request": ""
+   }
+  ],
+  "replies": [
+   {
+    "type": "client_tool_result",
+    "tool_call_id": "a",
+    "result": "Handed to the agent; its answer comes later as its own message.",
+    "is_error": false
+   }
+  ]
+ },
+ {
+  "name": "task_whitespace_falls_back",
+  "server": [
+   "{\"type\": \"user_transcript\", \"user_transcription_event\": {\"user_transcript\": \"real words\", \"event_id\": 1}}",
+   "{\"type\": \"client_tool_call\", \"client_tool_call\": {\"tool_name\": \"hand_off_to_agent\", \"tool_call_id\": \"a\", \"parameters\": {}, \"event_id\": 2, \"expects_response\": true}}",
+   "{\"type\": \"user_transcript\", \"user_transcription_event\": {\"user_transcript\": \"  \", \"event_id\": 3}}",
+   "{\"type\": \"client_tool_call\", \"client_tool_call\": {\"tool_name\": \"hand_off_to_agent\", \"tool_call_id\": \"b\", \"parameters\": {}, \"event_id\": 4, \"expects_response\": true}}"
+  ],
+  "events": [
+   {
+    "kind": "user_said",
+    "text": "real words"
+   },
+   {
+    "kind": "task",
+    "id": "a",
+    "request": "real words"
+   },
+   {
+    "kind": "user_said",
+    "text": "  "
+   },
+   {
+    "kind": "task",
+    "id": "b",
+    "request": "real words"
+   }
+  ],
+  "replies": [
+   {
+    "type": "client_tool_result",
+    "tool_call_id": "a",
+    "result": "Handed to the agent; its answer comes later as its own message.",
+    "is_error": false
+   },
+   {
+    "type": "client_tool_result",
+    "tool_call_id": "b",
+    "result": "Handed to the agent; its answer comes later as its own message.",
+    "is_error": false
+   }
+  ]
+ },
+ {
+  "name": "long_speech_trimmed",
+  "server": [
+   "{\"type\": \"user_transcript\", \"user_transcription_event\": {\"user_transcript\": \"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\", \"event_id\": 1}}",
+   "{\"type\": \"client_tool_call\", \"client_tool_call\": {\"tool_name\": \"hand_off_to_agent\", \"tool_call_id\": \"a\", \"parameters\": {}, \"event_id\": 2, \"expects_response\": true}}",
+   "{\"type\": \"client_tool_call\", \"client_tool_call\": {\"tool_name\": \"hand_off_to_agent\", \"tool_call_id\": \"b\", \"parameters\": {}, \"event_id\": 3, \"expects_response\": true}}"
+  ],
+  "events": [
+   {
+    "kind": "user_said",
+    "text": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+   },
+   {
+    "kind": "task",
+    "id": "a",
+    "request": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+   },
+   {
+    "kind": "task",
+    "id": "b",
+    "request": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+   }
+  ],
+  "replies": [
+   {
+    "type": "client_tool_result",
+    "tool_call_id": "a",
+    "result": "Handed to the agent; its answer comes later as its own message.",
+    "is_error": false
+   },
+   {
+    "type": "client_tool_result",
+    "tool_call_id": "b",
+    "result": "Handed to the agent; its answer comes later as its own message.",
+    "is_error": false
+   }
+  ]
+ },
+ {
+  "name": "long_speech_two_pieces",
+  "server": [
+   "{\"type\": \"user_transcript\", \"user_transcription_event\": {\"user_transcript\": \"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\", \"event_id\": 1}}",
+   "{\"type\": \"user_transcript\", \"user_transcription_event\": {\"user_transcript\": \"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb\", \"event_id\": 2}}",
+   "{\"type\": \"client_tool_call\", \"client_tool_call\": {\"tool_name\": \"hand_off_to_agent\", \"tool_call_id\": \"a\", \"parameters\": {}, \"event_id\": 3, \"expects_response\": true}}"
+  ],
+  "events": [
+   {
+    "kind": "user_said",
+    "text": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+   },
+   {
+    "kind": "user_said",
+    "text": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+   },
+   {
+    "kind": "task",
+    "id": "a",
+    "request": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+   }
+  ],
+  "replies": [
+   {
+    "type": "client_tool_result",
+    "tool_call_id": "a",
+    "result": "Handed to the agent; its answer comes later as its own message.",
+    "is_error": false
+   }
+  ]
+ },
+ {
+  "name": "error_without_detail",
+  "server": [
+   "{\"type\": \"client_error\"}"
+  ],
+  "events": [
+   {
+    "kind": "failed",
+    "message": "null"
+   }
+  ],
+  "replies": []
+ },
+ {
+  "name": "error_unicode_nested",
+  "server": [
+   "{\"type\": \"client_error\", \"error_event\": {\"message\": \"falhou \\u00e7\\u00e3o\", \"list\": [1, 2.5, null, true], \"nested\": {\"b\": 1, \"a\": 2}}}"
+  ],
+  "events": [
+   {
+    "kind": "failed",
+    "message": "{\"message\": \"falhou \\u00e7\\u00e3o\", \"list\": [1, 2.5, null, true], \"nested\": {\"b\": 1, \"a\": 2}}"
+   }
+  ],
+  "replies": []
+ },
+ {
+  "name": "error_astral",
+  "server": [
+   "{\"type\": \"client_error\", \"error_event\": {\"text\": \"emoji \\ud83d\\ude00 \\u00e9\"}}"
+  ],
+  "events": [
+   {
+    "kind": "failed",
+    "message": "{\"text\": \"emoji \\ud83d\\ude00 \\u00e9\"}"
+   }
+  ],
+  "replies": []
+ },
+ {
+  "name": "audio_empty_and_loud",
+  "server": [
+   "{\"type\": \"audio\", \"audio_event\": {\"audio_base_64\": \"\", \"event_id\": 1}}",
+   "{\"type\": \"audio\", \"audio_event\": {\"audio_base_64\": \"/3//f/9//38=\", \"event_id\": 2}}",
+   "{\"type\": \"audio\", \"audio_event\": {\"audio_base_64\": \"AQID\", \"event_id\": 3}}"
+  ],
+  "events": [
+   {
+    "kind": "audio",
+    "pcm": [],
+    "voiced": false
+   },
+   {
+    "kind": "audio",
+    "pcm": [
+     255,
+     127,
+     255,
+     127,
+     255,
+     127,
+     255,
+     127
+    ],
+    "voiced": true
+   },
+   {
+    "kind": "audio",
+    "pcm": [
+     1,
+     2,
+     3
+    ],
+    "voiced": true
+   }
+  ],
+  "replies": []
+ },
+ {
+  "name": "full_session",
+  "server": [
+   "{\"type\": \"audio\", \"audio_event\": {\"audio_base_64\": \"AQI=\", \"event_id\": 1}}",
+   "{\"type\": \"user_transcript\", \"user_transcription_event\": {\"user_transcript\": \"oi\", \"event_id\": 2}}",
+   "{\"type\": \"agent_response\", \"agent_response_event\": {\"agent_response\": \"ola\", \"event_id\": 3}}",
+   "{\"type\": \"client_tool_call\", \"client_tool_call\": {\"tool_name\": \"hand_off_to_agent\", \"tool_call_id\": \"a\", \"parameters\": {}, \"event_id\": 4, \"expects_response\": true}}",
+   "{\"type\": \"client_error\", \"error_event\": {\"code\": \"x\"}}",
+   "{\"type\": \"agent_unrecognised\"}"
+  ],
+  "events": [
+   {
+    "kind": "audio",
+    "pcm": [
+     1,
+     2
+    ],
+    "voiced": true
+   },
+   {
+    "kind": "user_said",
+    "text": "oi"
+   },
+   {
+    "kind": "assistant_said",
+    "text": "ola"
+   },
+   {
+    "kind": "task",
+    "id": "a",
+    "request": "oi"
+   },
+   {
+    "kind": "failed",
+    "message": "{\"code\": \"x\"}"
+   }
+  ],
+  "replies": [
+   {
+    "type": "client_tool_result",
+    "tool_call_id": "a",
+    "result": "Handed to the agent; its answer comes later as its own message.",
+    "is_error": false
+   }
+  ]
+ },
+ {
+  "name": "speech_unicode_trim",
+  "server": [
+   "{\"type\": \"user_transcript\", \"user_transcription_event\": {\"user_transcript\": \"  oi tudo bem  \", \"event_id\": 1}}",
+   "{\"type\": \"client_tool_call\", \"client_tool_call\": {\"tool_name\": \"hand_off_to_agent\", \"tool_call_id\": \"a\", \"parameters\": {}, \"event_id\": 2, \"expects_response\": true}}"
+  ],
+  "events": [
+   {
+    "kind": "user_said",
+    "text": "  oi tudo bem  "
+   },
+   {
+    "kind": "task",
+    "id": "a",
+    "request": "oi tudo bem"
+   }
+  ],
+  "replies": [
+   {
+    "type": "client_tool_result",
+    "tool_call_id": "a",
+    "result": "Handed to the agent; its answer comes later as its own message.",
+    "is_error": false
+   }
+  ]
+ },
+ {
+  "name": "ping_answered_with_pong",
+  "server": [
+   "{\"type\": \"ping\", \"ping_event\": {\"event_id\": 7, \"ping_ms\": 50}}"
+  ],
+  "events": [],
+  "replies": [
+   {
+    "type": "pong",
+    "event_id": 7
+   }
+  ]
+ },
+ {
+  "name": "interruption_drops_stale_audio",
+  "server": [
+   "{\"type\": \"audio\", \"audio_event\": {\"audio_base_64\": \"AQI=\", \"event_id\": 3}}",
+   "{\"type\": \"interruption\", \"interruption_event\": {\"event_id\": 4}}",
+   "{\"type\": \"audio\", \"audio_event\": {\"audio_base_64\": \"AwQ=\", \"event_id\": 3}}",
+   "{\"type\": \"audio\", \"audio_event\": {\"audio_base_64\": \"BQY=\", \"event_id\": 4}}"
+  ],
+  "events": [
+   {
+    "kind": "audio",
+    "pcm": [
+     1,
+     2
+    ],
+    "voiced": true
+   },
+   {
+    "kind": "interrupted"
+   },
+   {
+    "kind": "audio",
+    "pcm": [
+     5,
+     6
+    ],
+    "voiced": true
+   }
+  ],
+  "replies": []
+ },
+ {
+  "name": "interruption_without_id_keeps_the_last",
+  "server": [
+   "{\"type\": \"interruption\", \"interruption_event\": {\"event_id\": 9}}",
+   "{\"type\": \"interruption\", \"interruption_event\": {\"reason\": \"user\"}}",
+   "{\"type\": \"audio\", \"audio_event\": {\"audio_base_64\": \"AQI=\", \"event_id\": 8}}"
+  ],
+  "events": [
+   {
+    "kind": "interrupted"
+   },
+   {
+    "kind": "interrupted"
+   }
+  ],
+  "replies": []
+ },
+ {
+  "name": "unknown_tool_refused",
+  "server": [
+   "{\"type\": \"client_tool_call\", \"client_tool_call\": {\"tool_name\": \"open_door\", \"tool_call_id\": \"c1\", \"parameters\": {}, \"event_id\": 1, \"expects_response\": true}}"
+  ],
+  "events": [],
+  "replies": [
+   {
+    "type": "client_tool_result",
+    "tool_call_id": "c1",
+    "result": "unknown tool open_door",
+    "is_error": true
+   }
+  ]
+ },
+ {
+  "name": "events_without_meaning_are_ignored",
+  "server": [
+   "{\"type\": \"vad_score\", \"vad_score_event\": {\"vad_score\": 0.9}}",
+   "{\"type\": \"agent_response_correction\", \"agent_response_correction_event\": {\"original_agent_response\": \"a\", \"corrected_agent_response\": \"b\", \"event_id\": 2}}",
+   "{\"type\": \"conversation_initiation_metadata\", \"conversation_initiation_metadata_event\": {\"conversation_id\": \"c\", \"agent_output_audio_format\": \"pcm_24000\", \"user_input_audio_format\": \"pcm_24000\"}}"
+  ],
+  "events": [],
+  "replies": []
+ }
+]

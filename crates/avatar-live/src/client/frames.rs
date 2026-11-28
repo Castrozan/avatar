@@ -4,7 +4,7 @@ use futures_util::stream::SplitStream;
 use tokio_tungstenite::tungstenite::Error as SocketError;
 use tokio_tungstenite::tungstenite::Message;
 
-use super::{ClientError, GptLiveClient, Socket};
+use super::{ClientError, LiveClient, Socket};
 use crate::events::LiveEvent;
 use crate::translation::{EventTranslator, Translation};
 
@@ -46,19 +46,24 @@ async fn next_frame(
     frames.next().await.unwrap_or(Ok(Frame::Ended))
 }
 
-fn settle(client: &mut GptLiveClient, frame: Frame) -> Option<Vec<LiveEvent>> {
-    let (ended, events) = match frame {
-        Frame::Ended => (true, None),
-        Frame::Events(translation) => (translation.closed, Some(translation.events)),
-    };
-    client.ended = ended;
-    events
+async fn answered(client: &mut LiveClient, translation: Translation) -> Events {
+    for reply in &translation.replies {
+        client.send(reply).await?;
+    }
+    Ok(Some(translation.events))
 }
 
-pub(super) async fn next_events(client: &mut GptLiveClient) -> Events {
+fn ended(client: &mut LiveClient) -> Option<Vec<LiveEvent>> {
+    client.ended = true;
+    None
+}
+
+pub(super) async fn next_events(client: &mut LiveClient) -> Events {
     if client.ended {
         return Ok(None);
     }
-    let frame = next_frame(&mut client.stream, &mut client.translator).await?;
-    Ok(settle(client, frame))
+    match next_frame(&mut client.stream, &mut client.translator).await? {
+        Frame::Events(translation) => answered(client, translation).await,
+        Frame::Ended => Ok(ended(client)),
+    }
 }

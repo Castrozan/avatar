@@ -1,7 +1,7 @@
 use std::sync::Arc;
 
 use avatar_conversation::talk::state::seat::microphone_source;
-use avatar_live::client::GptLiveClient;
+use avatar_live::client::LiveClient;
 use avatar_live::conversation::Conversation;
 use tokio::task::{JoinHandle, spawn_local};
 
@@ -38,7 +38,7 @@ impl<'a> Launch<'a> {
 
     pub(super) fn running(
         self,
-        client: GptLiveClient,
+        client: LiveClient,
         speaker: RoomSpeaker,
         line: (ActorLine, Received),
     ) -> Running {
@@ -51,11 +51,10 @@ impl<'a> Launch<'a> {
         }
     }
 
-    fn actor(&self, client: GptLiveClient, line: ActorLine) -> JoinHandle<()> {
+    fn actor(&self, client: LiveClient, line: ActorLine) -> JoinHandle<()> {
         let shutdown = Arc::clone(self.shutdown);
         let connector = self.foundation.connector.clone();
-        let first_voice = &self.foundation.first_voice;
-        let actor = VoiceActor::new(client, first_voice, line, connector, Arc::clone(&shutdown));
+        let actor = VoiceActor::new(client, line, connector, Arc::clone(&shutdown));
         spawn_local(guarded(shutdown, run_actor(actor)))
     }
 

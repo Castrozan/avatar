@@ -9,7 +9,7 @@ fn the_voice_table_keeps_exactly_the_voice_fields() -> TestResult {
     let first = table[0].as_object().ok_or("object")?;
     let mut keys: Vec<_> = first.keys().map(String::as_str).collect();
     keys.sort_unstable();
-    assert_eq!(keys, ["cloudVoice", "liveVoice", "localVoice", "name"]);
+    assert_eq!(keys, ["cloudVoice", "localVoice", "name"]);
     Ok(())
 }
 

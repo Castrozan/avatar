@@ -1,7 +1,7 @@
 use std::time::Duration;
 
 use avatar_live::boundaries::Console;
-use avatar_live::session::MODEL;
+use avatar_live::session::PROVIDER;
 use avatar_transcript::json::encode;
 use tokio::time::timeout;
 
@@ -23,6 +23,6 @@ pub(super) async fn finish(mut running: Running) {
     close_voice(&mut running).await;
     if let Ok(mut conversation) = running.hall.await {
         conversation.finish();
-        StandardOutput.print(&encode(&conversation.summary(MODEL)));
+        StandardOutput.print(&encode(&conversation.summary(PROVIDER)));
     }
 }

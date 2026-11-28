@@ -1,101 +1,102 @@
+use std::io;
 use std::net::SocketAddr;
 use std::sync::mpsc::{Receiver, Sender, channel};
-use std::thread;
 
-use futures_util::{SinkExt, StreamExt};
+use std::sync::{Arc, Mutex, PoisonError};
+use tokio::net::TcpListener;
+
+use axum::Router;
+use axum::extract::State;
+use axum::extract::ws::{Message, WebSocket, WebSocketUpgrade};
+use axum::http::{HeaderMap, Method, Uri};
+use axum::response::Response;
+use axum::routing::get;
 use serde_json::Value;
-use tokio::net::{TcpListener, TcpStream};
-use tokio::runtime::Builder;
-use tokio_tungstenite::tungstenite::Message;
-use tokio_tungstenite::tungstenite::handshake::server::{
-    Callback, ErrorResponse, Request, Response,
-};
-use tokio_tungstenite::{WebSocketStream, accept_hdr_async};
 
 use super::heard::Heard;
-use super::script::replies_to;
+use super::script::{frame_of, replies_to, rest_reply};
+use super::server_thread::spawned;
 
-struct Authorization(Sender<String>);
+pub(super) struct Channels {
+    pub(super) keys: Sender<String>,
+    pub(super) messages: Sender<Value>,
+}
 
-impl Callback for Authorization {
-    fn on_request(self, request: &Request, response: Response) -> Result<Response, ErrorResponse> {
-        let value = request.headers().get("authorization");
-        let text = value.and_then(|header| header.to_str().ok());
-        let _ = self.0.send(text.unwrap_or_default().to_owned());
-        Ok(response)
+struct Recorder {
+    address: SocketAddr,
+    channels: Mutex<Channels>,
+}
+
+type Shared = Arc<Recorder>;
+
+fn channels_of(recorder: &Recorder) -> std::sync::MutexGuard<'_, Channels> {
+    recorder
+        .channels
+        .lock()
+        .unwrap_or_else(PoisonError::into_inner)
+}
+
+async fn rest(State(recorder): State<Shared>, request: (Method, Uri, HeaderMap)) -> String {
+    let (method, uri, headers) = request;
+    let key = headers
+        .get("xi-api-key")
+        .and_then(|value| value.to_str().ok());
+    let _ = channels_of(&recorder)
+        .keys
+        .send(key.unwrap_or_default().to_owned());
+    rest_reply(&method, uri.path(), recorder.address).to_string()
+}
+
+async fn send_all(socket: &mut WebSocket, replies: Vec<Value>) {
+    for reply in replies {
+        let _ = socket.send(frame_of(&reply)).await;
     }
 }
 
-async fn converse(mut socket: WebSocketStream<TcpStream>, sink: Sender<Value>) {
-    while let Some(Ok(Message::Text(text))) = socket.next().await {
+async fn converse(mut socket: WebSocket, recorder: Shared) {
+    while let Some(Ok(Message::Text(text))) = socket.recv().await {
         let message: Value = serde_json::from_str(text.as_str()).unwrap_or_default();
         let replies = replies_to(&message);
-        let _ = sink.send(message);
+        let _ = channels_of(&recorder).messages.send(message);
         send_all(&mut socket, replies).await;
     }
 }
 
-async fn send_all(socket: &mut WebSocketStream<TcpStream>, replies: Vec<Value>) {
-    for reply in replies {
-        let _ = socket.send(Message::text(reply.to_string())).await;
-    }
+async fn upgrade(State(recorder): State<Shared>, socket: WebSocketUpgrade) -> Response {
+    socket.on_upgrade(move |connection| converse(connection, recorder))
 }
 
-async fn accept(listener: TcpListener, headers: Sender<String>, sink: Sender<Value>) {
-    let Ok((stream, _)) = listener.accept().await else {
-        return;
-    };
-    if let Ok(socket) = accept_hdr_async(stream, Authorization(headers)).await {
-        converse(socket, sink).await;
-    }
+pub(super) async fn serve(listener: TcpListener, address: SocketAddr, channels: Channels) {
+    let channels = Mutex::new(channels);
+    let recorder = Arc::new(Recorder { address, channels });
+    let routes = Router::new().route("/socket", get(upgrade)).fallback(rest);
+    let _ = axum::serve(listener, routes.with_state(recorder)).await;
 }
 
 pub(super) struct MockLive {
     pub(super) address: SocketAddr,
-    headers: Receiver<String>,
+    keys: Receiver<String>,
     messages: Receiver<Value>,
 }
 
-async fn listen(
-    address: Sender<std::io::Result<SocketAddr>>,
-    headers: Sender<String>,
-    sink: Sender<Value>,
-) {
-    match TcpListener::bind("127.0.0.1:0").await {
-        Ok(listener) => {
-            let _ = address.send(listener.local_addr());
-            accept(listener, headers, sink).await;
-        }
-        Err(failure) => drop(address.send(Err(failure))),
-    }
-}
-
-fn run_server(
-    address: Sender<std::io::Result<SocketAddr>>,
-    headers: Sender<String>,
-    sink: Sender<Value>,
-) {
-    if let Ok(runtime) = Builder::new_current_thread().enable_all().build() {
-        runtime.block_on(listen(address, headers, sink));
-    }
-}
-
 impl MockLive {
-    pub(super) fn start() -> std::io::Result<Self> {
-        let ((header_sender, headers), (message_sender, messages)) = (channel(), channel());
-        let (address_sender, address) = channel();
-        thread::spawn(move || run_server(address_sender, header_sender, message_sender));
-        let address = address.recv().map_err(std::io::Error::other)??;
+    pub(super) fn start() -> io::Result<Self> {
+        let ((key_sender, keys), (message_sender, messages)) = (channel(), channel());
+        let address = spawned(Channels {
+            keys: key_sender,
+            messages: message_sender,
+        })?;
         Ok(Self {
             address,
-            headers,
+            keys,
             messages,
         })
     }
 
     pub(super) fn heard(self) -> Heard {
+        let api_keys = self.keys.try_iter().collect();
         Heard {
-            authorization: self.headers.try_iter().next().unwrap_or_default(),
+            api_keys,
             messages: self.messages.try_iter().collect(),
         }
     }

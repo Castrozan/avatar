@@ -1,18 +1,21 @@
 use serde_json::Value;
 
 pub(super) struct Heard {
-    pub(super) authorization: String,
+    pub(super) api_keys: Vec<String>,
     pub(super) messages: Vec<Value>,
 }
 
 impl Heard {
-    pub(super) fn sent(&self, kind: &str) -> bool {
-        self.messages.iter().any(|message| message["type"] == kind)
+    pub(super) fn streamed_audio(&self) -> bool {
+        self.messages
+            .iter()
+            .any(|message| message["user_audio_chunk"].is_string())
     }
 
-    pub(super) fn delivered(&self, task: &str, content: &str) -> bool {
+    pub(super) fn delivered(&self, answer: &str) -> bool {
+        let text = format!("Agent answer: {answer}");
         let matches =
-            |message: &Value| message["delegation_id"] == task && message["content"] == content;
+            |message: &Value| message["type"] == "user_message" && message["text"] == text;
         self.messages.iter().any(matches)
     }
 }
