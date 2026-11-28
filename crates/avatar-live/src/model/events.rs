@@ -1,5 +1,4 @@
 use avatar_room_audio::levels::{FULL_SCALE, level_of};
-use avatar_transcript::json::Json;
 
 pub const VOICED_RMS: f64 = 500.0;
 
@@ -27,6 +26,6 @@ pub enum LiveEvent {
     UserSaid(String),
     AssistantSaid(String),
     TaskRequested(TaskRequest),
-    Usage(Json),
+    Interrupted,
     Failed(String),
 }

@@ -18,7 +18,6 @@ struct Character {
     model: String,
     cloud_voice: String,
     local_voice: String,
-    live_voice: String,
 }
 
 fn characters() -> io::Result<Vec<Character>> {
@@ -42,7 +41,6 @@ fn voice_entry(character: &Character) -> Value {
         "name": character.name,
         "cloudVoice": character.cloud_voice,
         "localVoice": character.local_voice,
-        "liveVoice": character.live_voice,
     })
 }
 

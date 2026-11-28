@@ -11,7 +11,6 @@ use avatar_transcript::json::Json;
 
 use crate::boundaries::{Console, Speaker, TurnLog};
 use crate::events::{Audio, LiveEvent, TaskRequest};
-use crate::ordered_json::empty_object;
 use crate::spoken_turns::{Party, SpokenTurn, TurnAssembler};
 
 pub const BARGE_IN_BUFFER_SECONDS: f64 = 0.4;
@@ -24,7 +23,6 @@ pub struct Conversation<Output: Speaker, Log: TurnLog, Screen: Console> {
     turns: TurnAssembler,
     last_user_text_at: Option<f64>,
     answer_latencies: Vec<f64>,
-    usage: Json,
 }
 
 fn record(log: &mut impl TurnLog, screen: &mut impl Console, turns: Vec<SpokenTurn>) {
@@ -50,7 +48,6 @@ impl<Output: Speaker, Log: TurnLog, Screen: Console> Conversation<Output, Log, S
             turns,
             last_user_text_at: None,
             answer_latencies: Vec::new(),
-            usage: empty_object(),
         }
     }
 
@@ -60,7 +57,7 @@ impl<Output: Speaker, Log: TurnLog, Screen: Console> Conversation<Output, Log, S
             LiveEvent::UserSaid(text) => self.hear_user(&text, now),
             LiveEvent::AssistantSaid(text) => self.say(Party::Avatar, &text, now),
             LiveEvent::TaskRequested(task) => return Some(self.start_hand_off(task)),
-            LiveEvent::Usage(details) => self.usage = details,
+            LiveEvent::Interrupted => self.speaker.clear(),
             LiveEvent::Failed(message) => self.screen.print(&format!("error: {message}")),
         }
         None
@@ -107,6 +104,6 @@ impl<Output: Speaker, Log: TurnLog, Screen: Console> Conversation<Output, Log, S
 
     #[must_use]
     pub fn summary(&self, provider: &str) -> Json {
-        summary::summary(provider, &self.answer_latencies, &self.usage)
+        summary::summary(provider, &self.answer_latencies)
     }
 }

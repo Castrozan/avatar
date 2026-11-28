@@ -1,34 +1,19 @@
-mod replay;
+use avatar_live::room_voice::RoomVoiceState;
+use proptest::prelude::*;
 
-use serde_json::{Value, json};
+proptest! {
+    #[test]
+    fn a_change_is_wanted_only_for_another_non_empty_voice(current in "[a-c]{0,2}", wanted in "[a-c]{0,2}") {
+        let state = RoomVoiceState::new(&current);
+        prop_assert_eq!(state.wants_change(Some(&wanted)), !wanted.is_empty() && wanted != current);
+        prop_assert!(!state.wants_change(None));
+    }
 
-use self::replay::Replay;
-use crate::support::{Outcome, array, same, text, try_cases};
-
-const FIXTURE: &str = include_str!("fixtures/room_voice.json");
-
-fn voice_matches(case: &Value, replay: &Replay, generation: usize, voice: &Value) {
-    same(
-        &json!(replay.deliveries[generation]),
-        &voice["delivered"],
-        case,
-    );
-    same(&json!(replay.audio[generation]), &voice["heard"], case);
-}
-
-fn check(case: &Value) -> Outcome {
-    let mut replay = Replay::new();
-    array(&case["ops"])
-        .iter()
-        .try_for_each(|step| replay.apply(step))?;
-    same(&json!(replay.trace), &case["trace"], case);
-    assert_eq!(replay.state.speaking_voice(), text(&case["speaking_voice"]));
-    let voices = array(&case["voices"]).iter().enumerate();
-    voices.for_each(|(generation, voice)| voice_matches(case, &replay, generation, voice));
-    Ok(())
-}
-
-#[test]
-fn every_recorded_python_room_voice_scenario_is_reproduced() -> Outcome {
-    try_cases(FIXTURE, 10, check)
+    #[test]
+    fn a_change_makes_the_new_voice_current(first in "[a-z]{1,8}", second in "[a-z]{1,8}") {
+        let mut state = RoomVoiceState::new(&first);
+        state.change_to(&second);
+        prop_assert_eq!(state.speaking_voice(), second.as_str());
+        prop_assert!(!state.wants_change(Some(&second)));
+    }
 }

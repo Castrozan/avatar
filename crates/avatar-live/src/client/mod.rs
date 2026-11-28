@@ -1,5 +1,6 @@
 mod frames;
 mod handshake;
+pub mod provisioning;
 
 use std::fmt;
 
@@ -12,7 +13,7 @@ use tokio_tungstenite::tungstenite::Message;
 use tokio_tungstenite::{MaybeTlsStream, WebSocketStream};
 
 use crate::events::LiveEvent;
-use crate::session::{audio_append, close, delivery};
+use crate::session::{audio_chunk, delivery};
 use crate::translation::EventTranslator;
 
 pub use handshake::SessionRequest;
@@ -38,7 +39,7 @@ impl From<SocketError> for ClientError {
     }
 }
 
-pub struct GptLiveClient {
+pub struct LiveClient {
     pub(super) sink: SplitSink<Socket, Message>,
     pub(super) stream: SplitStream<Socket>,
     pub(super) translator: EventTranslator,
@@ -52,7 +53,7 @@ fn tolerated(failure: ClientError, ended: bool) -> Result<(), ClientError> {
     Err(failure)
 }
 
-impl GptLiveClient {
+impl LiveClient {
     pub(super) fn new(socket: Socket) -> Self {
         let (sink, stream) = socket.split();
         Self {
@@ -64,16 +65,11 @@ impl GptLiveClient {
     }
 
     pub async fn send_audio(&mut self, pcm: &[u8]) -> Result<(), ClientError> {
-        self.send(&audio_append(pcm)).await
+        self.send(&audio_chunk(pcm)).await
     }
 
-    pub async fn deliver(
-        &mut self,
-        task_id: Option<&str>,
-        result: &str,
-        is_final: bool,
-    ) -> Result<(), ClientError> {
-        self.send(&delivery(task_id, result, is_final)).await
+    pub async fn deliver(&mut self, result: &str, is_final: bool) -> Result<(), ClientError> {
+        self.send(&delivery(result, is_final)).await
     }
 
     pub async fn next_events(&mut self) -> Result<Option<Vec<LiveEvent>>, ClientError> {
@@ -81,13 +77,8 @@ impl GptLiveClient {
     }
 
     pub async fn close(&mut self) -> Result<(), ClientError> {
-        let sent = self.send(&close()).await;
-        sent.or_else(|failure| tolerated(failure, self.ended))
-    }
-
-    pub async fn retire(&mut self) -> Result<(), ClientError> {
-        self.close().await?;
-        self.sink.close().await.map_err(ClientError::from)
+        let closed = self.sink.close().await.map_err(ClientError::from);
+        closed.or_else(|failure| tolerated(failure, self.ended))
     }
 
     pub(super) async fn send(&mut self, value: &Value) -> Result<(), ClientError> {

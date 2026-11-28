@@ -196,12 +196,13 @@ live voice hears `AvatarRemoteMicrophone` and plays only into `AvatarLipSync`.
 
 ## Live voice
 
-`avatar-talk open --live` puts the conversation on a cloud speech-to-speech model:
-[GPT-Live](https://developers.openai.com/api/docs/guides/live-conversations) hears the room microphone and answers
-within about a second, so it can listen and speak while work runs. It speaks in the live voice of the floor holder's
-character, and the room audio streams to OpenAI for as long as the conversation stays open. GPT-Live fixes the voice
-when a session starts, so when the floor passes to a Servant with another voice the bridge opens a new session in that
-voice, tells it to carry on without greeting, and closes the old one. The new session gets no transcript, so it starts
+`avatar-talk open --live` puts the conversation on a cloud speech-to-speech agent: the
+[ElevenLabs Agents Platform](https://elevenlabs.io/docs/agents-platform/overview) hears the room microphone and answers
+within about a second, so it can listen and speak while work runs. The bridge creates its ElevenLabs agent and hand-off
+tool by name on first use and patches them back when their settings drift. It speaks in the ElevenLabs voice of the
+floor holder's character, and the room audio streams to ElevenLabs for as long as the conversation stays open. A
+session keeps the voice it started with, so when the floor passes to a Servant with another voice the bridge opens a
+new session in that voice, tells it to carry on without greeting, and closes the old one. The new session gets no transcript, so it starts
 without the earlier turns and asks when it needs them. It speaks the answer to a task the old one asked for.
 `avatar-live.service` runs the
 bridge inside `avatar-conversation.target` in place of the listener and plays a second copy of the voice into
@@ -210,7 +211,8 @@ bridge inside `avatar-conversation.target` in place of the listener and plays a 
 The voice does no work itself. When a request needs the machine it delegates, and the bridge asks the session holding
 the floor over `a2a send` and reads the task with `a2a status` every two seconds. The task asks the agent to open its
 answer with a numbered `LIVE-ANSWER` tag, so that line goes back to the voice as soon as it appears, even while
-background work keeps the agent's turn running; a turn that ends untagged gives its last line instead. Every half minute
+background work keeps the agent's turn running; a turn that ends untagged gives its last line instead. The voice's
+hand-off tool returns at once, and the answer reaches it later as a user message it reads aloud. Every half minute
 without an answer the voice hears that the agent is still working, and after five minutes it says no answer came.
 Opening claims the floor for the opening pane, and naming another live Servant hands it over as in any conversation,
 because the bridge writes each finished turn to the shared transcript: the room's lines as `human`, its own as speaker

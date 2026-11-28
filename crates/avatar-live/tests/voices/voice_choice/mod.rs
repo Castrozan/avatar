@@ -18,7 +18,8 @@ fn every_recorded_python_voice_choice_is_reproduced() -> Outcome {
 }
 
 fn table_of(first: &str, second: &str) -> String {
-    json!([{"name": "vivi", "liveVoice": first}, {"name": "vita", "liveVoice": second}]).to_string()
+    json!([{"name": "vivi", "cloudVoice": first}, {"name": "vita", "cloudVoice": second}])
+        .to_string()
 }
 
 proptest! {

@@ -1,6 +1,9 @@
 mod handlers;
+mod reading;
+mod turns;
 
 use avatar_transcript::json::Json;
+use serde_json::Value;
 
 use crate::events::LiveEvent;
 use crate::ordered_json::{self, field, text};
@@ -18,44 +21,47 @@ impl std::fmt::Display for MalformedEvent {
 
 impl std::error::Error for MalformedEvent {}
 
-#[derive(Debug, PartialEq)]
+#[derive(Debug, Default, PartialEq)]
 pub struct Translation {
     pub events: Vec<LiveEvent>,
-    pub closed: bool,
+    pub replies: Vec<Value>,
+}
+
+impl Translation {
+    pub(crate) fn of_events(events: Vec<LiveEvent>) -> Self {
+        Self {
+            events,
+            replies: Vec::new(),
+        }
+    }
 }
 
 #[derive(Default)]
 pub struct EventTranslator {
     pub(crate) user_since_last_task: String,
     pub(crate) recent_user: String,
+    pub(crate) interrupted_at: Option<i64>,
 }
 
 impl EventTranslator {
     pub fn translate(&mut self, message: &str) -> Result<Translation, MalformedEvent> {
         let event =
             ordered_json::parse(message).map_err(|failure| MalformedEvent(failure.to_string()))?;
-        let kind =
-            field(&event, "type").ok_or_else(|| MalformedEvent("missing type".to_owned()))?;
-        let events = self.events_for(text(Some(kind)), &event)?;
-        Ok(Translation {
-            events,
-            closed: text(Some(kind)) == Some("session.closed"),
-        })
+        let kind = text(field(&event, "type"));
+        let kind = kind.ok_or_else(|| MalformedEvent("missing type".to_owned()))?;
+        self.translation_for(kind, &event)
     }
 
-    fn events_for(
-        &mut self,
-        kind: Option<&str>,
-        event: &Json,
-    ) -> Result<Vec<LiveEvent>, MalformedEvent> {
+    fn translation_for(&mut self, kind: &str, event: &Json) -> Result<Translation, MalformedEvent> {
         match kind {
-            Some("session.output_audio.delta") => handlers::audio(event),
-            Some("session.input_transcript.delta") => self.user_transcript(event),
-            Some("session.output_transcript.delta") => handlers::assistant_transcript(event),
-            Some("session.delegation.created") => self.delegation(event),
-            Some("session.usage.updated" | "session.closed") => Ok(handlers::usage(event)),
-            Some("error") => Ok(handlers::failure(event)),
-            _ => Ok(Vec::new()),
+            "audio" => self.audio(event).map(Translation::of_events),
+            "user_transcript" => self.user_transcript(event).map(Translation::of_events),
+            "agent_response" => handlers::agent_response(event).map(Translation::of_events),
+            "interruption" => Ok(Translation::of_events(self.interruption(event))),
+            "client_tool_call" => self.tool_call(event),
+            "ping" => handlers::ping(event),
+            "client_error" => Ok(Translation::of_events(handlers::failure(event))),
+            _ => Ok(Translation::default()),
         }
     }
 }

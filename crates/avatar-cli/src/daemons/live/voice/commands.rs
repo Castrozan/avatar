@@ -48,13 +48,7 @@ impl VoiceActor {
     }
 
     async fn deliver(&mut self, delivery: Delivery) -> Result<(), ClientError> {
-        let routed = self
-            .state
-            .route_delivery(&delivery.task_id, delivery.is_final);
-        let client = &mut self.client;
-        client
-            .deliver(routed.as_deref(), &delivery.text, delivery.is_final)
-            .await
+        self.client.deliver(&delivery.text, delivery.is_final).await
     }
 
     fn begin_replacement(&self, change: Change) {
@@ -64,8 +58,7 @@ impl VoiceActor {
 
     async fn replace(&mut self, replacement: Replacement) -> Result<(), ClientError> {
         let mut previous = std::mem::replace(&mut self.client, replacement.client);
-        self.state.change_to(&replacement.voice);
-        previous.retire().await?;
+        previous.close().await?;
         let _ = self.line.occurrences.send(Occurrence::VoiceChanged);
         let _ = replacement.done.send(());
         Ok(())

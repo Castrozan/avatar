@@ -1,1 +1,34 @@
-[{"name": "sends", "pcm": [[0, 1, 2, 255], []], "sent": [{"type": "session.input_audio.append", "audio": "AAEC/w=="}, {"type": "session.input_audio.append", "audio": ""}, {"type": "session.thinking.append", "delegation_id": "task-1", "content": "Checking."}, {"type": "session.commentary.append", "delegation_id": "task-1", "content": "Done."}, {"type": "session.commentary.append", "delegation_id": null, "content": "ção"}, {"type": "session.close"}]}]
+[
+ {
+  "name": "sends",
+  "pcm": [
+   [
+    0,
+    1,
+    2,
+    255
+   ],
+   []
+  ],
+  "sent": [
+   {
+    "user_audio_chunk": "AAEC/w=="
+   },
+   {
+    "user_audio_chunk": ""
+   },
+   {
+    "type": "contextual_update",
+    "text": "Agent progress: Checking."
+   },
+   {
+    "type": "user_message",
+    "text": "Agent answer: Done."
+   },
+   {
+    "type": "user_message",
+    "text": "Agent answer: ção"
+   }
+  ]
+ }
+]

@@ -7,30 +7,35 @@ mod shutdown;
 mod voice;
 
 use std::io;
-use std::path::PathBuf;
 use std::process::ExitCode;
 
-use avatar_live::session::ENDPOINT;
+use avatar_assets::ProcessEnvironment;
+use avatar_live::session::API;
 use clap::Args;
 use tokio::runtime::Builder;
 use tokio::task::LocalSet;
 
+use crate::support::elevenlabs_key::elevenlabs_api_key;
 use crate::support::runtime::session_directory;
 use session::Environment;
 
-const KEY_FILE: &str = ".secrets/openai-api-key";
-
 #[derive(Args)]
 pub(crate) struct LiveOptions {
-    #[arg(long, hide = true, default_value = ENDPOINT)]
+    #[arg(long, hide = true, default_value = API)]
     endpoint: String,
 }
 
+const MISSING_KEY: &str =
+    "no ElevenLabs API key: set ELEVENLABS_API_KEY or write ~/.secrets/elevenlabs-api-key";
+
 fn environment_of(options: &LiveOptions) -> io::Result<Environment> {
-    let home = std::env::var_os("HOME").ok_or_else(|| io::Error::other("HOME is not set"))?;
+    let api_key = elevenlabs_api_key(&ProcessEnvironment);
+    if api_key.is_empty() {
+        return Err(io::Error::other(MISSING_KEY));
+    }
     Ok(Environment {
         directory: session_directory(),
-        key_file: PathBuf::from(home).join(KEY_FILE),
+        api_key,
         endpoint: options.endpoint.clone(),
     })
 }

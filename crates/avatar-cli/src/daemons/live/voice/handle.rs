@@ -1,10 +1,9 @@
 use avatar_live::boundaries::VoiceDelivery;
-use avatar_live::client::GptLiveClient;
+use avatar_live::client::LiveClient;
 use avatar_live::events::LiveEvent;
 use tokio::sync::{mpsc, oneshot};
 
 pub(crate) struct Delivery {
-    pub(crate) task_id: String,
     pub(crate) text: String,
     pub(crate) is_final: bool,
 }
@@ -15,8 +14,7 @@ pub(crate) struct Change {
 }
 
 pub(crate) struct Replacement {
-    pub(crate) client: GptLiveClient,
-    pub(crate) voice: String,
+    pub(crate) client: LiveClient,
     pub(crate) done: oneshot::Sender<()>,
 }
 
@@ -86,9 +84,8 @@ impl VoiceHandle {
 }
 
 impl VoiceDelivery for VoiceHandle {
-    async fn deliver(&mut self, task_id: &str, result: &str, is_final: bool) {
+    async fn deliver(&mut self, _task_id: &str, result: &str, is_final: bool) {
         let delivery = Delivery {
-            task_id: task_id.to_owned(),
             text: result.to_owned(),
             is_final,
         };

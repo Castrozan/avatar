@@ -34,7 +34,7 @@ fn object_of(fields: Vec<(&str, Json)>) -> Json {
     Json::Object(object)
 }
 
-pub(super) fn summary(provider: &str, latencies: &[f64], usage: &Json) -> Json {
+pub(super) fn summary(provider: &str, latencies: &[f64]) -> Json {
     let mut sorted = latencies.to_vec();
     sorted.sort_by(f64::total_cmp);
     let middle = median_json(&sorted);
@@ -42,6 +42,5 @@ pub(super) fn summary(provider: &str, latencies: &[f64], usage: &Json) -> Json {
         ("provider", Json::Text(provider.to_owned())),
         ("answers", answer_count(&sorted)),
         ("median_first_audio_s", middle),
-        ("usage", usage.clone()),
     ])
 }

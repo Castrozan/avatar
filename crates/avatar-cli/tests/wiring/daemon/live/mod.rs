@@ -4,6 +4,7 @@ mod heard;
 mod outcomes;
 mod script;
 mod server;
+mod server_thread;
 
 use std::fs;
 use std::process::{Output, Stdio};
@@ -31,7 +32,7 @@ pub(super) fn live_machine() -> Result<Machine, Box<dyn std::error::Error>> {
 fn live_machine_with(a2a: &str) -> Result<Machine, Box<dyn std::error::Error>> {
     let machine = Machine::with_tools(&[("parec", PAREC), ("pacat", PACAT), ("a2a", a2a)])?;
     fs::create_dir_all(machine.path(".secrets"))?;
-    fs::write(machine.path(".secrets/openai-api-key"), "test-key\n")?;
+    fs::write(machine.path(".secrets/elevenlabs-api-key"), "test-key\n")?;
     fs::write(machine.runtime().join("addressee.json"), HOLDER)?;
     Ok(machine)
 }
@@ -47,7 +48,7 @@ fn spawn_live(machine: &Machine, endpoint: &str) -> std::io::Result<std::process
 fn run_session(a2a: &str) -> Result<Session, Box<dyn std::error::Error>> {
     let machine = live_machine_with(a2a)?;
     let server = MockLive::start()?;
-    let child = spawn_live(&machine, &format!("ws://{}", server.address))?;
+    let child = spawn_live(&machine, &format!("http://{}", server.address))?;
     let output = child.wait_with_output()?;
     let heard = server.heard();
     Ok(Session {
@@ -70,22 +71,20 @@ impl Session {
 #[test]
 fn a_session_exits_cleanly_and_announces_itself() -> TestResult {
     let session = run_session(A2A)?;
-    assert_eq!(
-        session.output.status.code(),
-        Some(0),
-        "{}",
-        text(&session.output.stderr)
-    );
-    assert!(session.screen().contains("gpt-live-1 live, session s-1"));
-    assert!(session.screen().contains("\"provider\": \"gpt-live-1\""));
+    let stderr = text(&session.output.stderr);
+    assert_eq!(session.output.status.code(), Some(0), "{stderr}");
+    let screen = session.screen();
+    assert!(screen.contains("elevenlabs-agents live, conversation conv-1"));
+    assert!(screen.contains("\"provider\": \"elevenlabs-agents\""));
     Ok(())
 }
 
 #[test]
 fn a_session_authenticates_with_the_key_file_and_streams_the_microphone() -> TestResult {
     let heard = run_session(A2A)?.heard;
-    assert_eq!(heard.authorization, "Bearer test-key");
-    assert!(heard.sent("session.input_audio.append"));
+    assert!(!heard.api_keys.is_empty());
+    assert!(heard.api_keys.iter().all(|key| key == "test-key"));
+    assert!(heard.streamed_audio());
     Ok(())
 }
 
@@ -97,7 +96,7 @@ fn a_session_logs_the_turns_and_relays_the_agent_answer() -> TestResult {
     assert!(screen.contains("human: check the build"));
     assert!(screen.contains("task 1 for servant at pane-1: check the build"));
     assert!(logged.contains("check the build"));
-    assert!(session.heard.delivered("task-7", "it is done"));
+    assert!(session.heard.delivered("it is done"));
     Ok(())
 }
 

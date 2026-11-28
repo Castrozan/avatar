@@ -61,7 +61,7 @@ fn without_variables_the_cast_comes_from_the_embedded_tables() -> TestResult {
     let voices = resolve_in(Asset::CharacterVoices, &environment)?;
     let servants = resolve_in(Asset::ServantCharacters, &environment)?;
     let table: Vec<serde_json::Value> = serde_json::from_str(&fs::read_to_string(voices)?)?;
-    assert!(table.iter().all(|entry| entry["liveVoice"].is_string()));
+    assert!(table.iter().all(|entry| entry["cloudVoice"].is_string()));
     assert!(fs::read_to_string(servants)?.contains("Achilles | sakurada-fumiriya"));
     Ok(())
 }

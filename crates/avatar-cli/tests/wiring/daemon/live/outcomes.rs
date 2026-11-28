@@ -34,7 +34,7 @@ fn terminate(child: Child) -> TestResult {
 
 fn stdout_after_sigterm(machine: &Machine) -> Result<String, Box<dyn std::error::Error>> {
     let server = MockLive::start()?;
-    let mut child = spawn_live(machine, &format!("ws://{}", server.address))?;
+    let mut child = spawn_live(machine, &format!("http://{}", server.address))?;
     let mut screen = child.stdout.take().ok_or("the daemon has no stdout")?;
     assert!(first_poll_seen(machine));
     terminate(child)?;
